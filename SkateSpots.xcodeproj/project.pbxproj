@@ -13,6 +13,7 @@
 		C4128C3E1F0EC0270058628D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */; };
 		C41D8B271F0ECB12009C174C /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B261F0ECB12009C174C /* LogInVC.swift */; };
 		C41D8B2A1F0ED23A009C174C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B291F0ED23A009C174C /* AuthService.swift */; };
+		C41D8B2C1F0EE3F8009C174C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B2B1F0EE3F8009C174C /* DataService.swift */; };
 		C4B0C5491F0D7B78004B6923 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */; };
 		C4B0C54B1F0D7B78004B6923 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0C54A1F0D7B78004B6923 /* ViewController.swift */; };
 		C4B0C54E1F0D7B78004B6923 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4B0C54C1F0D7B78004B6923 /* Main.storyboard */; };
@@ -29,6 +30,7 @@
 		C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C41D8B261F0ECB12009C174C /* LogInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		C41D8B291F0ED23A009C174C /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
+		C41D8B2B1F0EE3F8009C174C /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		C4B0C5451F0D7B78004B6923 /* SkateSpots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkateSpots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4B0C54A1F0D7B78004B6923 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				C41D8B261F0ECB12009C174C /* LogInVC.swift */,
+				C4B0C54A1F0D7B78004B6923 /* ViewController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -88,6 +91,7 @@
 			isa = PBXGroup;
 			children = (
 				C41D8B291F0ED23A009C174C /* AuthService.swift */,
+				C41D8B2B1F0EE3F8009C174C /* DataService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -117,7 +121,6 @@
 				C41D8B251F0ECAF5009C174C /* Controller */,
 				C4128C381F0EAF110058628D /* View */,
 				C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */,
-				C4B0C54A1F0D7B78004B6923 /* ViewController.swift */,
 				C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */,
 				C4B0C54C1F0D7B78004B6923 /* Main.storyboard */,
 				C4B0C54F1F0D7B78004B6923 /* Assets.xcassets */,
@@ -252,6 +255,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4B0C54B1F0D7B78004B6923 /* ViewController.swift in Sources */,
+				C41D8B2C1F0EE3F8009C174C /* DataService.swift in Sources */,
 				C4128C3A1F0EAF290058628D /* RoundTextField.swift in Sources */,
 				C4B0C5491F0D7B78004B6923 /* AppDelegate.swift in Sources */,
 				C41D8B2A1F0ED23A009C174C /* AuthService.swift in Sources */,

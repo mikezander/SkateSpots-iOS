@@ -19,10 +19,11 @@ class ViewController: UIViewController {
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        guard FIRAuth.auth()?.currentUser != nil else{
+        performSegue(withIdentifier: "LogInVC", sender: nil)
+       /* guard FIRAuth.auth()?.currentUser != nil else{
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
-        }
+        }*/
     }
 
 

@@ -8,4 +8,5 @@ target 'SkateSpots' do
   # Pods for SkateSpots
   pod 'Firebase/Core'
   pod 'Firebase/Auth'
+  pod 'Firebase/Database'
 end
