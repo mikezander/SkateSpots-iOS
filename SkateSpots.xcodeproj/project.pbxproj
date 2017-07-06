@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4128C3A1F0EAF290058628D /* RoundTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C391F0EAF290058628D /* RoundTextField.swift */; };
+		C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C3B1F0EBA690058628D /* RoundedButton.swift */; };
 		C4B0C5491F0D7B78004B6923 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */; };
 		C4B0C54B1F0D7B78004B6923 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0C54A1F0D7B78004B6923 /* ViewController.swift */; };
 		C4B0C54E1F0D7B78004B6923 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4B0C54C1F0D7B78004B6923 /* Main.storyboard */; };
@@ -15,6 +17,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		C4128C391F0EAF290058628D /* RoundTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundTextField.swift; sourceTree = "<group>"; };
+		C4128C3B1F0EBA690058628D /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C4B0C5451F0D7B78004B6923 /* SkateSpots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkateSpots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4B0C54A1F0D7B78004B6923 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -35,6 +39,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		C4128C381F0EAF110058628D /* View */ = {
+			isa = PBXGroup;
+			children = (
+				C4128C391F0EAF290058628D /* RoundTextField.swift */,
+				C4128C3B1F0EBA690058628D /* RoundedButton.swift */,
+			);
+			name = View;
+			sourceTree = "<group>";
+		};
 		C4B0C53C1F0D7B78004B6923 = {
 			isa = PBXGroup;
 			children = (
@@ -54,6 +67,7 @@
 		C4B0C5471F0D7B78004B6923 /* SkateSpots */ = {
 			isa = PBXGroup;
 			children = (
+				C4128C381F0EAF110058628D /* View */,
 				C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */,
 				C4B0C54A1F0D7B78004B6923 /* ViewController.swift */,
 				C4B0C54C1F0D7B78004B6923 /* Main.storyboard */,
@@ -137,7 +151,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				C4B0C54B1F0D7B78004B6923 /* ViewController.swift in Sources */,
+				C4128C3A1F0EAF290058628D /* RoundTextField.swift in Sources */,
 				C4B0C5491F0D7B78004B6923 /* AppDelegate.swift in Sources */,
+				C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,6 +313,7 @@
 				C4B0C5591F0D7B78004B6923 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
