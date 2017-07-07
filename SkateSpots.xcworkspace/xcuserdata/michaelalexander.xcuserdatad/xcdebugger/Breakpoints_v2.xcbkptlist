@@ -2,4 +2,99 @@
 <Bucket
    type = "0"
    version = "2.0">
+   <Breakpoints>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "SkateSpots/ViewController.swift"
+            timestampString = "521085999.213611"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "12"
+            endingLineNumber = "12"
+            landmarkName = "ViewController"
+            landmarkType = "3">
+            <Locations>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SkateSpots.ViewController.__deallocating_deinit"
+                  moduleName = "SkateSpots"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michaelalexander/Documents/workspace/SkateSpots/SkateSpots/ViewController.swift"
+                  timestampString = "521086000.432619"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SkateSpots.ViewController.init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; SkateSpots.ViewController"
+                  moduleName = "SkateSpots"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michaelalexander/Documents/workspace/SkateSpots/SkateSpots/ViewController.swift"
+                  timestampString = "521086000.435792"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "107">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SkateSpots.ViewController.__allocating_init (nibName : Swift.Optional&lt;Swift.String&gt;, bundle : Swift.Optional&lt;__ObjC.Bundle&gt;) -&gt; SkateSpots.ViewController"
+                  moduleName = "SkateSpots"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michaelalexander/Documents/workspace/SkateSpots/SkateSpots/ViewController.swift"
+                  timestampString = "521086000.437053"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "23">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SkateSpots.ViewController.__allocating_init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;SkateSpots.ViewController&gt;"
+                  moduleName = "SkateSpots"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michaelalexander/Documents/workspace/SkateSpots/SkateSpots/ViewController.swift"
+                  timestampString = "521086000.438268"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "0"
+                  endingLineNumber = "0"
+                  offsetFromSymbolStart = "4">
+               </Location>
+               <Location
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "SkateSpots.ViewController.init (coder : __ObjC.NSCoder) -&gt; Swift.Optional&lt;SkateSpots.ViewController&gt;"
+                  moduleName = "SkateSpots"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/michaelalexander/Documents/workspace/SkateSpots/SkateSpots/ViewController.swift"
+                  timestampString = "521086000.439488"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "12"
+                  endingLineNumber = "12"
+                  offsetFromSymbolStart = "105">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+   </Breakpoints>
 </Bucket>

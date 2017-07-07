@@ -9,21 +9,30 @@
 import UIKit
 import FirebaseAuth
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
 
+    @IBOutlet weak var spotCollectionView: UICollectionView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+  
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
-        performSegue(withIdentifier: "LogInVC", sender: nil)
-       /*guard FIRAuth.auth()?.currentUser != nil else{
+        //performSegue(withIdentifier: "LogInVC", sender: nil)
+       guard FIRAuth.auth()?.currentUser != nil else{
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
-        }*/
+        }
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        return UICollectionViewCell()
     }
 
 
