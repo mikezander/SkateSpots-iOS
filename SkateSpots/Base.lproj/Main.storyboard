@@ -47,7 +47,7 @@
                             </imageView>
                             <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NM1-4q-kgK">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.27450980390000002" green="0.59215686270000001" blue="0.01176470588" alpha="1" colorSpace="calibratedRGB"/>
                             </view>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SF2-nU-LXu" customClass="RoundTextfield" customModule="SkateSpots" customModuleProvider="target">
                                 <rect key="frame" x="55" y="206" width="265" height="42"/>
@@ -69,7 +69,7 @@
                                         <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolerColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="value" red="0.76078431372549016" green="0.95294117647058818" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
@@ -81,7 +81,7 @@
                                 </constraints>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
+                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" secureTextEntry="YES"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
                                         <real key="value" value="20"/>
@@ -93,7 +93,7 @@
                                         <color key="value" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </userDefinedRuntimeAttribute>
                                     <userDefinedRuntimeAttribute type="color" keyPath="placeHolerColor">
-                                        <color key="value" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="value" red="0.76078431372549016" green="0.95294117647058818" blue="0.34901960784313724" alpha="1" colorSpace="calibratedRGB"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </textField>
@@ -130,20 +130,20 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="n6A-bB-xvh" secondAttribute="bottom" id="3qp-uz-iHs"/>
-                            <constraint firstItem="8QW-QP-jRQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="100" id="5cE-1z-NQC"/>
+                            <constraint firstItem="HdW-xF-ghF" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" constant="17.5" id="9RK-61-dIm"/>
                             <constraint firstItem="SF2-nU-LXu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CxC-T9-xlG"/>
                             <constraint firstItem="8QW-QP-jRQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="1.5" id="FSJ-tN-B2Q"/>
-                            <constraint firstItem="Mhr-im-vTS" firstAttribute="top" secondItem="SF2-nU-LXu" secondAttribute="bottom" constant="20" id="NwU-q1-Nx8"/>
-                            <constraint firstItem="HdW-xF-ghF" firstAttribute="top" secondItem="Mhr-im-vTS" secondAttribute="bottom" constant="20" id="TiG-Qj-fE1"/>
                             <constraint firstItem="NM1-4q-kgK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="YJy-s3-R41"/>
                             <constraint firstAttribute="trailing" secondItem="NM1-4q-kgK" secondAttribute="trailing" id="ZVB-km-AFN"/>
                             <constraint firstItem="Mhr-im-vTS" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Zz1-x3-4jV"/>
                             <constraint firstItem="NM1-4q-kgK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bxf-7q-6Jl"/>
+                            <constraint firstItem="HdW-xF-ghF" firstAttribute="top" secondItem="Mhr-im-vTS" secondAttribute="bottom" constant="20" id="c9q-ix-Shu"/>
                             <constraint firstAttribute="trailing" secondItem="n6A-bB-xvh" secondAttribute="trailing" id="gQj-0I-MZm"/>
                             <constraint firstItem="n6A-bB-xvh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ge3-H1-hF1"/>
                             <constraint firstItem="SF2-nU-LXu" firstAttribute="top" secondItem="8QW-QP-jRQ" secondAttribute="bottom" constant="39" id="hIv-Il-M5L"/>
                             <constraint firstItem="HdW-xF-ghF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mVJ-7N-R1z"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="NM1-4q-kgK" secondAttribute="bottom" id="nrW-fL-xEc"/>
+                            <constraint firstItem="Mhr-im-vTS" firstAttribute="top" secondItem="SF2-nU-LXu" secondAttribute="bottom" constant="20" id="ssM-B3-wfy"/>
                             <constraint firstItem="n6A-bB-xvh" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="tiI-vF-N1h"/>
                         </constraints>
                     </view>

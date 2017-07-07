@@ -20,7 +20,7 @@ class ViewController: UIViewController {
         super.viewDidAppear(true)
         
         performSegue(withIdentifier: "LogInVC", sender: nil)
-       /* guard FIRAuth.auth()?.currentUser != nil else{
+       /*guard FIRAuth.auth()?.currentUser != nil else{
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
         }*/
