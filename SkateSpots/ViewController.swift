@@ -7,16 +7,31 @@
 //
 
 import UIKit
+import Firebase
 import FirebaseAuth
 
 class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
 
     @IBOutlet weak var spotCollectionView: UICollectionView!
     
+    var spots = [Spot]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        DataService.instance.REF_SPOTS.observe(<#T##eventType: FIRDataEventType##FIRDataEventType#>, with: <#T##(FIRDataSnapshot) -> Void#>)
+        DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
+            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
+                for snap in snapshot{
+                    print("Snap:\(snap)")
+                    if let spotDict = snap.value as? Dictionary<String, AnyObject>{
+                        let key = snap.key
+                        let spot = Spot(spotKey: key, spotData: spotDict)
+                        self.spots.append(spot)
+                        print(spot.imageUrls[1])
+                    }
+                }
+            }
+        })
   
     }
 
