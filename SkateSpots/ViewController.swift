@@ -15,6 +15,8 @@ class ViewController: UIViewController, UICollectionViewDelegate, UICollectionVi
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        DataService.instance.REF_SPOTS.observe(<#T##eventType: FIRDataEventType##FIRDataEventType#>, with: <#T##(FIRDataSnapshot) -> Void#>)
   
     }
 
