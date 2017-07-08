@@ -10,7 +10,7 @@ import UIKit
 import Firebase
 import FirebaseAuth
 
-class ViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
+class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
 
     @IBOutlet weak var spotCollectionView: UICollectionView!
     
