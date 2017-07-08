@@ -14,19 +14,56 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     var imagePicker: UIImagePickerController!
 
+    @IBOutlet weak var addPhotoOne: UIImageView!
+    @IBOutlet weak var addPhotoTwo: UIImageView!
+    @IBOutlet weak var addPhotoThree: UIImageView!
+    @IBOutlet weak var addPhotoFour: UIImageView!
+
+
+    
+    //addGestureRecognizer(tapGestureRecognizer)
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
         
         showPhotoActionSheet()
+
+        addPhotoTwo.addGestureRecognizer(setGestureRecognizer())
+        addPhotoThree.addGestureRecognizer(setGestureRecognizer())
+        addPhotoFour.addGestureRecognizer(setGestureRecognizer())
+        
     }
     
+    func imageTapped(sender: UITapGestureRecognizer) {
+       self.present(self.imagePicker, animated: true, completion: nil)
+        print("image tapped")
+    }
+
+  
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: true, completion: nil)
+        if let image = info[UIImagePickerControllerEditedImage] as? UIImage{
+            
+            addPhotoOne.image = image
+  
+       
+        }else{
+            print("valid image wasn't selected")
+        }
         
+    }
+    
+    func setGestureRecognizer() -> UITapGestureRecognizer {
+        
+        var tapGestureRecognizer = UITapGestureRecognizer()
+        
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(imageTapped))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        return tapGestureRecognizer
     }
     
     func showPhotoActionSheet(){
