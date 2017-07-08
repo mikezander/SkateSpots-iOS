@@ -13,7 +13,8 @@ import Photos
 class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
     var imagePicker: UIImagePickerController!
-
+    var count = 0
+    
     @IBOutlet weak var addPhotoOne: UIImageView!
     @IBOutlet weak var addPhotoTwo: UIImageView!
     @IBOutlet weak var addPhotoThree: UIImageView!
@@ -32,6 +33,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         showPhotoActionSheet()
 
+        addPhotoOne.addGestureRecognizer(setGestureRecognizer())
         addPhotoTwo.addGestureRecognizer(setGestureRecognizer())
         addPhotoThree.addGestureRecognizer(setGestureRecognizer())
         addPhotoFour.addGestureRecognizer(setGestureRecognizer())
@@ -39,18 +41,17 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func imageTapped(sender: UITapGestureRecognizer) {
-       self.present(self.imagePicker, animated: true, completion: nil)
-        print("image tapped")
+        
+       showPhotoActionSheet()
     }
 
-  
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage{
             
-            addPhotoOne.image = image
-  
-       
+            addThumbnailPhoto(count, image)
+            
+            count += 1
         }else{
             print("valid image wasn't selected")
         }
@@ -58,12 +59,25 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func setGestureRecognizer() -> UITapGestureRecognizer {
-        
         var tapGestureRecognizer = UITapGestureRecognizer()
-        
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(imageTapped))
         tapGestureRecognizer.numberOfTapsRequired = 1
         return tapGestureRecognizer
+    }
+    
+    func addThumbnailPhoto(_ count: Int,_ image: UIImage){
+        switch count {
+        case 0:
+            addPhotoOne.image = image
+        case 1:
+            addPhotoTwo.image = image
+        case 2:
+            addPhotoThree.image = image
+        case 3:
+            addPhotoFour.image = image
+        default:
+            print("max number of photos")
+        }
     }
     
     func showPhotoActionSheet(){
