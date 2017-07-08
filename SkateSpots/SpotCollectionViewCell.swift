@@ -6,7 +6,7 @@
 //  Copyright © 2017 Michael Alexander. All rights reserved.
 //
 
-import Foundation
+
 import UIKit
 
 class SpotCollectionViewCell: UICollectionViewCell{
@@ -16,4 +16,14 @@ class SpotCollectionViewCell: UICollectionViewCell{
     @IBOutlet weak var spotName: UILabel!
     @IBOutlet weak var spotLocation: UILabel!
     @IBOutlet weak var spotDistance: UILabel!
+    
+    var spot: Spot!
+    
+    func configCell(spot: Spot){
+        self.spot = spot
+//self.spotName = spot.spotName
+       // self.spotDistance = spot.distance
+    }
 }
+
+

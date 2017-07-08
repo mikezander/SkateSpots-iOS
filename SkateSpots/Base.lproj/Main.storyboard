@@ -20,6 +20,7 @@
                     </tabBar>
                     <connections>
                         <segue destination="S87-nh-BjV" kind="relationship" relationship="viewControllers" id="kH0-3B-KM1"/>
+                        <segue destination="1At-Cb-vgb" kind="relationship" relationship="viewControllers" id="Dxa-Qr-aV7"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S4x-Mo-v9W" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -27,6 +28,28 @@
             <point key="canvasLocation" x="-1652" y="123"/>
         </scene>
         <!--View Controller-->
+        <scene sceneID="isv-SK-1l9">
+            <objects>
+                <viewController id="1At-Cb-vgb" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="2iN-3E-R60"/>
+                        <viewControllerLayoutGuide type="bottom" id="nps-CI-G4s"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="hbT-GS-toa">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" systemItem="search" id="nfS-y0-fXD">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="35" vertical="0.0"/>
+                    </tabBarItem>
+                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dg3-jW-gkn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-716" y="-564"/>
+        </scene>
+        <!--Home-->
         <scene sceneID="Ij5-p5-YMs">
             <objects>
                 <viewController id="S87-nh-BjV" customClass="ViewController" customModule="SkateSpots" customModuleProvider="target" sceneMemberID="viewController">
@@ -137,7 +160,9 @@
                             <constraint firstItem="eJ2-pK-V0V" firstAttribute="leading" secondItem="fT5-Ki-l61" secondAttribute="leading" id="lka-0F-Q1k"/>
                         </constraints>
                     </view>
-                    <tabBarItem key="tabBarItem" systemItem="downloads" id="jPn-j1-R0O"/>
+                    <tabBarItem key="tabBarItem" title="Home" image="home_btn" id="jPn-j1-R0O">
+                        <offsetWrapper key="titlePositionAdjustment" horizontal="-35" vertical="0.0"/>
+                    </tabBarItem>
                     <connections>
                         <outlet property="spotCollectionView" destination="eJ2-pK-V0V" id="2Rx-UT-WdC"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="LogInVC" id="raa-BY-LyD"/>
@@ -275,6 +300,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="home_btn" width="24" height="28"/>
         <image name="nycpushphoto-1" width="570" height="570"/>
         <image name="slapchat_logo" width="231" height="52"/>
     </resources>
