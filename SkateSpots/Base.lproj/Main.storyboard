@@ -27,7 +27,7 @@
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="S4x-Mo-v9W" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1652" y="123"/>
+            <point key="canvasLocation" x="-1585" y="-39"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="isv-SK-1l9">
@@ -58,7 +58,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dg3-jW-gkn" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-716" y="-564"/>
+            <point key="canvasLocation" x="-716" y="-698"/>
         </scene>
         <!--Home-->
         <scene sceneID="Ij5-p5-YMs">
@@ -181,7 +181,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jpV-77-M4V" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-716" y="122.78860569715144"/>
+            <point key="canvasLocation" x="-716" y="-39"/>
         </scene>
         <!--Add Spot-->
         <scene sceneID="hyI-MO-rlG">
@@ -192,27 +192,55 @@
                         <viewControllerLayoutGuide type="bottom" id="O7H-8F-Udx"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="K4T-Jy-y4g">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMh-HU-uYK">
-                                <rect key="frame" x="166" y="236" width="42" height="21"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
+                            <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Dh8-F1-GFc">
+                                <rect key="frame" x="0.0" y="50" width="375" height="901"/>
+                                <subviews>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFc-LK-9H2">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="1000" id="pzd-Fd-Pz2"/>
+                                        </constraints>
+                                    </view>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstItem="gFc-LK-9H2" firstAttribute="top" secondItem="Dh8-F1-GFc" secondAttribute="top" id="0XA-6R-Gku"/>
+                                    <constraint firstAttribute="trailing" secondItem="gFc-LK-9H2" secondAttribute="trailing" id="6l5-hw-qO2"/>
+                                    <constraint firstItem="gFc-LK-9H2" firstAttribute="leading" secondItem="Dh8-F1-GFc" secondAttribute="leading" id="emy-De-u0Y"/>
+                                    <constraint firstAttribute="bottom" secondItem="gFc-LK-9H2" secondAttribute="bottom" id="s5Y-CZ-WfU"/>
+                                </constraints>
+                            </scrollView>
+                            <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="n27-jo-BsO">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.27450980390000002" green="0.59215686270000001" blue="0.01176470588" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="O7H-8F-Udx" firstAttribute="top" secondItem="Dh8-F1-GFc" secondAttribute="bottom" id="JNb-5K-2gV"/>
+                            <constraint firstAttribute="trailing" secondItem="n27-jo-BsO" secondAttribute="trailing" id="JjK-MJ-3WD"/>
+                            <constraint firstAttribute="trailing" secondItem="Dh8-F1-GFc" secondAttribute="trailing" id="Jt8-d7-sma"/>
+                            <constraint firstItem="Dh8-F1-GFc" firstAttribute="leading" secondItem="K4T-Jy-y4g" secondAttribute="leading" id="MUm-dc-pcc"/>
+                            <constraint firstItem="Dh8-F1-GFc" firstAttribute="top" secondItem="mGI-KA-U2i" secondAttribute="bottom" constant="30" id="fQB-x2-Svc"/>
+                            <constraint firstItem="n27-jo-BsO" firstAttribute="leading" secondItem="K4T-Jy-y4g" secondAttribute="leading" id="h31-QW-b6X"/>
+                            <constraint firstItem="Dh8-F1-GFc" firstAttribute="top" secondItem="n27-jo-BsO" secondAttribute="bottom" id="o50-Gf-hme"/>
+                            <constraint firstItem="n27-jo-BsO" firstAttribute="top" secondItem="K4T-Jy-y4g" secondAttribute="top" id="tC6-uy-L5c"/>
+                            <constraint firstItem="gFc-LK-9H2" firstAttribute="width" secondItem="K4T-Jy-y4g" secondAttribute="width" id="ttq-VR-s75"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Add Spot" image="black_photo_btn" id="fBF-qY-J29">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <size key="freeformSize" width="375" height="1000"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L79-jn-dqK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-716" y="798"/>
+            <point key="canvasLocation" x="-716" y="797.00149925037488"/>
         </scene>
         <!--Log InVC-->
         <scene sceneID="tne-QT-ifu">
