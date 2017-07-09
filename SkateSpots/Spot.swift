@@ -19,7 +19,7 @@ class Spot{
         return _spotName
     }
 
-    var imageUrls: [String]{
+    var imageUrls:[String]{
         return _imageUrls
     }
     
@@ -51,9 +51,11 @@ class Spot{
         }
         
         if let imageUrls = spotData["imageUrls"] as? [String]{
-            self._imageUrls = imageUrls
+           self._imageUrls = imageUrls
+            }
             
-        }
+            
+        
         
         if let distance = spotData["distance"] as? Float{
             self._distance = distance

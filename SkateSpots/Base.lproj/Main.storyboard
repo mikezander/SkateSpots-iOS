@@ -239,11 +239,11 @@
                                                     <constraint firstAttribute="height" constant="80" id="xmc-Zv-kMs"/>
                                                 </constraints>
                                             </stackView>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MkV-rS-pLI">
-                                                <rect key="frame" x="164" y="850" width="46" height="30"/>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="j5o-4x-Hkl">
+                                                <rect key="frame" x="164" y="800" width="46" height="30"/>
                                                 <state key="normal" title="Button"/>
                                                 <connections>
-                                                    <action selector="postButtonTapped:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="fVH-AW-g7X"/>
+                                                    <action selector="addSpotPressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="vdT-Ho-gUK"/>
                                                 </connections>
                                             </button>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dqE-Dh-VFK">
@@ -255,15 +255,14 @@
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="MkV-rS-pLI" secondAttribute="trailing" constant="165" id="Fke-at-6ao"/>
+                                            <constraint firstItem="j5o-4x-Hkl" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="164" id="AkR-vN-fhM"/>
                                             <constraint firstItem="dqE-Dh-VFK" firstAttribute="top" secondItem="ZBX-2l-2KL" secondAttribute="bottom" constant="56" id="HU9-z4-FNk"/>
+                                            <constraint firstAttribute="trailing" secondItem="j5o-4x-Hkl" secondAttribute="trailing" constant="165" id="Vd1-e5-2gm"/>
                                             <constraint firstItem="ZBX-2l-2KL" firstAttribute="centerX" secondItem="gFc-LK-9H2" secondAttribute="centerX" id="fwd-qa-mBk"/>
-                                            <constraint firstItem="MkV-rS-pLI" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="164" id="haJ-5j-fZQ"/>
                                             <constraint firstAttribute="height" constant="1000" id="pzd-Fd-Pz2"/>
                                             <constraint firstAttribute="trailing" secondItem="dqE-Dh-VFK" secondAttribute="trailing" constant="30" id="r9r-75-yVd"/>
                                             <constraint firstItem="dqE-Dh-VFK" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="30" id="sdC-gu-7B6"/>
                                             <constraint firstItem="ZBX-2l-2KL" firstAttribute="top" secondItem="gFc-LK-9H2" secondAttribute="top" constant="75" id="uhB-9C-TsF"/>
-                                            <constraint firstAttribute="bottom" secondItem="MkV-rS-pLI" secondAttribute="bottom" constant="120" id="yIt-sY-0dm"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -277,6 +276,7 @@
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="O7H-8F-Udx" firstAttribute="top" secondItem="j5o-4x-Hkl" secondAttribute="bottom" constant="71" id="Eb2-zd-gUD"/>
                             <constraint firstItem="O7H-8F-Udx" firstAttribute="top" secondItem="Dh8-F1-GFc" secondAttribute="bottom" id="JNb-5K-2gV"/>
                             <constraint firstAttribute="trailing" secondItem="n27-jo-BsO" secondAttribute="trailing" id="JjK-MJ-3WD"/>
                             <constraint firstAttribute="trailing" secondItem="Dh8-F1-GFc" secondAttribute="trailing" id="Jt8-d7-sma"/>

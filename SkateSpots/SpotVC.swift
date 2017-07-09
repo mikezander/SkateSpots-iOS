@@ -39,6 +39,38 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
     }
     
+    @IBAction func addSpotPressed(_ sender: Any) {
+        
+        guard let spotName = spotNameField.text, spotName != "" else{
+            print("Spot Name must be entered")
+            return
+        }
+        
+        guard let img = addPhotoOne.image, imageSelected == true else{
+            print("an image must be selected")
+            return
+        }
+        
+        if let imgData = UIImageJPEGRepresentation(img, 0.2){
+            
+            let imgUid = NSUUID().uuidString
+            let metadata = FIRStorageMetadata()
+            metadata.contentType = "image/jpeg"
+            DataService.instance.REF_SPOT_IMAGES.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
+                
+                if error != nil{
+                    print("unable to upload image to firebase storage")
+                }else{
+                    print("successfully uploaded to firebase sotrage")
+                    let downloadURL = metadata?.downloadURL()?.absoluteString
+                    if let url = downloadURL{
+                        self.postToFirebase(imgUrl: url)
+                    }
+                }
+            }
+        }
+        
+    }
     func imageTapped(sender: UITapGestureRecognizer) {
         
        showPhotoActionSheet()
@@ -79,35 +111,22 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }
     }
     
-    @IBAction func postButtonTapped(_ sender: Any) {
-        guard let spotName = spotNameField.text, spotName != "" else{
-            print("Spot Name must be entered")
-            return
-        }
+    func postToFirebase(imgUrl: String){
+        let spot: Dictionary<String, AnyObject> = [
+        "spotName": spotNameField.text! as AnyObject,
+        "imageUrls": imgUrl as AnyObject,
+        "distance" : 0.0 as AnyObject,
+        "spotLocation" : "fuck it for now" as AnyObject
+        ]
         
-        guard let img = addPhotoOne.image, imageSelected == true else{
-            print("an image must be selected")
-            return
-        }
+        let firebasePost = DataService.instance.REF_SPOTS.childByAutoId()
+        firebasePost.setValue(spot)
         
-        if let imgData = UIImageJPEGRepresentation(img, 0.2){
-            
-            let imgUid = NSUUID().uuidString
-            let metadata = FIRStorageMetadata()
-            metadata.contentType = "image/jpeg"
-            DataService.instance.REF_SPOT_IMAGES.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
-            
-                if error != nil{
-                print("unable to upload image to firebase storage")
-                }else{
-                print("successfully uploaded to firebase sotrage")
-                    let downloadURL = metadata?.downloadURL()?.absoluteString
-
-                }
-            }
-        }
+        spotNameField.text = ""
+        imageSelected = false
+        addPhotoOne.image = UIImage(named: "black_photo_btn")
     }
-   
+    
     func showPhotoActionSheet(){
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
