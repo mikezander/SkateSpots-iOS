@@ -9,21 +9,20 @@
 import UIKit
 import Firebase
 import Photos
+import FirebaseStorage
 
 class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
     
+    @IBOutlet weak var spotNameField: UITextField!
     var imagePicker: UIImagePickerController!
     var count = 0
-    
+    var imageSelected = false
+
     @IBOutlet weak var addPhotoOne: UIImageView!
     @IBOutlet weak var addPhotoTwo: UIImageView!
     @IBOutlet weak var addPhotoThree: UIImageView!
     @IBOutlet weak var addPhotoFour: UIImageView!
 
-
-    
-    //addGestureRecognizer(tapGestureRecognizer)
-    
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -50,7 +49,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         if let image = info[UIImagePickerControllerEditedImage] as? UIImage{
             
             addThumbnailPhoto(count, image)
-            
+            imageSelected = true
             count += 1
         }else{
             print("valid image wasn't selected")
@@ -80,6 +79,35 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }
     }
     
+    @IBAction func postButtonTapped(_ sender: Any) {
+        guard let spotName = spotNameField.text, spotName != "" else{
+            print("Spot Name must be entered")
+            return
+        }
+        
+        guard let img = addPhotoOne.image, imageSelected == true else{
+            print("an image must be selected")
+            return
+        }
+        
+        if let imgData = UIImageJPEGRepresentation(img, 0.2){
+            
+            let imgUid = NSUUID().uuidString
+            let metadata = FIRStorageMetadata()
+            metadata.contentType = "image/jpeg"
+            DataService.instance.REF_SPOT_IMAGES.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
+            
+                if error != nil{
+                print("unable to upload image to firebase storage")
+                }else{
+                print("successfully uploaded to firebase sotrage")
+                    let downloadURL = metadata?.downloadURL()?.absoluteString
+
+                }
+            }
+        }
+    }
+   
     func showPhotoActionSheet(){
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         

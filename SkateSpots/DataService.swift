@@ -7,9 +7,12 @@
 //
 
 import Foundation
+import Firebase
+import FirebaseStorage
 import FirebaseDatabase
 
 let DB_BASE = FIRDatabase.database().reference()
+let STORAGE_BASE = FIRStorage.storage().reference()
 
 class DataService{
     private static let _instance = DataService()
@@ -18,9 +21,13 @@ class DataService{
         return _instance
     }
 
+    // DB Refrences
     private var _REF_BASE = DB_BASE
     private var _REF_SPOTS = DB_BASE.child("spots")
     private var _REF_USERS = DB_BASE.child("users")
+    
+    // Storage Refrences
+    private var _REF_SPOT_IMAGES = STORAGE_BASE.child("post-pics")
     
     var REF_BASE: FIRDatabaseReference{
         return _REF_BASE
@@ -32,6 +39,10 @@ class DataService{
     
     var REF_USERS: FIRDatabaseReference{
         return _REF_USERS
+    }
+    
+    var REF_SPOT_IMAGES: FIRStorageReference{
+        return _REF_SPOT_IMAGES
     }
     
     func saveUser(uid: String, email: String){

@@ -8,6 +8,7 @@
 
 
 import UIKit
+import FirebaseStorage
 
 class SpotCollectionViewCell: UICollectionViewCell{
 
@@ -19,10 +20,33 @@ class SpotCollectionViewCell: UICollectionViewCell{
     
     var spot: Spot!
     
-    func configCell(spot: Spot){
+    func configureCell(spot: Spot, img: UIImage?, count: Int){
         self.spot = spot
-//self.spotName = spot.spotName
-       // self.spotDistance = spot.distance
+        self.spotName.text = spot.spotName
+        self.spotDistance.text = "\(spot.distance)"
+        self.spotLocation.text = spot.spotLocation
+        
+        
+        //download images
+        if img != nil{
+            self.spotImage.image = img
+        }else{
+            //cache image
+            let ref = FIRStorage.storage().reference(forURL: spot.imageUrls[count])
+            ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
+                if error != nil{
+                    print("Mke: Unable to download image from firebase storage")
+                }else{
+                    print("Mike: Image downloaded from firebase storge")
+                    if let imgData = data {
+                        if let img = UIImage(data: imgData){
+                            self.spotImage.image = img
+                            FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
+                        }
+                    }
+                }
+            })
+        }
     }
 }
 

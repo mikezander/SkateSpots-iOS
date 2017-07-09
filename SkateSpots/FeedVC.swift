@@ -9,12 +9,14 @@
 import UIKit
 import Firebase
 import FirebaseAuth
+import FirebaseStorage
 
 class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
 
     @IBOutlet weak var spotCollectionView: UICollectionView!
     
     var spots = [Spot]()
+    static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,7 +29,7 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
                         self.spots.append(spot)
-                        print(spot.imageUrls[1])
+                       // print(spot.imageUrls[1])
                     }
                 }
             }
@@ -54,11 +56,19 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
+        
         let spot = spots[indexPath.row]
-        print("fdsf\(spot.imageUrls[2])")
+        //print("fdsf\(spot.imageUrls[2])")
+
         
         let cell = spotCollectionView.dequeueReusableCell(withReuseIdentifier: "SpotCollectionView", for: indexPath) as! SpotCollectionViewCell
+
+        
+        if let img = FeedVC.imageCache.object(forKey:spot.imageUrls[0] as NSString){
+            cell.configureCell(spot: spot, img: img, count: 0)
+        }else{
+            cell.configureCell(spot: spot,img: nil, count: 0)
+        }
         
         return cell
     }

@@ -18,14 +18,13 @@ class Spot{
     var spotName: String{
         return _spotName
     }
-    
-    
+
     var imageUrls: [String]{
         return _imageUrls
     }
     
     var distance: Float{
-        return _distance
+       return _distance
     }
     
     var spotLocation: String{

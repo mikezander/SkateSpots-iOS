@@ -239,12 +239,31 @@
                                                     <constraint firstAttribute="height" constant="80" id="xmc-Zv-kMs"/>
                                                 </constraints>
                                             </stackView>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MkV-rS-pLI">
+                                                <rect key="frame" x="164" y="850" width="46" height="30"/>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="postButtonTapped:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="fVH-AW-g7X"/>
+                                                </connections>
+                                            </button>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dqE-Dh-VFK">
+                                                <rect key="frame" x="30" y="211" width="315" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
+                                            <constraint firstAttribute="trailing" secondItem="MkV-rS-pLI" secondAttribute="trailing" constant="165" id="Fke-at-6ao"/>
+                                            <constraint firstItem="dqE-Dh-VFK" firstAttribute="top" secondItem="ZBX-2l-2KL" secondAttribute="bottom" constant="56" id="HU9-z4-FNk"/>
                                             <constraint firstItem="ZBX-2l-2KL" firstAttribute="centerX" secondItem="gFc-LK-9H2" secondAttribute="centerX" id="fwd-qa-mBk"/>
+                                            <constraint firstItem="MkV-rS-pLI" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="164" id="haJ-5j-fZQ"/>
                                             <constraint firstAttribute="height" constant="1000" id="pzd-Fd-Pz2"/>
+                                            <constraint firstAttribute="trailing" secondItem="dqE-Dh-VFK" secondAttribute="trailing" constant="30" id="r9r-75-yVd"/>
+                                            <constraint firstItem="dqE-Dh-VFK" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="30" id="sdC-gu-7B6"/>
                                             <constraint firstItem="ZBX-2l-2KL" firstAttribute="top" secondItem="gFc-LK-9H2" secondAttribute="top" constant="75" id="uhB-9C-TsF"/>
+                                            <constraint firstAttribute="bottom" secondItem="MkV-rS-pLI" secondAttribute="bottom" constant="120" id="yIt-sY-0dm"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -280,6 +299,7 @@
                         <outlet property="addPhotoOne" destination="cAd-P2-feA" id="e58-3D-9BG"/>
                         <outlet property="addPhotoThree" destination="bx1-iG-r4r" id="sa0-iB-qML"/>
                         <outlet property="addPhotoTwo" destination="adq-sF-pq4" id="HUc-dQ-zZb"/>
+                        <outlet property="spotNameField" destination="dqE-Dh-VFK" id="z0w-E7-TaH"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L79-jn-dqK" userLabel="First Responder" sceneMemberID="firstResponder"/>
