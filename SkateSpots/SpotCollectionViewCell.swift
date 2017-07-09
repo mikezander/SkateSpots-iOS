@@ -32,7 +32,8 @@ class SpotCollectionViewCell: UICollectionViewCell{
             self.spotImage.image = img
         }else{
             //cache image
-            let ref = FIRStorage.storage().reference(forURL: spot.imageUrls[0])
+           
+            let ref = FIRStorage.storage().reference(forURL:spot.imageUrls[0])
             ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
                 if error != nil{
                     print("Mke: Unable to download image from firebase storage")

@@ -47,9 +47,9 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         }
     }
     
-    //func numberOfSections(in collectionView: UICollectionView) -> Int {
-    //    return 1
-//}
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+ }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return spots.count
@@ -62,7 +62,7 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 
         let cell = spotCollectionView.dequeueReusableCell(withReuseIdentifier: "SpotCollectionView", for: indexPath) as! SpotCollectionViewCell
 
-        if let img = FeedVC.imageCache.object(forKey:spots[indexPath.row].imageUrls[0] as NSString){
+        if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[0] as NSString){
             cell.configureCell(spot: spot, img: img, count: 0)
         }else{
             cell.configureCell(spot: spot, count: 0)

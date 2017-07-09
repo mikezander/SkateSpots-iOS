@@ -20,7 +20,10 @@ class Spot{
     }
 
     var imageUrls:[String]{
-        return _imageUrls
+        if _imageUrls != nil{
+            return _imageUrls
+        }
+        return ["https://firebasestorage.googleapis.com/v0/b/sk8spots-b8769.appspot.com/o/post-pics%2F5550AA22-D70E-4403-9984-04BC59ED20E7?alt=media&token=24569b8c-f796-426b-b468-29841252baaf"]
     }
     
     var distance: Float{
@@ -51,8 +54,9 @@ class Spot{
         }
         
         if let imageUrls = spotData["imageUrls"] as? [String]{
-           self._imageUrls = imageUrls
-            }
+            self._imageUrls = imageUrls
+        }
+            
             
             
         
