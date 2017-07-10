@@ -20,6 +20,8 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        spotCollectionView.reloadData()
         
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
@@ -40,11 +42,13 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        spotCollectionView.reloadData()
         //performSegue(withIdentifier: "LogInVC", sender: nil)
        guard FIRAuth.auth()?.currentUser != nil else{
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
         }
+        
     }
     
     func numberOfSections(in collectionView: UICollectionView) -> Int {

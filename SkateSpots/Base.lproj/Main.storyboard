@@ -300,6 +300,7 @@
                         <outlet property="addPhotoThree" destination="bx1-iG-r4r" id="sa0-iB-qML"/>
                         <outlet property="addPhotoTwo" destination="adq-sF-pq4" id="HUc-dQ-zZb"/>
                         <outlet property="spotNameField" destination="dqE-Dh-VFK" id="z0w-E7-TaH"/>
+                        <segue destination="c2b-5P-XCM" kind="show" identifier="backToFeedVC" id="nUf-Hb-h8K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L79-jn-dqK" userLabel="First Responder" sceneMemberID="firstResponder"/>

@@ -69,8 +69,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 }
             }
         }
-        //let vc = FeedVC()
-       // present(vc, animated: true, completion: nil)
+        performSegue(withIdentifier: "backToFeedVC", sender: nil)
+ 
     }
     func imageTapped(sender: UITapGestureRecognizer) {
         
@@ -117,7 +117,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         "spotName": spotNameField.text! as AnyObject,
         "imageUrls": [imgUrl] as AnyObject,
         "distance" : 0.1 as AnyObject,
-        "spotLocation" : "fuck it for now" as AnyObject
+        "spotLocation" : "Location" as AnyObject
         ]
         
         let firebasePost = DataService.instance.REF_SPOTS.childByAutoId()
