@@ -11,6 +11,7 @@ import UIKit
 import FirebaseStorage
 
 class SpotCollectionViewCell: UICollectionViewCell{
+ 
     
     @IBOutlet weak var spotImage: UIImageView!
     
@@ -31,8 +32,9 @@ class SpotCollectionViewCell: UICollectionViewCell{
         if img != nil{
             self.spotImage.image = img
         }else{
+
             //cache image
-           
+
             let ref = FIRStorage.storage().reference(forURL:spot.imageUrls[0])
             ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
                 if error != nil{

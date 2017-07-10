@@ -21,9 +21,12 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        spotCollectionView.reloadData()
+        DispatchQueue.main.async { self.spotCollectionView.reloadData() }
         
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
+            
+            self.spots = [] //clears up spot array each time its loaded
+            
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
                 for snap in snapshot{
                     print("Snap:\(snap)")
@@ -31,18 +34,18 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
                         self.spots.append(spot)
-                       // print(spot.imageUrls[1])
+                        // print(spot.imageUrls[1])
                     }
                 }
             }
-            self.spotCollectionView.reloadData()
+            DispatchQueue.main.async { self.spotCollectionView.reloadData() }
         })
   
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        spotCollectionView.reloadData()
+
         //performSegue(withIdentifier: "LogInVC", sender: nil)
        guard FIRAuth.auth()?.currentUser != nil else{
             performSegue(withIdentifier: "LogInVC", sender: nil)
@@ -62,19 +65,18 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let spot = spots[indexPath.row]
-        //print("fdsf\(spot.imageUrls[2])")
 
         let cell = spotCollectionView.dequeueReusableCell(withReuseIdentifier: "SpotCollectionView", for: indexPath) as! SpotCollectionViewCell
-
+        
         if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[0] as NSString){
             cell.configureCell(spot: spot, img: img, count: 0)
         }else{
             cell.configureCell(spot: spot, count: 0)
-            
         }
+        
         return cell
     }
 
-
+    
 }
 

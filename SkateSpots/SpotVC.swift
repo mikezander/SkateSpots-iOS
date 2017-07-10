@@ -72,6 +72,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         performSegue(withIdentifier: "backToFeedVC", sender: nil)
  
     }
+
     func imageTapped(sender: UITapGestureRecognizer) {
         
        showPhotoActionSheet()
@@ -116,7 +117,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         let spot: Dictionary<String, AnyObject> = [
         "spotName": spotNameField.text! as AnyObject,
         "imageUrls": [imgUrl] as AnyObject,
-        "distance" : 0.1 as AnyObject,
+        "distance" : 11.1 as AnyObject,
         "spotLocation" : "Location" as AnyObject
         ]
         
