@@ -17,6 +17,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var imagePicker: UIImagePickerController!
     var count = 0
     var imageSelected = false
+    var photoURLs = [String]()
 
     @IBOutlet weak var addPhotoOne: UIImageView!
     @IBOutlet weak var addPhotoTwo: UIImageView!
@@ -26,6 +27,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        //photoURLs = [String]()
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
@@ -40,18 +42,24 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     @IBAction func addSpotPressed(_ sender: Any) {
-        
+
         guard let spotName = spotNameField.text, spotName != "" else{
             print("Spot Name must be entered")
             return
         }
         
-        guard let img = addPhotoOne.image, imageSelected == true else{
+        guard let defaultImg = addPhotoOne.image, imageSelected == true else{
             print("an image must be selected")
             return
         }
         
-        if let imgData = UIImageJPEGRepresentation(img, 0.2){
+        guard let imgTwo = addPhotoTwo.image, imageSelected == true else{
+            return
+        }
+        
+        
+        
+        if let imgData = UIImageJPEGRepresentation(defaultImg, 0.2){
             
             let imgUid = NSUUID().uuidString
             let metadata = FIRStorageMetadata()
@@ -61,19 +69,52 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 if error != nil{
                     print("unable to upload image to firebase storage")
                 }else{
-                    print("successfully uploaded to firebase sotrage")
                     let downloadURL = metadata?.downloadURL()?.absoluteString
                     if let url = downloadURL{
-                        self.postToFirebase(imgUrl: url)
+                        self.photoURLs.append(url)
                     }
                 }
+                
             }
         }
+  
+        if count == 2{
+            addPhotosToStorage(image: imgTwo)
+        }
+
+        
+        
+        
+        postToFirebase(imgUrl: photoURLs)
         performSegue(withIdentifier: "backToFeedVC", sender: nil)
  
     }
-
-    func imageTapped(sender: UITapGestureRecognizer) {
+    
+    func addPhotosToStorage(image: UIImage){
+        
+        if let imgData = UIImageJPEGRepresentation(image, 0.2){
+            
+            let imgUid = NSUUID().uuidString
+            let metadata = FIRStorageMetadata()
+            metadata.contentType = "image/jpeg"
+            DataService.instance.REF_SPOT_IMAGES.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
+                
+                if error != nil{
+                    print("unable to upload image to firebase storage")
+                }else{
+                    let downloadURL = metadata?.downloadURL()?.absoluteString
+                    if let url = downloadURL{
+                        self.photoURLs.append(url)
+                        
+                    }
+                }
+                
+            }
+            
+        }
+    }
+    
+    func addImagePressed(sender: UITapGestureRecognizer) {
         
        showPhotoActionSheet()
     }
@@ -93,7 +134,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     func setGestureRecognizer() -> UITapGestureRecognizer {
         var tapGestureRecognizer = UITapGestureRecognizer()
-        tapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(imageTapped))
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(addImagePressed))
         tapGestureRecognizer.numberOfTapsRequired = 1
         return tapGestureRecognizer
     }
@@ -113,17 +154,19 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }
     }
     
-    func postToFirebase(imgUrl: String){
+    func postToFirebase(imgUrl: [String]){
+
+        
         let spot: Dictionary<String, AnyObject> = [
         "spotName": spotNameField.text! as AnyObject,
-        "imageUrls": [imgUrl] as AnyObject,
+        "imageUrls": imgUrl as AnyObject,
         "distance" : 11.1 as AnyObject,
         "spotLocation" : "Location" as AnyObject
         ]
         
         let firebasePost = DataService.instance.REF_SPOTS.childByAutoId()
         firebasePost.setValue(spot)
-        
+       
         spotNameField.text = ""
         imageSelected = false
         addPhotoOne.image = UIImage(named: "black_photo_btn")

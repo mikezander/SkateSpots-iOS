@@ -49,5 +49,7 @@ class DataService{
         let profile: Dictionary<String, AnyObject> = ["username": "" as AnyObject, "email": email as AnyObject]
         REF_USERS.child(uid).child("profile").setValue(profile)
     }
+    
+    
 }
 
