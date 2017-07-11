@@ -44,61 +44,41 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBAction func addSpotPressed(_ sender: Any) {
 
         guard let spotName = spotNameField.text, spotName != "" else{
-            print("Spot Name must be entered")
+            print("a spot Name must be entered")
             return
         }
         
         guard let defaultImg = addPhotoOne.image, imageSelected == true else{
-            print("an image must be selected")
+            print("a default image must be selected")
             return
         }
         
-        guard let imgTwo = addPhotoTwo.image, imageSelected == true else{
-            return
+        addPhotosToStorage(image: defaultImg)
+        
+        if let imgTwo = addPhotoTwo.image, imageSelected == true, count >= 2{
+           addPhotosToStorage(image: imgTwo)
         }
         
-        
-        
-        if let imgData = UIImageJPEGRepresentation(defaultImg, 0.2){
-            
-            let imgUid = NSUUID().uuidString
-            let metadata = FIRStorageMetadata()
-            metadata.contentType = "image/jpeg"
-            DataService.instance.REF_SPOT_IMAGES.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
-                
-                if error != nil{
-                    print("unable to upload image to firebase storage")
-                }else{
-                    let downloadURL = metadata?.downloadURL()?.absoluteString
-                    if let url = downloadURL{
-                        self.photoURLs.append(url)
-                    }
-                }
-                
-            }
+        if let imgThree = addPhotoThree.image, imageSelected == true, count >= 3{
+           addPhotosToStorage(image: imgThree)
         }
-  
-        if count == 2{
-            addPhotosToStorage(image: imgTwo)
+        
+        if let imgFour = addPhotoFour.image, imageSelected == true, count == 4{
+            addPhotosToStorage(image: imgFour)
         }
-
-        
-        
-        
-        postToFirebase(imgUrl: photoURLs)
+       
         performSegue(withIdentifier: "backToFeedVC", sender: nil)
  
     }
     
     func addPhotosToStorage(image: UIImage){
-        
+
         if let imgData = UIImageJPEGRepresentation(image, 0.2){
             
             let imgUid = NSUUID().uuidString
             let metadata = FIRStorageMetadata()
             metadata.contentType = "image/jpeg"
             DataService.instance.REF_SPOT_IMAGES.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
-                
                 if error != nil{
                     print("unable to upload image to firebase storage")
                 }else{
@@ -106,6 +86,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                     if let url = downloadURL{
                         self.photoURLs.append(url)
                         
+                        if self.photoURLs.count == self.count{
+                        
+                            self.postToFirebase(imgUrl: self.photoURLs)
+                        }
                     }
                 }
                 
