@@ -131,6 +131,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 if error != nil{
                     print("unable to upload image to firebase storage")
                 }else{
+                    
                     let downloadURL = metadata?.downloadURL()?.absoluteString
                     if let url = downloadURL{
                         self.photoURLs.append(url)
