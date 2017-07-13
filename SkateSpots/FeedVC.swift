@@ -34,7 +34,6 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
                         self.spots.append(spot)
-                        // print(spot.imageUrls[1])
                     }
                 }
             }
