@@ -89,13 +89,13 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     func addThumbnailPhoto(_ count: Int,_ image: UIImage){
         switch count {
         case 0:
-            addPhotoOne.image = image
+            DispatchQueue.main.async {self.addPhotoOne.image = image}
         case 1:
-            addPhotoTwo.image = image
+            DispatchQueue.main.async {self.addPhotoTwo.image = image}
         case 2:
-            addPhotoThree.image = image
+            DispatchQueue.main.async {self.addPhotoThree.image = image}
         case 3:
-            addPhotoFour.image = image
+            DispatchQueue.main.async {self.addPhotoFour.image = image}
         default:
             print("max number of photos")
         }
