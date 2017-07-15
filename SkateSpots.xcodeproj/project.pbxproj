@@ -22,6 +22,7 @@
 		C4B0C54E1F0D7B78004B6923 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4B0C54C1F0D7B78004B6923 /* Main.storyboard */; };
 		C4B0C5501F0D7B78004B6923 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4B0C54F1F0D7B78004B6923 /* Assets.xcassets */; };
 		C4B0C5531F0D7B78004B6923 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4B0C5511F0D7B78004B6923 /* LaunchScreen.storyboard */; };
+		C4E36FD21F1A7F23000ABF4D /* SpotRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +45,7 @@
 		C4B0C54F1F0D7B78004B6923 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4B0C5521F0D7B78004B6923 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4B0C5541F0D7B78004B6923 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotRow.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +117,7 @@
 		C4B0C53C1F0D7B78004B6923 = {
 			isa = PBXGroup;
 			children = (
+				C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */,
 				C4B0C5471F0D7B78004B6923 /* SkateSpots */,
 				C4B0C5461F0D7B78004B6923 /* Products */,
 				6F7E4E1EC99782C1AD6E42E9 /* Pods */,
@@ -278,6 +281,7 @@
 				C4B0C5491F0D7B78004B6923 /* AppDelegate.swift in Sources */,
 				C41D8B2E1F0F2140009C174C /* SpotCollectionViewCell.swift in Sources */,
 				C41D8B2A1F0ED23A009C174C /* AuthService.swift in Sources */,
+				C4E36FD21F1A7F23000ABF4D /* SpotRow.swift in Sources */,
 				C41D8B271F0ECB12009C174C /* LogInVC.swift in Sources */,
 				C41D8B311F0F38E0009C174C /* Spot.swift in Sources */,
 				C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */,

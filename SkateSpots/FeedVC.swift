@@ -11,17 +11,19 @@ import Firebase
 import FirebaseAuth
 import FirebaseStorage
 
-class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource{
+class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
 
-    @IBOutlet weak var spotCollectionView: UICollectionView!
+   
+    @IBOutlet weak var spotTableView: UITableView!
     
     var spots = [Spot]()
+    
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        DispatchQueue.main.async { self.spotCollectionView.reloadData() }
+        DispatchQueue.main.async { self.spotTableView.reloadData() }
         
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
@@ -37,7 +39,7 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
                     }
                 }
             }
-            DispatchQueue.main.async { self.spotCollectionView.reloadData() }
+            DispatchQueue.main.async { self.spotTableView.reloadData() }
         })
   
     }
@@ -45,15 +47,40 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
-        //performSegue(withIdentifier: "LogInVC", sender: nil)
+       //performSegue(withIdentifier: "LogInVC", sender: nil)
        guard FIRAuth.auth()?.currentUser != nil else{
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
         }
         
     }
+   /* var categories = ["Action", "Drama", "Science Fiction", "Kids", "Horror"]
     
-    func numberOfSections(in collectionView: UICollectionView) -> Int {
+    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
+        return categories[section]
+    }*/
+
+    func numberOfSections(in tableView: UITableView) -> Int {
+        return 1
+    }
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return spots.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
+        let spot = spots[indexPath.row]
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "SpotRowCell") as! SpotRow
+        
+        print("\(indexPath.row)\(spot.spotName)")
+        cell.configureRow(spot: spot)
+        
+        return cell
+    }
+    
+  /*  func numberOfSections(in collectionView: UICollectionView) -> Int {
         return 1
  }
     
@@ -74,7 +101,7 @@ class FeedVC: UIViewController, UICollectionViewDelegate, UICollectionViewDataSo
         }
         
         return cell
-    }
+    }*/
 
     
 }
