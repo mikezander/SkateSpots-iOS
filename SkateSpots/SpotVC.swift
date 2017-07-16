@@ -102,7 +102,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     @IBAction func addSpotPressed(_ sender: Any) {
-
+        
         guard let spotName = spotNameField.text, spotName != "" else{
             print("a spot Name must be entered")
             return
@@ -114,10 +114,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }
         
         addPhotosToStorage(image: defaultImg, true)
-
+        
         performSegue(withIdentifier: "backToFeedVC", sender: nil)
- 
     }
+    
     
     func addPhotosToStorage(image: UIImage,_ isDefault: Bool){
 

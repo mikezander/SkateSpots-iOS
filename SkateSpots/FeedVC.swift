@@ -36,6 +36,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
                         self.spots.append(spot)
+                        SpotRow.shared.spots.append(spot)
                     }
                 }
             }
@@ -68,6 +69,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
         return spots.count
     }
     
+   
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let spot = spots[indexPath.row]

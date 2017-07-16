@@ -23,6 +23,7 @@
 		C4B0C5501F0D7B78004B6923 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4B0C54F1F0D7B78004B6923 /* Assets.xcassets */; };
 		C4B0C5531F0D7B78004B6923 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4B0C5511F0D7B78004B6923 /* LaunchScreen.storyboard */; };
 		C4E36FD21F1A7F23000ABF4D /* SpotRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */; };
+		C4E36FD61F1ACA44000ABF4D /* SpotPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,7 +46,8 @@
 		C4B0C54F1F0D7B78004B6923 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		C4B0C5521F0D7B78004B6923 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C4B0C5541F0D7B78004B6923 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotRow.swift; sourceTree = "<group>"; };
+		C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotRow.swift; path = ../SpotRow.swift; sourceTree = "<group>"; };
+		C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPhotoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,7 +119,6 @@
 		C4B0C53C1F0D7B78004B6923 = {
 			isa = PBXGroup;
 			children = (
-				C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */,
 				C4B0C5471F0D7B78004B6923 /* SkateSpots */,
 				C4B0C5461F0D7B78004B6923 /* Products */,
 				6F7E4E1EC99782C1AD6E42E9 /* Pods */,
@@ -136,6 +137,8 @@
 		C4B0C5471F0D7B78004B6923 /* SkateSpots */ = {
 			isa = PBXGroup;
 			children = (
+				C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */,
+				C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */,
 				C41D8B2F1F0F38C2009C174C /* Model */,
 				C41D8B281F0ED205009C174C /* Services */,
 				C41D8B251F0ECAF5009C174C /* Controller */,
@@ -284,6 +287,7 @@
 				C4E36FD21F1A7F23000ABF4D /* SpotRow.swift in Sources */,
 				C41D8B271F0ECB12009C174C /* LogInVC.swift in Sources */,
 				C41D8B311F0F38E0009C174C /* Spot.swift in Sources */,
+				C4E36FD61F1ACA44000ABF4D /* SpotPhotoCell.swift in Sources */,
 				C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
