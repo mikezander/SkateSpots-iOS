@@ -61,10 +61,10 @@
             </objects>
             <point key="canvasLocation" x="-716" y="-698"/>
         </scene>
-        <!--Home-->
+        <!--s-->
         <scene sceneID="Ij5-p5-YMs">
             <objects>
-                <viewController id="S87-nh-BjV" customClass="FeedVC" customModule="SkateSpots" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="s" id="S87-nh-BjV" customClass="FeedVC" customModule="SkateSpots" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="1Rg-rl-BJn"/>
                         <viewControllerLayoutGuide type="bottom" id="Com-rd-kW1"/>
