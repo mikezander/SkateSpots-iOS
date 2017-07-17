@@ -12,13 +12,14 @@ import Photos
 import CoreLocation
 import FirebaseStorage
 
-class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,CLLocationManagerDelegate{
     
     @IBOutlet weak var spotNameField: UITextField!
     var imagePicker: UIImagePickerController!
     var count = 0
     var imageSelected = false
     var photoURLs = [String]()
+    var locationManager = CLLocationManager()
     var locationString: String = ""
 
     @IBOutlet weak var addPhotoOne: UIImageView!
@@ -79,8 +80,15 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             
+            if locationString == "" {
             if(picker.sourceType == .camera){
             
+                locationManager = CLLocationManager()
+                locationManager.delegate = self
+                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters //kCLLocationAccuracyBest
+                locationManager.requestAlwaysAuthorization()
+                locationManager.startUpdatingLocation()
+                
             }else{
             
                 if let imageUrl = info[UIImagePickerControllerReferenceURL] as? NSURL{
@@ -94,8 +102,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                         reverseGeocodeLocation(location: location!)
                     }
                 }
-            
             }
+        }
 
             addThumbnailPhoto(count, image)
             imageSelected = true
@@ -183,6 +191,21 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 }
             }
         }
+    }
+    
+    func locationManager(_ manager:CLLocationManager, didUpdateLocations locations:[CLLocation]) {
+        
+        
+        let latitude = String(describing: manager.location?.coordinate.latitude)
+        let longitude = String(describing: manager.location?.coordinate.longitude)
+        
+        print("Lat: \(latitude) Long: \(longitude)")
+        
+        let location = CLLocation(latitude: (manager.location?.coordinate.latitude)!, longitude:(manager.location?
+            .coordinate.longitude)!)
+       
+        reverseGeocodeLocation(location: location)
+        self.locationManager.stopUpdatingLocation()
     }
     
     func reverseGeocodeLocation(location: CLLocation){
