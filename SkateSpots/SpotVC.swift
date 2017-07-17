@@ -11,6 +11,7 @@ import Firebase
 import Photos
 import CoreLocation
 import FirebaseStorage
+import AssetsLibrary
 
 class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,CLLocationManagerDelegate{
     
@@ -80,15 +81,14 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             
-            if locationString == "" {
+            //if locationString == "" {
             if(picker.sourceType == .camera){
-            
+                
                 locationManager = CLLocationManager()
                 locationManager.delegate = self
-                locationManager.desiredAccuracy = kCLLocationAccuracyNearestTenMeters //kCLLocationAccuracyBest
                 locationManager.requestAlwaysAuthorization()
-                locationManager.startUpdatingLocation()
-                
+                locationManager.requestLocation()
+    
             }else{
             
                 if let imageUrl = info[UIImagePickerControllerReferenceURL] as? NSURL{
@@ -103,7 +103,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                     }
                 }
             }
-        }
+        //}
 
             addThumbnailPhoto(count, image)
             imageSelected = true
@@ -111,9 +111,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }else{
             print("valid image wasn't selected")
         }
-        
-        
-        
     }
     
     func addThumbnailPhoto(_ count: Int,_ image: UIImage){
@@ -194,8 +191,11 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func locationManager(_ manager:CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        
-        
+        if let location = locations.first {
+            print("Found user's location: \(location)")
+            reverseGeocodeLocation(location: location)
+        }
+        /*print("running")
         let latitude = String(describing: manager.location?.coordinate.latitude)
         let longitude = String(describing: manager.location?.coordinate.longitude)
         
@@ -203,10 +203,16 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         let location = CLLocation(latitude: (manager.location?.coordinate.latitude)!, longitude:(manager.location?
             .coordinate.longitude)!)
-       
+       print(location)
         reverseGeocodeLocation(location: location)
-        self.locationManager.stopUpdatingLocation()
+        */
+       
     }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to find user's location: \(error.localizedDescription)")
+    }
+
     
     func reverseGeocodeLocation(location: CLLocation){
     
@@ -257,6 +263,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 self.locationString += country as String
             }
             
+            
         })
     
     }
@@ -276,6 +283,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         spotNameField.text = ""
         imageSelected = false
         addPhotoOne.image = UIImage(named: "black_photo_btn")
+        locationString = ""
 
     }
 }
