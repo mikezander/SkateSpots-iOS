@@ -44,6 +44,11 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
         })
   
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        viewDidLoad()
+    }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
@@ -55,6 +60,14 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
         }
         
     }
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let screenSize = UIScreen.main.bounds
+        let screenHeight = screenSize.height
+        let heightOffset:CGFloat = 140
+        return (screenHeight - heightOffset)
+    }
+    
    /* var categories = ["Action", "Drama", "Science Fiction", "Kids", "Horror"]
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
