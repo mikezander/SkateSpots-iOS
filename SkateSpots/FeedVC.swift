@@ -31,7 +31,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
             
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
                 for snap in snapshot{
-                    print("Snap:\(snap)")
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)

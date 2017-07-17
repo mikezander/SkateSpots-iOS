@@ -118,16 +118,16 @@
                                                         <constraint firstAttribute="width" constant="297" id="Fcj-Ri-XEw"/>
                                                         <constraint firstAttribute="height" constant="21" id="aps-h2-ghW"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="19"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PSS-Mw-20b">
-                                                    <rect key="frame" x="302" y="470" width="42" height="26"/>
+                                                    <rect key="frame" x="311.5" y="470" width="42" height="26"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="42" id="Ozi-Fb-E6f"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="19"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -179,8 +179,8 @@
                                                     </connections>
                                                 </collectionView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="mi" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wis-DI-UWD">
-                                                    <rect key="frame" x="344" y="470" width="21" height="26"/>
-                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="19"/>
+                                                    <rect key="frame" x="351.5" y="470" width="13.5" height="26"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
@@ -200,7 +200,7 @@
                                                 <constraint firstItem="fvM-i2-JLz" firstAttribute="leading" secondItem="Q15-SB-RDq" secondAttribute="leading" id="hvH-q7-m2m"/>
                                                 <constraint firstItem="ls1-jZ-Xa3" firstAttribute="top" secondItem="fvM-i2-JLz" secondAttribute="bottom" constant="8" id="klI-Jy-7s5"/>
                                                 <constraint firstItem="XUb-An-8cx" firstAttribute="top" secondItem="ls1-jZ-Xa3" secondAttribute="bottom" constant="8" id="p6S-vA-ZIH"/>
-                                                <constraint firstItem="Wis-DI-UWD" firstAttribute="leading" secondItem="PSS-Mw-20b" secondAttribute="trailing" id="r98-xf-9Pk"/>
+                                                <constraint firstItem="Wis-DI-UWD" firstAttribute="leading" secondItem="PSS-Mw-20b" secondAttribute="trailing" constant="-2" id="r98-xf-9Pk"/>
                                                 <constraint firstItem="XUb-An-8cx" firstAttribute="leading" secondItem="Q15-SB-RDq" secondAttribute="leadingMargin" constant="5" id="sID-FA-H9O"/>
                                                 <constraint firstItem="ls1-jZ-Xa3" firstAttribute="top" secondItem="fvM-i2-JLz" secondAttribute="bottom" constant="8" id="zg7-9Q-ThM"/>
                                             </constraints>

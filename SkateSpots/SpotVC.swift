@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import Photos
+import CoreLocation
 import FirebaseStorage
 
 class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
@@ -18,6 +19,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var count = 0
     var imageSelected = false
     var photoURLs = [String]()
+    var locationString: String = ""
 
     @IBOutlet weak var addPhotoOne: UIImageView!
     @IBOutlet weak var addPhotoTwo: UIImageView!
@@ -75,14 +77,34 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: true, completion: nil)
-        if let image = info[UIImagePickerControllerEditedImage] as? UIImage{
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             
+            if(picker.sourceType == .camera){
+            
+            }else{
+            
+                if let imageUrl = info[UIImagePickerControllerReferenceURL] as? NSURL{
+                    let asset = PHAsset.fetchAssets(withALAssetURLs:[imageUrl as URL], options: nil).firstObject as PHAsset?
+
+                    if asset?.location != nil{
+                        let location = asset?.location
+                        print(location?.coordinate as Any)
+                        print("LOC")
+                        print("\(location!)")
+                        reverseGeocodeLocation(location: location!)
+                    }
+                }
+            
+            }
+
             addThumbnailPhoto(count, image)
             imageSelected = true
             count += 1
         }else{
             print("valid image wasn't selected")
         }
+        
+        
         
     }
     
@@ -162,6 +184,59 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             }
         }
     }
+    
+    func reverseGeocodeLocation(location: CLLocation){
+    
+        let geoCoder = CLGeocoder()
+        
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+            
+            // Place details
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            
+            // Address dictionary
+            
+            print(placeMark.addressDictionary, terminator: "")
+            
+            // Location name
+            if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
+                print(locationName, terminator: "")
+            
+               // self.locationString += locationName as String
+               // self.locationString += " "
+                
+            }
+            
+            // Street address
+            if let street = placeMark.addressDictionary!["Thoroughfare"] as? NSString {
+                print(street, terminator: "")
+                print("yoo")
+            }
+            
+            // City
+            if let city = placeMark.addressDictionary!["City"] as? NSString {
+                print(city, terminator: "")
+                self.locationString += city as String
+                self.locationString += ","
+            }
+            
+            // State  // can also get Zip code. use "ZIP"
+            if let state = placeMark.addressDictionary!["State"] as? NSString {
+                print(state, terminator: "")
+                self.locationString += state as String
+                self.locationString += " "
+            }
+            
+            // Country
+            if let country = placeMark.addressDictionary!["Country"] as? NSString {
+                print(country, terminator: "")
+                self.locationString += country as String
+            }
+            
+        })
+    
+    }
 
     func postToFirebase(imgUrl: [String]){
 
@@ -169,7 +244,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         "spotName": spotNameField.text! as AnyObject,
         "imageUrls": imgUrl as AnyObject,
         "distance" : 11.1 as AnyObject,
-        "spotLocation" : "Location" as AnyObject
+        "spotLocation" : locationString as AnyObject
         ]
         
         let firebasePost = DataService.instance.REF_SPOTS.childByAutoId()
