@@ -36,7 +36,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
                         self.spots.append(spot)
-                        SpotRow.shared.spots.append(spot)
                     }
                 }
             }
@@ -53,7 +52,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
-       //performSegue(withIdentifier: "LogInVC", sender: nil)
        guard FIRAuth.auth()?.currentUser != nil else{
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
@@ -91,33 +89,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
         
         print("\(indexPath.row)\(spot.spotName)")
         cell.configureRow(spot: spot)
-        
-        return cell
-    }
-    
-  /*  func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return 1
- }
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return spots.count
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let spot = spots[indexPath.row]
 
-        let cell = spotCollectionView.dequeueReusableCell(withReuseIdentifier: "SpotCollectionView", for: indexPath) as! SpotCollectionViewCell
-        
-        if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[0] as NSString){
-            cell.configureCell(spot: spot, img: img, count: 0)
-        }else{
-            cell.configureCell(spot: spot, count: 0)
-        }
-        
         return cell
-    }*/
-
-    
+    }    
 }
 

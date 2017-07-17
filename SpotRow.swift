@@ -10,14 +10,8 @@ import UIKit
 
 class SpotRow: UITableViewCell{
     
-    
-    
-    static var shared = SpotRow()
-    
-    var spots = [Spot]()
-
     @IBOutlet weak var spotCollectionView: UICollectionView!
-
+    
     @IBOutlet weak var spotName: UILabel!
     @IBOutlet weak var spotLocation: UILabel!
     @IBOutlet weak var spotDistance: UILabel!
@@ -30,22 +24,17 @@ class SpotRow: UITableViewCell{
         self.spotLocation.text = spot.spotLocation
         self.spotDistance.text = "\(spot.distance)"
         spotCollectionView.reloadData()
-
     }
 }
 
 extension SpotRow : UICollectionViewDataSource {
     
-  
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        print("\(spot.imageUrls.count)")
         return spot.imageUrls.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-         //let spot = spots[indexPath.row]
-        
-        
+    
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! SpotPhotoCell
  
         
@@ -58,16 +47,12 @@ extension SpotRow : UICollectionViewDataSource {
             }else{
                 cell.configureCell(spot: spot, count: indexPath.row)
             }
-            
-           
+       
         }
             return cell
         }
-       
-
-    }
     
-
+    }
 
 extension SpotRow : UICollectionViewDelegateFlowLayout {
 
