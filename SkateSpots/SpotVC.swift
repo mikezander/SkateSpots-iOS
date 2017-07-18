@@ -22,6 +22,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var photoURLs = [String]()
     var locationManager = CLLocationManager()
     var locationString: String = ""
+    var location: CLLocation?
+    var locationFound = false
 
     @IBOutlet weak var addPhotoOne: UIImageView!
     @IBOutlet weak var addPhotoTwo: UIImageView!
@@ -81,7 +83,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             
-            //if locationString == "" {
+            if !locationFound {
             if(picker.sourceType == .camera){
                 
                 locationManager = CLLocationManager()
@@ -103,7 +105,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                     }
                 }
             }
-        //}
+        }
 
             addThumbnailPhoto(count, image)
             imageSelected = true
@@ -263,7 +265,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 self.locationString += country as String
             }
             
-            
+            self.locationFound = true
         })
     
     }
