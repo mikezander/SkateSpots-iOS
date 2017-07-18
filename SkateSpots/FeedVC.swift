@@ -15,6 +15,8 @@ import CoreLocation
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
     let manager = CLLocationManager()
     var myLocation = CLLocation()
+    typealias DownloadComplete = () -> ()
+    var firstSort = true
    
     @IBOutlet weak var spotTableView: UITableView!
     
@@ -67,16 +69,33 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     }
     
+   
+        
+    
+    func sortSpotsByDistance(completed: @escaping DownloadComplete){
+    
+        
+            spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
+        
+        
+        for spot in spots{
+            print(spot.spotName)
+            print(spot.location)
+        }
+        completed()
+    }
+    
+    
+    
     @IBAction func toggle(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1{
             
             manager.delegate = self
             manager.requestAlwaysAuthorization()
             manager.requestLocation()
-            spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
-            DispatchQueue.main.async {self.spotTableView.reloadData()}
         
         }else{
+            
             loadSpotsbyRecentlyUploaded()
         }
     }
@@ -85,6 +104,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         if let location = locations.first {
             print("Found MY location: \(location)")
             myLocation = location
+        }
+        sortSpotsByDistance {
+             DispatchQueue.main.async {self.spotTableView.reloadData()}
         }
     }
     
