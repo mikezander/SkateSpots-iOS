@@ -280,7 +280,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         let spot: Dictionary<String, AnyObject> = [
         "spotName": spotNameField.text! as AnyObject,
         "imageUrls": imgUrl as AnyObject,
-        "distance" : 11.1 as AnyObject,
         "spotLocation" : locationString as AnyObject,
         "latitude" : latitude as AnyObject,
         "longitude" : longitude as AnyObject

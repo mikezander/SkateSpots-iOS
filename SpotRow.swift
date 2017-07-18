@@ -15,14 +15,28 @@ class SpotRow: UITableViewCell{
     @IBOutlet weak var spotName: UILabel!
     @IBOutlet weak var spotLocation: UILabel!
     @IBOutlet weak var spotDistance: UILabel!
-    
+     @IBOutlet weak var miLabel: UILabel!
     var spot: Spot!
     
     func configureRow(spot: Spot){
+       
         self.spot = spot
         self.spotName.text = spot.spotName
         self.spotLocation.text = spot.spotLocation
-        self.spotDistance.text = "\(spot.distance)"
+        
+        if spot.distance != nil{
+            spotDistance.isHidden = false
+            miLabel.isHidden = false
+           
+            let distanceToSpot = String(format: "%.1f", spot.distance!)
+            self.spotDistance.text = distanceToSpot
+      
+        }else{
+            
+            spotDistance.isHidden = true
+            miLabel.isHidden = true
+        }
+
         spotCollectionView.reloadData()
     }
 }

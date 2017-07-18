@@ -77,10 +77,13 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
             spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
         
-        
         for spot in spots{
+            let distanceInMeters = myLocation.distance(from: spot.location)
+            let miles = distanceInMeters / 1609
             print(spot.spotName)
-            print(spot.location)
+            print(miles)
+            spot.distance = miles
+         
         }
         completed()
     }
