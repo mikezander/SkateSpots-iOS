@@ -10,12 +10,17 @@ import UIKit
 
 class SpotRow: UITableViewCell{
     
+    
+    
     @IBOutlet weak var spotCollectionView: UICollectionView!
     
     @IBOutlet weak var spotName: UILabel!
     @IBOutlet weak var spotLocation: UILabel!
     @IBOutlet weak var spotDistance: UILabel!
      @IBOutlet weak var miLabel: UILabel!
+    
+    @IBOutlet weak var pageControl: UIPageControl!
+    
     var spot: Spot!
     
     func configureRow(spot: Spot){
@@ -37,7 +42,9 @@ class SpotRow: UITableViewCell{
             miLabel.isHidden = true
         }
 
-        spotCollectionView.reloadData()
+        DispatchQueue.main.async {
+            self.spotCollectionView.reloadData()
+        }
     }
 }
 
@@ -47,11 +54,14 @@ extension SpotRow : UICollectionViewDataSource {
         return spot.imageUrls.count
     }
     
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        
+    }
+
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
     
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! SpotPhotoCell
- 
-        
+
         if indexPath.row < spot.imageUrls.count{
         
             if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
@@ -66,6 +76,8 @@ extension SpotRow : UICollectionViewDataSource {
             return cell
         }
     
+    
+    
     }
 
 extension SpotRow : UICollectionViewDelegateFlowLayout {
@@ -79,7 +91,11 @@ extension SpotRow : UICollectionViewDelegateFlowLayout {
         
         let heightOffset:CGFloat = 225
         
-        return CGSize(width: screenWidth, height: screenHeight - heightOffset)
+        return CGSize(width: screenWidth , height: screenHeight - heightOffset)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 0
     }
     
 }
