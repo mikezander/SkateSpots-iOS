@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import Photos
 
 class Spot{
     private var _spotName: String
@@ -14,6 +15,8 @@ class Spot{
     private var _distance: Float
     private var _spotLocation: String
     private var _spotKey: String!
+    private var _latitude: CLLocationDegrees
+    private var _longitude: CLLocationDegrees
     
     var spotName: String{
         return _spotName
@@ -37,11 +40,29 @@ class Spot{
         return _spotKey
     }
     
-    init(spotName: String, imageUrls: [String], distance: Float, spotLocation: String){
+    var latitude: CLLocationDegrees{
+        return _latitude
+    }
+    
+    var longitude: CLLocationDegrees{
+        return _longitude
+    }
+    
+    var location: CLLocation {
+        return CLLocation(latitude: self.latitude, longitude: self.longitude)
+    }
+    
+    func distance(to location: CLLocation) -> CLLocationDistance {
+        return location.distance(from: self.location)
+    }
+    
+    init(spotName: String, imageUrls: [String], distance: Float, spotLocation: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees){
         self._spotName = spotName
         self._imageUrls = imageUrls
         self._distance = distance
         self._spotLocation = spotLocation
+        self._latitude = latitude
+        self._longitude = longitude
     }
     
     init(spotKey: String, spotData: Dictionary<String, AnyObject>){
@@ -56,6 +77,11 @@ class Spot{
         //self._distance = spotData["distance"] as? Float ?? 0.5
 
         self._spotLocation = spotData["spotLocation"] as? String ?? "no location"
+        
+        self._latitude = spotData["latitude"] as? CLLocationDegrees ?? 0.0
+        
+        self._longitude = spotData["longitude"] as? CLLocationDegrees ?? 0.0
+         
         
         }
         

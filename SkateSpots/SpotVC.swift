@@ -24,6 +24,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var locationString: String = ""
     var location: CLLocation?
     var locationFound = false
+    var latitude: CLLocationDegrees?
+    var longitude: CLLocationDegrees?
 
     @IBOutlet weak var addPhotoOne: UIImageView!
     @IBOutlet weak var addPhotoTwo: UIImageView!
@@ -98,9 +100,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
 
                     if asset?.location != nil{
                         let location = asset?.location
-                        print(location?.coordinate as Any)
-                        print("LOC")
-                        print("\(location!)")
+                        
+                        latitude = location?.coordinate.latitude
+                        longitude = location?.coordinate.longitude
+                        
                         reverseGeocodeLocation(location: location!)
                     }
                 }
@@ -194,7 +197,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     func locationManager(_ manager:CLLocationManager, didUpdateLocations locations:[CLLocation]) {
         if let location = locations.first {
-            print("Found user's location: \(location)")
+            print("Found user's location: \(location.coordinate.latitude)")
+            latitude = location.coordinate.latitude
+            longitude = location.coordinate.longitude
             reverseGeocodeLocation(location: location)
         }
         /*print("running")
@@ -276,7 +281,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         "spotName": spotNameField.text! as AnyObject,
         "imageUrls": imgUrl as AnyObject,
         "distance" : 11.1 as AnyObject,
-        "spotLocation" : locationString as AnyObject
+        "spotLocation" : locationString as AnyObject,
+        "latitude" : latitude as AnyObject,
+        "longitude" : longitude as AnyObject
         ]
         
         let firebasePost = DataService.instance.REF_SPOTS.childByAutoId()
