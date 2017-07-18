@@ -85,7 +85,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             
-            if !locationFound {
+            if (!locationFound) && (latitude == nil) && (longitude == nil){
             if(picker.sourceType == .camera){
                 
                 locationManager = CLLocationManager()

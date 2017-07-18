@@ -10,9 +10,11 @@ import UIKit
 import Firebase
 import FirebaseAuth
 import FirebaseStorage
+import CoreLocation
 
-class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
-
+class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
+    let manager = CLLocationManager()
+    var myLocation = CLLocation()
    
     @IBOutlet weak var spotTableView: UITableView!
     
@@ -24,6 +26,27 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
         super.viewDidLoad()
 
         DispatchQueue.main.async { self.spotTableView.reloadData() }
+        
+        loadSpotsbyRecentlyUploaded()
+   
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        viewDidLoad()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+
+       guard FIRAuth.auth()?.currentUser != nil else{
+            performSegue(withIdentifier: "LogInVC", sender: nil)
+            return
+        }
+        
+    }
+    
+    func loadSpotsbyRecentlyUploaded(){
         
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
@@ -41,22 +64,32 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate{
             }
             DispatchQueue.main.async { self.spotTableView.reloadData() }
         })
-  
+    
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        viewDidLoad()
-    }
-
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
-
-       guard FIRAuth.auth()?.currentUser != nil else{
-            performSegue(withIdentifier: "LogInVC", sender: nil)
-            return
-        }
+    @IBAction func toggle(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 1{
+            
+            manager.delegate = self
+            manager.requestAlwaysAuthorization()
+            manager.requestLocation()
+            spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
+            DispatchQueue.main.async {self.spotTableView.reloadData()}
         
+        }else{
+            loadSpotsbyRecentlyUploaded()
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            print("Found MY location: \(location)")
+            myLocation = location
+        }
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to find MY location: \(error.localizedDescription)")
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
