@@ -90,7 +90,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 
                 locationManager = CLLocationManager()
                 locationManager.delegate = self
-                locationManager.requestAlwaysAuthorization()
+                locationManager.requestWhenInUseAuthorization()
                 locationManager.requestLocation()
     
             }else{

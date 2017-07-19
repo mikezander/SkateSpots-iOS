@@ -80,8 +80,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         for spot in spots{
             let distanceInMeters = myLocation.distance(from: spot.location)
             let miles = distanceInMeters / 1609
-            print(spot.spotName)
-            print(miles)
             spot.distance = miles
          
         }
@@ -94,7 +92,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         if sender.selectedSegmentIndex == 1{
             
             manager.delegate = self
-            manager.requestAlwaysAuthorization()
+            manager.requestWhenInUseAuthorization()
             manager.requestLocation()
         
         }else{

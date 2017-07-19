@@ -9,9 +9,7 @@
 import UIKit
 
 class SpotRow: UITableViewCell{
-    
-    
-    
+
     @IBOutlet weak var spotCollectionView: UICollectionView!
     
     @IBOutlet weak var spotName: UILabel!
@@ -44,7 +42,6 @@ class SpotRow: UITableViewCell{
 
         DispatchQueue.main.async {
             self.spotCollectionView.reloadData()
-            
         }
     }
 }
@@ -52,14 +49,14 @@ class SpotRow: UITableViewCell{
 extension SpotRow : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        self.pageControl.numberOfPages = spot.imageUrls.count
+        pageControl.numberOfPages = spot.imageUrls.count
         return spot.imageUrls.count
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         pageControl.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
-        self.pageControl.hidesForSinglePage = true
-        self.pageControl.currentPage = indexPath.row
+        pageControl.hidesForSinglePage = true
+        pageControl.currentPage = indexPath.row
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -79,9 +76,6 @@ extension SpotRow : UICollectionViewDataSource {
         }
             return cell
         }
-    
-    
-    
     }
 
 extension SpotRow : UICollectionViewDelegateFlowLayout {

@@ -40,5 +40,7 @@
 	</array>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>we need location access</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We need location access</string>
 </dict>
 </plist>
