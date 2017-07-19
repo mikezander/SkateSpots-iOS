@@ -9,6 +9,7 @@
 import UIKit
 import MapKit
 import Firebase
+import Contacts
 
 class MapVC: UIViewController {
     
@@ -46,13 +47,13 @@ class MapVC: UIViewController {
                                                      locationName: spot.spotLocation,
                                                      coordinate: CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude))
                         self.spotPins.append(spotPin)
-                        self.mapView.addAnnotation(spotPin)
+                        //self.mapView.addAnnotation(spotPin)
                         
                     }
                 }
             }
 
-            //self.mapView.addAnnotations(self.spotPins)
+            self.mapView.addAnnotations(self.spotPins)
         })
     
     }
@@ -63,23 +64,22 @@ class MapVC: UIViewController {
                                                                   regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
-
+   
 }
 
 extension MapVC: MKMapViewDelegate {
-    // 1
+   
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        // 2
+        
         guard let annotation = annotation as? SpotPin else { return nil }
-        // 3
+        
         let identifier = "pin"
         var view: MKPinAnnotationView
-        // 4
+        
         if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
             dequeuedView.annotation = annotation
             view = dequeuedView
         } else {
-            // 5
             view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
@@ -87,4 +87,13 @@ extension MapVC: MKMapViewDelegate {
         }
         return view
     }
+
+    func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
+                 calloutAccessoryControlTapped control: UIControl) {
+        
+        let location = view.annotation as! SpotPin
+        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+        location.mapItem().openInMaps(launchOptions: launchOptions)
+    }
+    
 }
