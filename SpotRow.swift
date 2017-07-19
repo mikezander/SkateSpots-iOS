@@ -44,6 +44,7 @@ class SpotRow: UITableViewCell{
 
         DispatchQueue.main.async {
             self.spotCollectionView.reloadData()
+            
         }
     }
 }
@@ -51,11 +52,14 @@ class SpotRow: UITableViewCell{
 extension SpotRow : UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        self.pageControl.numberOfPages = spot.imageUrls.count
         return spot.imageUrls.count
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        
+        pageControl.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+        self.pageControl.hidesForSinglePage = true
+        self.pageControl.currentPage = indexPath.row
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -63,7 +67,7 @@ extension SpotRow : UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! SpotPhotoCell
 
         if indexPath.row < spot.imageUrls.count{
-        
+  
             if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
                 print(indexPath.row)
                 

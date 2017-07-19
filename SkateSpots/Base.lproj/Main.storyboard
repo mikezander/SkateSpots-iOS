@@ -188,13 +188,20 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="qke-fg-tf4">
-                                                    <rect key="frame" x="168" y="422" width="39" height="37"/>
+                                                    <rect key="frame" x="185" y="433" width="5" height="5"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="5" id="GYB-dB-fjo"/>
+                                                        <constraint firstAttribute="width" constant="5" id="kNV-lK-OON"/>
+                                                    </constraints>
+                                                    <color key="pageIndicatorTintColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                                    <color key="currentPageIndicatorTintColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                                 </pageControl>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstAttribute="trailing" secondItem="fvM-i2-JLz" secondAttribute="trailing" id="07h-iE-yX0"/>
                                                 <constraint firstItem="Wis-DI-UWD" firstAttribute="top" secondItem="ls1-jZ-Xa3" secondAttribute="bottom" constant="5" id="0hs-O9-vto"/>
                                                 <constraint firstItem="XUb-An-8cx" firstAttribute="top" secondItem="ls1-jZ-Xa3" secondAttribute="bottom" constant="8" id="15c-Wb-nBQ"/>
+                                                <constraint firstItem="ls1-jZ-Xa3" firstAttribute="top" secondItem="qke-fg-tf4" secondAttribute="bottom" constant="6" id="8H6-Nb-v78"/>
                                                 <constraint firstItem="qke-fg-tf4" firstAttribute="centerX" secondItem="Q15-SB-RDq" secondAttribute="centerX" id="Apb-Hu-Ijz"/>
                                                 <constraint firstItem="PSS-Mw-20b" firstAttribute="top" secondItem="ls1-jZ-Xa3" secondAttribute="bottom" constant="5" id="HJl-cR-RAq"/>
                                                 <constraint firstAttribute="trailing" secondItem="Wis-DI-UWD" secondAttribute="trailing" constant="10" id="LLs-K3-0qT"/>
@@ -202,7 +209,6 @@
                                                 <constraint firstItem="fvM-i2-JLz" firstAttribute="top" secondItem="Q15-SB-RDq" secondAttribute="top" id="Sih-wo-To1"/>
                                                 <constraint firstItem="ls1-jZ-Xa3" firstAttribute="leading" secondItem="Q15-SB-RDq" secondAttribute="leadingMargin" id="bDE-fj-Fzc"/>
                                                 <constraint firstItem="ls1-jZ-Xa3" firstAttribute="trailing" secondItem="Q15-SB-RDq" secondAttribute="trailingMargin" id="cdI-ti-XVI"/>
-                                                <constraint firstItem="ls1-jZ-Xa3" firstAttribute="top" secondItem="qke-fg-tf4" secondAttribute="bottom" constant="-15" id="cx4-XY-4y1"/>
                                                 <constraint firstAttribute="bottom" secondItem="PSS-Mw-20b" secondAttribute="bottom" constant="6.6699999999999999" id="dqj-6R-kNe"/>
                                                 <constraint firstAttribute="bottom" secondItem="Wis-DI-UWD" secondAttribute="bottom" constant="6.6699999999999999" id="hmz-86-ULw"/>
                                                 <constraint firstItem="fvM-i2-JLz" firstAttribute="leading" secondItem="Q15-SB-RDq" secondAttribute="leading" id="hvH-q7-m2m"/>
