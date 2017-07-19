@@ -33,7 +33,7 @@
         <!--MapVC-->
         <scene sceneID="isv-SK-1l9">
             <objects>
-                <viewController id="1At-Cb-vgb" customClass="MapVC" customModule="SkateSpots" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="MapVC" id="1At-Cb-vgb" customClass="MapVC" customModule="SkateSpots" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="2iN-3E-R60"/>
                         <viewControllerLayoutGuide type="bottom" id="nps-CI-G4s"/>
@@ -117,7 +117,7 @@
                                         <rect key="frame" x="0.0" y="28" width="375" height="503"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9FZ-wn-ttt" id="Q15-SB-RDq">
-                                            <rect key="frame" x="0.0" y="0.0" width="375" height="502"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="503"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUb-An-8cx">

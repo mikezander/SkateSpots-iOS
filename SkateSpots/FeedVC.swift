@@ -13,6 +13,7 @@ import FirebaseStorage
 import CoreLocation
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
+    
     let manager = CLLocationManager()
     var myLocation = CLLocation()
     typealias DownloadComplete = () -> ()
@@ -149,4 +150,17 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         return cell
     }    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
 

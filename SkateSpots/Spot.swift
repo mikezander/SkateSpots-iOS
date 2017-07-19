@@ -10,10 +10,10 @@ import Foundation
 import Photos
 
 class Spot{
+
     private var _spotName: String
     private var _imageUrls: [String]
     private var _distance: Double?
-    //private var _distance: Float
     private var _spotLocation: String
     private var _spotKey: String!
     private var _latitude: CLLocationDegrees
@@ -63,7 +63,6 @@ class Spot{
     init(spotName: String, imageUrls: [String], spotLocation: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees){
         self._spotName = spotName
         self._imageUrls = imageUrls
-        //self._distance = distance
         self._spotLocation = spotLocation
         self._latitude = latitude
         self._longitude = longitude
@@ -75,12 +74,7 @@ class Spot{
         self._spotName = spotData["spotName"] as? String ?? "no name"
         
         self._imageUrls = spotData["imageUrls"] as? [String] ?? ["https://firebasestorage.googleapis.com/v0/b/sk8spots-b8769.appspot.com/o/post-pics%2F5550AA22-D70E-4403-9984-04BC59ED20E7?alt=media&token=24569b8c-f796-426b-b468-29841252baaf"]
-        
-        //self._distance = spotData["distance"] as? Double ?? 0.0
-        
-        //let distanceNum = spotData["distance"] as? NSNumber ?? NSNumber(floatLiteral: 0.5)
-        //self._distance = distanceNum.floatValue
-        //self._distance = spotData["distance"] as? Float ?? 0.5
+
 
         self._spotLocation = spotData["spotLocation"] as? String ?? "no location"
         

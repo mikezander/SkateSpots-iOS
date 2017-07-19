@@ -17,6 +17,7 @@
 		C41D8B311F0F38E0009C174C /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B301F0F38E0009C174C /* Spot.swift */; };
 		C41D8B351F11431C009C174C /* SpotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B341F11431C009C174C /* SpotVC.swift */; };
 		C4433E6A1F1FB82600B00002 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4433E691F1FB82600B00002 /* MapVC.swift */; };
+		C4433E6C1F1FBC5200B00002 /* SpotPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4433E6B1F1FBC5200B00002 /* SpotPin.swift */; };
 		C4B0C5491F0D7B78004B6923 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */; };
 		C4B0C54B1F0D7B78004B6923 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0C54A1F0D7B78004B6923 /* FeedVC.swift */; };
 		C4B0C54E1F0D7B78004B6923 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4B0C54C1F0D7B78004B6923 /* Main.storyboard */; };
@@ -39,6 +40,7 @@
 		C41D8B301F0F38E0009C174C /* Spot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		C41D8B341F11431C009C174C /* SpotVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotVC.swift; sourceTree = "<group>"; };
 		C4433E691F1FB82600B00002 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		C4433E6B1F1FBC5200B00002 /* SpotPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPin.swift; sourceTree = "<group>"; };
 		C4B0C5451F0D7B78004B6923 /* SkateSpots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkateSpots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4B0C54A1F0D7B78004B6923 /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
@@ -114,6 +116,7 @@
 			isa = PBXGroup;
 			children = (
 				C41D8B301F0F38E0009C174C /* Spot.swift */,
+				C4433E6B1F1FBC5200B00002 /* SpotPin.swift */,
 			);
 			name = Model;
 			sourceTree = "<group>";
@@ -285,6 +288,7 @@
 				C4128C3A1F0EAF290058628D /* RoundTextField.swift in Sources */,
 				C4B0C5491F0D7B78004B6923 /* AppDelegate.swift in Sources */,
 				C41D8B2A1F0ED23A009C174C /* AuthService.swift in Sources */,
+				C4433E6C1F1FBC5200B00002 /* SpotPin.swift in Sources */,
 				C4E36FD21F1A7F23000ABF4D /* SpotRow.swift in Sources */,
 				C41D8B271F0ECB12009C174C /* LogInVC.swift in Sources */,
 				C41D8B311F0F38E0009C174C /* Spot.swift in Sources */,
