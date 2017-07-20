@@ -35,6 +35,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var bankBtn: UIButton!
     @IBOutlet weak var trannyBtn: UIButton!
     @IBOutlet weak var otherBtn: UIButton!
+    @IBOutlet weak var bustLabel: UILabel!
     
  
     var imagePicker: UIImagePickerController!
@@ -84,19 +85,31 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         addPhotoFour.addGestureRecognizer(setGestureRecognizer())
         
     }
+ 
     
-    override func viewWillAppear(_ animated: Bool) {
-       
+    @IBAction func bustSlider(_ sender: UISlider) {
+        bustLabel.text = String(Int(sender.value))
     }
-    
     
     @IBAction func SpotTypePressed(_ sender: UIButton) {
         
         if sender.backgroundColor == UIColor.clear{
-        
             switch sender.tag {
-        case 0,1,2,3,4,5,6,7: sender.backgroundColor = UIColor.black
-        sender.setTitleColor(.white, for: .normal)
+        case 0,1,2,3,4,5,6:
+            sender.backgroundColor = UIColor.black
+            sender.setTitleColor(.white, for: .normal)
+        case 7:
+            sender.backgroundColor = UIColor.black
+            sender.setTitleColor(.white, for: .normal)
+
+            disableButtonForTypeOther(btn: ledgeBtn)
+            disableButtonForTypeOther(btn: railBtn)
+            disableButtonForTypeOther(btn: gapBtn)
+            disableButtonForTypeOther(btn: bumpBtn)
+            disableButtonForTypeOther(btn: mannyBtn)
+            disableButtonForTypeOther(btn: bankBtn)
+            disableButtonForTypeOther(btn: trannyBtn)
+                
         default: break
        
             }
@@ -104,12 +117,31 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }else{
         
             switch sender.tag {
-            case 0,1,2,3,4,5,6,7: sender.backgroundColor = UIColor.clear
-            sender.setTitleColor(.black, for: .normal)
+            case 0,1,2,3,4,5,6:
+                sender.backgroundColor = UIColor.clear
+                sender.setTitleColor(.black, for: .normal)
+            case 7:
+                sender.backgroundColor = UIColor.clear
+                sender.setTitleColor(.black, for: .normal)
+                
+                ledgeBtn.isEnabled = true
+                railBtn.isEnabled = true
+                gapBtn.isEnabled = true
+                bumpBtn.isEnabled = true
+                mannyBtn.isEnabled = true
+                bankBtn.isEnabled = true
+                trannyBtn.isEnabled = true
+            
             default: break
                 
             }
         }
+    }
+    
+    func disableButtonForTypeOther(btn: UIButton){
+        btn.backgroundColor = UIColor.clear
+        btn.setTitleColor(.black, for: .normal)
+        btn.isEnabled = false
     }
     
     func addImagePressed(sender: UITapGestureRecognizer) {
