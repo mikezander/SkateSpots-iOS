@@ -16,6 +16,9 @@ import AssetsLibrary
 class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,CLLocationManagerDelegate{
     
     @IBOutlet weak var spotNameField: UITextField!
+    @IBOutlet weak var descriptionTextView: UITextView!
+    
+    
     var imagePicker: UIImagePickerController!
     var count = 0
     var imageSelected = false
@@ -35,6 +38,16 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        spotNameField.delegate = self
+        spotNameField.layer.cornerRadius = 0.0
+        spotNameField.layer.borderWidth = 2.0
+        //spotNameField.layer.borderColor = UIColor.black.cgColor
+        
+        descriptionTextView.delegate = self
+        descriptionTextView.text = "Spot Description"
+        descriptionTextView.textColor = UIColor.lightGray
+        descriptionTextView.layer.borderWidth = 2.0
+        
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
@@ -47,7 +60,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         addPhotoFour.addGestureRecognizer(setGestureRecognizer())
         
     }
-    
+ 
     func addImagePressed(sender: UITapGestureRecognizer) {
         
         showPhotoActionSheet()
@@ -282,4 +295,42 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         locationString = ""
 
     }
+}
+extension SpotVC: UITextFieldDelegate, UITextViewDelegate{
+ 
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { // test to make sure it works
+        self.view.endEditing(true)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        //spotNameField.
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
+    }
+ 
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if descriptionTextView.textColor == UIColor.lightGray {
+            descriptionTextView.text = nil
+            descriptionTextView.textColor = UIColor.black
+        }
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if descriptionTextView.text.isEmpty {
+            descriptionTextView.text = "Spot Description"
+            descriptionTextView.textColor = UIColor.lightGray
+        }
+    }
+
 }
