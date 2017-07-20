@@ -328,14 +328,36 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
 
     @IBAction func toggleSpotType(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 0{
-            UIView.animate(withDuration: 2.0, animations: {
-               
-            })
+        if sender.selectedSegmentIndex == 1{
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.ledgeBtn.center.x -= self.view.bounds.width
+                    self.railBtn.center.x -= self.view.bounds.width
+                    self.gapBtn.center.x -= self.view.bounds.width
+                    self.bumpBtn.center.x -= self.view.bounds.width
+                    self.mannyBtn.center.x -= self.view.bounds.width
+                    self.bankBtn.center.x -= self.view.bounds.width
+                    self.trannyBtn.center.x -= self.view.bounds.width
+                    self.otherBtn.center.x -= self.view.bounds.width
+                    
+                })
+            }
             
         }else{
         
-        
+            DispatchQueue.main.async {
+                UIView.animate(withDuration: 0.5, animations: {
+                    self.ledgeBtn.center.x += self.view.bounds.width
+                    self.railBtn.center.x += self.view.bounds.width
+                    self.gapBtn.center.x += self.view.bounds.width
+                    self.bumpBtn.center.x += self.view.bounds.width
+                    self.mannyBtn.center.x += self.view.bounds.width
+                    self.bankBtn.center.x += self.view.bounds.width
+                    self.trannyBtn.center.x += self.view.bounds.width
+                    self.otherBtn.center.x += self.view.bounds.width
+                })
+            }
+            
         }
     }
 
