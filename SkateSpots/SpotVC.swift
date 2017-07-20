@@ -24,6 +24,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     @IBOutlet weak var spotNameField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
+    @IBOutlet weak var SpotTypeControl: UISegmentedControl!
     
     
 
@@ -47,21 +48,13 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var locationFound = false
     var latitude: CLLocationDegrees?
     var longitude: CLLocationDegrees?
+    var spotType: String = ""
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
-        /*ledgeBtn.layer.borderWidth = 1.0
-        railBtn.layer.borderWidth = 1.0
-        gapBtn.layer.borderWidth = 1.0
-        bumpBtn.layer.borderWidth = 1.0
-        mannyBtn.layer.borderWidth = 1.0
-        bankBtn.layer.borderWidth = 1.0
-        trannyBtn.layer.borderWidth = 1.0
-        otherBtn.layer.borderWidth = 1.0*/
-    
         spotNameField.delegate = self
         spotNameField.layer.cornerRadius = 0.0
         spotNameField.layer.borderWidth = 1.5
@@ -96,34 +89,35 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         if sender.backgroundColor == UIColor.clear{
             switch sender.tag {
         case 0,1,2,3,4,5,6:
+            sender.isSelected = true
             sender.backgroundColor = UIColor.black
             sender.setTitleColor(.white, for: .normal)
+            
         case 7:
+            sender.isSelected = true
             sender.backgroundColor = UIColor.black
             sender.setTitleColor(.white, for: .normal)
-
-            disableButtonForTypeOther(btn: ledgeBtn)
-            disableButtonForTypeOther(btn: railBtn)
-            disableButtonForTypeOther(btn: gapBtn)
-            disableButtonForTypeOther(btn: bumpBtn)
-            disableButtonForTypeOther(btn: mannyBtn)
-            disableButtonForTypeOther(btn: bankBtn)
-            disableButtonForTypeOther(btn: trannyBtn)
-                
+            disableButtonsForTypeOther(btn: ledgeBtn)
+            disableButtonsForTypeOther(btn: railBtn)
+            disableButtonsForTypeOther(btn: gapBtn)
+            disableButtonsForTypeOther(btn: bumpBtn)
+            disableButtonsForTypeOther(btn: mannyBtn)
+            disableButtonsForTypeOther(btn: bankBtn)
+            disableButtonsForTypeOther(btn: trannyBtn)
         default: break
+            } //end switch
        
-            }
-        
         }else{
-        
+           
             switch sender.tag {
             case 0,1,2,3,4,5,6:
+                sender.isSelected = false
                 sender.backgroundColor = UIColor.clear
                 sender.setTitleColor(.black, for: .normal)
             case 7:
+                sender.isSelected = false
                 sender.backgroundColor = UIColor.clear
                 sender.setTitleColor(.black, for: .normal)
-                
                 ledgeBtn.isEnabled = true
                 railBtn.isEnabled = true
                 gapBtn.isEnabled = true
@@ -134,18 +128,17 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             
             default: break
                 
-            }
+            }//end switch
         }
     }
     
-    func disableButtonForTypeOther(btn: UIButton){
+    func disableButtonsForTypeOther(btn: UIButton){
         btn.backgroundColor = UIColor.clear
         btn.setTitleColor(.black, for: .normal)
         btn.isEnabled = false
     }
     
     func addImagePressed(sender: UITapGestureRecognizer) {
-        
         showPhotoActionSheet()
     }
     
@@ -239,6 +232,29 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         guard let defaultImg = addPhotoOne.image, imageSelected == true else{
             print("a default image must be selected")
             return
+        }
+        
+        if SpotTypeControl.selectedSegmentIndex == 0{
+            
+            if !ledgeBtn.isSelected && !railBtn.isSelected && !gapBtn.isSelected && !mannyBtn.isSelected
+                && !bumpBtn.isSelected && !trannyBtn.isSelected && !bankBtn.isSelected && !otherBtn.isSelected{
+            
+                print("A SpotType must be selected!!")
+            }
+            
+            if ledgeBtn.isSelected { spotType += "Ledges" }
+            if railBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Rail" }
+            if gapBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Stairs/Gap" }
+            if bumpBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Bump" }
+            if mannyBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Manual" }
+            if bankBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Bank" }
+            if trannyBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Tranny" }
+            if otherBtn.isSelected { spotType += "Other" }
+
+        
+        }else{
+    
+            spotType += "Skatepark"
         }
         
         addPhotosToStorage(image: defaultImg, true)
@@ -399,6 +415,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         "spotName": spotNameField.text! as AnyObject,
         "imageUrls": imgUrl as AnyObject,
         "spotLocation" : locationString as AnyObject,
+        "spotType": spotType as AnyObject,
         "latitude" : latitude as AnyObject,
         "longitude" : longitude as AnyObject
         ]
@@ -410,6 +427,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         imageSelected = false
         addPhotoOne.image = UIImage(named: "black_photo_btn")
         locationString = ""
+        spotType = ""
 
     }
 }
