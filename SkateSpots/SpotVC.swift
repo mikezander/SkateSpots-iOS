@@ -14,15 +14,20 @@ import FirebaseStorage
 import AssetsLibrary
 
 class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,CLLocationManagerDelegate{
+
+    var photoURLs = [String]()
+    
+    @IBOutlet weak var addPhotoOne: UIImageView!
+    @IBOutlet weak var addPhotoTwo: UIImageView!
+    @IBOutlet weak var addPhotoThree: UIImageView!
+    @IBOutlet weak var addPhotoFour: UIImageView!
     
     @IBOutlet weak var spotNameField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     
-    
     var imagePicker: UIImagePickerController!
     var count = 0
     var imageSelected = false
-    var photoURLs = [String]()
     var locationManager = CLLocationManager()
     var locationString: String = ""
     var location: CLLocation?
@@ -30,23 +35,21 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var latitude: CLLocationDegrees?
     var longitude: CLLocationDegrees?
 
-    @IBOutlet weak var addPhotoOne: UIImageView!
-    @IBOutlet weak var addPhotoTwo: UIImageView!
-    @IBOutlet weak var addPhotoThree: UIImageView!
-    @IBOutlet weak var addPhotoFour: UIImageView!
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        
         spotNameField.delegate = self
         spotNameField.layer.cornerRadius = 0.0
-        spotNameField.layer.borderWidth = 2.0
-        //spotNameField.layer.borderColor = UIColor.black.cgColor
+        spotNameField.layer.borderWidth = 1.5
         
         descriptionTextView.delegate = self
         descriptionTextView.text = "Spot Description"
+        descriptionTextView.textContainer.maximumNumberOfLines = 4
+        descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
         descriptionTextView.textColor = UIColor.lightGray
-        descriptionTextView.layer.borderWidth = 2.0
+        descriptionTextView.layer.borderWidth = 1.5
         
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
@@ -60,6 +63,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         addPhotoFour.addGestureRecognizer(setGestureRecognizer())
         
     }
+    
  
     func addImagePressed(sender: UITapGestureRecognizer) {
         
@@ -297,23 +301,23 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
 }
 extension SpotVC: UITextFieldDelegate, UITextViewDelegate{
- 
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) { // test to make sure it works
-        self.view.endEditing(true)
-    }
-    
-    func textFieldDidBeginEditing(_ textField: UITextField) {
-        //spotNameField.
-    }
-    
+
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
     }
     
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        spotNameField.layer.borderColor = UIColor.green.cgColor
+    }
+    func textFieldDidEndEditing(_ textField: UITextField) {
+       spotNameField.layer.borderColor = UIColor.black.cgColor
+    }
+    
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        if(text == "\n") {
-            textView.resignFirstResponder()
+        if text == "\n" {
+            descriptionTextView.resignFirstResponder()
+            descriptionTextView.layer.borderColor = UIColor.black.cgColor
             return false
         }
         return true
@@ -324,6 +328,7 @@ extension SpotVC: UITextFieldDelegate, UITextViewDelegate{
             descriptionTextView.text = nil
             descriptionTextView.textColor = UIColor.black
         }
+        descriptionTextView.layer.borderColor = UIColor.green.cgColor
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
@@ -331,6 +336,8 @@ extension SpotVC: UITextFieldDelegate, UITextViewDelegate{
             descriptionTextView.text = "Spot Description"
             descriptionTextView.textColor = UIColor.lightGray
         }
+        descriptionTextView.layer.borderColor = UIColor.black.cgColor
+        
     }
 
 }
