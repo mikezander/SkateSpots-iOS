@@ -26,8 +26,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var descriptionTextView: UITextView!
     
     
-    @IBOutlet weak var ledgeBtn: UIStackView!
-    @IBOutlet weak var railBtn: UIStackView!
+
+    @IBOutlet weak var ledgeBtn: UIButton!
+    @IBOutlet weak var railBtn: UIButton!
     @IBOutlet weak var gapBtn: UIButton!
     @IBOutlet weak var bumpBtn: UIButton!
     @IBOutlet weak var mannyBtn: UIButton!
@@ -51,6 +52,15 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
+        /*ledgeBtn.layer.borderWidth = 1.0
+        railBtn.layer.borderWidth = 1.0
+        gapBtn.layer.borderWidth = 1.0
+        bumpBtn.layer.borderWidth = 1.0
+        mannyBtn.layer.borderWidth = 1.0
+        bankBtn.layer.borderWidth = 1.0
+        trannyBtn.layer.borderWidth = 1.0
+        otherBtn.layer.borderWidth = 1.0*/
+    
         spotNameField.delegate = self
         spotNameField.layer.cornerRadius = 0.0
         spotNameField.layer.borderWidth = 1.5

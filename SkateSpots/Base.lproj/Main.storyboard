@@ -361,32 +361,48 @@
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13w-iY-qqn">
                                                         <rect key="frame" x="0.0" y="0.0" width="77.5" height="30"/>
-                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Ledges"/>
+                                                        <state key="normal" title="Ledges">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="xey-CU-95G"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S37-gd-NbN">
                                                         <rect key="frame" x="82.5" y="0.0" width="77.5" height="30"/>
-                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Rail"/>
+                                                        <state key="normal" title="Rail">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="cYC-ts-fgK"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfi-5t-gBL">
                                                         <rect key="frame" x="165" y="0.0" width="77.5" height="30"/>
-                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Stairs/Gap"/>
+                                                        <state key="normal" title="Stairs/Gap">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="UsU-44-32w"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Pi-Tx-XP6">
                                                         <rect key="frame" x="247.5" y="0.0" width="77.5" height="30"/>
-                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Bump"/>
+                                                        <state key="normal" title="Bump">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="8zt-Gc-thT"/>
                                                         </connections>
@@ -398,32 +414,48 @@
                                                 <subviews>
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="be9-d4-NQU">
                                                         <rect key="frame" x="0.0" y="0.0" width="77.5" height="30"/>
-                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Manual"/>
+                                                        <state key="normal" title="Manual">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="ddb-8P-sxv"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qb7-bj-Tj4">
                                                         <rect key="frame" x="82.5" y="0.0" width="77.5" height="30"/>
-                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Bank"/>
+                                                        <state key="normal" title="Bank">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="ddp-Oh-9sc"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSh-53-QEk">
                                                         <rect key="frame" x="165" y="0.0" width="77.5" height="30"/>
-                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Tranny"/>
+                                                        <state key="normal" title="Tranny">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="Miz-6v-hjg"/>
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sHE-Az-vI2">
                                                         <rect key="frame" x="247.5" y="0.0" width="77.5" height="30"/>
-                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
-                                                        <state key="normal" title="Other"/>
+                                                        <state key="normal" title="Other">
+                                                            <color key="titleColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        </state>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                        </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="Nlr-KW-Zxa"/>
                                                         </connections>
@@ -494,10 +526,10 @@
                         <outlet property="bumpBtn" destination="5Pi-Tx-XP6" id="FfH-fl-6dq"/>
                         <outlet property="descriptionTextView" destination="jlf-G9-Oos" id="xQO-Qf-xmv"/>
                         <outlet property="gapBtn" destination="xfi-5t-gBL" id="vtO-9O-OfE"/>
-                        <outlet property="ledgeBtn" destination="cZ2-l6-Oiv" id="mew-Wl-iXg"/>
+                        <outlet property="ledgeBtn" destination="13w-iY-qqn" id="py7-7d-nez"/>
                         <outlet property="mannyBtn" destination="be9-d4-NQU" id="v5G-nJ-125"/>
                         <outlet property="otherBtn" destination="sHE-Az-vI2" id="aiv-Cg-fwj"/>
-                        <outlet property="railBtn" destination="cZ2-l6-Oiv" id="iHz-oQ-mrK"/>
+                        <outlet property="railBtn" destination="S37-gd-NbN" id="dOA-hx-LHO"/>
                         <outlet property="spotNameField" destination="dqE-Dh-VFK" id="z0w-E7-TaH"/>
                         <outlet property="trannyBtn" destination="qSh-53-QEk" id="Vq5-DX-PGO"/>
                         <segue destination="c2b-5P-XCM" kind="show" identifier="backToFeedVC" id="nUf-Hb-h8K"/>
