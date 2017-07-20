@@ -335,10 +335,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                     self.railBtn.center.x -= self.view.bounds.width
                     self.gapBtn.center.x -= self.view.bounds.width
                     self.bumpBtn.center.x -= self.view.bounds.width
-                    self.mannyBtn.center.x -= self.view.bounds.width
-                    self.bankBtn.center.x -= self.view.bounds.width
-                    self.trannyBtn.center.x -= self.view.bounds.width
-                    self.otherBtn.center.x -= self.view.bounds.width
+                    self.mannyBtn.center.x += self.view.bounds.width
+                    self.bankBtn.center.x += self.view.bounds.width
+                    self.trannyBtn.center.x += self.view.bounds.width
+                    self.otherBtn.center.x += self.view.bounds.width
                     
                 })
             }
@@ -351,10 +351,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                     self.railBtn.center.x += self.view.bounds.width
                     self.gapBtn.center.x += self.view.bounds.width
                     self.bumpBtn.center.x += self.view.bounds.width
-                    self.mannyBtn.center.x += self.view.bounds.width
-                    self.bankBtn.center.x += self.view.bounds.width
-                    self.trannyBtn.center.x += self.view.bounds.width
-                    self.otherBtn.center.x += self.view.bounds.width
+                    self.mannyBtn.center.x -= self.view.bounds.width
+                    self.bankBtn.center.x -= self.view.bounds.width
+                    self.trannyBtn.center.x -= self.view.bounds.width
+                    self.otherBtn.center.x -= self.view.bounds.width
                 })
             }
             
