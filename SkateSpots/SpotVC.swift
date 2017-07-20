@@ -91,17 +91,24 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     
     @IBAction func SpotTypePressed(_ sender: UIButton) {
-        switch sender.tag {
-        case 0: print("ledge pressed")
-        case 1: print("rail pressed")
-        case 2: print("Gap pressed")
-        case 3: print("Bump pressed")
-        case 4: print("Manual pressed")
-        case 5: print("bank pressed")
-        case 6: print("tranny pressed")
-        case 7: print("other pressed")
+        
+        if sender.backgroundColor == UIColor.clear{
+        
+            switch sender.tag {
+        case 0,1,2,3,4,5,6,7: sender.backgroundColor = UIColor.black
+        sender.setTitleColor(.white, for: .normal)
         default: break
-            
+       
+            }
+        
+        }else{
+        
+            switch sender.tag {
+            case 0,1,2,3,4,5,6,7: sender.backgroundColor = UIColor.clear
+            sender.setTitleColor(.black, for: .normal)
+            default: break
+                
+            }
         }
     }
     
