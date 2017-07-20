@@ -290,46 +290,6 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="gFc-LK-9H2" userLabel="contentView">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                                         <subviews>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="ZBX-2l-2KL">
-                                                <rect key="frame" x="30" y="75" width="315" height="80"/>
-                                                <subviews>
-                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black_photo_btn" translatesAutoresizingMaskIntoConstraints="NO" id="cAd-P2-feA">
-                                                        <rect key="frame" x="0.0" y="0.0" width="75" height="80"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="75" id="fCi-Px-pDS"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black_photo_btn" translatesAutoresizingMaskIntoConstraints="NO" id="adq-sF-pq4">
-                                                        <rect key="frame" x="80" y="0.0" width="75" height="80"/>
-                                                        <gestureRecognizers/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="75" id="FIJ-9c-AkH"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black_photo_btn" translatesAutoresizingMaskIntoConstraints="NO" id="bx1-iG-r4r">
-                                                        <rect key="frame" x="160" y="0.0" width="75" height="80"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="75" id="V0d-Fe-D9c"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black_photo_btn" translatesAutoresizingMaskIntoConstraints="NO" id="n4v-i8-AGB">
-                                                        <rect key="frame" x="240" y="0.0" width="75" height="80"/>
-                                                        <constraints>
-                                                            <constraint firstAttribute="width" constant="75" id="W49-mP-AIk"/>
-                                                        </constraints>
-                                                    </imageView>
-                                                </subviews>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="315" id="3PC-Vy-Hp6"/>
-                                                    <constraint firstAttribute="height" constant="80" id="xmc-Zv-kMs"/>
-                                                </constraints>
-                                            </stackView>
-                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dqE-Dh-VFK">
-                                                <rect key="frame" x="30" y="211" width="315" height="30"/>
-                                                <nil key="textColor"/>
-                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
-                                            </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-Lv-yrJ">
                                                 <rect key="frame" x="164" y="485" width="46" height="30"/>
                                                 <constraints>
@@ -340,18 +300,55 @@
                                                     <action selector="addSpotPressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="7ep-CG-qvp"/>
                                                 </connections>
                                             </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4dD-eT-UE9">
+                                                <rect key="frame" x="25" y="75" width="325" height="80"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black_photo_btn" translatesAutoresizingMaskIntoConstraints="NO" id="cAd-P2-feA">
+                                                        <rect key="frame" x="0.0" y="0.0" width="77.5" height="80"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="80" id="q4o-0V-Ebs"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black_photo_btn" translatesAutoresizingMaskIntoConstraints="NO" id="adq-sF-pq4">
+                                                        <rect key="frame" x="82.5" y="0.0" width="77.5" height="80"/>
+                                                        <gestureRecognizers/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="80" id="vJ4-Fb-EUi"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black_photo_btn" translatesAutoresizingMaskIntoConstraints="NO" id="bx1-iG-r4r">
+                                                        <rect key="frame" x="165" y="0.0" width="77.5" height="80"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="80" id="Whg-nq-3eh"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black_photo_btn" translatesAutoresizingMaskIntoConstraints="NO" id="n4v-i8-AGB">
+                                                        <rect key="frame" x="247.5" y="0.0" width="77.5" height="80"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="80" id="PXJ-CU-R3P"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                </subviews>
+                                            </stackView>
+                                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dqE-Dh-VFK">
+                                                <rect key="frame" x="25" y="215" width="325" height="30"/>
+                                                <nil key="textColor"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                <textInputTraits key="textInputTraits"/>
+                                            </textField>
                                         </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="jFz-Lv-yrJ" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="164" id="0rC-JF-iUY"/>
+                                            <constraint firstItem="dqE-Dh-VFK" firstAttribute="top" secondItem="4dD-eT-UE9" secondAttribute="bottom" constant="60" id="3YT-Qr-6z4"/>
                                             <constraint firstAttribute="trailing" secondItem="jFz-Lv-yrJ" secondAttribute="trailing" constant="165" id="DYC-o1-W7i"/>
-                                            <constraint firstItem="dqE-Dh-VFK" firstAttribute="top" secondItem="ZBX-2l-2KL" secondAttribute="bottom" constant="56" id="HU9-z4-FNk"/>
-                                            <constraint firstItem="ZBX-2l-2KL" firstAttribute="centerX" secondItem="gFc-LK-9H2" secondAttribute="centerX" id="fwd-qa-mBk"/>
+                                            <constraint firstAttribute="trailing" secondItem="dqE-Dh-VFK" secondAttribute="trailing" constant="25" id="Hwk-BU-Ph6"/>
+                                            <constraint firstItem="4dD-eT-UE9" firstAttribute="top" secondItem="gFc-LK-9H2" secondAttribute="top" constant="75" id="ONa-6b-w9n"/>
+                                            <constraint firstItem="dqE-Dh-VFK" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="P8d-Kg-wFk"/>
+                                            <constraint firstItem="jFz-Lv-yrJ" firstAttribute="top" secondItem="dqE-Dh-VFK" secondAttribute="bottom" constant="240" id="Tdh-rM-t7P"/>
                                             <constraint firstAttribute="height" constant="1000" id="pzd-Fd-Pz2"/>
-                                            <constraint firstAttribute="trailing" secondItem="dqE-Dh-VFK" secondAttribute="trailing" constant="30" id="r9r-75-yVd"/>
-                                            <constraint firstItem="jFz-Lv-yrJ" firstAttribute="top" secondItem="dqE-Dh-VFK" secondAttribute="bottom" constant="244" id="s6A-wR-Kj9"/>
-                                            <constraint firstItem="dqE-Dh-VFK" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="30" id="sdC-gu-7B6"/>
-                                            <constraint firstItem="ZBX-2l-2KL" firstAttribute="top" secondItem="gFc-LK-9H2" secondAttribute="top" constant="75" id="uhB-9C-TsF"/>
+                                            <constraint firstAttribute="trailing" secondItem="4dD-eT-UE9" secondAttribute="trailing" constant="25" id="qvc-nx-Nis"/>
+                                            <constraint firstItem="4dD-eT-UE9" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="smO-sn-tXK"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -393,7 +390,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="L79-jn-dqK" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-691" y="847"/>
+            <point key="canvasLocation" x="-692" y="846.47676161919048"/>
         </scene>
         <!--Log InVC-->
         <scene sceneID="tne-QT-ifu">

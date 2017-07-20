@@ -25,12 +25,12 @@ class Spot{
 
     var imageUrls:[String]{
         return _imageUrls
-        
     }
     
     var distance: Double?{
         get {
         return _distance
+        
         }set{
         _distance = newValue
         }

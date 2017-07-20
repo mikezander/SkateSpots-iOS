@@ -202,18 +202,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             longitude = location.coordinate.longitude
             reverseGeocodeLocation(location: location)
         }
-        /*print("running")
-        let latitude = String(describing: manager.location?.coordinate.latitude)
-        let longitude = String(describing: manager.location?.coordinate.longitude)
-        
-        print("Lat: \(latitude) Long: \(longitude)")
-        
-        let location = CLLocation(latitude: (manager.location?.coordinate.latitude)!, longitude:(manager.location?
-            .coordinate.longitude)!)
-       print(location)
-        reverseGeocodeLocation(location: location)
-        */
-       
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {

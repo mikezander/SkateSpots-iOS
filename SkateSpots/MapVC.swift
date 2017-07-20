@@ -48,11 +48,11 @@ class MapVC: UIViewController {
                                                      coordinate: CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude))
                         self.spotPins.append(spotPin)
                         //self.mapView.addAnnotation(spotPin)
-                        
                     }
                 }
+                
             }
-
+           
             self.mapView.addAnnotations(self.spotPins)
         })
     
