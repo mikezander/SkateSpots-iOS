@@ -25,6 +25,17 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var spotNameField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     
+    
+    @IBOutlet weak var ledgeBtn: UIStackView!
+    @IBOutlet weak var railBtn: UIStackView!
+    @IBOutlet weak var gapBtn: UIButton!
+    @IBOutlet weak var bumpBtn: UIButton!
+    @IBOutlet weak var mannyBtn: UIButton!
+    @IBOutlet weak var bankBtn: UIButton!
+    @IBOutlet weak var trannyBtn: UIButton!
+    @IBOutlet weak var otherBtn: UIButton!
+    
+ 
     var imagePicker: UIImagePickerController!
     var count = 0
     var imageSelected = false
@@ -64,7 +75,26 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
     }
     
- 
+    override func viewWillAppear(_ animated: Bool) {
+       
+    }
+    
+    
+    @IBAction func SpotTypePressed(_ sender: UIButton) {
+        switch sender.tag {
+        case 0: print("ledge pressed")
+        case 1: print("rail pressed")
+        case 2: print("Gap pressed")
+        case 3: print("Bump pressed")
+        case 4: print("Manual pressed")
+        case 5: print("bank pressed")
+        case 6: print("tranny pressed")
+        case 7: print("other pressed")
+        default: break
+            
+        }
+    }
+    
     func addImagePressed(sender: UITapGestureRecognizer) {
         
         showPhotoActionSheet()
@@ -278,6 +308,18 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             self.locationFound = true
         })
     
+    }
+
+    @IBAction func toggleSpotType(_ sender: UISegmentedControl) {
+        if sender.selectedSegmentIndex == 0{
+            UIView.animate(withDuration: 2.0, animations: {
+               
+            })
+            
+        }else{
+        
+        
+        }
     }
 
     func postToFirebase(imgUrl: [String]){

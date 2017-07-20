@@ -296,16 +296,6 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                             </textField>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-Lv-yrJ">
-                                                <rect key="frame" x="164" y="485" width="46" height="30"/>
-                                                <constraints>
-                                                    <constraint firstAttribute="width" constant="46" id="0bg-Qe-Qcy"/>
-                                                </constraints>
-                                                <state key="normal" title="Button"/>
-                                                <connections>
-                                                    <action selector="addSpotPressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="7ep-CG-qvp"/>
-                                                </connections>
-                                            </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4dD-eT-UE9">
                                                 <rect key="frame" x="25" y="75" width="325" height="80"/>
                                                 <subviews>
@@ -345,19 +335,123 @@
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                                             </textView>
+                                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Plg-AX-0Ai">
+                                                <rect key="frame" x="79" y="356" width="217" height="29"/>
+                                                <segments>
+                                                    <segment title="Street"/>
+                                                    <segment title="SkatePark"/>
+                                                </segments>
+                                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <connections>
+                                                    <action selector="toggleSpotType:" destination="n1J-Ch-fUE" eventType="valueChanged" id="ewG-b7-Bui"/>
+                                                </connections>
+                                            </segmentedControl>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-Lv-yrJ">
+                                                <rect key="frame" x="164" y="693" width="46" height="30"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="46" id="0bg-Qe-Qcy"/>
+                                                </constraints>
+                                                <state key="normal" title="Button"/>
+                                                <connections>
+                                                    <action selector="addSpotPressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="7ep-CG-qvp"/>
+                                                </connections>
+                                            </button>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cZ2-l6-Oiv">
+                                                <rect key="frame" x="25" y="409" width="325" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13w-iY-qqn">
+                                                        <rect key="frame" x="0.0" y="0.0" width="77.5" height="30"/>
+                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Ledges"/>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="xey-CU-95G"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="S37-gd-NbN">
+                                                        <rect key="frame" x="82.5" y="0.0" width="77.5" height="30"/>
+                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Rail"/>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="cYC-ts-fgK"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfi-5t-gBL">
+                                                        <rect key="frame" x="165" y="0.0" width="77.5" height="30"/>
+                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Stairs/Gap"/>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="UsU-44-32w"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Pi-Tx-XP6">
+                                                        <rect key="frame" x="247.5" y="0.0" width="77.5" height="30"/>
+                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Bump"/>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="8zt-Gc-thT"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Eh6-st-8JK">
+                                                <rect key="frame" x="25" y="447" width="325" height="30"/>
+                                                <subviews>
+                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="be9-d4-NQU">
+                                                        <rect key="frame" x="0.0" y="0.0" width="77.5" height="30"/>
+                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Manual"/>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="ddb-8P-sxv"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qb7-bj-Tj4">
+                                                        <rect key="frame" x="82.5" y="0.0" width="77.5" height="30"/>
+                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Bank"/>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="ddp-Oh-9sc"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSh-53-QEk">
+                                                        <rect key="frame" x="165" y="0.0" width="77.5" height="30"/>
+                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Tranny"/>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="Miz-6v-hjg"/>
+                                                        </connections>
+                                                    </button>
+                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sHE-Az-vI2">
+                                                        <rect key="frame" x="247.5" y="0.0" width="77.5" height="30"/>
+                                                        <color key="backgroundColor" red="1" green="0.0" blue="0.0" alpha="0.87" colorSpace="custom" customColorSpace="sRGB"/>
+                                                        <state key="normal" title="Other"/>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="Nlr-KW-Zxa"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                         <constraints>
                                             <constraint firstItem="jFz-Lv-yrJ" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="164" id="0rC-JF-iUY"/>
                                             <constraint firstItem="dqE-Dh-VFK" firstAttribute="top" secondItem="4dD-eT-UE9" secondAttribute="bottom" constant="60" id="3YT-Qr-6z4"/>
+                                            <constraint firstItem="Eh6-st-8JK" firstAttribute="top" secondItem="cZ2-l6-Oiv" secondAttribute="bottom" constant="8" id="6Db-mG-b24"/>
                                             <constraint firstAttribute="trailing" secondItem="jlf-G9-Oos" secondAttribute="trailing" constant="25" id="B8z-9p-Ay6"/>
                                             <constraint firstAttribute="trailing" secondItem="jFz-Lv-yrJ" secondAttribute="trailing" constant="165" id="DYC-o1-W7i"/>
+                                            <constraint firstAttribute="trailing" secondItem="Plg-AX-0Ai" secondAttribute="trailing" constant="79" id="Edd-bI-VN9"/>
                                             <constraint firstItem="jlf-G9-Oos" firstAttribute="top" secondItem="dqE-Dh-VFK" secondAttribute="bottom" constant="8" id="Eip-6L-20P"/>
+                                            <constraint firstItem="cZ2-l6-Oiv" firstAttribute="top" secondItem="Plg-AX-0Ai" secondAttribute="bottom" constant="25" id="FU8-G6-uUN"/>
                                             <constraint firstAttribute="trailing" secondItem="dqE-Dh-VFK" secondAttribute="trailing" constant="25" id="Hwk-BU-Ph6"/>
+                                            <constraint firstAttribute="trailing" secondItem="Eh6-st-8JK" secondAttribute="trailing" constant="25" id="Iee-8y-q5Y"/>
+                                            <constraint firstItem="Plg-AX-0Ai" firstAttribute="top" secondItem="jlf-G9-Oos" secondAttribute="bottom" constant="25" id="KP3-le-OfG"/>
+                                            <constraint firstItem="Plg-AX-0Ai" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="79" id="KxQ-Az-Roo"/>
                                             <constraint firstItem="4dD-eT-UE9" firstAttribute="top" secondItem="gFc-LK-9H2" secondAttribute="top" constant="75" id="ONa-6b-w9n"/>
+                                            <constraint firstAttribute="trailing" secondItem="cZ2-l6-Oiv" secondAttribute="trailing" constant="25" id="OdU-vl-OoF"/>
                                             <constraint firstItem="dqE-Dh-VFK" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="P8d-Kg-wFk"/>
                                             <constraint firstItem="jlf-G9-Oos" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="Ykh-iK-YBV"/>
-                                            <constraint firstItem="jFz-Lv-yrJ" firstAttribute="top" secondItem="jlf-G9-Oos" secondAttribute="bottom" constant="154" id="hsK-sQ-NMg"/>
+                                            <constraint firstItem="Eh6-st-8JK" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="Z97-Ww-vcH"/>
+                                            <constraint firstItem="cZ2-l6-Oiv" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="j6V-mG-2Bo"/>
+                                            <constraint firstItem="jFz-Lv-yrJ" firstAttribute="top" secondItem="Eh6-st-8JK" secondAttribute="bottom" constant="216" id="k5B-GE-TBK"/>
                                             <constraint firstAttribute="height" constant="1000" id="pzd-Fd-Pz2"/>
                                             <constraint firstAttribute="trailing" secondItem="4dD-eT-UE9" secondAttribute="trailing" constant="25" id="qvc-nx-Nis"/>
                                             <constraint firstItem="4dD-eT-UE9" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="smO-sn-tXK"/>
@@ -396,8 +490,16 @@
                         <outlet property="addPhotoOne" destination="cAd-P2-feA" id="e58-3D-9BG"/>
                         <outlet property="addPhotoThree" destination="bx1-iG-r4r" id="sa0-iB-qML"/>
                         <outlet property="addPhotoTwo" destination="adq-sF-pq4" id="HUc-dQ-zZb"/>
+                        <outlet property="bankBtn" destination="qb7-bj-Tj4" id="IvJ-fk-I2K"/>
+                        <outlet property="bumpBtn" destination="5Pi-Tx-XP6" id="FfH-fl-6dq"/>
                         <outlet property="descriptionTextView" destination="jlf-G9-Oos" id="xQO-Qf-xmv"/>
+                        <outlet property="gapBtn" destination="xfi-5t-gBL" id="vtO-9O-OfE"/>
+                        <outlet property="ledgeBtn" destination="cZ2-l6-Oiv" id="mew-Wl-iXg"/>
+                        <outlet property="mannyBtn" destination="be9-d4-NQU" id="v5G-nJ-125"/>
+                        <outlet property="otherBtn" destination="sHE-Az-vI2" id="aiv-Cg-fwj"/>
+                        <outlet property="railBtn" destination="cZ2-l6-Oiv" id="iHz-oQ-mrK"/>
                         <outlet property="spotNameField" destination="dqE-Dh-VFK" id="z0w-E7-TaH"/>
+                        <outlet property="trannyBtn" destination="qSh-53-QEk" id="Vq5-DX-PGO"/>
                         <segue destination="c2b-5P-XCM" kind="show" identifier="backToFeedVC" id="nUf-Hb-h8K"/>
                     </connections>
                 </viewController>
