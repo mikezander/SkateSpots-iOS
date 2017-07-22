@@ -77,6 +77,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         addPhotoThree.addGestureRecognizer(setGestureRecognizer())
         addPhotoFour.addGestureRecognizer(setGestureRecognizer())
         
+        gapBtn.titleLabel?.adjustsFontSizeToFitWidth = true
     }
  
     

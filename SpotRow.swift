@@ -42,6 +42,7 @@ class SpotRow: UITableViewCell{
 
         DispatchQueue.main.async {
             self.spotCollectionView.reloadData()
+            self.spotCollectionView.showsHorizontalScrollIndicator = false
         }
     }
 }
