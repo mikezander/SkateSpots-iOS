@@ -15,11 +15,13 @@ class SpotPin: NSObject, MKAnnotation{
 
     let title: String?
     let locationName: String
+    let imageUrl: String
     let coordinate: CLLocationCoordinate2D
     
     init(spot:Spot) {
         self.title = spot.spotName
-        self.locationName = spot.spotLocation
+        self.locationName = spot.spotType
+        self.imageUrl = spot.imageUrls[0]
         self.coordinate = CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude)
      
         
@@ -28,6 +30,8 @@ class SpotPin: NSObject, MKAnnotation{
     var subtitle: String? {
         return locationName
     }
+    
+ 
     
     func mapItem() -> MKMapItem {
         let addressDict = [CNPostalAddressStreetKey: subtitle!]

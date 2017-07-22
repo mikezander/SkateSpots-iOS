@@ -43,15 +43,25 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="Lgr-SG-Bfr">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                                <rect key="frame" x="0.0" y="50" width="375" height="568"/>
                             </mapView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="e7L-EE-cqy">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="50"/>
+                                <color key="backgroundColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="50" id="kMb-xP-QOd"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstItem="Lgr-SG-Bfr" firstAttribute="top" secondItem="hbT-GS-toa" secondAttribute="top" id="9CX-jz-egS"/>
+                            <constraint firstItem="Lgr-SG-Bfr" firstAttribute="top" secondItem="hbT-GS-toa" secondAttribute="top" constant="50" id="9CX-jz-egS"/>
                             <constraint firstItem="Lgr-SG-Bfr" firstAttribute="leading" secondItem="hbT-GS-toa" secondAttribute="leading" id="I94-Kv-Mfi"/>
+                            <constraint firstAttribute="trailing" secondItem="e7L-EE-cqy" secondAttribute="trailing" id="hyn-qJ-A7x"/>
+                            <constraint firstItem="e7L-EE-cqy" firstAttribute="top" secondItem="hbT-GS-toa" secondAttribute="top" id="jL6-wN-n1r"/>
                             <constraint firstAttribute="trailing" secondItem="Lgr-SG-Bfr" secondAttribute="trailing" id="oEJ-fu-pSS"/>
                             <constraint firstItem="nps-CI-G4s" firstAttribute="top" secondItem="Lgr-SG-Bfr" secondAttribute="bottom" id="tkH-ep-WzH"/>
+                            <constraint firstItem="e7L-EE-cqy" firstAttribute="leading" secondItem="hbT-GS-toa" secondAttribute="leading" id="uVt-H5-IRO"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" systemItem="search" id="nfS-y0-fXD">

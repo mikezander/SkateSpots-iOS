@@ -66,7 +66,7 @@ extension SpotRow : UICollectionViewDataSource {
 
         if indexPath.row < spot.imageUrls.count{
   
-            if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
+        if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
                 print(indexPath.row)
                 
                 cell.configureCell(spot: spot, img: img, count: indexPath.row)
