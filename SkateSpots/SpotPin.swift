@@ -9,6 +9,7 @@ import UIKit
 import Foundation
 import MapKit
 import Contacts
+import FirebaseStorage
 
 class SpotPin: NSObject, MKAnnotation{
 
@@ -16,10 +17,11 @@ class SpotPin: NSObject, MKAnnotation{
     let locationName: String
     let coordinate: CLLocationCoordinate2D
     
-    init(title: String, locationName: String, coordinate: CLLocationCoordinate2D) {
-        self.title = title
-         self.locationName = locationName
-        self.coordinate = coordinate
+    init(spot:Spot) {
+        self.title = spot.spotName
+        self.locationName = spot.spotLocation
+        self.coordinate = CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude)
+     
         
         super.init()
     }

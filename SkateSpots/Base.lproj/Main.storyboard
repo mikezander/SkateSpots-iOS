@@ -335,6 +335,7 @@
                                             </textView>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Plg-AX-0Ai">
                                                 <rect key="frame" x="25" y="359.5" width="325" height="29"/>
+                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <segments>
                                                     <segment title="Street"/>
                                                     <segment title="SkatePark"/>
@@ -366,6 +367,7 @@
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="xey-CU-95G"/>
@@ -380,6 +382,7 @@
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="cYC-ts-fgK"/>
@@ -394,6 +397,7 @@
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="UsU-44-32w"/>
@@ -408,6 +412,7 @@
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="8zt-Gc-thT"/>
@@ -427,6 +432,7 @@
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="ddb-8P-sxv"/>
@@ -441,6 +447,7 @@
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="ddp-Oh-9sc"/>
@@ -455,6 +462,7 @@
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="Miz-6v-hjg"/>
@@ -469,6 +477,7 @@
                                                         </state>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
+                                                            <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
                                                         <connections>
                                                             <action selector="SpotTypePressed:" destination="n1J-Ch-fUE" eventType="touchUpInside" id="Nlr-KW-Zxa"/>

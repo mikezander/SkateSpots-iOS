@@ -25,8 +25,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var spotNameField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var SpotTypeControl: UISegmentedControl!
-    
-    
 
     @IBOutlet weak var ledgeBtn: UIButton!
     @IBOutlet weak var railBtn: UIButton!
@@ -78,6 +76,13 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         addPhotoFour.addGestureRecognizer(setGestureRecognizer())
         
         gapBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        let segAttributes: NSDictionary = [
+            NSForegroundColorAttributeName: UIColor.green,
+            NSFontAttributeName: UIFont(name: "Avenir-MediumOblique", size: 14)!
+        ]
+        
+        SpotTypeControl.setTitleTextAttributes(segAttributes as [NSObject : AnyObject], for: UIControlState.selected)
     }
  
     
@@ -92,12 +97,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         case 0,1,2,3,4,5,6:
             sender.isSelected = true
             sender.backgroundColor = UIColor.black
-            sender.setTitleColor(.white, for: .normal)
+            sender.setTitleColor(.green, for: .normal)
             
         case 7:
             sender.isSelected = true
             sender.backgroundColor = UIColor.black
-            sender.setTitleColor(.white, for: .normal)
+            sender.setTitleColor(.green, for: .normal)
             disableButtonsForTypeOther(btn: ledgeBtn)
             disableButtonsForTypeOther(btn: railBtn)
             disableButtonsForTypeOther(btn: gapBtn)
@@ -236,7 +241,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }
         
         if SpotTypeControl.selectedSegmentIndex == 0{
-            
+ 
             if !ledgeBtn.isSelected && !railBtn.isSelected && !gapBtn.isSelected && !mannyBtn.isSelected
                 && !bumpBtn.isSelected && !trannyBtn.isSelected && !bankBtn.isSelected && !otherBtn.isSelected{
             

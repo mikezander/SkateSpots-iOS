@@ -43,9 +43,7 @@ class MapVC: UIViewController {
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
 
-                        let spotPin = SpotPin(title: spot.spotName ,
-                                                     locationName: spot.spotLocation,
-                                                     coordinate: CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude))
+                        let spotPin = SpotPin(spot: spot)
                         self.spotPins.append(spotPin)
                         //self.mapView.addAnnotation(spotPin)
                     }

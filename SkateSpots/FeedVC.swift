@@ -69,10 +69,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         })
     
     }
-    
-   
-        
-    
+
     func sortSpotsByDistance(completed: @escaping DownloadComplete){
         
         spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
@@ -84,8 +81,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }
         completed()
     }
-    
-    
     
     @IBAction func toggle(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1{
@@ -121,14 +116,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         return (screenHeight - heightOffset)
     }
     
-   /* var categories = ["Action", "Drama", "Science Fiction", "Kids", "Horror"]
-    
-    func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return categories[section]
-    }*/
-
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return spots.count
     }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
