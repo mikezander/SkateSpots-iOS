@@ -55,6 +55,8 @@ extension DetailVC : UICollectionViewDataSource {
 extension DetailVC : UICollectionViewDelegateFlowLayout {
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+       
+        print("working")
         collectionView.setContentOffset(CGPoint.zero, animated: false)
         
         let screenSize = UIScreen.main.bounds

@@ -76,7 +76,7 @@
             </objects>
             <point key="canvasLocation" x="-716" y="-698.5007496251875"/>
         </scene>
-        <!--DetailVC-->
+        <!--Item-->
         <scene sceneID="8Xt-wN-Xgu">
             <objects>
                 <viewController storyboardIdentifier="DetailVC" id="QZa-U7-33a" customClass="DetailVC" customModule="SkateSpots" customModuleProvider="target" sceneMemberID="viewController">
@@ -131,6 +131,7 @@
                                                 </cells>
                                                 <connections>
                                                     <outlet property="dataSource" destination="QZa-U7-33a" id="2cy-k0-OCX"/>
+                                                    <outlet property="delegate" destination="QZa-U7-33a" id="cde-pn-71P"/>
                                                 </connections>
                                             </collectionView>
                                         </subviews>
@@ -164,6 +165,7 @@
                             <constraint firstAttribute="trailing" secondItem="6ZK-Rq-WgJ" secondAttribute="trailing" id="yVU-ql-Ncg"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Item" id="SAZ-YA-E1v"/>
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <size key="freeformSize" width="375" height="900"/>
                     <connections>
