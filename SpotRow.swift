@@ -9,7 +9,7 @@
 import UIKit
 
 class SpotRow: UITableViewCell{
-
+  
     @IBOutlet weak var spotCollectionView: UICollectionView!
     
     @IBOutlet weak var spotName: UILabel!
@@ -20,7 +20,7 @@ class SpotRow: UITableViewCell{
     @IBOutlet weak var pageControl: UIPageControl!
     
     var spot: Spot!
-    
+ 
     func configureRow(spot: Spot){
        
         self.spot = spot
@@ -48,7 +48,7 @@ class SpotRow: UITableViewCell{
 }
 
 extension SpotRow : UICollectionViewDataSource {
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         pageControl.numberOfPages = spot.imageUrls.count
         return spot.imageUrls.count
@@ -61,7 +61,7 @@ extension SpotRow : UICollectionViewDataSource {
     }
 
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-    
+   
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! SpotPhotoCell
 
         if indexPath.row < spot.imageUrls.count{
@@ -77,7 +77,9 @@ extension SpotRow : UICollectionViewDataSource {
         }
             return cell
         }
+ 
     }
+
 
 extension SpotRow : UICollectionViewDelegateFlowLayout {
 

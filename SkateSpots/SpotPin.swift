@@ -23,16 +23,22 @@ class SpotPin: NSObject, MKAnnotation{
         self.locationName = spot.spotType
         self.imageUrl = spot.imageUrls[0]
         self.coordinate = CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude)
-     
-        
+
         super.init()
     }
     var subtitle: String? {
         return locationName
     }
     
- 
-    
+    var markerTintColor: UIColor  {
+        switch locationName {
+        case "Skatepark":
+            return .red
+        default:
+            return .green
+        }
+    }
+
     func mapItem() -> MKMapItem {
         let addressDict = [CNPostalAddressStreetKey: subtitle!]
         let placemark = MKPlacemark(coordinate: coordinate, addressDictionary: addressDict)

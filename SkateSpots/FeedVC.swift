@@ -14,10 +14,13 @@ import CoreLocation
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
     
+    static var shared = FeedVC()
+    
     let manager = CLLocationManager()
     var myLocation = CLLocation()
     typealias DownloadComplete = () -> ()
     var firstSort = true
+    var spotNumber = Int()
    
     @IBOutlet weak var spotTableView: UITableView!
     
@@ -48,7 +51,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }
         
     }
-    
+
     func loadSpotsbyRecentlyUploaded(){
         
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
@@ -128,18 +131,25 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let spot = spots[indexPath.row]
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotRowCell") as! SpotRow
         
         print("\(indexPath.row)\(spot.spotName)")
         cell.configureRow(spot: spot)
-
+    
         return cell
-    }    
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let spotCell = sender as? SpotPhotoCell,
+            let spotDetailPage = segue.destination as? DetailVC {
+            let spot = spotCell.spot
+            print("\(spot?.spotName as Any)yooooo")
+            spotDetailPage.spot = spot
+        }
+    }
+
 }
-
-
-
 
 
 

@@ -35,7 +35,7 @@ class MapVC: UIViewController{
         // set initial location in Yonkers
         let initialLocation = CLLocation(latitude: 40.944164, longitude: -73.860896)
         centerMapOnLocation(location: initialLocation)
-        
+
         
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
@@ -99,7 +99,8 @@ extension MapVC: MKMapViewDelegate {
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
     
-   
+       view.pinTintColor = annotation.markerTintColor
+       
     
         return view
     }
