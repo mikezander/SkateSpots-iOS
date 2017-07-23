@@ -13,6 +13,7 @@ class DetailVC: UIViewController{
     
     var spot: Spot!
     
+    @IBOutlet weak var spotTypeLabel: UILabel!
     @IBOutlet weak var customNavBar: UIView!
     @IBOutlet weak var spotNameLabel: UILabel!
     @IBOutlet weak var photoCollectionView: UICollectionView!
@@ -26,8 +27,10 @@ class DetailVC: UIViewController{
        customNavBar.addSubview(btn1)
     
         photoCollectionView.reloadData()
-        spotNameLabel.text = spot.spotName
         
+        spotNameLabel.text = spot.spotName
+        spotTypeLabel.text = spot.spotType
+        self.automaticallyAdjustsScrollViewInsets = false
         
    
     }
@@ -60,10 +63,16 @@ extension DetailVC : UICollectionViewDataSource {
                 cell.configureCell(spot: spot, count: indexPath.row)
             }
             
-           
+          
             
         }
         return cell
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        //top, left, bottom, right
+
+        return UIEdgeInsets(top: -18, left: 0, bottom: 0, right: 0)
     }
     
 }
@@ -74,18 +83,16 @@ extension DetailVC : UICollectionViewDelegateFlowLayout {
        
         print("working")
         collectionView.setContentOffset(CGPoint.zero, animated: false)
-        
         let screenSize = UIScreen.main.bounds
-        let screenHeight = screenSize.height
         let screenWidth = screenSize.width
+
+            return CGSize(width: screenWidth , height: self.photoCollectionView.frame.height)
+        }
         
-        let heightOffset:CGFloat = 225
-        
-        return CGSize(width: screenWidth , height: screenHeight)
-    }
-    
+ 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
     
 }

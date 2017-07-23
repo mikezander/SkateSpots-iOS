@@ -249,12 +249,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             }
             
             if ledgeBtn.isSelected { spotType += "Ledges" }
-            if railBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Rail" }
-            if gapBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Stairs/Gap" }
-            if bumpBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Bump" }
-            if mannyBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Manual" }
-            if bankBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Bank" }
-            if trannyBtn.isSelected { if spotType != ""{ spotType += " "}; spotType += "Tranny" }
+            if railBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Rail" }
+            if gapBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Stairs/Gap" }
+            if bumpBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bump" }
+            if mannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Manual" }
+            if bankBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bank" }
+            if trannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Tranny" }
             if otherBtn.isSelected { spotType += "Other" }
 
         

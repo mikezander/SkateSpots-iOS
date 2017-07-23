@@ -34,6 +34,7 @@ class DetailPhotoCell: UICollectionViewCell{
                     if let imgData = data {
                         if let img = UIImage(data: imgData){
                             self.spotImage.image = img
+                            
                             FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
                         }
                     }
