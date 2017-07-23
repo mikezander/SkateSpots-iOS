@@ -13,14 +13,30 @@ class DetailVC: UIViewController{
     
     var spot: Spot!
     
+    @IBOutlet weak var customNavBar: UIView!
+    @IBOutlet weak var spotNameLabel: UILabel!
     @IBOutlet weak var photoCollectionView: UICollectionView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let btn1 = UIButton(type: .custom)
+        btn1.setTitle("Back", for: .normal)
+        btn1.frame = CGRect(x: 0, y: 10, width: 50, height: 50)
+        btn1.addTarget(self, action: #selector(DetailVC.backButtonPressed(_:)), for: .touchUpInside)
+       customNavBar.addSubview(btn1)
     
         photoCollectionView.reloadData()
+        spotNameLabel.text = spot.spotName
+        
+        
+   
     }
 
-
+   
+    func backButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
 }
 extension DetailVC : UICollectionViewDataSource {
     
@@ -65,7 +81,7 @@ extension DetailVC : UICollectionViewDelegateFlowLayout {
         
         let heightOffset:CGFloat = 225
         
-        return CGSize(width: screenWidth , height: screenHeight - heightOffset)
+        return CGSize(width: screenWidth , height: screenHeight)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {

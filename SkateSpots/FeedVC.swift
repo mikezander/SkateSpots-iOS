@@ -141,7 +141,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        //let navController = segue.destination as! UINavigationController
         if let spotCell = sender as? SpotPhotoCell,
+            //let spotDetailPage = navController.viewControllers[0] as? DetailVC{
             let spotDetailPage = segue.destination as? DetailVC {
             let spot = spotCell.spot
             print("\(spot?.spotName as Any)yooooo")
