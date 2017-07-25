@@ -17,22 +17,36 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var containerView = UIView()
     var collectionview: UICollectionView!
     var cellId = "Cell"
-    var imageView: UIImageView!
  
+    let screenSize = UIScreen.main.bounds
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let screenSize = UIScreen.main.bounds
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
-        
+
         self.scrollView = UIScrollView()
         self.scrollView.delegate = self
-        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight + 500)
+        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2)
         
         containerView = UIView()
         scrollView.addSubview(containerView)
         view.addSubview(scrollView)
+        
+        let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 50))
+        customNav.backgroundColor = UIColor(red: 127/255, green: 173/255, blue: 82/255, alpha: 1)
+
+       // (127, 173, 82)
+        self.view.addSubview(customNav)
+        
+        let btn1 = UIButton()
+        btn1.setTitle("Back", for: .normal)
+       
+        btn1.frame = CGRect(x:0, y:20, width: 45,height: 35)
+        btn1.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
+        self.view.addSubview(btn1)
+        
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -48,13 +62,48 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.backgroundColor = UIColor.white
         self.containerView.addSubview(collectionview)
         
-
-        //imageView = UIImageView(frame: CGRect(x: 0, y: 50, width: screenWidth, height: screenHeight - 100))
-        //self.collectionview.addSubview(imageView)
+        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         
+        // you will probably want to set the font (remember to use Dynamic Type!)
+        label.font = UIFont.preferredFont(forTextStyle: .headline)
         
-     
+        // and set the text color too - remember good contrast
+        label.textColor = .black
+        
+        // may not be necessary (e.g., if the width & height match the superview)
+        // if you do need to center, CGPointMake has been deprecated, so use this
+        label.center = CGPoint(x: screenWidth / 2, y: screenHeight - 125)
+        
+        // this changed in Swift 3 (much better, no?)
+        label.textAlignment = .center
+        
+        label.text = spot.spotName
+        
+        self.containerView.addSubview(label)
+        
+        let label2 = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        
+        // you will probably want to set the font (remember to use Dynamic Type!)
+        label2.font = UIFont.preferredFont(forTextStyle: .caption1)
+        
+        // and set the text color too - remember good contrast
+        label2.textColor = .black
+        
+        // may not be necessary (e.g., if the width & height match the superview)
+        // if you do need to center, CGPointMake has been deprecated, so use this
+        label2.center = CGPoint(x: screenWidth / 2, y: screenHeight - 100)
+        
+        // this changed in Swift 3 (much better, no?)
+        label2.textAlignment = .center
+        
+        label2.text = spot.spotType
+        
+        self.containerView.addSubview(label2)
 }
+    
+    func backButtonPressed() {
+        dismiss(animated: true, completion: nil)
+    }
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         
@@ -69,13 +118,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-
-        let screenSize = UIScreen.main.bounds
+       
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
+        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight - 150))
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DetailPhotoCell
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight - 130)) //y sets image height**
+  
         cell.spotImage = image
         cell.addSubview(image)
         
