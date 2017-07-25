@@ -66,7 +66,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         
         // you will probably want to set the font (remember to use Dynamic Type!)
-        label.font = UIFont.preferredFont(forTextStyle: .headline)
+        label.font = UIFont.preferredFont(forTextStyle: .title2)
         
         // and set the text color too - remember good contrast
         label.textColor = .black
@@ -82,7 +82,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         self.containerView.addSubview(label)
         
-        let label2 = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        let label2 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
         
         // you will probably want to set the font (remember to use Dynamic Type!)
         label2.font = UIFont.preferredFont(forTextStyle: .caption1)
@@ -100,11 +100,37 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         label2.text = spot.spotType
         
         self.containerView.addSubview(label2)
+    
+        let ratingView = CosmosView()
+        ratingView.settings.starSize = 30
+        ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
+        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: screenHeight + (screenHeight - 100))
+        ratingView.settings.fillMode = .precise
+
         
-        let ratingView = CosmosView(frame: CGRect(x: 0 , y: 0, width: 200, height: 50))
-        ratingView.center = CGPoint(x: screenWidth / 2, y: screenHeight - 80)
- 
         containerView.addSubview(ratingView)
+        
+        let rateBtn = RoundedButton(frame: CGRect(x:0, y:0, width: 100,height: 20))
+        rateBtn.center = CGPoint(x: screenWidth / 2, y: screenHeight + (screenHeight - 100))
+        rateBtn.setTitle("Rate Spot!", for: .normal)
+        rateBtn.backgroundColor = UIColor.black
+        rateBtn.cornerRadius = 2.0
+        rateBtn.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
+        
+        rateBtn.alpha = 0.3
+        rateBtn.isEnabled = false
+        containerView.addSubview(rateBtn)
+        
+        
+        ratingView.didFinishTouchingCosmos = { rating in
+            rateBtn.alpha = 1
+            rateBtn.isEnabled = true
+           let displayRating = String(format: "%.1f", rating)
+            ratingView.text = "(\(displayRating))"
+            ratingView.settings.filledBorderColor = UIColor.black
+        }
+        
+       
         
         
         
