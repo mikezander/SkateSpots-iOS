@@ -18,6 +18,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var containerView = UIView()
     var collectionview: UICollectionView!
     var cellId = "Cell"
+    var ratingView = CosmosView()
  
     let screenSize = UIScreen.main.bounds
 
@@ -64,50 +65,34 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         self.containerView.addSubview(collectionview)
         
         let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
-        
         // you will probably want to set the font (remember to use Dynamic Type!)
         label.font = UIFont.preferredFont(forTextStyle: .title2)
-        
-        // and set the text color too - remember good contrast
         label.textColor = .black
-        
-        // may not be necessary (e.g., if the width & height match the superview)
-        // if you do need to center, CGPointMake has been deprecated, so use this
         label.center = CGPoint(x: screenWidth / 2, y: screenHeight - 125)
-        
-        // this changed in Swift 3 (much better, no?)
         label.textAlignment = .center
-        
         label.text = spot.spotName
-        
         self.containerView.addSubview(label)
         
         let label2 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
-        
         // you will probably want to set the font (remember to use Dynamic Type!)
         label2.font = UIFont.preferredFont(forTextStyle: .caption1)
-        
-        // and set the text color too - remember good contrast
         label2.textColor = .black
-        
-        // may not be necessary (e.g., if the width & height match the superview)
-        // if you do need to center, CGPointMake has been deprecated, so use this
         label2.center = CGPoint(x: screenWidth / 2, y: screenHeight - 100)
-        
-        // this changed in Swift 3 (much better, no?)
         label2.textAlignment = .center
-        
         label2.text = spot.spotType
-        
         self.containerView.addSubview(label2)
-    
-        let ratingView = CosmosView()
+        
+        let ratingDisplayView = CosmosView(frame: CGRect(x:0, y:0, width: 250,height: 20))
+        ratingDisplayView.center = CGPoint(x: screenWidth / 2 , y: screenHeight - 80)
+        ratingDisplayView.settings.updateOnTouch = false
+        ratingDisplayView.settings.fillMode = .precise
+        containerView.addSubview(ratingDisplayView)
+        
+
         ratingView.settings.starSize = 30
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
         ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: screenHeight + (screenHeight - 100))
         ratingView.settings.fillMode = .precise
-
-        
         containerView.addSubview(ratingView)
         
         let rateBtn = RoundedButton(frame: CGRect(x:0, y:0, width: 100,height: 20))
@@ -115,7 +100,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         rateBtn.setTitle("Rate Spot!", for: .normal)
         rateBtn.backgroundColor = UIColor.black
         rateBtn.cornerRadius = 2.0
-        rateBtn.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
+        rateBtn.addTarget(self, action:#selector(rateSpotPressed), for: .touchUpInside)
         
         rateBtn.alpha = 0.3
         rateBtn.isEnabled = false
@@ -125,16 +110,22 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingView.didFinishTouchingCosmos = { rating in
             rateBtn.alpha = 1
             rateBtn.isEnabled = true
-           let displayRating = String(format: "%.1f", rating)
-            ratingView.text = "(\(displayRating))"
-            ratingView.settings.filledBorderColor = UIColor.black
+            let displayRating = String(format: "%.1f", rating)
+            self.ratingView.text = "(\(displayRating))"
+            self.ratingView.settings.filledBorderColor = UIColor.black
         }
-        
        
-        
-        
-        
 }
+    
+    func rateSpotPressed(){
+   
+        let rating: Dictionary<String, AnyObject> = [
+            "rating": ratingView.rating as AnyObject]
+        
+    let firebasePost = DataService.instance.REF_SPOTS.child(spot.spotKey)
+    firebasePost.updateChildValues(rating)
+    
+    }
     
     func backButtonPressed() {
         dismiss(animated: true, completion: nil)

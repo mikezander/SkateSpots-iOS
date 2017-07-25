@@ -31,13 +31,13 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
         DispatchQueue.main.async { self.spotTableView.reloadData() }
         
-        loadSpotsbyRecentlyUploaded()
+       loadSpotsbyRecentlyUploaded()
    
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        viewDidLoad()
+       // viewDidLoad()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -118,9 +118,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         return (screenHeight - heightOffset)
     }
     
-    func numberOfSections(in tableView: UITableView) -> Int {
+    /*func numberOfSections(in tableView: UITableView) -> Int {
         return spots.count
-    }
+    }*/
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return spots.count
