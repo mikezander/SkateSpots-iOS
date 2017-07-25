@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import Cosmos
 
 class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
@@ -99,6 +100,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         label2.text = spot.spotType
         
         self.containerView.addSubview(label2)
+        
+        let ratingView = CosmosView(frame: CGRect(x: 0 , y: 0, width: 200, height: 50))
+        ratingView.center = CGPoint(x: screenWidth / 2, y: screenHeight - 80)
+ 
+        containerView.addSubview(ratingView)
+        
+        
+        
 }
     
     func backButtonPressed() {

@@ -4,6 +4,11 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>Cosmos.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>GTMSessionFetcher.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -27,7 +32,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>7B7B5ADD52EF03703B6405F5AFBA756B</key>
+		<key>2F0E25690D79344A5E5CEEB1A87E9C62</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4FDC533A4360A68ABDCE852F04B30927</key>
 		<dict>
 			<key>primary</key>
 			<true/>
