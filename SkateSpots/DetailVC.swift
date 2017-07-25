@@ -22,7 +22,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
 

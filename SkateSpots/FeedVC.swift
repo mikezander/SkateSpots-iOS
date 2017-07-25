@@ -13,9 +13,7 @@ import FirebaseStorage
 import CoreLocation
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
-    
-    static var shared = FeedVC()
-    
+
     let manager = CLLocationManager()
     var myLocation = CLLocation()
     typealias DownloadComplete = () -> ()
@@ -51,6 +49,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }
         
     }
+ 
 
     func loadSpotsbyRecentlyUploaded(){
         
