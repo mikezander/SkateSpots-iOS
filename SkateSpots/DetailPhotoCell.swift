@@ -10,11 +10,13 @@ import UIKit
 import FirebaseStorage
 
 class DetailPhotoCell: UICollectionViewCell{
-    
-    @IBOutlet weak var spotImage: UIImageView!
-    
+
+    //@IBOutlet var spotImage: UIImageView!
+   
+    var spotImage = UIImageView()
+
     var spot: Spot!
-    
+
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
         
