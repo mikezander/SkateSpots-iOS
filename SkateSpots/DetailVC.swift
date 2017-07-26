@@ -195,8 +195,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 cell.configureCell(spot: spot, count: indexPath.row)
             }
             
-            
-            
         }
         
         return cell

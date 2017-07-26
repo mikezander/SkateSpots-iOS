@@ -12,6 +12,7 @@ class SpotRow: UITableViewCell{
   
     @IBOutlet weak var spotCollectionView: UICollectionView!
     
+    @IBOutlet weak var topLabel: UILabel!
     @IBOutlet weak var spotName: UILabel!
     @IBOutlet weak var spotLocation: UILabel!
     @IBOutlet weak var spotDistance: UILabel!
@@ -24,6 +25,7 @@ class SpotRow: UITableViewCell{
     func configureRow(spot: Spot){
        
         self.spot = spot
+        self.topLabel.text = "topLabel"
         self.spotName.text = spot.spotName
         self.spotLocation.text = spot.spotLocation
         
