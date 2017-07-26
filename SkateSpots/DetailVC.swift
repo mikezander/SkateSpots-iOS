@@ -109,44 +109,52 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         rateBtn.addTarget(self, action:#selector(rateSpotPressed), for: .touchUpInside)
         
         rateBtn.alpha = 0.3
-        rateBtn.isEnabled = false
         containerView.addSubview(rateBtn)
         
-        
-      /*  ratingRef = DataService.instance.REF_CURRENT_USER.child("rated").child(spot.spotKey)
+        //ratingRef = DataService.instance.REF_CURRENT_USER.child("rated").child(spot.spotKey)
+        let ref = DataService.instance.refrenceToCurrentUser()
+        ratingRef = ref.child("rated").child(spot.spotKey)
         
         ratingRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull{
                 self.rateBtn.isEnabled = true
             }else{
                 self.rateBtn.isEnabled = false
+                self.ratingView.settings.updateOnTouch = false
+                self.ratingView.isUserInteractionEnabled = false
+                self.rateBtn.alpha = 0.3
+                self.rateBtn.setTitle("Rated 🙌", for: .normal)
             }
-        })*/
-        
+        })
         
         ratingView.didFinishTouchingCosmos = { rating in
             self.rateBtn.alpha = 1
-            //self.rateBtn.isEnabled = true
+            self.rateBtn.isEnabled = true
             let displayRating = String(format: "%.1f", rating)
             self.ratingView.text = "(\(displayRating))"
             self.ratingView.settings.filledBorderColor = UIColor.black
             
-            
         }
+        
        
 }
     
     func rateSpotPressed(){
         
-       /* ratingRef.observeSingleEvent(of: .value, with: { (snapshot) in
+        ratingRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull{
                 self.rateBtn.isEnabled = false
+                self.ratingView.settings.updateOnTouch = false
+                self.ratingView.isUserInteractionEnabled = false
+                 self.rateBtn.alpha = 0.3
+                self.rateBtn.setTitle("Rated 🙌", for: .normal)
                 self.ratingRef.setValue(true)
             }else{
                 self.rateBtn.isEnabled = true
                 self.ratingRef.removeValue()
             }
-        })*/
+        })
+        
        
         let rating: Dictionary<String, AnyObject> = [
             "rating": ratingView.rating as AnyObject]
@@ -154,6 +162,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     let firebasePost = DataService.instance.REF_SPOTS.child(spot.spotKey)
     firebasePost.updateChildValues(rating)
         
+       
    
     }
     

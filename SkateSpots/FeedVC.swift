@@ -75,10 +75,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
     func sortSpotsByDistance(completed: @escaping DownloadComplete){
-        
-        let ref = DataService.instance.REF_CURRENT_USER()
-        print("\(ref)")
-        
+ 
         spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
     
         for spot in spots{

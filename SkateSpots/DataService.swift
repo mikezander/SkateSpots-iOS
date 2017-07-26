@@ -43,8 +43,6 @@ class DataService{
     var REF_USERS: FIRDatabaseReference{
         return _REF_USERS
     }
-    
-    
 
     var REF_SPOT_IMAGES: FIRStorageReference{
         return _REF_SPOT_IMAGES
@@ -58,7 +56,7 @@ class DataService{
         REF_USERS.child(uid).child("profile").setValue(profile)
     }
     
-    func REF_CURRENT_USER() -> FIRDatabaseReference{
+    func refrenceToCurrentUser() -> FIRDatabaseReference{
         let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
         let user = REF_USERS.child(uid!)
         return user
