@@ -148,11 +148,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="503"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profiletemp" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh">
-                                                    <rect key="frame" x="13" y="5" width="60" height="54"/>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profiletemp" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh" customClass="CircleView" customModule="SkateSpots" customModuleProvider="target">
+                                                    <rect key="frame" x="13" y="5" width="54" height="54"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="54" id="6pc-n5-TZd"/>
-                                                        <constraint firstAttribute="width" constant="60" id="t81-bV-dmm"/>
+                                                        <constraint firstAttribute="width" constant="54" id="t81-bV-dmm"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUb-An-8cx">
@@ -238,7 +238,7 @@
                                                     <color key="currentPageIndicatorTintColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                                 </pageControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6jl-8r-mSA">
-                                                    <rect key="frame" x="81" y="8" width="200" height="35"/>
+                                                    <rect key="frame" x="75" y="8" width="200" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="NDc-oj-Ko7"/>
                                                         <constraint firstAttribute="height" constant="35" id="ubE-MD-Wzx"/>
