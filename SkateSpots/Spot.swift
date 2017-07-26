@@ -19,6 +19,7 @@ class Spot{
     private var _spotKey: String!
     private var _latitude: CLLocationDegrees
     private var _longitude: CLLocationDegrees
+    private var _user: String
     
     var spotName: String{
         return _spotName
@@ -57,6 +58,10 @@ class Spot{
         return _longitude
     }
     
+    var user: String{
+        return _user
+    }
+    
     var location: CLLocation {
         return CLLocation(latitude: self.latitude, longitude: self.longitude)
     }
@@ -65,13 +70,14 @@ class Spot{
         return location.distance(from: self.location)
     }
     
-    init(spotName: String, imageUrls: [String], spotLocation: String, spotType:String, latitude: CLLocationDegrees, longitude: CLLocationDegrees){
+    init(spotName: String, imageUrls: [String], spotLocation: String, spotType:String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, user: String){
         self._spotName = spotName
         self._imageUrls = imageUrls
         self._spotLocation = spotLocation
         self._spotType = spotType
         self._latitude = latitude
         self._longitude = longitude
+        self._user = user
     }
     
     init(spotKey: String, spotData: Dictionary<String, AnyObject>){
@@ -89,6 +95,8 @@ class Spot{
         self._latitude = spotData["latitude"] as? CLLocationDegrees ?? 0.0
         
         self._longitude = spotData["longitude"] as? CLLocationDegrees ?? 0.0
+        
+        self._user = spotData["user"] as? String ?? "no user id found"
          
         
         }
