@@ -29,6 +29,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+
         DispatchQueue.main.async { self.spotTableView.reloadData() }
         
        loadSpotsbyRecentlyUploaded()
@@ -37,7 +39,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-       // viewDidLoad()
+        viewDidLoad()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -52,7 +54,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
  
 
     func loadSpotsbyRecentlyUploaded(){
-        
+       
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
             self.spots = [] //clears up spot array each time its loaded
@@ -73,6 +75,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
     func sortSpotsByDistance(completed: @escaping DownloadComplete){
+        
+        let ref = DataService.instance.REF_CURRENT_USER()
+        print("\(ref)")
         
         spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
     

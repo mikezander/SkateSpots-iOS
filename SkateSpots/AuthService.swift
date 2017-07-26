@@ -69,8 +69,9 @@ class AuthService{
                 break
             case .errorCodeEmailAlreadyInUse, .errorCodeAccountExistsWithDifferentCredential:
                 onComplete?("Could not create account email already in use", nil)
+            // todo password less than 6
             default:
-                onComplete?("There was a problem authenticating. Try again.", nil)
+                onComplete?("There was a problem authenticating. Try again.\(error.description)", nil)
             }
             
         }

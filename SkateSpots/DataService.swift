@@ -10,12 +10,15 @@ import Foundation
 import Firebase
 import FirebaseStorage
 import FirebaseDatabase
+import SwiftKeychainWrapper
 
 let DB_BASE = FIRDatabase.database().reference()
 let STORAGE_BASE = FIRStorage.storage().reference()
 
 class DataService{
     private static let _instance = DataService()
+    
+
     
     static var instance: DataService{
         return _instance
@@ -41,15 +44,26 @@ class DataService{
         return _REF_USERS
     }
     
+    
+
     var REF_SPOT_IMAGES: FIRStorageReference{
         return _REF_SPOT_IMAGES
     }
     
     func saveUser(uid: String, email: String){
-        let profile: Dictionary<String, AnyObject> = ["username": "" as AnyObject, "email": email as AnyObject]
+        let keychainResult = KeychainWrapper.standard.set(uid, forKey: KEY_UID)
+        print("Mike: Data saved to keychain\(keychainResult)")
+        
+        let profile: Dictionary<String, AnyObject> = ["username": "A" as AnyObject, "email": email as AnyObject]
         REF_USERS.child(uid).child("profile").setValue(profile)
     }
     
+    func REF_CURRENT_USER() -> FIRDatabaseReference{
+        let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
+        let user = REF_USERS.child(uid!)
+        return user
+    }
+  
     
 }
 

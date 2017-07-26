@@ -9,22 +9,29 @@
 import Foundation
 import UIKit
 import Cosmos
+import FirebaseDatabase
 
 class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     var spot: Spot!
+    
+    var ratingRef:FIRDatabaseReference!
     
     var scrollView: UIScrollView!
     var containerView = UIView()
     var collectionview: UICollectionView!
     var cellId = "Cell"
     var ratingView = CosmosView()
+    var ratingDisplayView = CosmosView()
+    var rateBtn = RoundedButton()
+    var spotNameLbl = UILabel()
+    var spotTypeLbl = UILabel()
  
     let screenSize = UIScreen.main.bounds
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
 
@@ -39,7 +46,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 50))
         customNav.backgroundColor = UIColor(red: 127/255, green: 173/255, blue: 82/255, alpha: 1)
 
-       // (127, 173, 82)
         self.view.addSubview(customNav)
         
         let btn1 = UIButton()
@@ -64,25 +70,25 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.backgroundColor = UIColor.white
         self.containerView.addSubview(collectionview)
         
-        let label = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         // you will probably want to set the font (remember to use Dynamic Type!)
-        label.font = UIFont.preferredFont(forTextStyle: .title2)
-        label.textColor = .black
-        label.center = CGPoint(x: screenWidth / 2, y: screenHeight - 125)
-        label.textAlignment = .center
-        label.text = spot.spotName
-        self.containerView.addSubview(label)
+        spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
+        spotNameLbl.textColor = .black
+        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 125)
+        spotNameLbl.textAlignment = .center
+        spotNameLbl.text = spot.spotName
+        self.containerView.addSubview(spotNameLbl)
         
-        let label2 = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
+        spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
         // you will probably want to set the font (remember to use Dynamic Type!)
-        label2.font = UIFont.preferredFont(forTextStyle: .caption1)
-        label2.textColor = .black
-        label2.center = CGPoint(x: screenWidth / 2, y: screenHeight - 100)
-        label2.textAlignment = .center
-        label2.text = spot.spotType
-        self.containerView.addSubview(label2)
+        spotTypeLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
+        spotTypeLbl.textColor = .black
+        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 100)
+        spotTypeLbl.textAlignment = .center
+        spotTypeLbl.text = spot.spotType
+        self.containerView.addSubview(spotTypeLbl)
         
-        let ratingDisplayView = CosmosView(frame: CGRect(x:0, y:0, width: 250,height: 20))
+        ratingDisplayView = CosmosView(frame: CGRect(x:0, y:0, width: 250,height: 20))
         ratingDisplayView.center = CGPoint(x: screenWidth / 2 , y: screenHeight - 80)
         ratingDisplayView.settings.updateOnTouch = false
         ratingDisplayView.settings.fillMode = .precise
@@ -95,7 +101,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingView.settings.fillMode = .precise
         containerView.addSubview(ratingView)
         
-        let rateBtn = RoundedButton(frame: CGRect(x:0, y:0, width: 100,height: 20))
+        rateBtn = RoundedButton(frame: CGRect(x:0, y:0, width: 100,height: 20))
         rateBtn.center = CGPoint(x: screenWidth / 2, y: screenHeight + (screenHeight - 100))
         rateBtn.setTitle("Rate Spot!", for: .normal)
         rateBtn.backgroundColor = UIColor.black
@@ -107,24 +113,48 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         containerView.addSubview(rateBtn)
         
         
+      /*  ratingRef = DataService.instance.REF_CURRENT_USER.child("rated").child(spot.spotKey)
+        
+        ratingRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull{
+                self.rateBtn.isEnabled = true
+            }else{
+                self.rateBtn.isEnabled = false
+            }
+        })*/
+        
+        
         ratingView.didFinishTouchingCosmos = { rating in
-            rateBtn.alpha = 1
-            rateBtn.isEnabled = true
+            self.rateBtn.alpha = 1
+            //self.rateBtn.isEnabled = true
             let displayRating = String(format: "%.1f", rating)
             self.ratingView.text = "(\(displayRating))"
             self.ratingView.settings.filledBorderColor = UIColor.black
+            
+            
         }
        
 }
     
     func rateSpotPressed(){
-   
+        
+       /* ratingRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull{
+                self.rateBtn.isEnabled = false
+                self.ratingRef.setValue(true)
+            }else{
+                self.rateBtn.isEnabled = true
+                self.ratingRef.removeValue()
+            }
+        })*/
+       
         let rating: Dictionary<String, AnyObject> = [
             "rating": ratingView.rating as AnyObject]
         
     let firebasePost = DataService.instance.REF_SPOTS.child(spot.spotKey)
     firebasePost.updateChildValues(rating)
-    
+        
+   
     }
     
     func backButtonPressed() {
