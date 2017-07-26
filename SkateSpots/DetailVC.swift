@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import Cosmos
 import FirebaseDatabase
+import FirebaseAuth
 
 class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
@@ -110,8 +111,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         rateBtn.alpha = 0.3
         containerView.addSubview(rateBtn)
-        
-        //ratingRef = DataService.instance.REF_CURRENT_USER.child("rated").child(spot.spotKey)
+
         let ref = DataService.instance.refrenceToCurrentUser()
         ratingRef = ref.child("rated").child(spot.spotKey)
         

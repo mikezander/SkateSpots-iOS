@@ -30,7 +30,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         super.viewDidLoad()
 
         
-
         DispatchQueue.main.async { self.spotTableView.reloadData() }
         
        loadSpotsbyRecentlyUploaded()

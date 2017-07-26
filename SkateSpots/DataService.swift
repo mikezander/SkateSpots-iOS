@@ -48,12 +48,19 @@ class DataService{
         return _REF_SPOT_IMAGES
     }
     
-    func saveUser(uid: String, email: String){
+    func saveFirebaseUser(uid: String, email: String){
         let keychainResult = KeychainWrapper.standard.set(uid, forKey: KEY_UID)
         print("Mike: Data saved to keychain\(keychainResult)")
         
         let profile: Dictionary<String, AnyObject> = ["username": "A" as AnyObject, "email": email as AnyObject]
         REF_USERS.child(uid).child("profile").setValue(profile)
+    }
+    
+    func updateDBUser(uid: String, child: String, userData: Dictionary<String, String>){
+        
+       REF_USERS.child(uid).child(child).updateChildValues(userData)
+        // set value will wipe whats already there*
+        
     }
     
     func refrenceToCurrentUser() -> FIRDatabaseReference{
