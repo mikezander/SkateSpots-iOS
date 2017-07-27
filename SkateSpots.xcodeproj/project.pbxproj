@@ -27,6 +27,7 @@
 		C4CE59151F24497800180BA5 /* DetailPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE59141F24497800180BA5 /* DetailPhotoCell.swift */; };
 		C4CE59191F28314A00180BA5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE59181F28314A00180BA5 /* Constants.swift */; };
 		C4CE591C1F28663500180BA5 /* CircleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE591B1F28663500180BA5 /* CircleView.swift */; };
+		C4CE591E1F2A645900180BA5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE591D1F2A645900180BA5 /* User.swift */; };
 		C4E36FD21F1A7F23000ABF4D /* SpotRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */; };
 		C4E36FD61F1ACA44000ABF4D /* SpotPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */; };
 /* End PBXBuildFile section */
@@ -57,6 +58,7 @@
 		C4CE59181F28314A00180BA5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		C4CE591A1F28385A00180BA5 /* SkateSpots.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SkateSpots.entitlements; sourceTree = "<group>"; };
 		C4CE591B1F28663500180BA5 /* CircleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CircleView.swift; sourceTree = "<group>"; };
+		C4CE591D1F2A645900180BA5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotRow.swift; path = ../SpotRow.swift; sourceTree = "<group>"; };
 		C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPhotoCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -128,6 +130,7 @@
 			isa = PBXGroup;
 			children = (
 				C41D8B301F0F38E0009C174C /* Spot.swift */,
+				C4CE591D1F2A645900180BA5 /* User.swift */,
 				C4433E6B1F1FBC5200B00002 /* SpotPin.swift */,
 			);
 			name = Model;
@@ -314,6 +317,7 @@
 				C4CE591C1F28663500180BA5 /* CircleView.swift in Sources */,
 				C41D8B311F0F38E0009C174C /* Spot.swift in Sources */,
 				C4CE59151F24497800180BA5 /* DetailPhotoCell.swift in Sources */,
+				C4CE591E1F2A645900180BA5 /* User.swift in Sources */,
 				C4E36FD61F1ACA44000ABF4D /* SpotPhotoCell.swift in Sources */,
 				C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */,
 				C4CE59131F241A0F00180BA5 /* DetailVC.swift in Sources */,
@@ -439,6 +443,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 4A13BA0450BDBFA9B9E60769 /* Pods-SkateSpots.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SkateSpots/SkateSpots.entitlements;
 				DEVELOPMENT_TEAM = Q9BD9AV679;
@@ -454,6 +459,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 0638FB33C27D2FF7EC9E4E6A /* Pods-SkateSpots.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SkateSpots/SkateSpots.entitlements;
 				DEVELOPMENT_TEAM = Q9BD9AV679;

@@ -23,14 +23,35 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     @IBOutlet weak var spotTableView: UITableView!
     
     var spots = [Spot]()
+
     
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+  
+       DispatchQueue.main.async { self.spotTableView.reloadData() }
         
-        DispatchQueue.main.async { self.spotTableView.reloadData() }
+      /*  DataService.instance.REF_USERS.observe(.value, with: {(snapshot) in
+            self.users = [] //clears up users array each time its loaded
+            
+            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
+                print(snapshot.count)
+                for snap in snapshot{
+                    print("1")
+                    let a = snap.childSnapshot(forPath: "profile")
+                    if let userDict = a.value as? Dictionary<String, AnyObject>{
+                        let key = snap.key
+                        let user = User(userKey: key, userData: userDict)
+                        //self.spots.append(spot)
+                        print(user.userKey)
+                        print(user.userName)
+                        self.users.append(user)
+                    }
+                }
+            }
+            
+        })*/
         
        loadSpotsbyRecentlyUploaded()
    
@@ -50,7 +71,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }
         
     }
- 
+
 
     func loadSpotsbyRecentlyUploaded(){
        
@@ -85,6 +106,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         completed()
     }
     
+
     @IBAction func toggle(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1{
             

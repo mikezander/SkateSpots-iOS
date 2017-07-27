@@ -16,6 +16,7 @@ import AssetsLibrary
 class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,CLLocationManagerDelegate{
 
     var photoURLs = [String]()
+    var user: User!
     
     @IBOutlet weak var addPhotoOne: UIImageView!
     @IBOutlet weak var addPhotoTwo: UIImageView!
@@ -50,6 +51,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
 
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
@@ -154,7 +156,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         tapGestureRecognizer.numberOfTapsRequired = 1
         return tapGestureRecognizer
     }
-
+    
     func showPhotoActionSheet(){
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
@@ -414,8 +416,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             
         }
     }
-
+   
     func postToFirebase(imgUrl: [String]){
+        
+        
 
         let spot: Dictionary<String, AnyObject> = [
         "spotName": spotNameField.text! as AnyObject,
@@ -425,11 +429,25 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         "latitude" : latitude as AnyObject,
         "longitude" : longitude as AnyObject,
         "user": FIRAuth.auth()!.currentUser!.uid as AnyObject //may not be safe but works for now
+        
         ]
         
         let firebasePost = DataService.instance.REF_SPOTS.childByAutoId()
         firebasePost.setValue(spot)
-       
+        
+        DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
+            if !snapshot.exists() { print("Username not found! SpotRow.swift");return }
+            
+            if let username = snapshot.childSnapshot(forPath: "username").value as? String{
+                self.user = User(userName: username)
+                print("\(self.user.userName)yoooooo")
+                firebasePost.child("user").child("username").setValue(self.user.userName)
+            }
+        })
+        
+        
+        
+
         spotNameField.text = ""
         imageSelected = false
         addPhotoOne.image = UIImage(named: "black_photo_btn")
