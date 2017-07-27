@@ -445,9 +445,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             }
         })
         
-        
-        
-
         spotNameField.text = ""
         imageSelected = false
         addPhotoOne.image = UIImage(named: "black_photo_btn")
