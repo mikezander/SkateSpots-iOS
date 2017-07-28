@@ -22,19 +22,11 @@ class SpotRow: UITableViewCell{
     @IBOutlet weak var pageControl: UIPageControl!
     
     var spot: Spot!
-   /* var user: User!
-     DataService.instance.REF_USERS.child(spot.user).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
-     if !snapshot.exists() { print("Username not found! SpotRow.swift");return }
-     
-     if let username = snapshot.childSnapshot(forPath: "username").value as? String{
-     user = User(userName: username)
-     }
-     })
-*/
+
     func configureRow(spot: Spot){
        
         self.spot = spot
-        
+        self.topLabel.text = spot.username
         self.spotName.text = spot.spotName
         self.spotLocation.text = spot.spotLocation
         

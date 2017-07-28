@@ -37,7 +37,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var otherBtn: UIButton!
     @IBOutlet weak var bustLabel: UILabel!
     
- 
     var imagePicker: UIImagePickerController!
     var count = 0
     var imageSelected = false
@@ -441,7 +440,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             if let username = snapshot.childSnapshot(forPath: "username").value as? String{
                 self.user = User(userName: username)
                 print("\(self.user.userName)yoooooo")
-                firebasePost.child("user").child("username").setValue(self.user.userName)
+                firebasePost.child("username").setValue(self.user.userName)
             }
         })
         
