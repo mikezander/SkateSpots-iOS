@@ -417,9 +417,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
    
     func postToFirebase(imgUrl: [String]){
-        
-        
-
+ 
         let spot: Dictionary<String, AnyObject> = [
         "spotName": spotNameField.text! as AnyObject,
         "imageUrls": imgUrl as AnyObject,
@@ -439,11 +437,13 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             
             if let username = snapshot.childSnapshot(forPath: "username").value as? String{
                 self.user = User(userName: username)
-                print("\(self.user.userName)yoooooo")
                 firebasePost.child("username").setValue(self.user.userName)
             }
         })
         
+        let spotsRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("spots").child(firebasePost.key)
+        spotsRef.setValue(true)
+
         spotNameField.text = ""
         imageSelected = false
         addPhotoOne.image = UIImage(named: "black_photo_btn")
