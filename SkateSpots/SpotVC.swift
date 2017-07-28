@@ -426,7 +426,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         "latitude" : latitude as AnyObject,
         "longitude" : longitude as AnyObject,
         "user": FIRAuth.auth()!.currentUser!.uid as AnyObject //may not be safe but works for now
-        
         ]
         
         let firebasePost = DataService.instance.REF_SPOTS.childByAutoId()

@@ -12,8 +12,9 @@ import FirebaseDatabase
 class SpotRow: UITableViewCell{
   
     @IBOutlet weak var spotCollectionView: UICollectionView!
-    
-    @IBOutlet weak var topLabel: UILabel!
+
+    @IBOutlet weak var userImage: CircleView!
+    @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var spotName: UILabel!
     @IBOutlet weak var spotLocation: UILabel!
     @IBOutlet weak var spotDistance: UILabel!
@@ -26,7 +27,7 @@ class SpotRow: UITableViewCell{
     func configureRow(spot: Spot){
        
         self.spot = spot
-        self.topLabel.text = spot.username
+        self.userName.text = spot.username
         self.spotName.text = spot.spotName
         self.spotLocation.text = spot.spotLocation
         
@@ -47,6 +48,29 @@ class SpotRow: UITableViewCell{
             self.spotCollectionView.reloadData()
             self.spotCollectionView.showsHorizontalScrollIndicator = false
         }
+        
+        //download images
+      /*  if img != nil{
+            self.userImage.image = img
+        }else{
+            
+            //cache image
+            
+            let ref = FIRStorage.storage().reference(forURL:spot.imageUrls[count])
+            ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
+                if error != nil{
+                    print("Mke: Unable to download image from firebase storage")
+                }else{
+                    print("Mike: Image downloaded from firebase storge")
+                    if let imgData = data {
+                        if let img = UIImage(data: imgData){
+                            self.spotImage.image = img
+                            FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
+                        }
+                    }
+                }
+            })
+        }*/
     }
   
 }
