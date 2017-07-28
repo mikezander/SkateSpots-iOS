@@ -12,8 +12,6 @@ import FirebaseDatabase
 class SpotRow: UITableViewCell{
   
     @IBOutlet weak var spotCollectionView: UICollectionView!
-    
-
     @IBOutlet weak var userImage: CircleView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var spotName: UILabel!
