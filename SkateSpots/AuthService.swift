@@ -34,6 +34,7 @@ class AuthService{
                                 if user?.uid != nil{
                                 
                                     DataService.instance.saveFirebaseUser(uid: user!.uid, email: email, username: username)
+                                    
                                     //Sign in
                                     FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
                                         if error != nil{

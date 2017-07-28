@@ -31,6 +31,7 @@ class DataService{
     
     // Storage Refrences
     private var _REF_SPOT_IMAGES = STORAGE_BASE.child("post-pics")
+    private var _REF_USER_IMAGE = STORAGE_BASE.child("user-pics")
     
     var REF_BASE: FIRDatabaseReference{
         return _REF_BASE
@@ -48,17 +49,23 @@ class DataService{
         return _REF_SPOT_IMAGES
     }
     
+    var REF_USER_IMAGE: FIRStorageReference{
+        return _REF_USER_IMAGE
+    }
+    
     
     
     func saveFirebaseUser(uid: String, email: String, username: String){
         let keychainResult = KeychainWrapper.standard.set(uid, forKey: KEY_UID)
         print("Mike: Data saved to keychain\(keychainResult)")
         
-        let profile: Dictionary<String, AnyObject> = ["username": username as AnyObject, "email": email as AnyObject]
+        let profile: Dictionary<String, AnyObject> = ["username": username as AnyObject,
+                                                      "email": email as AnyObject]
+        
         REF_USERS.child(uid).child("profile").setValue(profile)
     }
     
-    func updateDBUser(uid: String, child: String, userData: Dictionary<String, String>){
+    func updateDBUser(uid: String, child: String, userData: Dictionary<String, AnyObject>){
        REF_USERS.child(uid).child(child).updateChildValues(userData)
         // set value will wipe whats already there*
         

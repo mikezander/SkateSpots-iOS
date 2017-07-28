@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import FirebaseStorage
+import FirebaseAuth
 
 class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
@@ -16,6 +18,9 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     @IBOutlet weak var passwordField: RoundTextfield!
     
     var imagePicker: UIImagePickerController!
+    
+    var userProfileURL = ""
+    var imageSelected = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -28,14 +33,34 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     }
 
     @IBAction func logInPressed(_ sender: Any) {
+
+        
         if let email = emailField.text, let pwd = passwordField.text, let usrName = userNameField.text,
             (email.characters.count > 0 && pwd.characters.count > 0){
             
             AuthService.instance.login(email: email, password: pwd, username: usrName, onComplete: { (errMsg, data) in
+                
                 guard errMsg == nil else{
                     self.errorAlert(title: "Error Authenticating", message: errMsg!)
                     return
                 }
+                
+                if self.imageSelected{
+                    if let userImg = self.userProflieView.image{
+                        self.addPhotoToStorage(image: userImg)
+                        
+                        let urlDict: Dictionary<String, AnyObject> = [
+                        "userImageURL": self.userProfileURL as AnyObject]
+                        
+                       DataService.instance.updateDBUser(uid: FIRAuth.auth()!.currentUser!.uid,
+                                                         child: "profile",
+                                                         userData: urlDict)
+                    
+                    
+                    }
+                    
+                }
+                
                 self.dismiss(animated: true, completion: nil)
             })
         
@@ -75,8 +100,34 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             userProflieView.image = image
+            imageSelected = true
         }
     }
+    
+    func addPhotoToStorage(image: UIImage){
+        
+        if let imgData = UIImageJPEGRepresentation(image, 0.2){
+            
+            let imgUid = NSUUID().uuidString
+            let metadata = FIRStorageMetadata()
+            metadata.contentType = "image/jpeg"
+           
+            DataService.instance.REF_USER_IMAGE.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
+                
+                if error != nil{
+                    print("unable to upload image to firebase storage(\(error?.localizedDescription))")
+                }else{
+                    
+                    let downloadURL = metadata?.downloadURL()?.absoluteString
+                    if let url = downloadURL{
+                        self.userProfileURL = url
+                        }
+                    }
+                }
+                
+            }
+        }
+    
 
     
     func errorAlert(title: String, message: String){
