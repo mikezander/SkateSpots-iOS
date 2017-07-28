@@ -18,7 +18,7 @@ class AuthService{
         return _instance
     }
     
-    func login(email: String, password: String, onComplete: Completion?){
+    func login(email: String, password: String, username: String, onComplete: Completion?){
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
             
             if error != nil{
@@ -33,7 +33,7 @@ class AuthService{
                             } else{
                                 if user?.uid != nil{
                                 
-                                    DataService.instance.saveFirebaseUser(uid: user!.uid, email: email)
+                                    DataService.instance.saveFirebaseUser(uid: user!.uid, email: email, username: username)
                                     //Sign in
                                     FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
                                         if error != nil{

@@ -50,11 +50,11 @@ class DataService{
     
     
     
-    func saveFirebaseUser(uid: String, email: String){
+    func saveFirebaseUser(uid: String, email: String, username: String){
         let keychainResult = KeychainWrapper.standard.set(uid, forKey: KEY_UID)
         print("Mike: Data saved to keychain\(keychainResult)")
         
-        let profile: Dictionary<String, AnyObject> = ["username": "Abc" as AnyObject, "email": email as AnyObject]
+        let profile: Dictionary<String, AnyObject> = ["username": username as AnyObject, "email": email as AnyObject]
         REF_USERS.child(uid).child("profile").setValue(profile)
     }
     
