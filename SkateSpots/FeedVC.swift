@@ -80,6 +80,10 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             let distanceInMeters = myLocation.distance(from: spot.location)
             let miles = distanceInMeters / 1609
             spot.distance = miles
+            
+            spot.removeCountry(spotLocation: spot.spotLocation)
+            //var delimiter = " "
+            //spot.spotLocation.components(separatedBy: delimiter).first
         }
         completed()
     }

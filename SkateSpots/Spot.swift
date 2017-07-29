@@ -80,6 +80,11 @@ class Spot{
         return location.distance(from: self.location)
     }
     
+    func removeCountry(spotLocation: String){
+        let delimiter = "-"
+       _spotLocation = spotLocation.components(separatedBy: delimiter).first!
+    }
+    
     init(spotName: String, imageUrls: [String], spotLocation: String, spotType:String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, user: String, username: String, userImageURL: String){
         self._spotName = spotName
         self._imageUrls = imageUrls

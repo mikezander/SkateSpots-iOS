@@ -367,7 +367,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             if let state = placeMark.addressDictionary!["State"] as? NSString {
                 print(state, terminator: "")
                 self.locationString += state as String
-                self.locationString += " "
+                self.locationString += "-" //used as deliminator in Spot.swift
             }
             
             // Country
