@@ -113,7 +113,6 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                     if let url = downloadURL{
 
                         self.userProfileURL = ("\(url)")
-                        
                         let ref = DataService.instance.refrenceToCurrentUser()
                         ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
                         

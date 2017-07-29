@@ -31,28 +31,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         super.viewDidLoad()
   
        DispatchQueue.main.async { self.spotTableView.reloadData() }
-        
-      /*  DataService.instance.REF_USERS.observe(.value, with: {(snapshot) in
-            self.users = [] //clears up users array each time its loaded
-            
-            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
-                print(snapshot.count)
-                for snap in snapshot{
-                    print("1")
-                    let a = snap.childSnapshot(forPath: "profile")
-                    if let userDict = a.value as? Dictionary<String, AnyObject>{
-                        let key = snap.key
-                        let user = User(userKey: key, userData: userDict)
-                        //self.spots.append(spot)
-                        print(user.userKey)
-                        print(user.userName)
-                        self.users.append(user)
-                    }
-                }
-            }
-            
-        })*/
-        
+
        loadSpotsbyRecentlyUploaded()
    
     }

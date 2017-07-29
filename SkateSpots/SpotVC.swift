@@ -339,7 +339,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             placeMark = placemarks?[0]
             
             // Address dictionary
-            
             print(placeMark.addressDictionary, terminator: "")
             
             // Location name
@@ -435,8 +434,14 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             if !snapshot.exists() { print("Username not found! SpotRow.swift");return }
             
             if let username = snapshot.childSnapshot(forPath: "username").value as? String{
-                self.user = User(userName: username)
-                firebasePost.child("username").setValue(self.user.userName)
+                
+                if let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String{
+                
+                    self.user = User(userName: username, userImageURL: userImageURL)
+                    
+                    firebasePost.child("username").setValue(self.user.userName)
+                    firebasePost.child("userImageURL").setValue(self.user.userImageURL)
+                }
             }
         })
         
