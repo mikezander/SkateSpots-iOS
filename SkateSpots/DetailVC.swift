@@ -133,13 +133,30 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         ratingRef.setValue(true)
         
-       
-        let rating: Dictionary<String, AnyObject> = [
-            "rating": ratingView.rating as AnyObject]
+        let firebasePost = DataService.instance.REF_SPOTS.child(spot.spotKey)
         
-    let firebasePost = DataService.instance.REF_SPOTS.child(spot.spotKey)
-    firebasePost.updateChildValues(rating)
- 
+        firebasePost.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
+             var ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
+                
+                ratingVotes += 1
+                
+                let rating: Dictionary<String, AnyObject> = [
+                    "rating": (self.ratingView.rating + ratingTally) as AnyObject,
+                    "ratingVotes": ratingVotes as AnyObject
+                    ]
+                firebasePost.updateChildValues(rating)
+            
+           
+            }else{
+                let rating: Dictionary<String, AnyObject> = [
+                    "rating": self.ratingView.rating as AnyObject,
+                    "ratingVotes": 1 as AnyObject
+                    ]
+                firebasePost.updateChildValues(rating)
+            }
+        
+        })
     }
     
     func handleOneReviewPerSpot(ref: FIRDatabaseReference){
@@ -205,79 +222,4 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     }
 }
 
-      /*  let btn1 = UIButton(type: .custom)
-        btn1.setTitle("Back", for: .normal)
-        btn1.frame = CGRect(x: 0, y: 10, width: 50, height: 50)
-        btn1.addTarget(self, action: #selector(DetailVC.backButtonPressed(_:)), for: .touchUpInside)
-       customNavBar.addSubview(btn1)
-    
-        photoCollectionView.reloadData()
-        
-        spotNameLabel.text = spot.spotName
-        spotTypeLabel.text = spot.spotType
-        self.automaticallyAdjustsScrollViewInsets = false
-        
-   
-    }
 
-   
-    func backButtonPressed(_ sender: Any) {
-        dismiss(animated: true, completion: nil)
-    }
-    
-}
-extension DetailVC : UICollectionViewDataSource {
-    
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        return spot.imageUrls.count
-    }
-    
-   
-    
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "detailCell", for: indexPath) as! DetailPhotoCell
-        
-        if indexPath.row < spot.imageUrls.count{
-            
-            if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
-                print(indexPath.row)
-                
-                cell.configureCell(spot: spot, img: img, count: indexPath.row)
-            }else{
-                cell.configureCell(spot: spot, count: indexPath.row)
-            }
-            
-          
-            
-        }
-        return cell
-    }
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
-        //top, left, bottom, right
-
-        return UIEdgeInsets(top: -18, left: 0, bottom: 0, right: 0)
-    }
-    
-}
-
-extension DetailVC : UICollectionViewDelegateFlowLayout {
-    
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-       
-        print("working")
-        collectionView.setContentOffset(CGPoint.zero, animated: false)
-        let screenSize = UIScreen.main.bounds
-        let screenWidth = screenSize.width
-
-            return CGSize(width: screenWidth , height: self.scrollView.frame.height * 0.8)
-        }
-        
- 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
-        return 0
-    }
-    
-    
-}*/

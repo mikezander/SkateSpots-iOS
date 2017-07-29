@@ -428,8 +428,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         ]
         
         let firebasePost = DataService.instance.REF_SPOTS.childByAutoId()
-      //  firebasePost.setValue(spot)
-
+        
         DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
             if !snapshot.exists() { print("Username not found! SpotRow.swift");return }
             
@@ -443,15 +442,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                     spot["userImageURL"] = self.user.userImageURL as AnyObject?
                     
                     firebasePost.setValue(spot)
-                   
-                    
-                    //firebasePost.child("username").setValue(self.user.userName)
-                    //firebasePost.child("userImageURL").setValue(self.user.userImageURL)
+
                 }
             }
         })
-        
-        
 
         let spotsRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("spots").child(firebasePost.key)
         spotsRef.setValue(true)
@@ -503,5 +497,4 @@ extension SpotVC: UITextFieldDelegate, UITextViewDelegate{
         descriptionTextView.layer.borderColor = UIColor.black.cgColor
         
     }
-
 }
