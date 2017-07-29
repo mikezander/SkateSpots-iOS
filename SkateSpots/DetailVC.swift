@@ -99,6 +99,15 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingDisplayView.settings.updateOnTouch = false
         ratingDisplayView.settings.fillMode = .precise
         containerView.addSubview(ratingDisplayView)
+        
+        ratingDisplayLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
+        // you will probably want to set the font (remember to use Dynamic Type!)
+        ratingDisplayLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
+        ratingDisplayLbl.textColor = .black
+        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 65)
+        ratingDisplayLbl.textAlignment = .center
+        ratingDisplayLbl.alpha = 0.4
+        self.containerView.addSubview(ratingDisplayLbl)
    
         ratingView.settings.starSize = 30
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
@@ -142,10 +151,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 print("\(rating) rating")
                 self.ratingDisplayView.rating = rating
                 self.ratingDisplayView.text = ("(\(ratingVotes))")
+                self.ratingDisplayLbl.text = "\(rating) out of 5 stars"
             
             }else{
             
-            
+                self.ratingDisplayView.rating = 0.0
+                self.ratingDisplayView.text = "(\(0))"
+                self.ratingDisplayLbl.text = "No reviews yet"
             }
         
         })
@@ -168,6 +180,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     "ratingVotes": ratingVotes as AnyObject
                     ]
                 self.refCurrentSpot.updateChildValues(rating)
+                
+                var updatedRating = (self.ratingView.rating + ratingTally) / Double(ratingVotes)
+                updatedRating = (updatedRating * 10).rounded() / 10
+                print("\(updatedRating) Updatedrating")
+                self.ratingDisplayView.rating = updatedRating
+                self.ratingDisplayView.text = ("(\(ratingVotes))")
+                
+                self.ratingDisplayLbl.text = "\(updatedRating) out of 5 stars"
             
            
             }else{
@@ -176,7 +196,17 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     "ratingVotes": 1 as AnyObject
                     ]
                 self.refCurrentSpot.updateChildValues(rating)
+                
+                self.ratingDisplayView.rating = self.ratingView.rating
+                self.ratingDisplayView.text = ("(\(1))")
+                
+                let updatedRating = (self.ratingView.rating * 10).rounded() / 10
+                print("\(updatedRating) Updatedrating")
+                self.ratingDisplayView.rating = updatedRating
+                self.ratingDisplayLbl.text = "\(updatedRating) out of 5 stars"
+                
             }
+            
         
         })
         
