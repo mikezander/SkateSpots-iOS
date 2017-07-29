@@ -65,8 +65,9 @@ class DataService{
         REF_USERS.child(uid).child("profile").setValue(profile)
     }
     
-    func updateDBUser(uid: String, child: String, userData: Dictionary<String, AnyObject>){
-       REF_USERS.child(uid).child(child).updateChildValues(userData)
+    func updateDBUser(ref: FIRDatabaseReference, child: String, userData: Dictionary<String, AnyObject>){
+        ref.child(child).setValue(userData)
+        //REF_USERS.child(uid).child(child).setValue(userData)
         // set value will wipe whats already there*
         
     }

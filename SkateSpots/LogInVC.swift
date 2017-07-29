@@ -48,25 +48,16 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 if self.imageSelected{
                     if let userImg = self.userProflieView.image{
                         self.addPhotoToStorage(image: userImg)
-                        
-                        let urlDict: Dictionary<String, AnyObject> = [
-                        "userImageURL": self.userProfileURL as AnyObject]
-                        
-                       DataService.instance.updateDBUser(uid: FIRAuth.auth()!.currentUser!.uid,
-                                                         child: "profile",
-                                                         userData: urlDict)
-                    
-                    
+                       
                     }
-                    
                 }
-                
                 self.dismiss(animated: true, completion: nil)
             })
         
         } else{
             errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
         }
+       
     }
     
     func setGestureRecognizer() -> UITapGestureRecognizer {
@@ -120,7 +111,12 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                     
                     let downloadURL = metadata?.downloadURL()?.absoluteString
                     if let url = downloadURL{
-                        self.userProfileURL = url
+
+                        self.userProfileURL = ("\(url)")
+                        
+                        let ref = DataService.instance.refrenceToCurrentUser()
+                        ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
+                        
                         }
                     }
                 }
