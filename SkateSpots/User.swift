@@ -38,7 +38,7 @@ class User{
         self._userName = userData["username"] as? String ?? "no name"
         
         // TODO Put in Default Image for user here *******
-        self._userImageURL = userData["userImageURL"] as? String ?? "https://firebasestorage.googleapis.com/v0/b/sk8spots-b8769.appspot.com/o/post-pics%2F5550AA22-D70E-4403-9984-04BC59ED20E7?alt=media&token=24569b8c-f796-426b-b468-29841252baaf"
+        self._userImageURL = userData["userImageURL"] as? String ?? "https://firebasestorage.googleapis.com/v0/b/sk8spots-b8769.appspot.com/o/user-pics%2F5AC0CF9A-4293-4141-B36F-510326CFF51C?alt=media&token=d27ffbcf-3302-4e8d-b8ff-35c44c371a4c"
         
     }
     

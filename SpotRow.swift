@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseDatabase
+import FirebaseStorage
 
 class SpotRow: UITableViewCell{
   
@@ -23,7 +24,7 @@ class SpotRow: UITableViewCell{
     
     var spot: Spot!
 
-    func configureRow(spot: Spot){
+    func configureRow(spot: Spot, img: UIImage? = nil){
        
         self.spot = spot
         self.userName.text = spot.username
@@ -49,13 +50,11 @@ class SpotRow: UITableViewCell{
         }
         
         //download images
-      /*  if img != nil{
+        if img != nil{
             self.userImage.image = img
         }else{
-            
             //cache image
-            
-            let ref = FIRStorage.storage().reference(forURL:spot.imageUrls[count])
+            let ref = FIRStorage.storage().reference(forURL:spot.userImageURL)
             ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
                 if error != nil{
                     print("Mke: Unable to download image from firebase storage")
@@ -63,13 +62,13 @@ class SpotRow: UITableViewCell{
                     print("Mike: Image downloaded from firebase storge")
                     if let imgData = data {
                         if let img = UIImage(data: imgData){
-                            self.spotImage.image = img
-                            FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
+                            self.userImage.image = img
+                            FeedVC.imageCache.setObject(img, forKey: spot.userImageURL as NSString)
                         }
                     }
                 }
             })
-        }*/
+        }
     }
   
 }

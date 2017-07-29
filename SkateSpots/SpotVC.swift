@@ -417,19 +417,19 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
    
     func postToFirebase(imgUrl: [String]){
  
-        let spot: Dictionary<String, AnyObject> = [
-        "spotName": spotNameField.text! as AnyObject,
-        "imageUrls": imgUrl as AnyObject,
-        "spotLocation" : locationString as AnyObject,
-        "spotType": spotType as AnyObject,
-        "latitude" : latitude as AnyObject,
-        "longitude" : longitude as AnyObject,
-        "user": FIRAuth.auth()!.currentUser!.uid as AnyObject //may not be safe but works for now
+        var spot: Dictionary<String, AnyObject> = [
+            "spotName": spotNameField.text! as AnyObject,
+            "imageUrls": imgUrl as AnyObject,
+            "spotLocation" : locationString as AnyObject,
+            "spotType": spotType as AnyObject,
+            "latitude" : latitude as AnyObject,
+            "longitude" : longitude as AnyObject,
+            "user": FIRAuth.auth()!.currentUser!.uid as AnyObject //may not be safe but works for now
         ]
         
         let firebasePost = DataService.instance.REF_SPOTS.childByAutoId()
-        firebasePost.setValue(spot)
-        
+      //  firebasePost.setValue(spot)
+
         DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
             if !snapshot.exists() { print("Username not found! SpotRow.swift");return }
             
@@ -438,13 +438,21 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 if let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String{
                 
                     self.user = User(userName: username, userImageURL: userImageURL)
+
+                    spot["username"] = self.user.userName as AnyObject?
+                    spot["userImageURL"] = self.user.userImageURL as AnyObject?
                     
-                    firebasePost.child("username").setValue(self.user.userName)
-                    firebasePost.child("userImageURL").setValue(self.user.userImageURL)
+                    firebasePost.setValue(spot)
+                   
+                    
+                    //firebasePost.child("username").setValue(self.user.userName)
+                    //firebasePost.child("userImageURL").setValue(self.user.userImageURL)
                 }
             }
         })
         
+        
+
         let spotsRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("spots").child(firebasePost.key)
         spotsRef.setValue(true)
 

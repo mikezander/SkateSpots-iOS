@@ -24,7 +24,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     var spots = [Spot]()
 
-    
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
     override func viewDidLoad() {
@@ -135,8 +134,15 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotRowCell") as! SpotRow
         
-        print("\(indexPath.row)\(spot.spotName)")
-        cell.configureRow(spot: spot)
+        if let img = FeedVC.imageCache.object(forKey: spot.userImageURL as NSString){
+
+            cell.configureRow(spot: spot, img: img)
+        }else{
+            cell.configureRow(spot: spot)
+        }
+        
+        //print("\(indexPath.row)\(spot.spotName)")
+        //cell.configureRow(spot: spot)
     
         return cell
     }
