@@ -24,14 +24,19 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var cellId = "Cell"
     var ratingView = CosmosView()
     var ratingDisplayView = CosmosView()
+    var ratingDisplayLbl = UILabel()
     var rateBtn = RoundedButton()
     var spotNameLbl = UILabel()
     var spotTypeLbl = UILabel()
  
     let screenSize = UIScreen.main.bounds
+    
+    var refCurrentSpot: FIRDatabaseReference!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        refCurrentSpot = DataService.instance.REF_SPOTS.child(spot.spotKey)
         
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
@@ -94,8 +99,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingDisplayView.settings.updateOnTouch = false
         ratingDisplayView.settings.fillMode = .precise
         containerView.addSubview(ratingDisplayView)
-        
-
+   
         ratingView.settings.starSize = 30
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
         ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: screenHeight + (screenHeight - 100))
@@ -125,6 +129,26 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             self.ratingView.settings.filledBorderColor = UIColor.black
             
         }
+        
+        
+        refCurrentSpot.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
+            let ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
+                
+                var rating = ratingTally / Double(ratingVotes)
+                //let displayRating = String(format: "%.1f", rating)
+
+                rating = (rating * 10).rounded() / 10
+                print("\(rating) rating")
+                self.ratingDisplayView.rating = rating
+                self.ratingDisplayView.text = ("(\(ratingVotes))")
+            
+            }else{
+            
+            
+            }
+        
+        })
 }
     
     func rateSpotPressed(){
@@ -132,10 +156,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         handleOneReviewPerSpot(ref: ratingRef)
         
         ratingRef.setValue(true)
-        
-        let firebasePost = DataService.instance.REF_SPOTS.child(spot.spotKey)
-        
-        firebasePost.observeSingleEvent(of: .value, with: { (snapshot) in
+
+        refCurrentSpot.observeSingleEvent(of: .value, with: { (snapshot) in
             if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
              var ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
                 
@@ -145,7 +167,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     "rating": (self.ratingView.rating + ratingTally) as AnyObject,
                     "ratingVotes": ratingVotes as AnyObject
                     ]
-                firebasePost.updateChildValues(rating)
+                self.refCurrentSpot.updateChildValues(rating)
             
            
             }else{
@@ -153,10 +175,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     "rating": self.ratingView.rating as AnyObject,
                     "ratingVotes": 1 as AnyObject
                     ]
-                firebasePost.updateChildValues(rating)
+                self.refCurrentSpot.updateChildValues(rating)
             }
         
         })
+        
     }
     
     func handleOneReviewPerSpot(ref: FIRDatabaseReference){
