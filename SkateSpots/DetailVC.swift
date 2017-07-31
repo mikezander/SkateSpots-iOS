@@ -11,10 +11,15 @@ import UIKit
 import Cosmos
 import FirebaseDatabase
 import FirebaseAuth
+import FirebaseStorage
 
 class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
     var spot: Spot!
+    
+    var user: User!
+    
+    var commentsArray = [Comment]()
     
     var ratingRef:FIRDatabaseReference!
     
@@ -36,6 +41,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     let screenSize = UIScreen.main.bounds
     
     var refCurrentSpot: FIRDatabaseReference!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -188,9 +194,69 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         button.frame = CGRect(x: screenWidth - 50, y: screenHeight + ((screenHeight / 3) * 2), width: 40, height: 40)
         button.backgroundColor = UIColor.red
         button.setTitle("Name your Button ", for: .normal)
+        button.addTarget(self, action:#selector(commentPressed), for: .touchUpInside)
         
         containerView.addSubview(button)
+        
+        let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
+        commentRef.observe(.value, with: {(snapshot) in
+        
+            self.commentsArray = []
+            
+            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
+                
+                for snap in snapshot{
+                    print(snap.value as Any)
+                    if let commentDict = snap.value as? Dictionary<String, AnyObject>{
+                        print(commentDict)
+                        let key = snap.key
+                        let comment = Comment(commentKey: key, commentData: commentDict)
+                        self.commentsArray.append(comment)
+                        self.tableView.reloadData()
+                    }
+                }
+            }
+        
+        }) {(error) in
+            print(error.localizedDescription)
+        }
 }
+    
+    func commentPressed(){
+        
+        DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
+            if !snapshot.exists() { print("snapshot not found! SpotRow.swift");return }
+            
+            if let username = snapshot.childSnapshot(forPath: "username").value as? String{
+                
+                if let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String{
+                    
+                    self.user = User(userName: username, userImageURL: userImageURL)
+                    
+                    //let comment = Comment(userKey: (FIRAuth.auth()?.currentUser?.uid)!, userName: self.user.userName, userImageURL: self.user.userImageURL, comment: self.commentView.text)
+                    
+                    let comment: Dictionary<String, AnyObject> = [
+                        "userKey": (FIRAuth.auth()?.currentUser?.uid)! as AnyObject,
+                        "username": self.user.userName as AnyObject,
+                        "userImageURL" : self.user.userImageURL as AnyObject,
+                        "comment": self.commentView.text as AnyObject,
+                       
+                    ]
+                    
+                    let commentRef = DataService.instance.REF_SPOTS.child(self.spot.spotKey).child("comments").childByAutoId()
+                    
+                    commentRef.setValue(comment)
+                }
+            }
+        })
+
+    
+       
+        
+       
+ 
+    
+    }
     
     func rateSpotPressed(){
  
@@ -306,13 +372,29 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 extension DetailVC: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return products.count
+        return commentsArray.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CommentCell
         
-        cell.userName.text = products[indexPath.row]
+        cell.userName.text = commentsArray[indexPath.row].userName
+        
+        cell.comment.text = commentsArray[indexPath.row].comment
+        
+        let ref = FIRStorage.storage().reference(forURL: commentsArray[indexPath.row].userImageURL)
+        ref.data(withMaxSize: 1 * 1024 * 1024, completion:{ (data, error) in
+            if error != nil{
+                print("Mke: Unable to download image from firebase storage")
+            }else{
+            
+                if let data = data{
+                    cell.profilePhoto.image = UIImage(data:data)
+                }
+            }
+           
+            
+        })
         
         //cell.textLabel?.text = products[indexPath.row]
         
