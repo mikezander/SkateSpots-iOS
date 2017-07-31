@@ -47,7 +47,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 
         self.scrollView = UIScrollView()
         self.scrollView.delegate = self
-        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2)
+        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + 100)
         
         containerView = UIView()
         scrollView.addSubview(containerView)
@@ -166,13 +166,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         })
         
-        tableView.frame = CGRect(x:0, y:screenHeight, width: screenWidth, height: screenHeight / 4)
+        tableView.frame = CGRect(x:0, y:screenHeight + screenHeight / 3, width: screenWidth, height: screenHeight / 3)
         tableView.register(CommentCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
         containerView.addSubview(tableView)
         
-        commentView = UITextView(frame: CGRect(x: 10, y: screenHeight + (screenHeight / 4), width: tableView.frame.size.width - 50, height: 40))
+        commentView = UITextView(frame: CGRect(x: 10, y: screenHeight + ((screenHeight / 3) * 2), width: tableView.frame.size.width - 50, height: 40))
         
         commentView.delegate = self
         commentView.text = "Add a comment"
@@ -185,7 +185,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         containerView.addSubview(commentView)
         
         let button = UIButton()
-        button.frame = CGRect(x: screenWidth - 50, y: screenHeight + (screenHeight / 4), width: 40, height: 40)
+        button.frame = CGRect(x: screenWidth - 50, y: screenHeight + ((screenHeight / 3) * 2), width: 40, height: 40)
         button.backgroundColor = UIColor.red
         button.setTitle("Name your Button ", for: .normal)
         

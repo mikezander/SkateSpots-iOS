@@ -23,7 +23,7 @@ class CommentCell: UITableViewCell{
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        CellHeight = 50 //85
+        CellHeight = 75 //85
         
         profilePhoto = UIImageView()
         profilePhoto.frame = CGRect(x: 20, y: CellHeight/2-20, width: 50, height: 50)
@@ -35,7 +35,7 @@ class CommentCell: UITableViewCell{
         contentView.addSubview(profilePhoto)
         
         userName = UILabel()
-        userName.frame = CGRect(x: profilePhoto.frame.origin.x+profilePhoto.frame.width+10 , y: 10, width: 100, height: CellHeight/2-10)
+        userName.frame = CGRect(x: profilePhoto.frame.origin.x+profilePhoto.frame.width+10 , y: 10, width: 150, height: CellHeight/2-10)
         userName.textColor = UIColor.black
         contentView.addSubview(userName)
         
