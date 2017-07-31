@@ -28,6 +28,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var rateBtn = RoundedButton()
     var spotNameLbl = UILabel()
     var spotTypeLbl = UILabel()
+    var commentView = UITextView()
     
     let tableView = UITableView()
     let products = ["Macbook Pro", "IPhone", "IPad", "Apple Watch", "Macbook Air" ]
@@ -170,6 +171,25 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         tableView.delegate = self
         tableView.dataSource = self
         containerView.addSubview(tableView)
+        
+        commentView = UITextView(frame: CGRect(x: 10, y: screenHeight + (screenHeight / 4), width: tableView.frame.size.width - 50, height: 40))
+        
+        commentView.delegate = self
+        commentView.text = "Add a comment"
+        commentView.textContainer.maximumNumberOfLines = 4
+        commentView.font = UIFont(name: "avenir", size: 15)
+        commentView.textContainer.lineBreakMode = .byTruncatingTail
+        commentView.textColor = UIColor.lightGray
+        commentView.layer.borderWidth = 1.5
+        
+        containerView.addSubview(commentView)
+        
+        let button = UIButton()
+        button.frame = CGRect(x: screenWidth - 50, y: screenHeight + (screenHeight / 4), width: 40, height: 40)
+        button.backgroundColor = UIColor.red
+        button.setTitle("Name your Button ", for: .normal)
+        
+        containerView.addSubview(button)
 }
     
     func rateSpotPressed(){
@@ -295,6 +315,35 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
         cell.textLabel?.text = products[indexPath.row]
         
         return cell
+    }
+ 
+}
+
+extension DetailVC: UITextViewDelegate{
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if text == "\n" {
+           commentView.resignFirstResponder()
+            commentView.layer.borderColor = UIColor.black.cgColor
+            return false
+        }
+        return true
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if commentView.textColor == UIColor.lightGray {
+            commentView.text = nil
+            commentView.textColor = UIColor.black
+        }
+        commentView.layer.borderColor = UIColor.green.cgColor
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if commentView.text.isEmpty {
+            commentView.text = "Add a comment"
+            commentView.textColor = UIColor.lightGray
+        }
+        commentView.layer.borderColor = UIColor.black.cgColor
+        
     }
 }
 
