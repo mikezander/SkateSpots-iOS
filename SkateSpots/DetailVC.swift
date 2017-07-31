@@ -167,7 +167,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         })
         
         tableView.frame = CGRect(x:0, y:screenHeight, width: screenWidth, height: screenHeight / 4)
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.register(CommentCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
         containerView.addSubview(tableView)
@@ -310,11 +310,19 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CommentCell
         
-        cell.textLabel?.text = products[indexPath.row]
+        cell.userName.text = products[indexPath.row]
+        
+        //cell.textLabel?.text = products[indexPath.row]
         
         return cell
+    }
+    
+    
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
+    {
+        return 75.0
     }
  
 }
