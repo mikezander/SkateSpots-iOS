@@ -43,6 +43,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
 
+       // performSegue(withIdentifier: "LogInVC", sender: nil)
        guard FIRAuth.auth()?.currentUser != nil else{
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
@@ -82,8 +83,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             spot.distance = miles
             
             spot.removeCountry(spotLocation: spot.spotLocation)
-            //var delimiter = " "
-            //spot.spotLocation.components(separatedBy: delimiter).first
+
         }
         completed()
     }

@@ -28,6 +28,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var rateBtn = RoundedButton()
     var spotNameLbl = UILabel()
     var spotTypeLbl = UILabel()
+    
+    let tableView = UITableView()
+    let products = ["Macbook Pro", "IPhone", "IPad", "Apple Watch", "Macbook Air" ]
  
     let screenSize = UIScreen.main.bounds
     
@@ -161,6 +164,12 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             }
         
         })
+        
+        tableView.frame = CGRect(x:0, y:screenHeight, width: screenWidth, height: screenHeight / 4)
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
+        tableView.delegate = self
+        tableView.dataSource = self
+        containerView.addSubview(tableView)
 }
     
     func rateSpotPressed(){
@@ -274,5 +283,24 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         return 0
     }
 }
+extension DetailVC: UITableViewDelegate, UITableViewDataSource{
+
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return products.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        
+        cell.textLabel?.text = products[indexPath.row]
+        
+        return cell
+    }
+}
+
+
+
+
+
 
 
