@@ -102,10 +102,10 @@
 				C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */,
 				C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */,
 				C4CE59141F24497800180BA5 /* DetailPhotoCell.swift */,
+				C4B46CED1F2F948A007D3206 /* CommentCell.swift */,
 				C4128C391F0EAF290058628D /* RoundTextField.swift */,
 				C4128C3B1F0EBA690058628D /* RoundedButton.swift */,
 				C4CE591B1F28663500180BA5 /* CircleView.swift */,
-				C4B46CED1F2F948A007D3206 /* CommentCell.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";

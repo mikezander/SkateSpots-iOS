@@ -15,9 +15,18 @@ import FirebaseStorage
 
 class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
     
+    private static let _instance = DetailVC()
+ 
+    static var instance: DetailVC{
+        return _instance
+    }
+    
+    
     var spot: Spot!
     
     var user: User!
+    
+    
     
     var commentsArray = [Comment]()
     
@@ -36,8 +45,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var commentView = UITextView()
     
     let tableView = UITableView()
-    let products = ["Macbook Pro", "IPhone", "IPad", "Apple Watch", "Macbook Air" ]
- 
+    
+    var textViewHeight = CGFloat()
+
     let screenSize = UIScreen.main.bounds
     
     var refCurrentSpot: FIRDatabaseReference!
@@ -178,6 +188,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         tableView.dataSource = self
         containerView.addSubview(tableView)
         
+        
+
+        
         commentView = UITextView(frame: CGRect(x: 10, y: screenHeight + ((screenHeight / 3) * 2), width: tableView.frame.size.width - 50, height: 40))
         
         commentView.delegate = self
@@ -212,7 +225,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                         let key = snap.key
                         let comment = Comment(commentKey: key, commentData: commentDict)
                         self.commentsArray.append(comment)
+                        
+                        //perform ui main
                         self.tableView.reloadData()
+                        let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height)
+                        self.tableView.setContentOffset(scrollPoint, animated: false)
+                        
+                        
                     }
                 }
             }
@@ -246,6 +265,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     let commentRef = DataService.instance.REF_SPOTS.child(self.spot.spotKey).child("comments").childByAutoId()
                     
                     commentRef.setValue(comment)
+                    self.tableView.reloadData()
+
                 }
             }
         })
@@ -371,17 +392,21 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 }
 extension DetailVC: UITableViewDelegate, UITableViewDataSource{
 
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return commentsArray.count
     }
-    
+
+
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CommentCell
-        
-        cell.userName.text = commentsArray[indexPath.row].userName
-        
-        cell.comment.text = commentsArray[indexPath.row].comment
-        
+   
+        DispatchQueue.main.async {
+            cell.userName.text = self.commentsArray[indexPath.row].userName
+            
+            cell.comment.text = self.commentsArray[indexPath.row].comment
+
+        }
         let ref = FIRStorage.storage().reference(forURL: commentsArray[indexPath.row].userImageURL)
         ref.data(withMaxSize: 1 * 1024 * 1024, completion:{ (data, error) in
             if error != nil{
@@ -398,14 +423,44 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
         
         //cell.textLabel?.text = products[indexPath.row]
         
+        
         return cell
     }
+ 
+   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+    let height:CGFloat
     
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        return 75.0
+    let temp = commentsArray[indexPath.row].comment
+        let tempCount = temp.characters.count
+    print(tempCount)
+      /*  if tempCount >= 30 && tempCount <= 60{
+           height = 75
+        }else */if tempCount >= 60 && tempCount <= 80{
+        height = 80
+        }else if tempCount > 80 && tempCount < 100{
+            height = 90
+        }else if tempCount >= 100 && tempCount <= 125{
+            height = 100
+        }else if tempCount >= 125 &&  tempCount <= 150{
+            height = 110
+        }else if tempCount >= 150{
+            height = 120
+        }else{
+            height = 70
     }
+
+    print(height)
+    return height
+    
+   // return (true ? 100 : 50) + 2 * 20
+    
+   // return 115
+        
+        
+}
+ 
+   
+   
  
 }
 
