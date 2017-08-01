@@ -14,20 +14,11 @@ import FirebaseAuth
 import FirebaseStorage
 
 class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-    
-    private static let _instance = DetailVC()
- 
-    static var instance: DetailVC{
-        return _instance
-    }
-    
-    
+   
     var spot: Spot!
     
     var user: User!
-    
-    
-    
+
     var commentsArray = [Comment]()
     
     var ratingRef:FIRDatabaseReference!
@@ -187,11 +178,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         tableView.delegate = self
         tableView.dataSource = self
         
-<<<<<<< HEAD
-        
 
-        
-=======
         self.tableView.estimatedRowHeight = 80
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.setNeedsLayout()
@@ -199,7 +186,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
         containerView.addSubview(tableView)
 
->>>>>>> aeef016e73f7a08a11ed6fd26deeb4d311b211ac
         commentView = UITextView(frame: CGRect(x: 10, y: screenHeight + ((screenHeight / 3) * 2), width: tableView.frame.size.width - 50, height: 40))
         commentView.delegate = self
         commentView.text = "Add a comment"
@@ -236,10 +222,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                         
                         //perform ui main
                         self.tableView.reloadData()
-                        let scrollPoint = CGPoint(x: 0, y: self.tableView.contentSize.height - self.tableView.frame.size.height)
-                        self.tableView.setContentOffset(scrollPoint, animated: false)
-                        
-                        
+    
                     }
                 }
             }
@@ -247,7 +230,15 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         }) {(error) in
             print(error.localizedDescription)
         }
+        
 }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        let lastItem = IndexPath(item: commentsArray.count - 1, section: 0)
+        tableView.scrollToRow(at: lastItem, at: .bottom, animated: true)
+    }
     
     func commentPressed(){
         
@@ -436,6 +427,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
  
    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
     let height:CGFloat
+    
     let temp = commentsArray[indexPath.row].comment
         let tempCount = temp.characters.count
     print(tempCount)
@@ -464,21 +456,8 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
         
         
 }
- 
-   
-   
-=======
-    
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-       
-        return 75
-    }
-    
-  
->>>>>>> aeef016e73f7a08a11ed6fd26deeb4d311b211ac
- 
-}
 
+}
 extension DetailVC: UITextViewDelegate{
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {

@@ -27,7 +27,7 @@ class CommentCell: UITableViewCell{
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-<<<<<<< HEAD
+
        CellHeight = 100
     
         profilePhoto = UIImageView()
@@ -64,6 +64,7 @@ class CommentCell: UITableViewCell{
         }else if screenSize.height > 568.0 &&  screenSize.height < 700.0{
             comment.font = UIFont(name: "ArialMT", size: 15)
             userName.font = UIFont(name: "ArialMT", size: 14)
+            //userName.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
         }else {
             comment.font = UIFont(name: "ArialMT", size: 16)
             userName.font = UIFont(name: "ArialMT", size: 15)
@@ -74,10 +75,10 @@ class CommentCell: UITableViewCell{
         
         contentView.addSubview(comment)
 
-=======
+
        CellHeight = 80
         //CellHeight = 75 //85
->>>>>>> aeef016e73f7a08a11ed6fd26deeb4d311b211ac
+
         
         
         
@@ -97,16 +98,15 @@ class CommentCell: UITableViewCell{
         contentView.addSubview(userName)
         
         comment = UILabel()
-<<<<<<< HEAD
+
         comment.frame = CGRect(x: profilePhoto.frame.origin.x+profilePhoto.frame.width + 10, y: 0, width: screenSize.width - (profilePhoto.frame.origin.x+profilePhoto.frame.width + 25), height: CellHeight)
-=======
-        comment.frame = CGRect(x: profilePhoto.frame.origin.x+profilePhoto.frame.width + 10, y: 5, width: contentView.frame.width - 10, height: CellHeight / 2 + 10)
->>>>>>> aeef016e73f7a08a11ed6fd26deeb4d311b211ac
+
+        comment.frame = CGRect(x: profilePhoto.frame.origin.x+profilePhoto.frame.width + 10, y: 5,
         
         comment.font = UIFont(name: "ariel", size: 12)
         comment.lineBreakMode = .byWordWrapping
         comment.numberOfLines = 4
-<<<<<<< HEAD
+
         
         comment.textColor = UIColor.black
         contentView.addSubview(comment)*/
@@ -142,11 +142,11 @@ class CommentCell: UITableViewCell{
         contentView.addSubview(comment)
        */
   
-=======
-        comment.textColor = UIColor.black
-        contentView.addSubview(comment)
+
+        
+
        
->>>>>>> aeef016e73f7a08a11ed6fd26deeb4d311b211ac
+
     }
    
 
