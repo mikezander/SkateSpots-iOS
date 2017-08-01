@@ -176,10 +176,15 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         tableView.register(CommentCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
+        
+        self.tableView.estimatedRowHeight = 80
+        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.setNeedsLayout()
+        self.tableView.layoutIfNeeded()
+        self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
         containerView.addSubview(tableView)
-        
+
         commentView = UITextView(frame: CGRect(x: 10, y: screenHeight + ((screenHeight / 3) * 2), width: tableView.frame.size.width - 50, height: 40))
-        
         commentView.delegate = self
         commentView.text = "Add a comment"
         commentView.textContainer.maximumNumberOfLines = 4
@@ -395,17 +400,18 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
            
             
         })
-        
-        //cell.textLabel?.text = products[indexPath.row]
+
         
         return cell
     }
     
     
-    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat
-    {
-        return 75.0
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+       
+        return 75
     }
+    
+  
  
 }
 
