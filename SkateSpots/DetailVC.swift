@@ -35,9 +35,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var spotTypeLbl = UILabel()
     var commentView = UITextView()
     
-    let tableView = UITableView()
+    var commentLbl = UILabel()
     
-    var textViewHeight = CGFloat()
+    var commentCount = 0
+    
+    let tableView = UITableView()
 
     let screenSize = UIScreen.main.bounds
     
@@ -54,7 +56,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 
         self.scrollView = UIScrollView()
         self.scrollView.delegate = self
-        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + 100)
+        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + 150)
         
         containerView = UIView()
         scrollView.addSubview(containerView)
@@ -122,12 +124,12 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
    
         ratingView.settings.starSize = 30
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
-        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: screenHeight + (screenHeight - 100))
+        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: screenHeight + (screenHeight - 50))
         ratingView.settings.fillMode = .precise
         containerView.addSubview(ratingView)
         
         rateBtn = RoundedButton(frame: CGRect(x:0, y:0, width: 100,height: 20))
-        rateBtn.center = CGPoint(x: screenWidth / 2, y: screenHeight + (screenHeight - 100))
+        rateBtn.center = CGPoint(x: screenWidth / 2, y: screenHeight + (screenHeight - 50))
         rateBtn.setTitle("Rate Spot!", for: .normal)
         rateBtn.backgroundColor = UIColor.black
         rateBtn.cornerRadius = 2.0
@@ -178,13 +180,19 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         tableView.delegate = self
         tableView.dataSource = self
         
-
-        self.tableView.estimatedRowHeight = 80
-        self.tableView.rowHeight = UITableViewAutomaticDimension
-        self.tableView.setNeedsLayout()
-        self.tableView.layoutIfNeeded()
-        self.tableView.contentInset = UIEdgeInsetsMake(20, 0, 0, 0)
         containerView.addSubview(tableView)
+        
+        commentLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
+        // you will probably want to set the font (remember to use Dynamic Type!)
+        commentLbl.font = UIFont.preferredFont(forTextStyle: .headline)
+        commentLbl.textColor = .black
+        commentLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight + (screenHeight / 3) - 10)
+        commentLbl.textAlignment = .center
+        commentLbl.alpha = 0.3
+        
+        self.containerView.addSubview(commentLbl)
+        
+        
 
         commentView = UITextView(frame: CGRect(x: 10, y: screenHeight + ((screenHeight / 3) * 2), width: tableView.frame.size.width - 50, height: 40))
         commentView.delegate = self
@@ -213,7 +221,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
                 
                 for snap in snapshot{
-                    print(snap.value as Any)
+                    self.commentCount += 1
                     if let commentDict = snap.value as? Dictionary<String, AnyObject>{
                         print(commentDict)
                         let key = snap.key
@@ -225,6 +233,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
                     }
                 }
+               self.commentLbl.text = "View all \(self.commentCount) comments ⇡"
             }
         
         }) {(error) in
