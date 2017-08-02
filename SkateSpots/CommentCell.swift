@@ -66,6 +66,7 @@ class CommentCell: UITableViewCell{
             userName.font = UIFont(name: "ArialMT", size: 14)
             //userName.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
         }else {
+            
             comment.font = UIFont(name: "ArialMT", size: 16)
             userName.font = UIFont(name: "ArialMT", size: 15)
         }

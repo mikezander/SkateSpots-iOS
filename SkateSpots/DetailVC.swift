@@ -44,10 +44,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     let screenSize = UIScreen.main.bounds
     
     var refCurrentSpot: FIRDatabaseReference!
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
         refCurrentSpot = DataService.instance.REF_SPOTS.child(spot.spotKey)
         
@@ -59,6 +60,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + 150)
         
         containerView = UIView()
+        
         scrollView.addSubview(containerView)
         view.addSubview(scrollView)
         
@@ -201,27 +203,33 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         commentView.font = UIFont(name: "avenir", size: 15)
         commentView.textContainer.lineBreakMode = .byTruncatingTail
         commentView.textColor = UIColor.lightGray
-        commentView.layer.borderWidth = 1.5
+        commentView.layer.borderWidth = 1.25
+        commentView.layer.cornerRadius = 2.0
         
         containerView.addSubview(commentView)
         
+        
+        
         let button = UIButton()
-        button.frame = CGRect(x: screenWidth - 50, y: screenHeight + ((screenHeight / 3) * 2), width: 40, height: 40)
+        button.frame = CGRect(x: screenWidth - 35, y: screenHeight + ((screenHeight / 3) * 2), width: 25, height: 40)
         button.backgroundColor = UIColor.red
         button.setTitle("Name your Button ", for: .normal)
-        button.addTarget(self, action:#selector(commentPressed), for: .touchUpInside)
+        button.addTarget(self, action:#selector(commentPressedHandler), for: .touchUpInside)
         
         containerView.addSubview(button)
-        
+    
         let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
         commentRef.observe(.value, with: {(snapshot) in
         
             self.commentsArray = []
+            self.commentCount = 0
             
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
                 
                 for snap in snapshot{
+                   
                     self.commentCount += 1
+                    
                     if let commentDict = snap.value as? Dictionary<String, AnyObject>{
                         print(commentDict)
                         let key = snap.key
@@ -230,7 +238,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                         
                         //perform ui main
                         self.tableView.reloadData()
-    
+                        let lastItem = IndexPath(item: self.commentsArray.count - 1, section: 0)
+                        self.tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
                     }
                 }
                self.commentLbl.text = "View all \(self.commentCount) comments ⇡"
@@ -246,10 +255,23 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         super.viewDidAppear(true)
         
         let lastItem = IndexPath(item: commentsArray.count - 1, section: 0)
-        tableView.scrollToRow(at: lastItem, at: .bottom, animated: true)
+        tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
     }
     
-    func commentPressed(){
+    func commentPressedHandler(){
+        commentPressed { (success) in
+            guard success == true else {
+                return
+            }
+           self.commentView.text = ""
+           self.commentView.resignFirstResponder()
+        }
+        
+    }
+    
+    func commentPressed(completion: @escaping (Bool) -> ()){
+        
+        if commentView.text != "Add a comment" && commentView.text != "" && commentView.text != " " && commentView.text != "  "{
         
         DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
             if !snapshot.exists() { print("snapshot not found! SpotRow.swift");return }
@@ -274,17 +296,17 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     
                     commentRef.setValue(comment)
                     self.tableView.reloadData()
+                 
 
                 }
             }
+            
+            completion(true)
         })
-
-    
-       
-        
-       
+            
  
-    
+        }
+        
     }
     
     func rateSpotPressed(){
@@ -494,6 +516,7 @@ extension DetailVC: UITextViewDelegate{
         
     }
 }
+
 
 
 
