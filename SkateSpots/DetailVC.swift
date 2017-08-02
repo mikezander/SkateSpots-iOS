@@ -60,9 +60,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + 150)
         
         containerView = UIView()
-        
         scrollView.addSubview(containerView)
         view.addSubview(scrollView)
+        
         
         let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 50))
         customNav.backgroundColor = UIColor(red: 127/255, green: 173/255, blue: 82/255, alpha: 1)
@@ -179,12 +179,22 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         })
         
-        descriptionTextView = UITextView(frame: CGRect(x: 5, y: screenHeight - 50, width: screenWidth - 5, height: 100))
+        
+        let descriptionLbl = UILabel(frame: CGRect(x: 10, y: screenHeight - 50, width: screenWidth - 5, height: 20))
+        descriptionLbl.font = UIFont(name: "Avenir-Black", size: 15)
+        descriptionLbl.textColor = UIColor.lightGray
+        descriptionLbl.text = "Description:"
+        containerView.addSubview(descriptionLbl)
+        
+        descriptionTextView = UITextView(frame: CGRect(x: 5, y: screenHeight - 35, width: screenWidth - 5, height: 80))
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         descriptionTextView.isSelectable = false
         descriptionTextView.font = UIFont(name: "Avenir", size: 15)
-        descriptionTextView.backgroundColor = UIColor.lightGray
+        
+        
+        descriptionTextView.backgroundColor = UIColor.clear
+        
         if spot.spotDescription == "Spot Description"{
             descriptionTextView.text = "No description"
         }else{
@@ -209,6 +219,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         commentLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight + (screenHeight / 3) - 10)
         commentLbl.textAlignment = .center
         commentLbl.alpha = 0.3
+        commentLbl.font = commentLbl.font.withSize(15)
         
         self.containerView.addSubview(commentLbl)
 
@@ -598,6 +609,8 @@ extension DetailVC: UITextViewDelegate{
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
+        self.view.gestureRecognizers?.removeAll()
+        
         if commentView.text.isEmpty {
             commentView.text = "Add a comment"
             commentView.textColor = UIColor.lightGray
