@@ -23,6 +23,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     @IBOutlet weak var spotTableView: UITableView!
     
     var spots = [Spot]()
+    var allSpots = [Spot]()
+    var firstRun = true
 
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
@@ -40,7 +42,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
-   
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -60,17 +62,101 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
 
+    @IBAction func filterButtonPressed(_ sender: UIButton) {
+        
+        trailingConstraint.constant = -160
+        self.spotTableView.isUserInteractionEnabled = true
+        
+        UIView.animate(withDuration: 0.5, delay:0, usingSpringWithDamping: 1, initialSpringVelocity:1,
+                       options: .curveEaseOut,animations: {
+                        self.spotTableView.layer.opacity = 1.0
+                        self.view.layoutIfNeeded()
+        })
+        
+        menuShowing = !menuShowing
+        
+        if firstRun{
+            allSpots = spots
+            firstRun = false
+        }
+ 
+        if sender.tag == 0{
+         spots = allSpots
+         spotTableView.reloadData()
+        
+        }else if sender.tag == 1{
+            let filtered = spots.filter({return $0.sortBySpotType(type: "skatepark") == true})
+            spots = filtered
+            spotTableView.reloadData()
+        
+        }else if sender.tag == 2{
+            let filtered = spots.filter({return $0.sortBySpotType(type: "ledges") == true})
+            spots = filtered
+            spotTableView.reloadData()
+            
+        }else if sender.tag == 3{
+            let filtered = spots.filter({return $0.sortBySpotType(type: "rail") == true})
+            spots = filtered
+            spotTableView.reloadData()
+            
+        }else if sender.tag == 4{
+            let filtered = spots.filter({return $0.sortBySpotType(type: "stairs/gap") == true})
+            spots = filtered
+            spotTableView.reloadData()
+            
+        }else if sender.tag == 5{
+            let filtered = spots.filter({return $0.sortBySpotType(type: "bump") == true})
+            spots = filtered
+            spotTableView.reloadData()
+            
+        }else if sender.tag == 6{
+            let filtered = spots.filter({return $0.sortBySpotType(type: "manual") == true})
+            spots = filtered
+            spotTableView.reloadData()
+            
+        }else if sender.tag == 7{
+            let filtered = spots.filter({return $0.sortBySpotType(type: "bank") == true})
+            spots = filtered
+            spotTableView.reloadData()
+            
+        }else if sender.tag == 8{
+            let filtered = spots.filter({return $0.sortBySpotType(type: "tranny") == true})
+            spots = filtered
+            spotTableView.reloadData()
+            
+        }else if sender.tag == 9{
+            let filtered = spots.filter({return $0.sortBySpotType(type: "other") == true})
+            spots = filtered
+            spotTableView.reloadData()
+            
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        for spot in spots{
+            print(spot.spotName)
+        }
+     
+        
+    }
     @IBAction func openFilterMenu(_ sender: Any) {
     
         if menuShowing{
-            trailingConstraint.constant = -150
+            trailingConstraint.constant = -160
             self.spotTableView.isUserInteractionEnabled = true
             
             UIView.animate(withDuration: 0.5, delay:0, usingSpringWithDamping: 1, initialSpringVelocity:1,
                            options: .curveEaseOut,animations: {
                             self.spotTableView.layer.opacity = 1.0
                             self.view.layoutIfNeeded()
-                            
             })
         }else{
             trailingConstraint.constant = 0
@@ -79,7 +165,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             UIView.animate(withDuration: 0.5, delay:0, usingSpringWithDamping: 1, initialSpringVelocity:1,
                            options: .curveEaseIn,animations: {
                             self.spotTableView.layer.opacity = 0.5
-                            
                             self.view.layoutIfNeeded()
             })
         }

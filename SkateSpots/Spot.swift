@@ -90,6 +90,15 @@ class Spot{
        _spotLocation = spotLocation.components(separatedBy: delimiter).first!
     }
     
+    func sortBySpotType(type: String)->Bool{
+        if self.spotType.lowercased().range(of: type) != nil {
+            return true
+        }else{
+            return false
+        }
+
+    }
+  
     init(spotName: String, imageUrls: [String], spotLocation: String, spotType:String, spotDescription: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, user: String, username: String, userImageURL: String){
         self._spotName = spotName
         self._imageUrls = imageUrls
