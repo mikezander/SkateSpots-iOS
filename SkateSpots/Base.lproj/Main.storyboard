@@ -122,6 +122,9 @@
                                 <state key="normal" title="Filter Spots">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 </state>
+                                <connections>
+                                    <action selector="openFilterMenu:" destination="S87-nh-BjV" eventType="touchUpInside" id="ZsH-WN-CMV"/>
+                                </connections>
                             </button>
                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="0KL-mS-DuI">
                                 <rect key="frame" x="10" y="55" width="160" height="31"/>
@@ -229,7 +232,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="qke-fg-tf4">
-                                                    <rect key="frame" x="204.66666666666666" y="437" width="5" height="5"/>
+                                                    <rect key="frame" x="204" y="437" width="5" height="5"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="5" id="GYB-dB-fjo"/>
                                                         <constraint firstAttribute="width" constant="5" id="kNV-lK-OON"/>
@@ -289,6 +292,13 @@
                                     <outlet property="delegate" destination="S87-nh-BjV" id="6qc-XS-jgF"/>
                                 </connections>
                             </tableView>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iz6-Ds-cEE" userLabel="MenuView">
+                                <rect key="frame" x="414" y="91" width="150" height="596"/>
+                                <color key="backgroundColor" red="0.63313802080000003" green="0.63191731770000004" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="150" id="wDq-DX-BkU"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -302,15 +312,20 @@
                             <constraint firstItem="0KL-mS-DuI" firstAttribute="leading" secondItem="fT5-Ki-l61" secondAttribute="leading" constant="10" id="Gb1-df-swE"/>
                             <constraint firstItem="wFT-RZ-Rk3" firstAttribute="leading" secondItem="fT5-Ki-l61" secondAttribute="leading" id="LXf-DY-owK"/>
                             <constraint firstItem="wFT-RZ-Rk3" firstAttribute="top" secondItem="fT5-Ki-l61" secondAttribute="top" id="NBE-Ny-Biy"/>
+                            <constraint firstItem="Com-rd-kW1" firstAttribute="top" secondItem="iz6-Ds-cEE" secondAttribute="bottom" id="RMd-jB-8Se"/>
                             <constraint firstAttribute="trailing" secondItem="wFT-RZ-Rk3" secondAttribute="trailing" id="ULG-j2-zVj"/>
                             <constraint firstAttribute="trailing" secondItem="1Tn-k2-51f" secondAttribute="trailing" constant="10" id="bWf-i1-xMO"/>
+                            <constraint firstAttribute="trailing" secondItem="iz6-Ds-cEE" secondAttribute="trailing" constant="-150" id="ltb-It-s5F"/>
+                            <constraint firstItem="iz6-Ds-cEE" firstAttribute="top" secondItem="1Tn-k2-51f" secondAttribute="bottom" constant="6" id="sbi-J2-LgQ"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Home" image="home_btn" id="jPn-j1-R0O">
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="menuView" destination="iz6-Ds-cEE" id="G9D-oy-hXU"/>
                         <outlet property="spotTableView" destination="j5s-yv-XaC" id="VGm-s0-TKn"/>
+                        <outlet property="trailingConstraint" destination="ltb-It-s5F" id="lIh-Rw-lvk"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="LogInVC" id="raa-BY-LyD"/>
                     </connections>
                 </viewController>

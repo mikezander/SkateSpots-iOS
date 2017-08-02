@@ -186,11 +186,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         descriptionLbl.text = "Description:"
         containerView.addSubview(descriptionLbl)
         
-        descriptionTextView = UITextView(frame: CGRect(x: 5, y: screenHeight - 35, width: screenWidth - 5, height: 80))
+        descriptionTextView = UITextView(frame: CGRect(x: 5, y: screenHeight - 35, width: screenWidth - 5, height: 100))
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         descriptionTextView.isSelectable = false
-        descriptionTextView.font = UIFont(name: "Avenir", size: 15)
+        descriptionTextView.font = UIFont(name: "Times New Roman", size: 15)
         
         
         descriptionTextView.backgroundColor = UIColor.clear

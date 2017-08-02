@@ -26,12 +26,20 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
+    @IBOutlet weak var menuView: UIView!
+    @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
+    
+    var menuShowing = false
+    
     override func viewDidLoad() {
         super.viewDidLoad()
   
        DispatchQueue.main.async { self.spotTableView.reloadData() }
 
        loadSpotsbyRecentlyUploaded()
+        
+        menuView.layer.shadowOpacity = 1
+        menuView.layer.shadowRadius = 6
    
     }
     
@@ -52,6 +60,32 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
 
+    @IBAction func openFilterMenu(_ sender: Any) {
+    
+        if menuShowing{
+            trailingConstraint.constant = -150
+            self.spotTableView.isUserInteractionEnabled = true
+            
+            UIView.animate(withDuration: 0.5, delay:0, usingSpringWithDamping: 1, initialSpringVelocity:1,
+                           options: .curveEaseOut,animations: {
+                            self.spotTableView.layer.opacity = 1.0
+                            self.view.layoutIfNeeded()
+                            
+            })
+        }else{
+            trailingConstraint.constant = 0
+            self.spotTableView.isUserInteractionEnabled = false
+            
+            UIView.animate(withDuration: 0.5, delay:0, usingSpringWithDamping: 1, initialSpringVelocity:1,
+                           options: .curveEaseIn,animations: {
+                            self.spotTableView.layer.opacity = 0.5
+                            
+                            self.view.layoutIfNeeded()
+            })
+        }
+        menuShowing = !menuShowing
+    }
+    
     func loadSpotsbyRecentlyUploaded(){
        
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
