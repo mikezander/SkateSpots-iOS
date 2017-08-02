@@ -34,6 +34,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var spotNameLbl = UILabel()
     var spotTypeLbl = UILabel()
     var commentView = UITextView()
+    var postButton = UIButton()
     
     var commentLbl = UILabel()
     
@@ -210,13 +211,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         
         
-        let button = UIButton()
-        button.frame = CGRect(x: screenWidth - 35, y: screenHeight + ((screenHeight / 3) * 2), width: 25, height: 40)
-        button.backgroundColor = UIColor.red
-        button.setTitle("Name your Button ", for: .normal)
-        button.addTarget(self, action:#selector(commentPressedHandler), for: .touchUpInside)
+        postButton = UIButton()
+        postButton.frame = CGRect(x: screenWidth - 35, y: screenHeight + ((screenHeight / 3) * 2), width: 25, height: 40)
+        postButton.backgroundColor = UIColor.red
+        postButton.setTitle("Name your Button ", for: .normal)
+        postButton.addTarget(self, action:#selector(commentPressedHandler), for: .touchUpInside)
         
-        containerView.addSubview(button)
+        containerView.addSubview(postButton)
     
         let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
         commentRef.observe(.value, with: {(snapshot) in
@@ -298,6 +299,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 return
             }
            self.commentView.text = ""
+           self.postButton.isEnabled = true
            self.commentView.resignFirstResponder()
         }
         
@@ -306,8 +308,10 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     func commentPressed(completion: @escaping (Bool) -> ()){
         
         if commentView.text != "Add a comment" && commentView.text != "" && commentView.text != " " && commentView.text != "  "{
-        
-        DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
+
+            postButton.isEnabled = false
+
+            DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
             if !snapshot.exists() { print("snapshot not found! SpotRow.swift");return }
             
             if let username = snapshot.childSnapshot(forPath: "username").value as? String{
@@ -575,7 +579,6 @@ extension DetailVC: UITextViewDelegate{
             commentView.textColor = UIColor.lightGray
         }
         commentView.layer.borderColor = UIColor.black.cgColor
-        
     }
 }
 
