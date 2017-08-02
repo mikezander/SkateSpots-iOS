@@ -251,6 +251,33 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
 }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        
+        scrollView.frame = view.bounds
+        containerView.frame = CGRect(x:0, y:50, width:scrollView.contentSize.width, height:scrollView.contentSize.height)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        subscribeToKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        unsubscribeToKeyboardNotifications()
+    }
+
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
+        if commentsArray.count > 0{
+        let lastItem = IndexPath(item: commentsArray.count - 1, section: 0)
+        tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
+        }
+    }
+    
     func configCommentCountLabel(count: Int){
         switch count {
         case 0:
@@ -262,16 +289,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         default:
             self.commentLbl.text = "View all \(count) comments ⇡"
         }
-
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(true)
         
-        if commentsArray.count > 0{
-        let lastItem = IndexPath(item: commentsArray.count - 1, section: 0)
-        tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
-        }
     }
     
     func commentPressedHandler(){
@@ -392,11 +410,44 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     func backButtonPressed() {
         dismiss(animated: true, completion: nil)
     }
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
+   
+    
+    //shifts the view up from bottom text field to be visible
+    func keyboardWillShow(notification: NSNotification){
         
-        scrollView.frame = view.bounds
-        containerView.frame = CGRect(x:0, y:50, width:scrollView.contentSize.width, height:scrollView.contentSize.height)
+        if commentView.isFirstResponder{
+            view.frame.origin.y = -getKeyboardHeight(notification: notification)
+        }
+    }
+    
+    //shifts view down once done editing bottom text field
+    func keyboardWillHide(notification: NSNotification){
+        
+        if commentView.isFirstResponder{
+            view.frame.origin.y = 0
+        }
+    }
+    
+    //helper function for keyboardWillShow
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat{
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
+    
+    
+    func subscribeToKeyboardNotifications(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+    }
+    
+    func unsubscribeToKeyboardNotifications(){
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -497,11 +548,6 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
     print(height)
     return height
     
-   // return (true ? 100 : 50) + 2 * 20
-    
-   // return 115
-        
-        
 }
 
 }
