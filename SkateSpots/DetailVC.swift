@@ -242,7 +242,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                         self.tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
                     }
                 }
-               self.commentLbl.text = "View all \(self.commentCount) comments ⇡"
+              self.configCommentCountLabel(count: self.commentCount)
             }
         
         }) {(error) in
@@ -251,11 +251,27 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
 }
     
+    func configCommentCountLabel(count: Int){
+        switch count {
+        case 0:
+            self.commentLbl.text = "No comments"
+        case 1:
+            self.commentLbl.text = "1 comment"
+        case 2,3:
+            self.commentLbl.text = "\(count) comments"
+        default:
+            self.commentLbl.text = "View all \(count) comments ⇡"
+        }
+
+    }
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
+        if commentsArray.count > 0{
         let lastItem = IndexPath(item: commentsArray.count - 1, section: 0)
         tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
+        }
     }
     
     func commentPressedHandler(){
