@@ -293,80 +293,100 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iz6-Ds-cEE" userLabel="MenuView">
-                                <rect key="frame" x="424" y="91" width="150" height="596"/>
+                                <rect key="frame" x="264" y="91" width="150" height="432"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yI6-jn-VPH">
                                         <rect key="frame" x="5" y="30" width="140" height="30"/>
-                                        <state key="normal" title="All"/>
+                                        <state key="normal" title="All">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="JYY-vn-Zd0"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z68-P0-vda">
                                         <rect key="frame" x="5" y="70" width="140" height="30"/>
-                                        <state key="normal" title="SkatePark"/>
+                                        <state key="normal" title="SkatePark">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="ID5-g3-W2v"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k09-Jh-Z30">
                                         <rect key="frame" x="5" y="110" width="140" height="30"/>
-                                        <state key="normal" title="Ledges"/>
+                                        <state key="normal" title="Ledges">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="79e-QH-AKU"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQv-3e-Hvw">
                                         <rect key="frame" x="5" y="150" width="140" height="30"/>
-                                        <state key="normal" title="Rail"/>
+                                        <state key="normal" title="Rail">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="Bdr-Ml-AYX"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JoY-l3-NFu">
                                         <rect key="frame" x="5" y="190" width="140" height="30"/>
-                                        <state key="normal" title="Stairs/Gap"/>
+                                        <state key="normal" title="Stairs/Gap">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="FsO-JN-XKq"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blo-vp-q0B">
                                         <rect key="frame" x="5" y="230" width="140" height="30"/>
-                                        <state key="normal" title="Bump"/>
+                                        <state key="normal" title="Bump">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="xdH-x8-hpc"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vjL-6h-LAu">
                                         <rect key="frame" x="5" y="270" width="140" height="30"/>
-                                        <state key="normal" title="Manual"/>
+                                        <state key="normal" title="Manual">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="Ns2-cV-4eH"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dhL-xv-Ura">
                                         <rect key="frame" x="5" y="310" width="140" height="30"/>
-                                        <state key="normal" title="Bank"/>
+                                        <state key="normal" title="Bank">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="y4i-aI-V9G"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e37-p3-DTM">
                                         <rect key="frame" x="5" y="350" width="140" height="30"/>
-                                        <state key="normal" title="Tranny"/>
+                                        <state key="normal" title="Tranny">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="5fa-wx-IaW"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnr-sQ-9zX">
                                         <rect key="frame" x="5" y="390" width="140" height="30"/>
-                                        <state key="normal" title="Other"/>
+                                        <state key="normal" title="Other">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
                                         <connections>
                                             <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="4EI-g3-UHB"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="backgroundColor" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="e37-p3-DTM" secondAttribute="trailing" constant="5" id="1q8-2w-xdI"/>
                                     <constraint firstItem="blo-vp-q0B" firstAttribute="leading" secondItem="iz6-Ds-cEE" secondAttribute="leading" constant="5" id="2P5-Zq-BYy"/>
@@ -375,6 +395,7 @@
                                     <constraint firstItem="rQv-3e-Hvw" firstAttribute="top" secondItem="k09-Jh-Z30" secondAttribute="bottom" constant="10" id="7KK-Xe-uf5"/>
                                     <constraint firstAttribute="trailing" secondItem="vjL-6h-LAu" secondAttribute="trailing" constant="5" id="IjK-BA-FaE"/>
                                     <constraint firstItem="rQv-3e-Hvw" firstAttribute="leading" secondItem="iz6-Ds-cEE" secondAttribute="leading" constant="5" id="JVS-xf-zyr"/>
+                                    <constraint firstAttribute="bottom" secondItem="tnr-sQ-9zX" secondAttribute="bottom" constant="12" id="KOF-1j-BJD"/>
                                     <constraint firstAttribute="trailing" secondItem="rQv-3e-Hvw" secondAttribute="trailing" constant="5" id="Rbp-0K-IgK"/>
                                     <constraint firstItem="vjL-6h-LAu" firstAttribute="leading" secondItem="iz6-Ds-cEE" secondAttribute="leading" constant="5" id="TFh-hB-ExX"/>
                                     <constraint firstItem="z68-P0-vda" firstAttribute="top" secondItem="yI6-jn-VPH" secondAttribute="bottom" constant="10" id="V0F-J4-Ncc"/>
@@ -414,10 +435,9 @@
                             <constraint firstItem="0KL-mS-DuI" firstAttribute="leading" secondItem="fT5-Ki-l61" secondAttribute="leading" constant="10" id="Gb1-df-swE"/>
                             <constraint firstItem="wFT-RZ-Rk3" firstAttribute="leading" secondItem="fT5-Ki-l61" secondAttribute="leading" id="LXf-DY-owK"/>
                             <constraint firstItem="wFT-RZ-Rk3" firstAttribute="top" secondItem="fT5-Ki-l61" secondAttribute="top" id="NBE-Ny-Biy"/>
-                            <constraint firstItem="Com-rd-kW1" firstAttribute="top" secondItem="iz6-Ds-cEE" secondAttribute="bottom" id="RMd-jB-8Se"/>
                             <constraint firstAttribute="trailing" secondItem="wFT-RZ-Rk3" secondAttribute="trailing" id="ULG-j2-zVj"/>
                             <constraint firstAttribute="trailing" secondItem="1Tn-k2-51f" secondAttribute="trailing" constant="10" id="bWf-i1-xMO"/>
-                            <constraint firstAttribute="trailing" secondItem="iz6-Ds-cEE" secondAttribute="trailing" constant="-160" id="ltb-It-s5F"/>
+                            <constraint firstAttribute="trailing" secondItem="iz6-Ds-cEE" secondAttribute="trailing" id="ltb-It-s5F"/>
                             <constraint firstItem="iz6-Ds-cEE" firstAttribute="top" secondItem="1Tn-k2-51f" secondAttribute="bottom" constant="6" id="sbi-J2-LgQ"/>
                         </constraints>
                     </view>
