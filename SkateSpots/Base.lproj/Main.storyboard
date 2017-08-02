@@ -293,7 +293,7 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iz6-Ds-cEE" userLabel="MenuView">
-                                <rect key="frame" x="264" y="91" width="150" height="596"/>
+                                <rect key="frame" x="424" y="91" width="150" height="596"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yI6-jn-VPH">
                                         <rect key="frame" x="5" y="30" width="140" height="30"/>
@@ -417,7 +417,7 @@
                             <constraint firstItem="Com-rd-kW1" firstAttribute="top" secondItem="iz6-Ds-cEE" secondAttribute="bottom" id="RMd-jB-8Se"/>
                             <constraint firstAttribute="trailing" secondItem="wFT-RZ-Rk3" secondAttribute="trailing" id="ULG-j2-zVj"/>
                             <constraint firstAttribute="trailing" secondItem="1Tn-k2-51f" secondAttribute="trailing" constant="10" id="bWf-i1-xMO"/>
-                            <constraint firstAttribute="trailing" secondItem="iz6-Ds-cEE" secondAttribute="trailing" id="ltb-It-s5F"/>
+                            <constraint firstAttribute="trailing" secondItem="iz6-Ds-cEE" secondAttribute="trailing" constant="-160" id="ltb-It-s5F"/>
                             <constraint firstItem="iz6-Ds-cEE" firstAttribute="top" secondItem="1Tn-k2-51f" secondAttribute="bottom" constant="6" id="sbi-J2-LgQ"/>
                         </constraints>
                     </view>
@@ -426,6 +426,7 @@
                     </tabBarItem>
                     <connections>
                         <outlet property="menuView" destination="iz6-Ds-cEE" id="G9D-oy-hXU"/>
+                        <outlet property="segmentControl" destination="0KL-mS-DuI" id="f7b-Nh-FIJ"/>
                         <outlet property="spotTableView" destination="j5s-yv-XaC" id="VGm-s0-TKn"/>
                         <outlet property="trailingConstraint" destination="ltb-It-s5F" id="lIh-Rw-lvk"/>
                         <segue destination="BYZ-38-t0r" kind="presentation" identifier="LogInVC" id="raa-BY-LyD"/>

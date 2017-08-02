@@ -21,10 +21,13 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     var spotNumber = Int()
    
     @IBOutlet weak var spotTableView: UITableView!
+    @IBOutlet weak var segmentControl: UISegmentedControl!
     
     var spots = [Spot]()
-    var allSpots = [Spot]()
+    var allSpotsR = [Spot]()
+    var allSpotsD = [Spot]()
     var firstRun = true
+   
 
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
@@ -38,16 +41,18 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
   
        DispatchQueue.main.async { self.spotTableView.reloadData() }
 
-       loadSpotsbyRecentlyUploaded()
+        
+        loadSpotsbyRecentlyUploaded()
         
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
+        menuView.sizeToFit()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        viewDidLoad()
+        //viewDidLoad()
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -75,76 +80,60 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         menuShowing = !menuShowing
         
-        if firstRun{
-            allSpots = spots
-            firstRun = false
+        if segmentControl.selectedSegmentIndex == 0{
+            spots = allSpotsR
+        }else{
+            spots = allSpotsD
         }
- 
+
         if sender.tag == 0{
-         spots = allSpots
+            if segmentControl.selectedSegmentIndex == 0{
+                spots = allSpotsR
+            }else{
+                spots = allSpotsD
+            }
          spotTableView.reloadData()
         
         }else if sender.tag == 1{
             let filtered = spots.filter({return $0.sortBySpotType(type: "skatepark") == true})
             spots = filtered
-            spotTableView.reloadData()
         
         }else if sender.tag == 2{
             let filtered = spots.filter({return $0.sortBySpotType(type: "ledges") == true})
             spots = filtered
-            spotTableView.reloadData()
             
         }else if sender.tag == 3{
             let filtered = spots.filter({return $0.sortBySpotType(type: "rail") == true})
             spots = filtered
-            spotTableView.reloadData()
             
         }else if sender.tag == 4{
             let filtered = spots.filter({return $0.sortBySpotType(type: "stairs/gap") == true})
             spots = filtered
-            spotTableView.reloadData()
             
         }else if sender.tag == 5{
             let filtered = spots.filter({return $0.sortBySpotType(type: "bump") == true})
             spots = filtered
-            spotTableView.reloadData()
             
         }else if sender.tag == 6{
             let filtered = spots.filter({return $0.sortBySpotType(type: "manual") == true})
             spots = filtered
-            spotTableView.reloadData()
             
         }else if sender.tag == 7{
             let filtered = spots.filter({return $0.sortBySpotType(type: "bank") == true})
             spots = filtered
-            spotTableView.reloadData()
-            
+
         }else if sender.tag == 8{
             let filtered = spots.filter({return $0.sortBySpotType(type: "tranny") == true})
             spots = filtered
-            spotTableView.reloadData()
             
         }else if sender.tag == 9{
             let filtered = spots.filter({return $0.sortBySpotType(type: "other") == true})
             spots = filtered
-            spotTableView.reloadData()
             
         }
+        spotTableView.reloadData()
         
         
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        for spot in spots{
-            print(spot.spotName)
-        }
-     
         
     }
     @IBAction func openFilterMenu(_ sender: Any) {
@@ -172,7 +161,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func loadSpotsbyRecentlyUploaded(){
-       
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
             self.spots = [] //clears up spot array each time its loaded
@@ -184,17 +172,22 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                         let spot = Spot(spotKey: key, spotData: spotDict)
                         //self.spots.append(spot)
                         self.spots.insert(spot, at: 0)
+                        
                     }
                 }
             }
             DispatchQueue.main.async { self.spotTableView.reloadData() }
+            self.allSpotsR = self.spots
         })
-    
+        
     }
 
     func sortSpotsByDistance(completed: @escaping DownloadComplete){
+        
+        spots = allSpotsR
  
         spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
+
     
         for spot in spots{
             let distanceInMeters = myLocation.distance(from: spot.location)
@@ -205,6 +198,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
         }
         completed()
+        self.allSpotsD = spots
     }
     
 
