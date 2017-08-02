@@ -35,6 +35,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var spotTypeLbl = UILabel()
     var commentView = UITextView()
     var postButton = UIButton()
+    var descriptionTextView = UITextView()
     
     var commentLbl = UILabel()
     
@@ -48,9 +49,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
-        
+
         refCurrentSpot = DataService.instance.REF_SPOTS.child(spot.spotKey)
         
         let screenWidth = screenSize.width
@@ -129,6 +128,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
         ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: screenHeight + (screenHeight - 50))
         ratingView.settings.fillMode = .precise
+        ratingView.settings.updateOnTouch = true
         containerView.addSubview(ratingView)
         
         rateBtn = RoundedButton(frame: CGRect(x:0, y:0, width: 100,height: 20))
@@ -144,18 +144,19 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         let ref = DataService.instance.refrenceToCurrentUser()
         ratingRef = ref.child("rated").child(spot.spotKey)
         
-        handleOneReviewPerSpot(ref: ratingRef)
         
-        ratingView.didFinishTouchingCosmos = { rating in
-            self.rateBtn.alpha = 1
-            self.rateBtn.isEnabled = true
-            let displayRating = String(format: "%.1f", rating)
-            self.ratingView.text = "(\(displayRating))"
-            self.ratingView.settings.filledBorderColor = UIColor.black
-            
+            handleOneReviewPerSpot(ref: ratingRef)
+
+            self.ratingView.didFinishTouchingCosmos = { rating in
+                self.rateBtn.alpha = 1
+                self.rateBtn.isEnabled = true
+                let displayRating = String(format: "%.1f", rating)
+                self.ratingView.text = "(\(displayRating))"
+                self.ratingView.settings.filledBorderColor = UIColor.black   
         }
         
         
+
         refCurrentSpot.observeSingleEvent(of: .value, with: { (snapshot) in
             if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
             let ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
@@ -178,6 +179,22 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         })
         
+        descriptionTextView = UITextView(frame: CGRect(x: 5, y: screenHeight - 50, width: screenWidth - 5, height: 100))
+        descriptionTextView.isScrollEnabled = false
+        descriptionTextView.isEditable = false
+        descriptionTextView.isSelectable = false
+        descriptionTextView.font = UIFont(name: "Avenir", size: 15)
+        descriptionTextView.backgroundColor = UIColor.lightGray
+        if spot.spotDescription == "Spot Description"{
+            descriptionTextView.text = "No description"
+        }else{
+            descriptionTextView.text = spot.spotDescription
+        }
+        descriptionTextView.textColor = UIColor.black
+        
+        adjustUITextViewHeight(arg: descriptionTextView)
+        containerView.addSubview(descriptionTextView)
+        
         tableView.frame = CGRect(x:0, y:screenHeight + screenHeight / 3, width: screenWidth, height: screenHeight / 3)
         tableView.register(CommentCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
@@ -194,8 +211,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         commentLbl.alpha = 0.3
         
         self.containerView.addSubview(commentLbl)
-        
-        
 
         commentView = UITextView(frame: CGRect(x: 10, y: screenHeight + ((screenHeight / 3) * 2), width: tableView.frame.size.width - 50, height: 40))
         commentView.delegate = self
@@ -414,6 +429,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     func backButtonPressed() {
         dismiss(animated: true, completion: nil)
     }
+    
+    func adjustUITextViewHeight(arg : UITextView)
+    {
+        arg.translatesAutoresizingMaskIntoConstraints = true
+        arg.sizeToFit()
+        arg.isScrollEnabled = false
+    }
    
     
     //shifts the view up from bottom text field to be visible
@@ -566,6 +588,8 @@ extension DetailVC: UITextViewDelegate{
     }
     
     func textViewDidBeginEditing(_ textView: UITextView) {
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        
         if commentView.textColor == UIColor.lightGray {
             commentView.text = nil
             commentView.textColor = UIColor.black
