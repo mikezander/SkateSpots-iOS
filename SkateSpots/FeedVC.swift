@@ -20,6 +20,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     var firstSort = true
     var spotNumber = Int()
    
+    @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var spotTableView: UITableView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
     
@@ -92,43 +93,52 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             }else{
                 spots = allSpotsD
             }
-         spotTableView.reloadData()
+         filterButton.setTitle("Filter Spots", for: .normal)
         
         }else if sender.tag == 1{
             let filtered = spots.filter({return $0.sortBySpotType(type: "skatepark") == true})
             spots = filtered
+            filterButton.setTitle("Skatepark", for: .normal)
         
         }else if sender.tag == 2{
             let filtered = spots.filter({return $0.sortBySpotType(type: "ledges") == true})
             spots = filtered
+            filterButton.setTitle("Ledges", for: .normal)
             
         }else if sender.tag == 3{
             let filtered = spots.filter({return $0.sortBySpotType(type: "rail") == true})
             spots = filtered
+            filterButton.setTitle("Rail", for: .normal)
             
         }else if sender.tag == 4{
             let filtered = spots.filter({return $0.sortBySpotType(type: "stairs/gap") == true})
             spots = filtered
+            filterButton.setTitle("Stairs/Gap", for: .normal)
             
         }else if sender.tag == 5{
             let filtered = spots.filter({return $0.sortBySpotType(type: "bump") == true})
             spots = filtered
+            filterButton.setTitle("Bump", for: .normal)
             
         }else if sender.tag == 6{
             let filtered = spots.filter({return $0.sortBySpotType(type: "manual") == true})
             spots = filtered
+            filterButton.setTitle("Manual", for: .normal)
             
         }else if sender.tag == 7{
             let filtered = spots.filter({return $0.sortBySpotType(type: "bank") == true})
             spots = filtered
+            filterButton.setTitle("Bank", for: .normal)
 
         }else if sender.tag == 8{
             let filtered = spots.filter({return $0.sortBySpotType(type: "tranny") == true})
             spots = filtered
+            filterButton.setTitle("Tranny", for: .normal)
             
         }else if sender.tag == 9{
             let filtered = spots.filter({return $0.sortBySpotType(type: "other") == true})
             spots = filtered
+            filterButton.setTitle("Other", for: .normal)
             
         }
         spotTableView.reloadData()
@@ -179,7 +189,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             DispatchQueue.main.async { self.spotTableView.reloadData() }
             self.allSpotsR = self.spots
         })
-        
+        filterButton.setTitle("Filter Spots", for: .normal)
     }
 
     func sortSpotsByDistance(completed: @escaping DownloadComplete){
@@ -199,6 +209,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }
         completed()
         self.allSpotsD = spots
+        filterButton.setTitle("Filter Spots", for: .normal)
     }
     
 

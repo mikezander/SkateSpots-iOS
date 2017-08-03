@@ -445,6 +445,7 @@
                         <offsetWrapper key="titlePositionAdjustment" horizontal="0.0" vertical="0.0"/>
                     </tabBarItem>
                     <connections>
+                        <outlet property="filterButton" destination="1Tn-k2-51f" id="Xbv-ME-Tl7"/>
                         <outlet property="menuView" destination="iz6-Ds-cEE" id="G9D-oy-hXU"/>
                         <outlet property="segmentControl" destination="0KL-mS-DuI" id="f7b-Nh-FIJ"/>
                         <outlet property="spotTableView" destination="j5s-yv-XaC" id="VGm-s0-TKn"/>

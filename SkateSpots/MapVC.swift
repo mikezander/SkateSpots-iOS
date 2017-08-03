@@ -29,22 +29,13 @@ class MapVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        manager = CLLocationManager()
-        manager.delegate = self
-        manager.requestWhenInUseAuthorization()
-        manager.requestLocation()
-        
-        mapView.delegate = self
-        
+        getUsersLocation()
 
-        // set initial location in Yonkers
-        let initialLocation = CLLocation(latitude: myLocation.coordinate.latitude, longitude: myLocation.coordinate.longitude)
-        centerMapOnLocation(location: initialLocation)
+        centerMapOnLocation(location: myLocation)
 
-        
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
-            //self.spots = [] //clears up spot array each time its loaded
+            self.spots = [] //clears up spot array each time its loaded
             
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
                 for snap in snapshot{
@@ -64,11 +55,25 @@ class MapVC: UIViewController{
         })
        
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        getUsersLocation()
+    }
 
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
                                                                   regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
+    }
+    
+    func getUsersLocation(){
+    
+        manager = CLLocationManager()
+        manager.delegate = self
+        manager.requestWhenInUseAuthorization()
+        manager.requestLocation()
+        mapView.delegate = self
     }
     
 }
