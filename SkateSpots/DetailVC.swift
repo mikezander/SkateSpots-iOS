@@ -63,7 +63,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         scrollView.addSubview(containerView)
         view.addSubview(scrollView)
         
-        
         let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 50))
         customNav.backgroundColor = UIColor(red: 127/255, green: 173/255, blue: 82/255, alpha: 1)
 
