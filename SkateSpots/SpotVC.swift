@@ -36,6 +36,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var trannyBtn: UIButton!
     @IBOutlet weak var otherBtn: UIButton!
     @IBOutlet weak var bustLabel: UILabel!
+
     
     var imagePicker: UIImagePickerController!
     var count = 0
@@ -48,12 +49,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var longitude: CLLocationDegrees?
     var spotType: String = ""
 
+
     override func viewDidLoad() {
         super.viewDidLoad()
 
-
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
-        
+
         spotNameField.delegate = self
         spotNameField.layer.cornerRadius = 7.0
         spotNameField.layer.borderWidth = 0.50
@@ -78,18 +79,19 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         addPhotoFour.addGestureRecognizer(setGestureRecognizer())
         
         gapBtn.titleLabel?.adjustsFontSizeToFitWidth = true
-        
-      //  let segAttributes: NSDictionary = [
-      //      NSForegroundColorAttributeName: UIColor.green,
-       //     NSFontAttributeName: UIFont(name: "Avenir-MediumOblique", size: 14)!
-       // ]
-        
-       // SpotTypeControl.setTitleTextAttributes(segAttributes as [NSObject : AnyObject], for: UIControlState.selected)
+
     }
- 
     
     @IBAction func bustSlider(_ sender: UISlider) {
         bustLabel.text = String(Int(sender.value))
+        
+        if Int(sender.value) == 0{
+         bustLabel.text = "Low"
+        }else if Int(sender.value) == 1{
+          bustLabel.text = "Medium"
+        }else if Int(sender.value) == 2{
+           bustLabel.text = "High"  
+        }
     }
     
     @IBAction func SpotTypePressed(_ sender: UIButton) {
@@ -230,7 +232,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }
     }
     
-    @IBAction func addSpotPressed(_ sender: Any) {
+    @IBAction func addSpotButtonPressed(_ sender: Any) {
+        
         
         guard let spotName = spotNameField.text, spotName != "" else{
             print("a spot Name must be entered")
@@ -243,10 +246,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }
         
         if SpotTypeControl.selectedSegmentIndex == 0{
- 
+            
             if !ledgeBtn.isSelected && !railBtn.isSelected && !gapBtn.isSelected && !mannyBtn.isSelected
                 && !bumpBtn.isSelected && !trannyBtn.isSelected && !bankBtn.isSelected && !otherBtn.isSelected{
-            
+                
                 print("A SpotType must be selected!!")
             }
             
@@ -258,10 +261,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             if bankBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bank" }
             if trannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Tranny" }
             if otherBtn.isSelected { spotType += "Other" }
-
-        
+            
+            
         }else{
-    
+            
             spotType += "Skatepark"
         }
         
@@ -269,8 +272,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         performSegue(withIdentifier: "backToFeedVC", sender: nil)
     }
-    
-    
+ 
     func addPhotosToStorage(image: UIImage,_ isDefault: Bool){
 
         if let imgData = UIImageJPEGRepresentation(image, 0.2){
