@@ -16,7 +16,7 @@ class MapVC: UIViewController{
     
     var spotPins = [SpotPin]()
     var spots = [Spot]()
-    let manager = CLLocationManager()
+    var manager = CLLocationManager()
     var myLocation = CLLocation()
     
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
@@ -29,11 +29,16 @@ class MapVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        manager = CLLocationManager()
+        manager.delegate = self
+        manager.requestWhenInUseAuthorization()
+        manager.requestLocation()
+        
         mapView.delegate = self
         
 
         // set initial location in Yonkers
-        let initialLocation = CLLocation(latitude: 40.944164, longitude: -73.860896)
+        let initialLocation = CLLocation(latitude: myLocation.coordinate.latitude, longitude: myLocation.coordinate.longitude)
         centerMapOnLocation(location: initialLocation)
 
         
@@ -66,6 +71,20 @@ class MapVC: UIViewController{
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
+}
+extension MapVC: CLLocationManagerDelegate{
+
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        if let location = locations.first {
+            print("Found MY location: \(location)")
+            myLocation = location
+        }
+       
+    }
+    
+    func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
+        print("Failed to find MY location: \(error.localizedDescription)")
+    }
 }
 
 extension MapVC: MKMapViewDelegate {

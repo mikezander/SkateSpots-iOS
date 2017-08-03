@@ -479,13 +479,13 @@
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1000"/>
                                         <subviews>
                                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Spot Name" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="dqE-Dh-VFK">
-                                                <rect key="frame" x="25" y="185" width="325" height="30"/>
+                                                <rect key="frame" x="25" y="145" width="325" height="30"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no"/>
                                             </textField>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="4dD-eT-UE9">
-                                                <rect key="frame" x="25" y="75" width="325" height="80"/>
+                                                <rect key="frame" x="25" y="50" width="325" height="80"/>
                                                 <subviews>
                                                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="black_photo_btn" translatesAutoresizingMaskIntoConstraints="NO" id="cAd-P2-feA">
                                                         <rect key="frame" x="0.0" y="0.0" width="77.666666666666671" height="80"/>
@@ -515,16 +515,16 @@
                                                 </subviews>
                                             </stackView>
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="jlf-G9-Oos">
-                                                <rect key="frame" x="25" y="223" width="325" height="78"/>
+                                                <rect key="frame" x="25" y="183" width="325" height="98"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="78" id="qLb-bL-NzJ"/>
+                                                    <constraint firstAttribute="height" constant="98" id="qLb-bL-NzJ"/>
                                                 </constraints>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                                             </textView>
                                             <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="Plg-AX-0Ai">
-                                                <rect key="frame" x="25" y="359.33333333333331" width="325" height="29"/>
+                                                <rect key="frame" x="25" y="327.33333333333331" width="325" height="29"/>
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                 <segments>
                                                     <segment title="Street"/>
@@ -536,7 +536,7 @@
                                                 </connections>
                                             </segmentedControl>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jFz-Lv-yrJ">
-                                                <rect key="frame" x="164" y="599.66666666666663" width="46" height="30"/>
+                                                <rect key="frame" x="164" y="567.66666666666663" width="46" height="30"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="46" id="0bg-Qe-Qcy"/>
                                                 </constraints>
@@ -546,7 +546,7 @@
                                                 </connections>
                                             </button>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="cZ2-l6-Oiv">
-                                                <rect key="frame" x="25" y="412.33333333333331" width="325" height="32"/>
+                                                <rect key="frame" x="25" y="380.33333333333331" width="325" height="32"/>
                                                 <subviews>
                                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="13w-iY-qqn">
                                                         <rect key="frame" x="0.0" y="0.0" width="77.666666666666671" height="32"/>
@@ -611,10 +611,10 @@
                                                 </subviews>
                                             </stackView>
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="Eh6-st-8JK">
-                                                <rect key="frame" x="25" y="452.33333333333337" width="325" height="32.000000000000057"/>
+                                                <rect key="frame" x="25" y="420.33333333333331" width="325" height="32"/>
                                                 <subviews>
                                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="be9-d4-NQU">
-                                                        <rect key="frame" x="0.0" y="0.0" width="77.666666666666671" height="32.000000000000057"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="77.666666666666671" height="32"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                                         <state key="normal" title="Manual">
@@ -629,7 +629,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qb7-bj-Tj4">
-                                                        <rect key="frame" x="82.666666666666686" y="0.0" width="77.333333333333314" height="32.000000000000057"/>
+                                                        <rect key="frame" x="82.666666666666686" y="0.0" width="77.333333333333314" height="32"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                                         <state key="normal" title="Bank">
@@ -644,7 +644,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="qSh-53-QEk">
-                                                        <rect key="frame" x="165" y="0.0" width="77.666666666666686" height="32.000000000000057"/>
+                                                        <rect key="frame" x="165" y="0.0" width="77.666666666666686" height="32"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                                         <state key="normal" title="Tranny">
@@ -659,7 +659,7 @@
                                                         </connections>
                                                     </button>
                                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="sHE-Az-vI2">
-                                                        <rect key="frame" x="247.66666666666671" y="0.0" width="77.333333333333286" height="32.000000000000057"/>
+                                                        <rect key="frame" x="247.66666666666671" y="0.0" width="77.333333333333286" height="32"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                                         <state key="normal" title="Other">
@@ -676,14 +676,14 @@
                                                 </subviews>
                                             </stackView>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="10" translatesAutoresizingMaskIntoConstraints="NO" id="yG7-oO-rSE">
-                                                <rect key="frame" x="23" y="539.66666666666663" width="329" height="31"/>
+                                                <rect key="frame" x="23" y="507.66666666666663" width="329" height="31"/>
                                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <connections>
                                                     <action selector="bustSlider:" destination="n1J-Ch-fUE" eventType="valueChanged" id="aYy-v6-A8u"/>
                                                 </connections>
                                             </slider>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cdQ-bx-Ak6">
-                                                <rect key="frame" x="166" y="514.33333333333337" width="42" height="20.333333333333258"/>
+                                                <rect key="frame" x="166" y="482.33333333333337" width="42" height="20.333333333333258"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="42" id="BGD-Lw-tbU"/>
                                                 </constraints>
@@ -692,16 +692,16 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spot Type" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wIF-dB-l3Y">
-                                                <rect key="frame" x="25" y="328" width="325" height="23.333333333333314"/>
+                                                <rect key="frame" x="25" y="296" width="325" height="23.333333333333314"/>
                                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="17"/>
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" red="0.7019608021" green="0.7019608021" blue="0.7019608021" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
                                             <constraint firstItem="jFz-Lv-yrJ" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="164" id="0rC-JF-iUY"/>
-                                            <constraint firstItem="dqE-Dh-VFK" firstAttribute="top" secondItem="4dD-eT-UE9" secondAttribute="bottom" constant="30" id="3YT-Qr-6z4"/>
+                                            <constraint firstItem="dqE-Dh-VFK" firstAttribute="top" secondItem="4dD-eT-UE9" secondAttribute="bottom" constant="15" id="3YT-Qr-6z4"/>
                                             <constraint firstItem="Eh6-st-8JK" firstAttribute="top" secondItem="cZ2-l6-Oiv" secondAttribute="bottom" constant="8" id="6Db-mG-b24"/>
                                             <constraint firstAttribute="trailing" secondItem="jlf-G9-Oos" secondAttribute="trailing" constant="25" id="B8z-9p-Ay6"/>
                                             <constraint firstAttribute="trailing" secondItem="jFz-Lv-yrJ" secondAttribute="trailing" constant="165" id="DYC-o1-W7i"/>
@@ -713,7 +713,7 @@
                                             <constraint firstAttribute="trailing" secondItem="wIF-dB-l3Y" secondAttribute="trailing" constant="25" id="KdE-Z3-S2C"/>
                                             <constraint firstItem="Plg-AX-0Ai" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="KxQ-Az-Roo"/>
                                             <constraint firstItem="yG7-oO-rSE" firstAttribute="top" secondItem="cdQ-bx-Ak6" secondAttribute="bottom" constant="5" id="NHj-0u-LDb"/>
-                                            <constraint firstItem="4dD-eT-UE9" firstAttribute="top" secondItem="gFc-LK-9H2" secondAttribute="top" constant="75" id="ONa-6b-w9n"/>
+                                            <constraint firstItem="4dD-eT-UE9" firstAttribute="top" secondItem="gFc-LK-9H2" secondAttribute="top" constant="50" id="ONa-6b-w9n"/>
                                             <constraint firstAttribute="trailing" secondItem="cZ2-l6-Oiv" secondAttribute="trailing" constant="25" id="OdU-vl-OoF"/>
                                             <constraint firstItem="dqE-Dh-VFK" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="P8d-Kg-wFk"/>
                                             <constraint firstAttribute="trailing" secondItem="yG7-oO-rSE" secondAttribute="trailing" constant="25" id="Peu-c9-ILP"/>
@@ -721,7 +721,7 @@
                                             <constraint firstItem="jlf-G9-Oos" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="Ykh-iK-YBV"/>
                                             <constraint firstItem="Eh6-st-8JK" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="Z97-Ww-vcH"/>
                                             <constraint firstItem="Plg-AX-0Ai" firstAttribute="top" secondItem="wIF-dB-l3Y" secondAttribute="bottom" constant="8" id="bZ5-dY-z86"/>
-                                            <constraint firstItem="wIF-dB-l3Y" firstAttribute="top" secondItem="jlf-G9-Oos" secondAttribute="bottom" constant="27" id="c8m-Qt-1oe"/>
+                                            <constraint firstItem="wIF-dB-l3Y" firstAttribute="top" secondItem="jlf-G9-Oos" secondAttribute="bottom" constant="15" id="c8m-Qt-1oe"/>
                                             <constraint firstItem="cdQ-bx-Ak6" firstAttribute="centerX" secondItem="gFc-LK-9H2" secondAttribute="centerX" id="gQV-MZ-Loz"/>
                                             <constraint firstItem="cZ2-l6-Oiv" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="j6V-mG-2Bo"/>
                                             <constraint firstItem="yG7-oO-rSE" firstAttribute="leading" secondItem="gFc-LK-9H2" secondAttribute="leading" constant="25" id="mw5-t0-KIG"/>
@@ -741,7 +741,7 @@
                                 </constraints>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" red="0.70196078431372544" green="0.70196078431372544" blue="0.70196078431372544" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="O7H-8F-Udx" firstAttribute="top" secondItem="Dh8-F1-GFc" secondAttribute="bottom" id="JNb-5K-2gV"/>
                             <constraint firstAttribute="trailing" secondItem="n27-jo-BsO" secondAttribute="trailing" id="JjK-MJ-3WD"/>

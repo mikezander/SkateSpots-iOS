@@ -190,7 +190,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         descriptionTextView.isSelectable = false
-        descriptionTextView.font = UIFont(name: "Times New Roman", size: 15)
+        descriptionTextView.font = UIFont(name: "Helvetica", size: 16)
+        descriptionTextView.alpha = 0.75
         
         
         descriptionTextView.backgroundColor = UIColor.clear

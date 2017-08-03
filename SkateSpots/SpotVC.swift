@@ -55,15 +55,16 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
         spotNameField.delegate = self
-        spotNameField.layer.cornerRadius = 0.0
-        spotNameField.layer.borderWidth = 1.5
+        spotNameField.layer.cornerRadius = 7.0
+        spotNameField.layer.borderWidth = 0.50
         
         descriptionTextView.delegate = self
         descriptionTextView.text = "Spot Description"
-        descriptionTextView.textContainer.maximumNumberOfLines = 4
+        descriptionTextView.textContainer.maximumNumberOfLines = 5
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
         descriptionTextView.textColor = UIColor.lightGray
-        descriptionTextView.layer.borderWidth = 1.5
+        descriptionTextView.layer.cornerRadius = 7.0
+        descriptionTextView.layer.borderWidth = 0.50
         
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
@@ -78,12 +79,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         gapBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         
-        let segAttributes: NSDictionary = [
-            NSForegroundColorAttributeName: UIColor.green,
-            NSFontAttributeName: UIFont(name: "Avenir-MediumOblique", size: 14)!
-        ]
+      //  let segAttributes: NSDictionary = [
+      //      NSForegroundColorAttributeName: UIColor.green,
+       //     NSFontAttributeName: UIFont(name: "Avenir-MediumOblique", size: 14)!
+       // ]
         
-        SpotTypeControl.setTitleTextAttributes(segAttributes as [NSObject : AnyObject], for: UIControlState.selected)
+       // SpotTypeControl.setTitleTextAttributes(segAttributes as [NSObject : AnyObject], for: UIControlState.selected)
     }
  
     
