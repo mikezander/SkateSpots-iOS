@@ -36,6 +36,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var commentView = UITextView()
     var postButton = UIButton()
     var descriptionTextView = UITextView()
+    var kickOutImageView = UIImageView()
+    var bestTimeimageView = UIImageView()
+    var kickOutLabel = UILabel()
+    var bestTimeLabel = UILabel()
+    
+    let kickOutImageName = "cop_logo.png"
+    let bestTimeImageName = "time_logo.png"
     
     var commentLbl = UILabel()
     
@@ -204,6 +211,36 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         adjustUITextViewHeight(arg: descriptionTextView)
         containerView.addSubview(descriptionTextView)
+        
+        let kickOutImage = UIImage(named: kickOutImageName)
+        kickOutImageView = UIImageView(image: kickOutImage)
+        kickOutImageView.frame = CGRect(x: screenWidth / 4 - 20, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 25, width: 50, height: 50)
+        containerView.addSubview(kickOutImageView)
+        
+        kickOutLabel = UILabel(frame: CGRect(x: kickOutImageView.frame.origin.x - 25, y: kickOutImageView.frame.origin.y + kickOutImageView.frame.height + 5 , width: 100, height: 21))
+        kickOutLabel.font = UIFont(name: "Avenir", size: 14)
+        kickOutLabel.textColor = .black
+        //kickOutLabel.center = CGPoint(x: , y: )
+        kickOutLabel.textAlignment = .center
+        kickOutLabel.text = "\(spot.kickOut) bust"
+        containerView.addSubview(kickOutLabel)
+        
+        
+        let bestTimeImage = UIImage(named:bestTimeImageName)
+        bestTimeimageView = UIImageView(image: bestTimeImage)
+        bestTimeimageView.frame = CGRect(x: (screenWidth / 4) * 3 - 25, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 30, width: 50, height: 50)
+        containerView.addSubview(bestTimeimageView)
+        
+        bestTimeLabel = UILabel(frame: CGRect(x: bestTimeimageView.frame.origin.x - 42, y: bestTimeimageView.frame.origin.y + bestTimeimageView.frame.height , width: 125, height: 21))
+        bestTimeLabel.font = UIFont(name: "Avenir", size: 14)
+        bestTimeLabel.textColor = .black
+        //kickOutLabel.center = CGPoint(x: , y: )
+        bestTimeLabel.textAlignment = .center
+        bestTimeLabel.text = "\(spot.bestTimeToSkate) spot"
+        containerView.addSubview(bestTimeLabel)
+        
+    
+        
         
         tableView.frame = CGRect(x:0, y:screenHeight + screenHeight / 3, width: screenWidth, height: screenHeight / 3)
         tableView.register(CommentCell.self, forCellReuseIdentifier: "cell")
