@@ -684,7 +684,7 @@
                                             <stackView opaque="NO" contentMode="scaleToFill" distribution="fillEqually" spacing="5" translatesAutoresizingMaskIntoConstraints="NO" id="YqJ-mp-qAY">
                                                 <rect key="frame" x="25" y="601.33333333333337" width="364" height="29"/>
                                                 <subviews>
-                                                    <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SKP-iB-sW9">
+                                                    <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SKP-iB-sW9">
                                                         <rect key="frame" x="0.0" y="0.0" width="87.333333333333329" height="29"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
@@ -695,8 +695,11 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="6EH-HZ-XWK" eventType="touchUpInside" id="jVT-FH-iuw"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nIT-Q7-ReQ">
+                                                    <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="nIT-Q7-ReQ">
                                                         <rect key="frame" x="92.333333333333343" y="0.0" width="87.333333333333343" height="29"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
@@ -707,8 +710,11 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="6EH-HZ-XWK" eventType="touchUpInside" id="HcZ-Mi-udb"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHG-ue-NBz">
+                                                    <button opaque="NO" tag="10" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CHG-ue-NBz">
                                                         <rect key="frame" x="184.66666666666669" y="0.0" width="87.000000000000057" height="29"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
@@ -719,8 +725,11 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="6EH-HZ-XWK" eventType="touchUpInside" id="BaC-QV-RAT"/>
+                                                        </connections>
                                                     </button>
-                                                    <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fuC-oO-aAj">
+                                                    <button opaque="NO" tag="11" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fuC-oO-aAj">
                                                         <rect key="frame" x="276.66666666666674" y="0.0" width="87.333333333333314" height="29"/>
                                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="12"/>
@@ -731,6 +740,9 @@
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.borderWidth" value="1"/>
                                                             <userDefinedRuntimeAttribute type="string" keyPath="layer.cornerRadius" value="5"/>
                                                         </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="SpotTypePressed:" destination="6EH-HZ-XWK" eventType="touchUpInside" id="6mm-90-RWb"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                             </stackView>
@@ -842,6 +854,7 @@
                         <outlet property="addPhotoOne" destination="gIN-b9-viL" id="vmI-er-Edp"/>
                         <outlet property="addPhotoThree" destination="fZQ-gE-wxo" id="YZH-V5-lpU"/>
                         <outlet property="addPhotoTwo" destination="31f-0S-O9f" id="8h9-Ye-cyv"/>
+                        <outlet property="anytimeBtn" destination="SKP-iB-sW9" id="s4o-sH-FKg"/>
                         <outlet property="bankBtn" destination="J4h-bn-JRv" id="s6k-ZY-QNL"/>
                         <outlet property="bumpBtn" destination="N8C-3l-fWw" id="iKy-68-7po"/>
                         <outlet property="bustLabel" destination="Hml-DF-Hzk" id="vfb-cB-Owr"/>
@@ -849,10 +862,13 @@
                         <outlet property="gapBtn" destination="eWe-i7-lnr" id="eVc-bD-6Mg"/>
                         <outlet property="ledgeBtn" destination="FlJ-mA-Ze7" id="rB0-Fi-EZi"/>
                         <outlet property="mannyBtn" destination="P7U-xf-9yP" id="aFK-WS-wQR"/>
+                        <outlet property="nightBtn" destination="fuC-oO-aAj" id="wjk-MI-nZ2"/>
                         <outlet property="otherBtn" destination="O3q-2u-3QV" id="Lfi-Ng-PmP"/>
                         <outlet property="railBtn" destination="2fS-Kd-J38" id="DZD-pb-wq0"/>
                         <outlet property="spotNameField" destination="vBz-5U-EMW" id="GyA-n3-f14"/>
                         <outlet property="trannyBtn" destination="Zbs-Iv-PD2" id="Rtz-Rk-yrM"/>
+                        <outlet property="weekdayBtn" destination="nIT-Q7-ReQ" id="4C3-FL-dZA"/>
+                        <outlet property="weekendBtn" destination="CHG-ue-NBz" id="1td-7m-XTo"/>
                         <segue destination="c2b-5P-XCM" kind="show" identifier="backToFeedVC" id="qnT-aP-8uy"/>
                     </connections>
                 </viewController>

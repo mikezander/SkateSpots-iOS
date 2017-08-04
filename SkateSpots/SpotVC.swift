@@ -36,6 +36,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var trannyBtn: UIButton!
     @IBOutlet weak var otherBtn: UIButton!
     @IBOutlet weak var bustLabel: UILabel!
+    @IBOutlet weak var anytimeBtn: UIButton!
+    @IBOutlet weak var weekdayBtn: UIButton!
+    @IBOutlet weak var weekendBtn: UIButton!
+    @IBOutlet weak var nightBtn: UIButton!
 
     
     var imagePicker: UIImagePickerController!
@@ -48,6 +52,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var latitude: CLLocationDegrees?
     var longitude: CLLocationDegrees?
     var spotType: String = ""
+    var bestTimeToSkate: String = ""
 
 
     override func viewDidLoad() {
@@ -79,6 +84,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         addPhotoFour.addGestureRecognizer(setGestureRecognizer())
         
         gapBtn.titleLabel?.adjustsFontSizeToFitWidth = true
+        
+        anytimeBtn.backgroundColor = UIColor.black
+        anytimeBtn.setTitleColor(.green, for: .normal)
 
     }
     
@@ -102,6 +110,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             sender.isSelected = true
             sender.backgroundColor = UIColor.black
             sender.setTitleColor(.green, for: .normal)
+            otherBtn.backgroundColor = UIColor.clear
+            otherBtn.setTitleColor(.black, for: .normal)
             
         case 7:
             sender.isSelected = true
@@ -114,6 +124,34 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             disableButtonsForTypeOther(btn: mannyBtn)
             disableButtonsForTypeOther(btn: bankBtn)
             disableButtonsForTypeOther(btn: trannyBtn)
+            case 8:
+                sender.isSelected = true
+                sender.backgroundColor = UIColor.black
+                sender.setTitleColor(.green, for: .normal)
+                disableButtonsForTypeOther(btn: weekdayBtn)
+                disableButtonsForTypeOther(btn: weekendBtn)
+                disableButtonsForTypeOther(btn: nightBtn)
+            case 9:
+                sender.isSelected = true
+                sender.backgroundColor = UIColor.black
+                sender.setTitleColor(.green, for: .normal)
+                disableButtonsForTypeOther(btn: anytimeBtn)
+                disableButtonsForTypeOther(btn: weekendBtn)
+                disableButtonsForTypeOther(btn: nightBtn)
+            case 10:
+                sender.isSelected = true
+                sender.backgroundColor = UIColor.black
+                sender.setTitleColor(.green, for: .normal)
+                disableButtonsForTypeOther(btn: anytimeBtn)
+                disableButtonsForTypeOther(btn: weekdayBtn)
+                disableButtonsForTypeOther(btn: nightBtn)
+            case 11:
+                sender.isSelected = true
+                sender.backgroundColor = UIColor.black
+                sender.setTitleColor(.green, for: .normal)
+                disableButtonsForTypeOther(btn: anytimeBtn)
+                disableButtonsForTypeOther(btn: weekdayBtn)
+                disableButtonsForTypeOther(btn: weekendBtn)
         default: break
             } //end switch
        
@@ -135,7 +173,35 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 mannyBtn.isEnabled = true
                 bankBtn.isEnabled = true
                 trannyBtn.isEnabled = true
-            
+            case 8:
+                sender.isSelected = false
+                sender.backgroundColor = UIColor.clear
+                sender.setTitleColor(.black, for: .normal)
+                weekdayBtn.isEnabled = true
+                weekendBtn.isEnabled = true
+                nightBtn.isEnabled = true
+            case 9:
+                sender.isSelected = false
+                sender.backgroundColor = UIColor.clear
+                sender.setTitleColor(.black, for: .normal)
+                anytimeBtn.isEnabled = true
+                weekendBtn.isEnabled = true
+                nightBtn.isEnabled = true
+            case 10:
+                sender.isSelected = false
+                sender.backgroundColor = UIColor.clear
+                sender.setTitleColor(.black, for: .normal)
+                anytimeBtn.isEnabled = true
+                weekdayBtn.isEnabled = true
+                nightBtn.isEnabled = true
+            case 11:
+                sender.isSelected = false
+                sender.backgroundColor = UIColor.clear
+                sender.setTitleColor(.black, for: .normal)
+                anytimeBtn.isEnabled = true
+                weekdayBtn.isEnabled = true
+                weekendBtn.isEnabled = true
+                
             default: break
                 
             }//end switch
@@ -145,7 +211,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     func disableButtonsForTypeOther(btn: UIButton){
         btn.backgroundColor = UIColor.clear
         btn.setTitleColor(.black, for: .normal)
-        btn.isEnabled = false
+       // btn.isEnabled = false
     }
     
     func addImagePressed(sender: UITapGestureRecognizer) {
