@@ -426,6 +426,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             "spotLocation" : locationString as AnyObject,
             "spotType": spotType as AnyObject,
             "spotDescription": descriptionTextView.text as AnyObject,
+            "kickOut": bustLabel.text as AnyObject,
             "latitude" : latitude as AnyObject,
             "longitude" : longitude as AnyObject,
             "user": FIRAuth.auth()!.currentUser!.uid as AnyObject //may not be safe but works for now
