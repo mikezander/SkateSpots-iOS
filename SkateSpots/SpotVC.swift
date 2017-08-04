@@ -85,6 +85,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         gapBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         
+        anytimeBtn.isSelected = true
         anytimeBtn.backgroundColor = UIColor.black
         anytimeBtn.setTitleColor(.green, for: .normal)
 
@@ -334,6 +335,11 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             spotType += "Skatepark"
         }
         
+        if anytimeBtn.isSelected{ bestTimeToSkate = "Anytime" }
+        if weekdayBtn.isSelected{ bestTimeToSkate = "Weekday" }
+        if weekendBtn.isSelected{ bestTimeToSkate = "Weekend" }
+        if nightBtn.isSelected{ bestTimeToSkate = "Night" }
+        
         addPhotosToStorage(image: defaultImg, true)
         
         performSegue(withIdentifier: "backToFeedVC", sender: nil)
@@ -493,6 +499,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             "spotType": spotType as AnyObject,
             "spotDescription": descriptionTextView.text as AnyObject,
             "kickOut": bustLabel.text as AnyObject,
+            "bestTimeToSkate": bestTimeToSkate as AnyObject,
             "latitude" : latitude as AnyObject,
             "longitude" : longitude as AnyObject,
             "user": FIRAuth.auth()!.currentUser!.uid as AnyObject //may not be safe but works for now

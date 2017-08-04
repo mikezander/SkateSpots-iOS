@@ -18,6 +18,7 @@ class Spot{
     private var _spotType: String
     private var _spotDescription: String
     private var _kickout: String
+    private var _bestTimeToSkate: String
     private var _spotKey: String!
     private var _latitude: CLLocationDegrees
     private var _longitude: CLLocationDegrees
@@ -56,6 +57,10 @@ class Spot{
     
     var kickOut: String{
         return _kickout
+    }
+    
+    var bestTimeToSkate: String{
+        return _bestTimeToSkate
     }
     
     var spotKey: String{
@@ -104,13 +109,14 @@ class Spot{
 
     }
   
-    init(spotName: String, imageUrls: [String], spotLocation: String, spotType:String, spotDescription: String, kickOut: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, user: String, username: String, userImageURL: String){
+    init(spotName: String, imageUrls: [String], spotLocation: String, spotType:String, spotDescription: String, kickOut: String, bestTimeToSkate: String, latitude: CLLocationDegrees, longitude: CLLocationDegrees, user: String, username: String, userImageURL: String){
         self._spotName = spotName
         self._imageUrls = imageUrls
         self._spotLocation = spotLocation
         self._spotType = spotType
         self._spotDescription = spotDescription
         self._kickout = kickOut
+        self._bestTimeToSkate = bestTimeToSkate
         self._latitude = latitude
         self._longitude = longitude
         self._user = user
@@ -133,6 +139,8 @@ class Spot{
         self._spotDescription = spotData["spotDescription"] as? String ?? "No description"
         
         self._kickout = spotData["kickOut"] as? String ?? "Low"
+        
+        self._bestTimeToSkate = spotData["bestTimeToSkate"] as? String ?? "Anytime"
         
         self._latitude = spotData["latitude"] as? CLLocationDegrees ?? 0.0
         
