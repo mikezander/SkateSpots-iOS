@@ -239,28 +239,38 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         bestTimeLabel.text = "\(spot.bestTimeToSkate) spot"
         containerView.addSubview(bestTimeLabel)
         
-    
+        let doYourPath = UIBezierPath(rect: CGRect(x: 0, y: kickOutLabel.frame.origin.y + 20, width: screenWidth, height: 1.3))
+        let layer = CAShapeLayer()
+        layer.path = doYourPath.cgPath
+        layer.strokeColor = UIColor.white.cgColor
+        layer.fillColor = UIColor.lightGray.cgColor
+        
+        self.containerView.layer.addSublayer(layer)
         
         
-        tableView.frame = CGRect(x:0, y:screenHeight + screenHeight / 3, width: screenWidth, height: screenHeight / 3)
+        // y: screenHeight + screenHeight / 3
+        tableView.frame = CGRect(x:0, y: kickOutLabel.frame.origin.y + 100, width: screenWidth, height: screenHeight / 3 + 40)
         tableView.register(CommentCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
         
         containerView.addSubview(tableView)
-        
+       
+        //y: screenHeight + (screenHeight / 3) - 10
         commentLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
         // you will probably want to set the font (remember to use Dynamic Type!)
         commentLbl.font = UIFont.preferredFont(forTextStyle: .headline)
         commentLbl.textColor = .black
-        commentLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight + (screenHeight / 3) - 10)
+        commentLbl.center = CGPoint(x: screenWidth / 2, y: tableView.frame.origin.y - 10)
         commentLbl.textAlignment = .center
         commentLbl.alpha = 0.3
         commentLbl.font = commentLbl.font.withSize(15)
         
         self.containerView.addSubview(commentLbl)
 
-        commentView = UITextView(frame: CGRect(x: 10, y: screenHeight + ((screenHeight / 3) * 2), width: tableView.frame.size.width - 50, height: 40))
+        
+        //y: screenHeight + ((screenHeight / 3) * 2)
+        commentView = UITextView(frame: CGRect(x: 10, y: tableView.frame.origin.y + tableView.frame.height, width: tableView.frame.size.width - 55, height: 40))
         commentView.delegate = self
         commentView.text = "Add a comment"
         commentView.textContainer.maximumNumberOfLines = 4
@@ -275,10 +285,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         
         postButton = UIButton()
-        postButton.frame = CGRect(x: screenWidth - 35, y: screenHeight + ((screenHeight / 3) * 2), width: 25, height: 40)
-        postButton.backgroundColor = UIColor.red
-        postButton.setTitle("Name your Button ", for: .normal)
+        postButton.frame = CGRect(x: screenWidth - 45, y: tableView.frame.origin.y + tableView.frame.height, width: 40, height: 40)
+        postButton.backgroundColor = UIColor.black
+        postButton.layer.borderWidth = 2.0
+        postButton.setImage(UIImage(named: "comment_btn")?.withRenderingMode(.alwaysOriginal), for: .normal)
+        postButton.setImage(UIImage(named: "comment_btn")?.withRenderingMode(.alwaysOriginal), for: .highlighted)
+        //postButton.setTitle("Name your Button ", for: .normal)
         postButton.addTarget(self, action:#selector(commentPressedHandler), for: .touchUpInside)
+        
         
         containerView.addSubview(postButton)
     
@@ -592,8 +606,6 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
             
         })
 
-        
-        
         return cell
     }
  
