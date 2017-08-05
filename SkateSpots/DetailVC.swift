@@ -194,18 +194,20 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         bestTimeLabel.text = "\(spot.bestTimeToSkate) spot"
         containerView.addSubview(bestTimeLabel)
         
-        let doYourPath = UIBezierPath(rect: CGRect(x: 0, y: kickOutLabel.frame.origin.y + 20, width: screenWidth, height: 1.3))
+        let doYourPath = UIBezierPath(rect: CGRect(x: 0, y: kickOutLabel.frame.origin.y + 30, width: screenWidth, height: 1.3))
         let layer = CAShapeLayer()
         layer.path = doYourPath.cgPath
         layer.strokeColor = UIColor.white.cgColor
-        layer.fillColor = UIColor.lightGray.cgColor
-        
-        
+        layer.fillColor = UIColor.black.cgColor
         self.containerView.layer.addSublayer(layer)
+        
+        let grayView = UIView(frame: CGRect(x: 0, y: kickOutLabel.frame.origin.y + 30 , width: screenWidth, height: screenHeight))
+        grayView.backgroundColor = UIColor.lightGray
+        containerView.addSubview(grayView)
         
         
         // y: screenHeight + screenHeight / 3
-        tableView.frame = CGRect(x:0, y: kickOutLabel.frame.origin.y + 100, width: screenWidth, height: screenHeight / 3 + 40)
+        tableView.frame = CGRect(x:10, y: kickOutLabel.frame.origin.y + 100, width: screenWidth - 20, height: screenHeight / 3 + 40)
         tableView.register(CommentCell.self, forCellReuseIdentifier: "cell")
         tableView.delegate = self
         tableView.dataSource = self
@@ -226,7 +228,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 
         
         //y: screenHeight + ((screenHeight / 3) * 2)
-        commentView = UITextView(frame: CGRect(x: 10, y: tableView.frame.origin.y + tableView.frame.height, width: tableView.frame.size.width - 55, height: 40))
+        commentView = UITextView(frame: CGRect(x: 10, y: tableView.frame.origin.y + tableView.frame.height, width: tableView.frame.size.width - 40, height: 40))
         commentView.delegate = self
         commentView.text = "Add a comment"
         commentView.textContainer.maximumNumberOfLines = 4
@@ -241,7 +243,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         
         postButton = UIButton()
-        postButton.frame = CGRect(x: screenWidth - 45, y: tableView.frame.origin.y + tableView.frame.height, width: 40, height: 40)
+        postButton.frame = CGRect(x: screenWidth - 50, y: tableView.frame.origin.y + tableView.frame.height, width: 40, height: 40)
         postButton.backgroundColor = UIColor.black
         postButton.layer.borderWidth = 2.0
         postButton.setImage(UIImage(named: "comment_btn")?.withRenderingMode(.alwaysOriginal), for: .normal)
@@ -252,7 +254,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 
         ratingView.settings.starSize = 30
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
-        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: commentView.frame.origin.y + commentView.frame.height + 100)
+        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: commentView.frame.origin.y + commentView.frame.height + 150)
         ratingView.settings.fillMode = .precise
         ratingView.settings.updateOnTouch = true
         containerView.addSubview(ratingView)
@@ -339,11 +341,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             print(error.localizedDescription)
         }
         //x: screenWidth / 2 - 75
-        directionsButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  rateBtn.frame.origin.y + 100 , width: 135, height: 25))
+        directionsButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  rateBtn.frame.origin.y + rateBtn.frame.height + 15 , width: 135, height: 25))
         directionsButton.setImage(UIImage(named:"direction_icon.png"), for: .normal)
         directionsButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 25)
         directionsButton.setTitle("Directions", for: .normal)
-        directionsButton.backgroundColor = UIColor.blue
+        directionsButton.backgroundColor = UIColor.black
         directionsButton.titleEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 5)
         directionsButton.setTitleColor(UIColor.white, for: .normal)
         directionsButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor

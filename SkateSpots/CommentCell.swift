@@ -31,7 +31,7 @@ class CommentCell: UITableViewCell{
        CellHeight = 100
     
         profilePhoto = UIImageView()
-        profilePhoto.frame = CGRect(x: 20, y: 5, width: 50, height: 50)
+        profilePhoto.frame = CGRect(x: 10, y: 5, width: 50, height: 50)
         profilePhoto.layer.borderWidth = 1
         profilePhoto.layer.masksToBounds = false
         profilePhoto.layer.borderColor = UIColor.green.cgColor
@@ -50,7 +50,7 @@ class CommentCell: UITableViewCell{
         comment.isEditable = false
         comment.isSelectable = false
         
-        comment.frame = CGRect(x: profilePhoto.frame.origin.x+profilePhoto.frame.width + 10, y: userName.frame.origin.y + 10, width: screenSize.width - (profilePhoto.frame.origin.x+profilePhoto.frame.width + 25), height: 115)
+        comment.frame = CGRect(x: profilePhoto.frame.origin.x+profilePhoto.frame.width + 5, y: userName.frame.origin.y + 10, width: screenSize.width - (profilePhoto.frame.origin.x+profilePhoto.frame.width + 25), height: 115)
         
         comment.font = UIFont(name: "ArialMT", size: 16)
         
