@@ -67,7 +67,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 
         self.scrollView = UIScrollView()
         self.scrollView.delegate = self
-        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + 150)
+        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 3)
         
         containerView = UIView()
         scrollView.addSubview(containerView)
@@ -120,17 +120,18 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         // you will probably want to set the font (remember to use Dynamic Type!)
         spotTypeLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         spotTypeLbl.textColor = .black
-        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 100)
+        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 105)
         spotTypeLbl.textAlignment = .center
         spotTypeLbl.text = spot.spotType
         self.containerView.addSubview(spotTypeLbl)
         
-        
-        ratingDisplayView = CosmosView(frame: CGRect(x:0, y:0, width: 250,height: 20))
-        ratingDisplayView.center = CGPoint(x: screenWidth / 2 , y: screenHeight - 80)
+        ratingDisplayView.settings.starSize = 25
+        ratingDisplayView.frame =  CGRect(x:0, y:0, width: 250,height: 20)
+        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 85)
         ratingDisplayView.settings.updateOnTouch = false
         ratingDisplayView.settings.fillMode = .precise
         containerView.addSubview(ratingDisplayView)
+        
         
         ratingDisplayLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
         // you will probably want to set the font (remember to use Dynamic Type!)
@@ -140,63 +141,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingDisplayLbl.textAlignment = .center
         ratingDisplayLbl.alpha = 0.4
         self.containerView.addSubview(ratingDisplayLbl)
-   
-        ratingView.settings.starSize = 30
-        ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
-        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: screenHeight + (screenHeight - 50))
-        ratingView.settings.fillMode = .precise
-        ratingView.settings.updateOnTouch = true
-        containerView.addSubview(ratingView)
-        
-        rateBtn = RoundedButton(frame: CGRect(x:0, y:0, width: 100,height: 20))
-        rateBtn.center = CGPoint(x: screenWidth / 2, y: screenHeight + (screenHeight - 50))
-        rateBtn.setTitle("Rate Spot!", for: .normal)
-        rateBtn.backgroundColor = UIColor.black
-        rateBtn.cornerRadius = 2.0
-        rateBtn.addTarget(self, action:#selector(rateSpotPressed), for: .touchUpInside)
-        
-        rateBtn.alpha = 0.3
-        containerView.addSubview(rateBtn)
 
-        let ref = DataService.instance.refrenceToCurrentUser()
-        ratingRef = ref.child("rated").child(spot.spotKey)
-        
-        
-            handleOneReviewPerSpot(ref: ratingRef)
-
-            self.ratingView.didFinishTouchingCosmos = { rating in
-                self.rateBtn.alpha = 1
-                self.rateBtn.isEnabled = true
-                let displayRating = String(format: "%.1f", rating)
-                self.ratingView.text = "(\(displayRating))"
-                self.ratingView.settings.filledBorderColor = UIColor.black   
-        }
-        
-        
-
-        refCurrentSpot.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
-            let ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
-                
-                var rating = ratingTally / Double(ratingVotes)
-                //let displayRating = String(format: "%.1f", rating)
-
-                rating = (rating * 10).rounded() / 10
-                print("\(rating) rating")
-                self.ratingDisplayView.rating = rating
-                self.ratingDisplayView.text = ("(\(ratingVotes))")
-                self.ratingDisplayLbl.text = "\(rating) out of 5 stars"
-            
-            }else{
-            
-                self.ratingDisplayView.rating = 0.0
-                self.ratingDisplayView.text = "(\(0))"
-                self.ratingDisplayLbl.text = "No reviews yet"
-            }
-        
-        })
-        
-        
         let descriptionLbl = UILabel(frame: CGRect(x: 10, y: screenHeight - 50, width: screenWidth - 5, height: 20))
         descriptionLbl.font = UIFont(name: "Avenir-Black", size: 15)
         descriptionLbl.textColor = UIColor.lightGray
@@ -231,7 +176,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         kickOutLabel = UILabel(frame: CGRect(x: kickOutImageView.frame.origin.x - 25, y: kickOutImageView.frame.origin.y + kickOutImageView.frame.height + 5 , width: 100, height: 21))
         kickOutLabel.font = UIFont(name: "Avenir", size: 14)
         kickOutLabel.textColor = .black
-        //kickOutLabel.center = CGPoint(x: , y: )
         kickOutLabel.textAlignment = .center
         kickOutLabel.text = "\(spot.kickOut) bust"
         containerView.addSubview(kickOutLabel)
@@ -255,6 +199,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         layer.path = doYourPath.cgPath
         layer.strokeColor = UIColor.white.cgColor
         layer.fillColor = UIColor.lightGray.cgColor
+        
         
         self.containerView.layer.addSublayer(layer)
         
@@ -303,17 +248,65 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         postButton.setImage(UIImage(named: "comment_btn")?.withRenderingMode(.alwaysOriginal), for: .highlighted)
         //postButton.setTitle("Name your Button ", for: .normal)
         postButton.addTarget(self, action:#selector(commentPressedHandler), for: .touchUpInside)
-        
-        directionsButton = UIButton(frame: CGRect(x: screenWidth / 2, y: screenHeight + (screenHeight - 10) , width: 100, height: 50))
-        directionsButton.backgroundColor = UIColor.black
-        directionsButton.setTitle("Directions", for: .normal)
-        directionsButton.setTitleColor(UIColor.white, for: .normal)
-        directionsButton.addTarget(self, action:#selector(getDirections), for: .touchUpInside)
-        containerView.addSubview(directionsButton)
-        
-        
-        
         containerView.addSubview(postButton)
+
+        ratingView.settings.starSize = 30
+        ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
+        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: commentView.frame.origin.y + commentView.frame.height + 100)
+        ratingView.settings.fillMode = .precise
+        ratingView.settings.updateOnTouch = true
+        containerView.addSubview(ratingView)
+        
+        rateBtn = RoundedButton(frame: CGRect(x:0, y:0, width: 135,height: 25))
+        rateBtn.center = CGPoint(x: screenWidth / 2, y: ratingView.frame.origin.y + 50)
+        rateBtn.setTitle("Rate Spot!", for: .normal)
+        rateBtn.backgroundColor = UIColor.black
+        rateBtn.layer.masksToBounds = false
+        rateBtn.layer.cornerRadius = 4.0
+        rateBtn.addTarget(self, action:#selector(rateSpotPressed), for: .touchUpInside)
+        
+        rateBtn.alpha = 0.3
+        containerView.addSubview(rateBtn)
+        
+        let ref = DataService.instance.refrenceToCurrentUser()
+        ratingRef = ref.child("rated").child(spot.spotKey)
+        
+        
+        handleOneReviewPerSpot(ref: ratingRef)
+        
+        self.ratingView.didFinishTouchingCosmos = { rating in
+            self.rateBtn.alpha = 1
+            self.rateBtn.isEnabled = true
+            let displayRating = String(format: "%.1f", rating)
+            self.ratingView.text = "(\(displayRating))"
+            self.ratingView.settings.filledBorderColor = UIColor.black
+        }
+        
+        
+        
+        refCurrentSpot.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
+                let ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
+                
+                var rating = ratingTally / Double(ratingVotes)
+                //let displayRating = String(format: "%.1f", rating)
+                
+                rating = (rating * 10).rounded() / 10
+                print("\(rating) rating")
+                self.ratingDisplayView.rating = rating
+                self.ratingDisplayView.text = ("(\(ratingVotes))")
+                self.ratingDisplayLbl.text = "\(rating) out of 5 stars"
+                
+            }else{
+                
+                self.ratingDisplayView.rating = 0.0
+                self.ratingDisplayView.text = "(\(0))"
+                self.ratingDisplayLbl.text = "No reviews yet"
+            }
+            
+        })
+        
+        
     
         let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
         commentRef.observe(.value, with: {(snapshot) in
@@ -345,8 +338,24 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         }) {(error) in
             print(error.localizedDescription)
         }
+        //x: screenWidth / 2 - 75
+        directionsButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  rateBtn.frame.origin.y + 100 , width: 135, height: 25))
+        directionsButton.setImage(UIImage(named:"direction_icon.png"), for: .normal)
+        directionsButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 25)
+        directionsButton.setTitle("Directions", for: .normal)
+        directionsButton.backgroundColor = UIColor.blue
+        directionsButton.titleEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 5)
+        directionsButton.setTitleColor(UIColor.white, for: .normal)
+        directionsButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        directionsButton.layer.shadowOffset = CGSize(width:0.0,height: 2.0)
+        directionsButton.layer.shadowOpacity = 1.0
+        directionsButton.layer.shadowRadius = 0.0
+        directionsButton.layer.masksToBounds = false
+        directionsButton.layer.cornerRadius = 4.0
         
         
+        directionsButton.addTarget(self, action:#selector(getDirections), for: .touchUpInside)
+        containerView.addSubview(directionsButton)
         
 }
     
@@ -603,6 +612,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             
         }
         
+        
         return cell
     }
     
@@ -641,7 +651,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
            
             
         })
-
+   
         return cell
     }
  
