@@ -26,6 +26,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var scrollView: UIScrollView!
     var containerView = UIView()
     var collectionview: UICollectionView!
+    var pageControl = UIPageControl()
     var cellId = "Cell"
     var ratingView = CosmosView()
     var ratingDisplayView = CosmosView()
@@ -87,16 +88,17 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: screenWidth, height: screenHeight)
         layout.scrollDirection = .horizontal
- 
+
         collectionview = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionview.collectionViewLayout = layout
         collectionview.dataSource = self
         collectionview.delegate = self
+        collectionview.
         collectionview.register(DetailPhotoCell.self, forCellWithReuseIdentifier: cellId)
         collectionview.showsHorizontalScrollIndicator = false
         collectionview.backgroundColor = UIColor.white
         self.containerView.addSubview(collectionview)
-        
+ 
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
         // you will probably want to set the font (remember to use Dynamic Type!)
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
@@ -106,6 +108,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotNameLbl.text = spot.spotName
         self.containerView.addSubview(spotNameLbl)
         
+        pageControl = UIPageControl(frame: CGRect(x: -25, y: spotNameLbl.frame.origin.y - 15, width: 50, height: 20))
+        //pageControl.layer.borderWidth = 0.5
+        pageControl.pageIndicatorTintColor = UIColor.lightGray
+        pageControl.currentPageIndicatorTintColor = UIColor.green
+        // pageControl.backgroundColor = UIColor.black
+        containerView.addSubview(pageControl)
+        
         spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
         // you will probably want to set the font (remember to use Dynamic Type!)
         spotTypeLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
@@ -114,6 +123,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotTypeLbl.textAlignment = .center
         spotTypeLbl.text = spot.spotType
         self.containerView.addSubview(spotTypeLbl)
+        
         
         ratingDisplayView = CosmosView(frame: CGRect(x:0, y:0, width: 250,height: 20))
         ratingDisplayView.center = CGPoint(x: screenWidth / 2 , y: screenHeight - 80)
@@ -356,6 +366,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         }
     }
     
+   
+    
     func configCommentCountLabel(count: Int){
         switch count {
         case 0:
@@ -539,11 +551,16 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
+        pageControl.numberOfPages = spot.imageUrls.count
         return spot.imageUrls.count
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        pageControl.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        pageControl.hidesForSinglePage = true
+        pageControl.currentPage = indexPath.row
+    }
 
-    
-    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
         let screenWidth = screenSize.width
@@ -574,6 +591,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
+    
 }
 extension DetailVC: UITableViewDelegate, UITableViewDataSource{
 
