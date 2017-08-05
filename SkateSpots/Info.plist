@@ -42,5 +42,9 @@
 	<string>we need location access</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>We need location access</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>comgooglemaps</string>
+	</array>
 </dict>
 </plist>

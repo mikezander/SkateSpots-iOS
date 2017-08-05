@@ -12,6 +12,7 @@ import Cosmos
 import FirebaseDatabase
 import FirebaseAuth
 import FirebaseStorage
+import MapKit
 
 class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
    
@@ -36,6 +37,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var spotTypeLbl = UILabel()
     var commentView = UITextView()
     var postButton = UIButton()
+    var directionsButton = UIButton()
     var descriptionTextView = UITextView()
     var kickOutImageView = UIImageView()
     var bestTimeimageView = UIImageView()
@@ -93,7 +95,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.collectionViewLayout = layout
         collectionview.dataSource = self
         collectionview.delegate = self
-        collectionview.
         collectionview.register(DetailPhotoCell.self, forCellWithReuseIdentifier: cellId)
         collectionview.showsHorizontalScrollIndicator = false
         collectionview.backgroundColor = UIColor.white
@@ -303,6 +304,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         //postButton.setTitle("Name your Button ", for: .normal)
         postButton.addTarget(self, action:#selector(commentPressedHandler), for: .touchUpInside)
         
+        directionsButton = UIButton(frame: CGRect(x: screenWidth / 2, y: screenHeight + (screenHeight - 10) , width: 100, height: 50))
+        directionsButton.backgroundColor = UIColor.black
+        directionsButton.setTitle("Directions", for: .normal)
+        directionsButton.setTitleColor(UIColor.white, for: .normal)
+        directionsButton.addTarget(self, action:#selector(getDirections), for: .touchUpInside)
+        containerView.addSubview(directionsButton)
+        
+        
         
         containerView.addSubview(postButton)
     
@@ -336,6 +345,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         }) {(error) in
             print(error.localizedDescription)
         }
+        
+        
         
 }
     
@@ -498,6 +509,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 self.rateBtn.setTitle("Rated 🙌", for: .normal)
             }
         })
+    }
+    
+    func getDirections(){
+        let coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
+        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+        mapItem.name = spot.spotName
+        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
     }
     
     func backButtonPressed() {
