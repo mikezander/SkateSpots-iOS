@@ -285,6 +285,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }
 
             addThumbnailPhoto(count, image)
+            addPhotoOne.layer.borderWidth = 1.25
+            addPhotoOne.layer.borderColor = UIColor.green.cgColor
             imageSelected = true
             count += 1
         }else{
