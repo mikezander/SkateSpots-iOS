@@ -68,7 +68,12 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         self.scrollView = UIScrollView()
         self.scrollView.delegate = self
         
+        if screenHeight > 568.0{
         self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + screenHeight / 4)
+        }else{
+        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + screenHeight / 3)
+        }
+        
         
         containerView = UIView()
         scrollView.addSubview(containerView)
@@ -267,7 +272,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 
         ratingView.settings.starSize = 30
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
-        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: (screenHeight * 2) - 30)
+        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: commentView.frame.origin.y + commentView.frame.height + screenHeight / 4)
         ratingView.settings.fillMode = .precise
         ratingView.settings.updateOnTouch = true
         containerView.addSubview(ratingView)
