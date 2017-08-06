@@ -53,12 +53,13 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        //viewDidLoad()
+        
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-
+       
+        spotTableView.reloadData()
        // performSegue(withIdentifier: "LogInVC", sender: nil)
        guard FIRAuth.auth()?.currentUser != nil else{
             performSegue(withIdentifier: "LogInVC", sender: nil)

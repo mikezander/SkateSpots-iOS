@@ -41,6 +41,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var weekendBtn: UIButton!
     @IBOutlet weak var nightBtn: UIButton!
     @IBOutlet weak var addSpotButton: UIButton!
+    @IBOutlet weak var topPhotoLabel: UILabel!
 
     
     var imagePicker: UIImagePickerController!
@@ -83,6 +84,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         addPhotoTwo.addGestureRecognizer(setGestureRecognizer())
         addPhotoThree.addGestureRecognizer(setGestureRecognizer())
         addPhotoFour.addGestureRecognizer(setGestureRecognizer())
+        
+
         
         gapBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         
@@ -225,6 +228,34 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     func addImagePressed(sender: UITapGestureRecognizer) {
         showPhotoActionSheet()
+    }
+    
+    @IBAction func longPressDelete(_ sender: UILongPressGestureRecognizer){
+    print("long press pressed")
+        if sender.state == UIGestureRecognizerState.ended{
+           
+            if count == 0{
+                return
+            }else if count == 1{
+                addPhotoOne.image = UIImage(named: "black_photo_btn")
+                imageSelected = false
+                count -= 1
+            }else if count == 2{
+                addPhotoTwo.image = UIImage(named: "black_photo_btn")
+                count -= 1
+            }else if count == 3{
+                addPhotoThree.image = UIImage(named: "black_photo_btn")
+                count -= 1
+            }else if count == 4{
+                addPhotoFour.image = UIImage(named: "black_photo_btn")
+                count -= 1
+            }
+        
+        }
+       
+        
+        
+    
     }
     
     func setGestureRecognizer() -> UITapGestureRecognizer {
