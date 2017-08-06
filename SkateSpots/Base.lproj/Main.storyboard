@@ -70,6 +70,7 @@
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="mapView" destination="Lgr-SG-Bfr" id="xL6-d6-HWf"/>
+                        <segue destination="swM-zT-Qto" kind="show" identifier="DetailVC" id="NSR-GJ-ilx"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dg3-jW-gkn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -85,7 +86,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Ig4-Vx-gIv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ubf-V7-QLu">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -1189,4 +1190,7 @@
         <image name="slapchat_logo" width="231" height="52"/>
         <image name="temp_profile_pic" width="20" height="20"/>
     </resources>
+    <inferredMetricsTieBreakers>
+        <segue reference="NSR-GJ-ilx"/>
+    </inferredMetricsTieBreakers>
 </document>

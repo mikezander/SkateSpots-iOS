@@ -99,6 +99,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         addSpotButton.layer.shadowRadius = 0.0
         addSpotButton.layer.masksToBounds = false
         addSpotButton.layer.cornerRadius = 4.0
+        
+        topPhotoLabel.isHidden = true
 
     }
     
@@ -318,6 +320,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             addThumbnailPhoto(count, image)
             addPhotoOne.layer.borderWidth = 1.25
             addPhotoOne.layer.borderColor = UIColor.green.cgColor
+            topPhotoLabel.isHidden = false
             imageSelected = true
             count += 1
         }else{

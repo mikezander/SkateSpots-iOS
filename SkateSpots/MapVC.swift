@@ -14,6 +14,7 @@ import FirebaseStorage
 
 class MapVC: UIViewController{
     
+    var spot: Spot?
     var spotPins = [SpotPin]()
     var spots = [Spot]()
     var manager = CLLocationManager()
@@ -132,13 +133,23 @@ extension MapVC: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
-        
-        let location = view.annotation as! SpotPin
-        let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-        location.mapItem().openInMaps(launchOptions: launchOptions)
+        let spotPin = view.annotation as! SpotPin
+        spot = spotPin.spot
+        performSegue(withIdentifier: "DetailVC", sender: nil)
+       // let location = view.annotation as! SpotPin
+       // let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
+       // location.mapItem().openInMaps(launchOptions: launchOptions)
     }
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+
+        if segue.identifier == "DetailVC"{
+            
+            let vc = segue.destination as! DetailVC
+            vc.spot = spot
+        }
     
 }
 
-
+}
 

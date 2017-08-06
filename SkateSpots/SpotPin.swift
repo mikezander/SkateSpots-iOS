@@ -13,12 +13,14 @@ import FirebaseStorage
 
 class SpotPin: NSObject, MKAnnotation{
 
+    let spot: Spot
     let title: String?
     let locationName: String
     let imageUrl: String
     let coordinate: CLLocationCoordinate2D
     
     init(spot:Spot) {
+        self.spot = spot
         self.title = spot.spotName
         self.locationName = spot.spotType
         self.imageUrl = spot.imageUrls[0]

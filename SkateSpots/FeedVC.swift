@@ -247,10 +247,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         let heightOffset:CGFloat = 140
         return (screenHeight - heightOffset)
     }
-    
-    /*func numberOfSections(in tableView: UITableView) -> Int {
-        return spots.count
-    }*/
+ 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return spots.count
@@ -269,20 +266,15 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }else{
             cell.configureRow(spot: spot)
         }
-        
-        //print("\(indexPath.row)\(spot.spotName)")
-        //cell.configureRow(spot: spot)
-    
+
         return cell
     }
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        //let navController = segue.destination as! UINavigationController
+
         if let spotCell = sender as? SpotPhotoCell,
-            //let spotDetailPage = navController.viewControllers[0] as? DetailVC{
             let spotDetailPage = segue.destination as? DetailVC {
             let spot = spotCell.spot
-            print("\(spot?.spotName as Any)yooooo")
             spotDetailPage.spot = spot
         }
     }
