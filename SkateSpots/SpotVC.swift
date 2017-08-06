@@ -40,6 +40,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var weekdayBtn: UIButton!
     @IBOutlet weak var weekendBtn: UIButton!
     @IBOutlet weak var nightBtn: UIButton!
+    @IBOutlet weak var addSpotButton: UIButton!
 
     
     var imagePicker: UIImagePickerController!
@@ -88,6 +89,13 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         anytimeBtn.isSelected = true
         anytimeBtn.backgroundColor = UIColor.black
         anytimeBtn.setTitleColor(.green, for: .normal)
+        
+        addSpotButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        addSpotButton.layer.shadowOffset = CGSize(width:0.0,height: 2.0)
+        addSpotButton.layer.shadowOpacity = 1.0
+        addSpotButton.layer.shadowRadius = 0.0
+        addSpotButton.layer.masksToBounds = false
+        addSpotButton.layer.cornerRadius = 4.0
 
     }
     

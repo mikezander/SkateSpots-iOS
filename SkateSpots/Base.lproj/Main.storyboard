@@ -148,7 +148,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="503"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9FZ-wn-ttt" id="Q15-SB-RDq">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="502.66666666666669"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="503"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profiletemp" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh" customClass="CircleView" customModule="SkateSpots" customModuleProvider="target">
@@ -651,9 +651,11 @@
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V4h-OR-re2">
                                                 <rect key="frame" x="169.33333333333334" y="727.33333333333337" width="75" height="30"/>
+                                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="75" id="4iv-Vi-aUz"/>
                                                 </constraints>
+                                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <state key="normal" title="Add Spot"/>
                                                 <connections>
                                                     <action selector="addSpotButtonPressed:" destination="6EH-HZ-XWK" eventType="touchUpInside" id="sRJ-8E-Fmc"/>
@@ -854,6 +856,7 @@
                         <outlet property="addPhotoOne" destination="gIN-b9-viL" id="vmI-er-Edp"/>
                         <outlet property="addPhotoThree" destination="fZQ-gE-wxo" id="YZH-V5-lpU"/>
                         <outlet property="addPhotoTwo" destination="31f-0S-O9f" id="8h9-Ye-cyv"/>
+                        <outlet property="addSpotButton" destination="V4h-OR-re2" id="wQD-EW-U7m"/>
                         <outlet property="anytimeBtn" destination="SKP-iB-sW9" id="s4o-sH-FKg"/>
                         <outlet property="bankBtn" destination="J4h-bn-JRv" id="s6k-ZY-QNL"/>
                         <outlet property="bumpBtn" destination="N8C-3l-fWw" id="iKy-68-7po"/>

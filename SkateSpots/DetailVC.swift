@@ -67,7 +67,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 
         self.scrollView = UIScrollView()
         self.scrollView.delegate = self
-        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 3)
+        
+        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + screenHeight / 4)
         
         containerView = UIView()
         scrollView.addSubview(containerView)
@@ -194,34 +195,46 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         bestTimeLabel.text = "\(spot.bestTimeToSkate) spot"
         containerView.addSubview(bestTimeLabel)
         
-        let doYourPath = UIBezierPath(rect: CGRect(x: 0, y: kickOutLabel.frame.origin.y + 30, width: screenWidth, height: 1.3))
-        let layer = CAShapeLayer()
-        layer.path = doYourPath.cgPath
-        layer.strokeColor = UIColor.white.cgColor
-        layer.fillColor = UIColor.black.cgColor
-        self.containerView.layer.addSublayer(layer)
-        
-        let grayView = UIView(frame: CGRect(x: 0, y: kickOutLabel.frame.origin.y + 30 , width: screenWidth, height: screenHeight))
+        //let doYourPath = UIBezierPath(rect: CGRect(x: 0, y: kickOutLabel.frame.origin.y + 29, width: screenWidth, height: 1.3))
+//let layer = CAShapeLayer()
+       // layer.path = doYourPath.cgPath
+       // layer.strokeColor = UIColor.black.cgColor
+       // self.containerView.layer.addSublayer(layer)
+        let grayView = UIView(frame: CGRect(x: 0, y: kickOutLabel.frame.origin.y + 30 , width: screenWidth, height: screenHeight / 2 + 36))
         grayView.backgroundColor = UIColor.lightGray
+        let shadowSize : CGFloat = 7.0
+        let shadowPath = UIBezierPath(rect: CGRect(x: -shadowSize / 2,
+                                                   y: -shadowSize / 2,
+                                                   width: grayView.frame.size.width + shadowSize,
+                                                   height: grayView.frame.size.height + shadowSize))
+        grayView.layer.masksToBounds = false
+        grayView.layer.shadowColor = UIColor.black.cgColor
+        grayView.layer.shadowOffset = CGSize(width: 0.0, height: 0.0)
+        grayView.layer.shadowOpacity = 0.8
+        grayView.layer.shadowPath = shadowPath.cgPath
         containerView.addSubview(grayView)
+       
         
         
         // y: screenHeight + screenHeight / 3
-        tableView.frame = CGRect(x:10, y: kickOutLabel.frame.origin.y + 100, width: screenWidth - 20, height: screenHeight / 3 + 40)
+        tableView.frame = CGRect(x:10, y: kickOutLabel.frame.origin.y + 70, width: screenWidth - 20, height: screenHeight / 3 + 40)
         tableView.register(CommentCell.self, forCellReuseIdentifier: "cell")
+        tableView.layer.borderWidth = 1
         tableView.delegate = self
         tableView.dataSource = self
         
         containerView.addSubview(tableView)
+        
+       
        
         //y: screenHeight + (screenHeight / 3) - 10
         commentLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
         // you will probably want to set the font (remember to use Dynamic Type!)
         commentLbl.font = UIFont.preferredFont(forTextStyle: .headline)
-        commentLbl.textColor = .black
-        commentLbl.center = CGPoint(x: screenWidth / 2, y: tableView.frame.origin.y - 10)
+        commentLbl.textColor = .white
+        commentLbl.center = CGPoint(x: screenWidth / 2, y: tableView.frame.origin.y - 20)
         commentLbl.textAlignment = .center
-        commentLbl.alpha = 0.3
+        commentLbl.alpha = 0.5
         commentLbl.font = commentLbl.font.withSize(15)
         
         self.containerView.addSubview(commentLbl)
@@ -254,7 +267,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 
         ratingView.settings.starSize = 30
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
-        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: commentView.frame.origin.y + commentView.frame.height + 150)
+        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: (screenHeight * 2) - 30)
         ratingView.settings.fillMode = .precise
         ratingView.settings.updateOnTouch = true
         containerView.addSubview(ratingView)
@@ -354,8 +367,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         directionsButton.layer.shadowRadius = 0.0
         directionsButton.layer.masksToBounds = false
         directionsButton.layer.cornerRadius = 4.0
-        
-        
         directionsButton.addTarget(self, action:#selector(getDirections), for: .touchUpInside)
         containerView.addSubview(directionsButton)
         
