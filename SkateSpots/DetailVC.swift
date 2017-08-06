@@ -106,7 +106,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.backgroundColor = UIColor.white
         self.containerView.addSubview(collectionview)
  
-        spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 21))
+        spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 23))
         // you will probably want to set the font (remember to use Dynamic Type!)
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = .black

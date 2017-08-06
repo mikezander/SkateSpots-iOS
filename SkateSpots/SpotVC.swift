@@ -43,7 +43,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var addSpotButton: UIButton!
     @IBOutlet weak var topPhotoLabel: UILabel!
 
-    
     var imagePicker: UIImagePickerController!
     var count = 0
     var imageSelected = false
@@ -55,7 +54,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var longitude: CLLocationDegrees?
     var spotType: String = ""
     var bestTimeToSkate: String = ""
-
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -84,9 +82,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         addPhotoTwo.addGestureRecognizer(setGestureRecognizer())
         addPhotoThree.addGestureRecognizer(setGestureRecognizer())
         addPhotoFour.addGestureRecognizer(setGestureRecognizer())
-        
 
-        
         gapBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         
         anytimeBtn.isSelected = true
