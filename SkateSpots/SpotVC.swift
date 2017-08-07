@@ -367,17 +367,17 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         
         guard let spotName = spotNameField.text, spotName != "" else{
-            print("a spot Name must be entered")
+            errorAlert(title: "Error", message: "You must enter a spot name!")
             return
         }
         
         guard let defaultImg = addPhotoOne.image, imageSelected == true else{
-            print("a default image must be selected")
+            errorAlert(title: "Error", message: "You must upload a spot image!")
             return
         }
         
         if !locationFound{
-            print("location not found")
+            errorAlert(title: "Location not found!", message: "Make sure at least one of your photos have been taken at the spot")
             return
         }
         
@@ -386,7 +386,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             if !ledgeBtn.isSelected && !railBtn.isSelected && !gapBtn.isSelected && !mannyBtn.isSelected
                 && !bumpBtn.isSelected && !trannyBtn.isSelected && !bankBtn.isSelected && !otherBtn.isSelected{
                 
-                print("A SpotType must be selected!!")
+                errorAlert(title: "Error", message: "A spot type must be selected!")
+                return
             }
             
             if ledgeBtn.isSelected { spotType += "Ledges" }
@@ -488,10 +489,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             // Location name
             if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
                 print(locationName, terminator: "")
-            
                // self.locationString += locationName as String
                // self.locationString += " "
-                
             }
             
             // Street address

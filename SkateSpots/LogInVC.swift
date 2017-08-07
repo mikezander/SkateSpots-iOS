@@ -122,15 +122,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 
             }
         }
-    
 
-    
-    func errorAlert(title: String, message: String){
-    let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-    alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
-    }
-    
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         view.endEditing(true)
