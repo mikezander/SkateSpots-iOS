@@ -34,7 +34,7 @@ class CommentCell: UITableViewCell{
         profilePhoto.frame = CGRect(x: 10, y: 5, width: 50, height: 50)
         profilePhoto.layer.borderWidth = 1
         profilePhoto.layer.masksToBounds = false
-        profilePhoto.layer.borderColor = UIColor.green.cgColor
+        profilePhoto.layer.borderColor = FLAT_GREEN.cgColor
         profilePhoto.layer.cornerRadius = profilePhoto.frame.height/2
         profilePhoto.clipsToBounds = true
         contentView.addSubview(profilePhoto)

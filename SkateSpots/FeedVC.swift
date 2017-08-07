@@ -29,6 +29,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     var allSpotsD = [Spot]()
     var firstRun = true
    
+    let topItem = IndexPath(item: 0, section: 0)
 
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
@@ -147,6 +148,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             
         }
         spotTableView.reloadData()
+        spotTableView.scrollToRow(at: topItem, at: .top, animated: false)
     }
    
     @IBAction func openFilterMenu(_ sender: Any) {
@@ -213,6 +215,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         completed()
         self.allSpotsD = spots
         filterButton.setTitle("Filter Spots", for: .normal)
+        
     }
     
 
@@ -226,6 +229,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }else{
             
             loadSpotsbyRecentlyUploaded()
+            spotTableView.scrollToRow(at: topItem, at: .top, animated: false)
         }
     }
     
@@ -235,7 +239,10 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             myLocation = location
         }
         sortSpotsByDistance {
-             DispatchQueue.main.async {self.spotTableView.reloadData()}
+             DispatchQueue.main.async {
+             self.spotTableView.reloadData()
+             self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
+            }
         }
     }
     

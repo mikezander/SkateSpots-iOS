@@ -707,7 +707,7 @@ extension DetailVC: UITextViewDelegate{
             commentView.text = nil
             commentView.textColor = UIColor.black
         }
-        commentView.layer.borderColor = UIColor.green.cgColor
+        commentView.layer.borderColor = FLAT_GREEN.cgColor
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {

@@ -50,6 +50,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var locationString: String = ""
     var location: CLLocation?
     var locationFound = false
+    var locationFoundIndex: Int?
     var latitude: CLLocationDegrees?
     var longitude: CLLocationDegrees?
     var spotType: String = ""
@@ -236,24 +237,47 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 return
             }else if count == 1{
                 addPhotoOne.image = UIImage(named: "black_photo_btn")
+                
+                if locationFoundIndex == 1{
+                    clearLocationData()
+                }
                 imageSelected = false
                 count -= 1
             }else if count == 2{
                 addPhotoTwo.image = UIImage(named: "black_photo_btn")
+                
+                if locationFoundIndex == 2{
+                    clearLocationData()
+                }
+                
                 count -= 1
             }else if count == 3{
                 addPhotoThree.image = UIImage(named: "black_photo_btn")
+                
+                if locationFoundIndex == 3{
+                    clearLocationData()
+                }
+                
                 count -= 1
             }else if count == 4{
                 addPhotoFour.image = UIImage(named: "black_photo_btn")
+                
+                if locationFoundIndex == 4{
+                    clearLocationData()
+                }
+                
                 count -= 1
             }
         
         }
-       
-        
-        
+
+    }
     
+    func clearLocationData(){
+        locationFound = false
+        latitude = nil
+        longitude = nil
+        locationString = ""
     }
     
     func setGestureRecognizer() -> UITapGestureRecognizer {
@@ -349,6 +373,11 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         guard let defaultImg = addPhotoOne.image, imageSelected == true else{
             print("a default image must be selected")
+            return
+        }
+        
+        if !locationFound{
+            print("location not found")
             return
         }
         
@@ -492,6 +521,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             }
             
             self.locationFound = true
+            self.locationFoundIndex = self.count
+            print("\(self.locationFoundIndex)here")
         })
     
     }
