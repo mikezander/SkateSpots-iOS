@@ -39,33 +39,38 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     override func viewDidLoad() {
         super.viewDidLoad()
-  
-       DispatchQueue.main.async { self.spotTableView.reloadData() }
-
-        
-        loadSpotsbyRecentlyUploaded()
-        
-        menuView.layer.shadowOpacity = 1
-        menuView.layer.shadowRadius = 6
-        menuView.sizeToFit()
+     
+        loadInitialData()
         
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+        spotTableView.reloadData()
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-       
-        spotTableView.reloadData()
-       // performSegue(withIdentifier: "LogInVC", sender: nil)
-       guard FIRAuth.auth()?.currentUser != nil else{
+       // performSegue(withIdentifier: "LogInVC", sender: nil) used for logging out, firebase tracks phone id*
+        if FIRAuth.auth()?.currentUser == nil {
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
+        }else{
+            loadInitialData()
         }
         
+       
+    }
+
+    func loadInitialData(){
+        
+        DispatchQueue.main.async { self.spotTableView.reloadData() }
+       
+        loadSpotsbyRecentlyUploaded()
+        
+        menuView.layer.shadowOpacity = 1
+        menuView.layer.shadowRadius = 6
+        menuView.sizeToFit()
     }
 
 
@@ -94,7 +99,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             }else{
                 spots = allSpotsD
             }
-         filterButton.setTitle("Filter Spots", for: .normal)
+         
+            filterButton.setTitle("Filter Spots", for: .normal)
         
         }else if sender.tag == 1{
             let filtered = spots.filter({return $0.sortBySpotType(type: "skatepark") == true})

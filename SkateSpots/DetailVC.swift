@@ -107,7 +107,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         self.containerView.addSubview(collectionview)
  
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 23))
-        // you will probably want to set the font (remember to use Dynamic Type!)
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = .black
         spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 125)
@@ -115,15 +114,12 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotNameLbl.text = spot.spotName
         self.containerView.addSubview(spotNameLbl)
         
-        pageControl = UIPageControl(frame: CGRect(x: -25, y: spotNameLbl.frame.origin.y - 15, width: 50, height: 20))
-        //pageControl.layer.borderWidth = 0.5
+        pageControl = UIPageControl(frame: CGRect(x: -25, y: spotNameLbl.frame.origin.y - 20, width: 50, height: 20))
         pageControl.pageIndicatorTintColor = UIColor.lightGray
         pageControl.currentPageIndicatorTintColor = UIColor.green
-        // pageControl.backgroundColor = UIColor.black
         containerView.addSubview(pageControl)
         
         spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
-        // you will probably want to set the font (remember to use Dynamic Type!)
         spotTypeLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         spotTypeLbl.textColor = .black
         spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 105)
@@ -140,7 +136,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         
         ratingDisplayLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
-        // you will probably want to set the font (remember to use Dynamic Type!)
         ratingDisplayLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         ratingDisplayLbl.textColor = .black
         ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 65)
@@ -195,16 +190,10 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         bestTimeLabel = UILabel(frame: CGRect(x: bestTimeimageView.frame.origin.x - 42, y: bestTimeimageView.frame.origin.y + bestTimeimageView.frame.height , width: 125, height: 21))
         bestTimeLabel.font = UIFont(name: "Avenir", size: 14)
         bestTimeLabel.textColor = .black
-        //kickOutLabel.center = CGPoint(x: , y: )
         bestTimeLabel.textAlignment = .center
         bestTimeLabel.text = "\(spot.bestTimeToSkate) spot"
         containerView.addSubview(bestTimeLabel)
-        
-        //let doYourPath = UIBezierPath(rect: CGRect(x: 0, y: kickOutLabel.frame.origin.y + 29, width: screenWidth, height: 1.3))
-//let layer = CAShapeLayer()
-       // layer.path = doYourPath.cgPath
-       // layer.strokeColor = UIColor.black.cgColor
-       // self.containerView.layer.addSublayer(layer)
+
         let grayView = UIView(frame: CGRect(x: 0, y: kickOutLabel.frame.origin.y + 30 , width: screenWidth, height: screenHeight / 2 + 36))
         grayView.backgroundColor = UIColor.lightGray
         let shadowSize : CGFloat = 7.0

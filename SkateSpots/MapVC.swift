@@ -136,10 +136,8 @@ extension MapVC: MKMapViewDelegate {
         let spotPin = view.annotation as! SpotPin
         spot = spotPin.spot
         performSegue(withIdentifier: "DetailVC", sender: nil)
-       // let location = view.annotation as! SpotPin
-       // let launchOptions = [MKLaunchOptionsDirectionsModeKey: MKLaunchOptionsDirectionsModeDriving]
-       // location.mapItem().openInMaps(launchOptions: launchOptions)
     }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
 
