@@ -9,3 +9,6 @@
 import UIKit
 
 let KEY_UID = "uid"
+
+let FLAT_GREEN = UIColor(red:0.50, green:0.68, blue:0.32, alpha:1.0)
+

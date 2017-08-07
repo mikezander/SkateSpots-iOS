@@ -80,7 +80,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         view.addSubview(scrollView)
         
         let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 50))
-        customNav.backgroundColor = UIColor(red: 127/255, green: 173/255, blue: 82/255, alpha: 1)
+        customNav.backgroundColor = FLAT_GREEN
 
         self.view.addSubview(customNav)
         
@@ -116,7 +116,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         pageControl = UIPageControl(frame: CGRect(x: -25, y: spotNameLbl.frame.origin.y - 20, width: 50, height: 20))
         pageControl.pageIndicatorTintColor = UIColor.lightGray
-        pageControl.currentPageIndicatorTintColor = UIColor.green
+        pageControl.currentPageIndicatorTintColor = FLAT_GREEN
         containerView.addSubview(pageControl)
         
         spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))

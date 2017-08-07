@@ -58,8 +58,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }else{
             loadInitialData()
         }
-        
-       
     }
 
     func loadInitialData(){
@@ -149,10 +147,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             
         }
         spotTableView.reloadData()
-        
-        
-        
     }
+   
     @IBAction func openFilterMenu(_ sender: Any) {
     
         if menuShowing{

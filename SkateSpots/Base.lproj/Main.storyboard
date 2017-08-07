@@ -86,7 +86,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Ig4-Vx-gIv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ubf-V7-QLu">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -107,9 +107,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wFT-RZ-Rk3">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="wFT-RZ-Rk3">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="50"/>
-                                <color key="backgroundColor" red="0.27450980392156865" green="0.59215686274509804" blue="0.011764705882352941" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="50" id="fSq-rB-1YU"/>
                                 </constraints>
@@ -294,10 +294,10 @@
                                 </connections>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="iz6-Ds-cEE" userLabel="MenuView">
-                                <rect key="frame" x="424" y="91" width="150" height="432"/>
+                                <rect key="frame" x="424" y="91" width="150" height="414"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yI6-jn-VPH">
-                                        <rect key="frame" x="5" y="30" width="140" height="30"/>
+                                        <rect key="frame" x="5" y="12" width="140" height="30"/>
                                         <state key="normal" title="All">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -306,7 +306,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="z68-P0-vda">
-                                        <rect key="frame" x="5" y="70" width="140" height="30"/>
+                                        <rect key="frame" x="5" y="52" width="140" height="30"/>
                                         <state key="normal" title="SkatePark">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -315,7 +315,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="k09-Jh-Z30">
-                                        <rect key="frame" x="5" y="110" width="140" height="30"/>
+                                        <rect key="frame" x="5" y="92" width="140" height="30"/>
                                         <state key="normal" title="Ledges">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -324,7 +324,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="3" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rQv-3e-Hvw">
-                                        <rect key="frame" x="5" y="150" width="140" height="30"/>
+                                        <rect key="frame" x="5" y="132" width="140" height="30"/>
                                         <state key="normal" title="Rail">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -333,7 +333,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="4" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JoY-l3-NFu">
-                                        <rect key="frame" x="5" y="190" width="140" height="30"/>
+                                        <rect key="frame" x="5" y="172" width="140" height="30"/>
                                         <state key="normal" title="Stairs/Gap">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -342,7 +342,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="5" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="blo-vp-q0B">
-                                        <rect key="frame" x="5" y="230" width="140" height="30"/>
+                                        <rect key="frame" x="5" y="212" width="140" height="30"/>
                                         <state key="normal" title="Bump">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -351,7 +351,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="6" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vjL-6h-LAu">
-                                        <rect key="frame" x="5" y="270" width="140" height="30"/>
+                                        <rect key="frame" x="5" y="252" width="140" height="30"/>
                                         <state key="normal" title="Manual">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -360,7 +360,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="7" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dhL-xv-Ura">
-                                        <rect key="frame" x="5" y="310" width="140" height="30"/>
+                                        <rect key="frame" x="5" y="292" width="140" height="30"/>
                                         <state key="normal" title="Bank">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -369,7 +369,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="8" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e37-p3-DTM">
-                                        <rect key="frame" x="5" y="350" width="140" height="30"/>
+                                        <rect key="frame" x="5" y="332" width="140" height="30"/>
                                         <state key="normal" title="Tranny">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -378,7 +378,7 @@
                                         </connections>
                                     </button>
                                     <button opaque="NO" tag="9" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tnr-sQ-9zX">
-                                        <rect key="frame" x="5" y="390" width="140" height="30"/>
+                                        <rect key="frame" x="5" y="372" width="140" height="30"/>
                                         <state key="normal" title="Other">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
@@ -402,7 +402,7 @@
                                     <constraint firstItem="z68-P0-vda" firstAttribute="top" secondItem="yI6-jn-VPH" secondAttribute="bottom" constant="10" id="V0F-J4-Ncc"/>
                                     <constraint firstItem="e37-p3-DTM" firstAttribute="top" secondItem="dhL-xv-Ura" secondAttribute="bottom" constant="10" id="VhY-aZ-HsD"/>
                                     <constraint firstAttribute="trailing" secondItem="tnr-sQ-9zX" secondAttribute="trailing" constant="5" id="XN7-fA-a8F"/>
-                                    <constraint firstItem="yI6-jn-VPH" firstAttribute="top" secondItem="iz6-Ds-cEE" secondAttribute="top" constant="30" id="b7u-aV-tu9"/>
+                                    <constraint firstItem="yI6-jn-VPH" firstAttribute="top" secondItem="iz6-Ds-cEE" secondAttribute="top" constant="12" id="b7u-aV-tu9"/>
                                     <constraint firstItem="JoY-l3-NFu" firstAttribute="top" secondItem="rQv-3e-Hvw" secondAttribute="bottom" constant="10" id="bB3-2m-NzC"/>
                                     <constraint firstItem="yI6-jn-VPH" firstAttribute="leading" secondItem="iz6-Ds-cEE" secondAttribute="leading" constant="5" id="btb-hX-4Di"/>
                                     <constraint firstAttribute="trailing" secondItem="JoY-l3-NFu" secondAttribute="trailing" constant="5" id="dlh-OJ-T1r"/>
@@ -1191,6 +1191,6 @@
         <image name="temp_profile_pic" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="NSR-GJ-ilx"/>
+        <segue reference="wHi-97-VC8"/>
     </inferredMetricsTieBreakers>
 </document>
