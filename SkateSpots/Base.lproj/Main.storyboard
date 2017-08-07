@@ -251,9 +251,21 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRS-kU-hX6">
+                                                    <rect key="frame" x="372" y="14" width="30" height="30"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="30" id="A7N-Mr-gcF"/>
+                                                        <constraint firstAttribute="width" constant="30" id="UDo-xD-jUN"/>
+                                                    </constraints>
+                                                    <state key="normal" title="Button" image="adventure_icon"/>
+                                                    <connections>
+                                                        <action selector="directionsButtonPressed:" destination="9FZ-wn-ttt" eventType="touchUpInside" id="rMf-Zb-hMQ"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="Wis-DI-UWD" firstAttribute="top" secondItem="ls1-jZ-Xa3" secondAttribute="bottom" constant="5" id="0hs-O9-vto"/>
+                                                <constraint firstItem="SRS-kU-hX6" firstAttribute="top" secondItem="Q15-SB-RDq" secondAttribute="topMargin" constant="6" id="6hv-Km-ha7"/>
                                                 <constraint firstItem="ls1-jZ-Xa3" firstAttribute="top" secondItem="qke-fg-tf4" secondAttribute="bottom" constant="2" id="8H6-Nb-v78"/>
                                                 <constraint firstItem="qke-fg-tf4" firstAttribute="centerX" secondItem="Q15-SB-RDq" secondAttribute="centerX" id="Apb-Hu-Ijz"/>
                                                 <constraint firstItem="PSS-Mw-20b" firstAttribute="top" secondItem="ls1-jZ-Xa3" secondAttribute="bottom" constant="5" id="HJl-cR-RAq"/>
@@ -268,11 +280,13 @@
                                                 <constraint firstAttribute="bottom" secondItem="Wis-DI-UWD" secondAttribute="bottom" constant="5" id="hmz-86-ULw"/>
                                                 <constraint firstItem="wqR-vm-xFh" firstAttribute="leading" secondItem="Q15-SB-RDq" secondAttribute="leading" constant="13" id="i8r-zA-P02"/>
                                                 <constraint firstItem="6jl-8r-mSA" firstAttribute="leading" secondItem="wqR-vm-xFh" secondAttribute="trailing" constant="8" id="l7y-b7-fqg"/>
+                                                <constraint firstItem="fvM-i2-JLz" firstAttribute="top" secondItem="SRS-kU-hX6" secondAttribute="bottom" constant="15" id="nTs-xc-iW2"/>
                                                 <constraint firstItem="XUb-An-8cx" firstAttribute="top" secondItem="ls1-jZ-Xa3" secondAttribute="bottom" constant="8" id="p6S-vA-ZIH"/>
                                                 <constraint firstItem="Wis-DI-UWD" firstAttribute="leading" secondItem="PSS-Mw-20b" secondAttribute="trailing" constant="1" id="r98-xf-9Pk"/>
                                                 <constraint firstItem="fvM-i2-JLz" firstAttribute="centerX" secondItem="qke-fg-tf4" secondAttribute="centerX" id="rGy-xr-X7c"/>
                                                 <constraint firstItem="XUb-An-8cx" firstAttribute="leading" secondItem="Q15-SB-RDq" secondAttribute="leadingMargin" constant="5" id="sID-FA-H9O"/>
                                                 <constraint firstItem="ls1-jZ-Xa3" firstAttribute="top" secondItem="fvM-i2-JLz" secondAttribute="bottom" constant="8" symbolic="YES" id="te2-Nd-G3O"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="SRS-kU-hX6" secondAttribute="trailing" constant="4" id="wYQ-1O-9VF"/>
                                                 <constraint firstItem="fvM-i2-JLz" firstAttribute="top" secondItem="6jl-8r-mSA" secondAttribute="bottom" constant="13" id="z7h-oY-gMZ"/>
                                             </constraints>
                                         </tableViewCellContentView>
@@ -1182,6 +1196,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="adventure_icon" width="40" height="40"/>
         <image name="black_photo_btn" width="20" height="18"/>
         <image name="globe_tab" width="25" height="25"/>
         <image name="home_btn" width="24" height="28"/>

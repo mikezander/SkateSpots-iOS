@@ -10,6 +10,10 @@ import UIKit
 import FirebaseDatabase
 import FirebaseStorage
 
+protocol SpotRowDelegate{
+    func didTapDirectionsButton(spot:Spot)
+}
+
 class SpotRow: UITableViewCell{
   
     @IBOutlet weak var spotCollectionView: UICollectionView!
@@ -19,8 +23,9 @@ class SpotRow: UITableViewCell{
     @IBOutlet weak var spotLocation: UILabel!
     @IBOutlet weak var spotDistance: UILabel!
     @IBOutlet weak var miLabel: UILabel!
-    
     @IBOutlet weak var pageControl: UIPageControl!
+    
+    var delegate: SpotRowDelegate?
     
     var spot: Spot!
 
@@ -71,6 +76,9 @@ class SpotRow: UITableViewCell{
         }
     }
   
+    @IBAction func directionsButtonPressed(_ sender: Any) {
+        delegate?.didTapDirectionsButton(spot: spot)
+    }
 }
 
 extension SpotRow : UICollectionViewDataSource {

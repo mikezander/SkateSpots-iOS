@@ -88,7 +88,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         anytimeBtn.isSelected = true
         anytimeBtn.backgroundColor = UIColor.black
-        anytimeBtn.setTitleColor(.green, for: .normal)
+        anytimeBtn.setTitleColor(FLAT_GREEN, for: .normal)
         
         addSpotButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         addSpotButton.layer.shadowOffset = CGSize(width:0.0,height: 2.0)
@@ -120,14 +120,14 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         case 0,1,2,3,4,5,6:
             sender.isSelected = true
             sender.backgroundColor = UIColor.black
-            sender.setTitleColor(.green, for: .normal)
+            sender.setTitleColor(FLAT_GREEN, for: .normal)
             otherBtn.backgroundColor = UIColor.clear
             otherBtn.setTitleColor(.black, for: .normal)
             
         case 7:
             sender.isSelected = true
             sender.backgroundColor = UIColor.black
-            sender.setTitleColor(.green, for: .normal)
+            sender.setTitleColor(FLAT_GREEN, for: .normal)
             disableButtonsForTypeOther(btn: ledgeBtn)
             disableButtonsForTypeOther(btn: railBtn)
             disableButtonsForTypeOther(btn: gapBtn)
@@ -138,28 +138,28 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             case 8:
                 sender.isSelected = true
                 sender.backgroundColor = UIColor.black
-                sender.setTitleColor(.green, for: .normal)
+                sender.setTitleColor(FLAT_GREEN, for: .normal)
                 disableButtonsForTypeOther(btn: weekdayBtn)
                 disableButtonsForTypeOther(btn: weekendBtn)
                 disableButtonsForTypeOther(btn: nightBtn)
             case 9:
                 sender.isSelected = true
                 sender.backgroundColor = UIColor.black
-                sender.setTitleColor(.green, for: .normal)
+                sender.setTitleColor(FLAT_GREEN, for: .normal)
                 disableButtonsForTypeOther(btn: anytimeBtn)
                 disableButtonsForTypeOther(btn: weekendBtn)
                 disableButtonsForTypeOther(btn: nightBtn)
             case 10:
                 sender.isSelected = true
                 sender.backgroundColor = UIColor.black
-                sender.setTitleColor(.green, for: .normal)
+                sender.setTitleColor(FLAT_GREEN, for: .normal)
                 disableButtonsForTypeOther(btn: anytimeBtn)
                 disableButtonsForTypeOther(btn: weekdayBtn)
                 disableButtonsForTypeOther(btn: nightBtn)
             case 11:
                 sender.isSelected = true
                 sender.backgroundColor = UIColor.black
-                sender.setTitleColor(.green, for: .normal)
+                sender.setTitleColor(FLAT_GREEN, for: .normal)
                 disableButtonsForTypeOther(btn: anytimeBtn)
                 disableButtonsForTypeOther(btn: weekdayBtn)
                 disableButtonsForTypeOther(btn: weekendBtn)
@@ -338,8 +338,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }
 
             addThumbnailPhoto(count, image)
-            addPhotoOne.layer.borderWidth = 1.25
-            addPhotoOne.layer.borderColor = UIColor.green.cgColor
+            addPhotoOne.layer.borderWidth = 1.5
+            addPhotoOne.layer.borderColor = FLAT_GREEN.cgColor
             topPhotoLabel.isHidden = false
             imageSelected = true
             count += 1
@@ -614,7 +614,7 @@ extension SpotVC: UITextFieldDelegate, UITextViewDelegate{
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        spotNameField.layer.borderColor = UIColor.green.cgColor
+        spotNameField.layer.borderColor = FLAT_GREEN.cgColor
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
        spotNameField.layer.borderColor = UIColor.black.cgColor
@@ -634,7 +634,7 @@ extension SpotVC: UITextFieldDelegate, UITextViewDelegate{
             descriptionTextView.text = nil
             descriptionTextView.textColor = UIColor.black
         }
-        descriptionTextView.layer.borderColor = UIColor.green.cgColor
+        descriptionTextView.layer.borderColor = FLAT_GREEN.cgColor
     }
     
     func textViewDidEndEditing(_ textView: UITextView) {
