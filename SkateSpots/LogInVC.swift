@@ -48,8 +48,13 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 if self.imageSelected{
                     if let userImg = self.userProflieView.image{
                         self.addPhotoToStorage(image: userImg)
-                       
                     }
+                
+                }else{
+                    self.userProfileURL = DEFAULT_PROFILE_PIC_URL
+                    let ref = DataService.instance.refrenceToCurrentUser()
+                    ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
+                
                 }
                 self.dismiss(animated: true, completion: nil)
             })
