@@ -34,10 +34,11 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
 
     @IBAction func logInPressed(_ sender: Any) {
 
-        if !isInternetAvailable(){
-            errorAlert(title: "Network error", message: "Make sure you have a network connection and try again")
+        guard isInternetAvailable() else {
+            errorAlert(title: "Network connection error", message: "Make sure you have a network connection and try again")
+            return
         }
-        
+
         if let email = emailField.text, let pwd = passwordField.text, let usrName = userNameField.text,
             (email.characters.count > 0 && pwd.characters.count > 0){
             

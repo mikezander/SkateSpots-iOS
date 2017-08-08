@@ -69,9 +69,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         self.scrollView.delegate = self
         
         if screenHeight > 568.0{
-        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + screenHeight / 4)
+        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + screenHeight / 4 )
         }else{
-        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + screenHeight / 3)
+        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 2 - 20))
         }
         
         
@@ -144,7 +144,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         self.containerView.addSubview(ratingDisplayLbl)
 
         let descriptionLbl = UILabel(frame: CGRect(x: 10, y: screenHeight - 50, width: screenWidth - 5, height: 20))
-        descriptionLbl.font = UIFont(name: "Avenir-Black", size: 15)
+        descriptionLbl.font = UIFont(name: "Avenir-Black", size: 14)
         descriptionLbl.textColor = UIColor.lightGray
         descriptionLbl.text = "Description:"
         containerView.addSubview(descriptionLbl)
@@ -153,7 +153,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         descriptionTextView.isSelectable = false
-        descriptionTextView.font = UIFont(name: "Helvetica", size: 16)
+        descriptionTextView.font = UIFont(name: "Helvetica", size: 14)
         descriptionTextView.alpha = 0.75
         
         

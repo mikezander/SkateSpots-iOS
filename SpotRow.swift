@@ -109,8 +109,7 @@ extension SpotRow : UICollectionViewDataSource {
   
 
         cell.emptyImageView()
-        
-        cell.activityIndicator.hidesWhenStopped = false
+
         cell.activityIndicator.startAnimating()
  
         if indexPath.row < spot.imageUrls.count{

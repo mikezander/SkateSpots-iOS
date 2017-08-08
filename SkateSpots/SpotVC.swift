@@ -67,7 +67,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         descriptionTextView.delegate = self
         descriptionTextView.text = "Spot Description"
-        descriptionTextView.textContainer.maximumNumberOfLines = 5
+        descriptionTextView.textContainer.maximumNumberOfLines = 6
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
         descriptionTextView.textColor = UIColor.lightGray
         descriptionTextView.layer.cornerRadius = 7.0
@@ -365,7 +365,11 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     @IBAction func addSpotButtonPressed(_ sender: Any) {
         
-        
+        guard isInternetAvailable() else {
+            errorAlert(title: "Network connection error", message: "Make sure you have a network connection and try again")
+            return
+        }
+
         guard let spotName = spotNameField.text, spotName != "" else{
             errorAlert(title: "Error", message: "You must enter a spot name!")
             return

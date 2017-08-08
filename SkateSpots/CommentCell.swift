@@ -42,6 +42,7 @@ class CommentCell: UITableViewCell{
         userName = UILabel()
         userName.frame = CGRect(x: profilePhoto.frame.origin.x+profilePhoto.frame.width+10 , y: 5, width: screenSize.width - (profilePhoto.frame.origin.x+profilePhoto.frame.width + 25), height: 20)
         userName.textColor = UIColor.blue
+        userName.font = UIFont(name: "Avenir",size: 14)
         
         contentView.addSubview(userName)
         
@@ -52,23 +53,23 @@ class CommentCell: UITableViewCell{
         
         comment.frame = CGRect(x: profilePhoto.frame.origin.x+profilePhoto.frame.width + 5, y: userName.frame.origin.y + 10, width: screenSize.width - (profilePhoto.frame.origin.x+profilePhoto.frame.width + 25), height: 115)
         
-        comment.font = UIFont(name: "ArialMT", size: 16)
+        comment.font = UIFont(name: "Helvetica", size: 15)
         
         comment.textColor = UIColor.black
         
         comment.backgroundColor = UIColor.clear
 
         if screenSize.height <= 568.0 {
-            comment.font = UIFont(name: "ArialMT", size: 14)
-            userName.font = UIFont(name: "ArialMT", size: 13)
+            comment.font = UIFont(name: ".SFUIText-Medium", size: 13)
+            userName.font = UIFont(name: "Avenir", size: 12)
         }else if screenSize.height > 568.0 &&  screenSize.height < 700.0{
-            comment.font = UIFont(name: "ArialMT", size: 15)
-            userName.font = UIFont(name: "ArialMT", size: 14)
+            comment.font = UIFont(name: ".SFUIText-Medium", size: 14)
+            userName.font = UIFont(name: "Avenir", size: 13)
             //userName.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
         }else {
             
-            comment.font = UIFont(name: "ArialMT", size: 16)
-            userName.font = UIFont(name: "ArialMT", size: 15)
+            comment.font = UIFont(name: ".SFUIText-Medium", size: 15)
+            userName.font = UIFont(name: "Avenir", size: 14)
         }
         
         print("\(screenSize.height)yooo")
