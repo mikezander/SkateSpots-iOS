@@ -83,7 +83,10 @@ class SpotRow: UITableViewCell{
 }
 
 extension SpotRow : UICollectionViewDataSource {
-
+    override func prepareForReuse() {
+        
+    }
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         pageControl.numberOfPages = spot.imageUrls.count
         return spot.imageUrls.count
@@ -98,6 +101,8 @@ extension SpotRow : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
    
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! SpotPhotoCell
+        
+        cell.emptyImageView()
 
         if indexPath.row < spot.imageUrls.count{
             

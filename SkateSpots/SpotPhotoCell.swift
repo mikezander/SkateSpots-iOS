@@ -42,5 +42,9 @@ class SpotPhotoCell: UICollectionViewCell{
         }
     }
     
+    func emptyImageView(){
+        spotImage.image = nil
+    }
+    
 }
 
