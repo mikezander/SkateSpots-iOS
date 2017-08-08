@@ -33,6 +33,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     let topItem = IndexPath(item: 0, section: 0)
 
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
+    static var profileImageCache: NSCache<NSString, UIImage> = NSCache()
     
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
@@ -41,8 +42,14 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     override func viewDidLoad() {
         super.viewDidLoad()
-     
-        loadInitialData()
+
+        DispatchQueue.main.async { self.spotTableView.reloadData() }
+        
+        loadSpotsbyRecentlyUploaded()
+        
+        menuView.layer.shadowOpacity = 1
+        menuView.layer.shadowRadius = 6
+        menuView.sizeToFit()
         
     }
     
@@ -56,23 +63,13 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
        // performSegue(withIdentifier: "LogInVC", sender: nil) used for logging out, firebase tracks phone id*
         if FIRAuth.auth()?.currentUser == nil {
             performSegue(withIdentifier: "LogInVC", sender: nil)
-            return
-        }else{
-            loadInitialData()
+           return
         }
+        
+        
     }
 
-    func loadInitialData(){
-        
-        DispatchQueue.main.async { self.spotTableView.reloadData() }
-       
-        loadSpotsbyRecentlyUploaded()
-        
-        menuView.layer.shadowOpacity = 1
-        menuView.layer.shadowRadius = 6
-        menuView.sizeToFit()
-    }
-
+  
 
     @IBAction func filterButtonPressed(_ sender: UIButton) {
         
@@ -270,7 +267,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotRowCell") as! SpotRow
         
-        if let img = FeedVC.imageCache.object(forKey: spot.userImageURL as NSString){
+        if let img = FeedVC.profileImageCache.object(forKey: spot.userImageURL as NSString){
 
             cell.configureRow(spot: spot, img: img)
         }else{

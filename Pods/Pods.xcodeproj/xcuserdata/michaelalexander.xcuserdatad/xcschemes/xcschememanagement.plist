@@ -24,6 +24,11 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
+		<key>SVProgressHUD.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
 		<key>SwiftKeychainWrapper.xcscheme</key>
 		<dict>
 			<key>isShown</key>
@@ -37,22 +42,27 @@
 			<key>primary</key>
 			<true/>
 		</dict>
+		<key>452E982353442466C7DA23D871A85448</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>4FDC533A4360A68ABDCE852F04B30927</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>B6B5D456BBA6C02E96148073068DB073</key>
+		<key>7D334E2F5AE1968BC07BB0CB98D9C3AC</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>85D09A3199B5AB5422122BD30A872945</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
 		<key>C052BEBFBD0AB5218CC64BA3450F6547</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>CF75E291D90F3CEDB1375A8992719284</key>
 		<dict>
 			<key>primary</key>
 			<true/>

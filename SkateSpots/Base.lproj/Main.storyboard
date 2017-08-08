@@ -465,7 +465,7 @@
                         <outlet property="segmentControl" destination="0KL-mS-DuI" id="f7b-Nh-FIJ"/>
                         <outlet property="spotTableView" destination="j5s-yv-XaC" id="VGm-s0-TKn"/>
                         <outlet property="trailingConstraint" destination="ltb-It-s5F" id="lIh-Rw-lvk"/>
-                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="LogInVC" id="raa-BY-LyD"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="LogInVC" id="ZX4-qG-Pn9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="jpV-77-M4V" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1034,7 +1034,7 @@
         <!--Log InVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="LogInVC" customModule="SkateSpots" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="goToFeed" id="BYZ-38-t0r" customClass="LogInVC" customModule="SkateSpots" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -1188,11 +1188,12 @@
                         <outlet property="passwordField" destination="Mhr-im-vTS" id="esY-e0-j1a"/>
                         <outlet property="userNameField" destination="jSK-7x-0fx" id="cyK-8e-nto"/>
                         <outlet property="userProflieView" destination="ZTa-41-ERd" id="fdk-AT-GDa"/>
+                        <segue destination="c2b-5P-XCM" kind="show" identifier="goToFeed" id="myg-hR-9mM"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="117.39130434782609" y="122.28260869565219"/>
+            <point key="canvasLocation" x="-2662" y="-41"/>
         </scene>
     </scenes>
     <resources>
@@ -1206,6 +1207,7 @@
         <image name="temp_profile_pic" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
+        <segue reference="myg-hR-9mM"/>
         <segue reference="wHi-97-VC8"/>
     </inferredMetricsTieBreakers>
 </document>

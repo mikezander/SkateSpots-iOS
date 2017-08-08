@@ -56,7 +56,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                     ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
                 
                 }
-                self.dismiss(animated: true, completion: nil)
+                //self.dismiss(animated: true, completion: nil)
+                self.performSegue(withIdentifier: "goToFeed", sender: nil)
             })
         
         } else{

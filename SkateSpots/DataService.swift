@@ -52,8 +52,7 @@ class DataService{
     var REF_USER_IMAGE: FIRStorageReference{
         return _REF_USER_IMAGE
     }
-    
-    
+
     
     func saveFirebaseUser(uid: String, email: String, username: String){
         let keychainResult = KeychainWrapper.standard.set(uid, forKey: KEY_UID)

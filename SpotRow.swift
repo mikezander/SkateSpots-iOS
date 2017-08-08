@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseStorage
+import SVProgressHUD
 
 protocol SpotRowDelegate{
     func didTapDirectionsButton(spot:Spot)
@@ -67,8 +68,8 @@ class SpotRow: UITableViewCell{
                     print("Mike: Image downloaded from firebase storge")
                     if let imgData = data {
                         if let img = UIImage(data: imgData){
-                            self.userImage.image = img
-                            FeedVC.imageCache.setObject(img, forKey: spot.userImageURL as NSString)
+                            DispatchQueue.main.async { self.userImage.image = img }
+                            FeedVC.profileImageCache.setObject(img, forKey: spot.userImageURL as NSString)
                         }
                     }
                 }
@@ -99,10 +100,10 @@ extension SpotRow : UICollectionViewDataSource {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! SpotPhotoCell
 
         if indexPath.row < spot.imageUrls.count{
-  
+            
         if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
                 print(indexPath.row)
-                
+            
                 cell.configureCell(spot: spot, img: img, count: indexPath.row)
             }else{
                 cell.configureCell(spot: spot, count: indexPath.row)

@@ -12,4 +12,5 @@ target 'SkateSpots' do
   pod 'Firebase/Storage'
   pod 'Cosmos'
   pod 'SwiftKeychainWrapper'
+  pod 'SVProgressHUD'
 end
