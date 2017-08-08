@@ -15,7 +15,7 @@ import FirebaseStorage
 import MapKit
 
 class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-   
+
     var spot: Spot!
     
     var user: User!

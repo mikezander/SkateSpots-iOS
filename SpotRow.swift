@@ -9,7 +9,6 @@
 import UIKit
 import FirebaseDatabase
 import FirebaseStorage
-import SVProgressHUD
 
 protocol SpotRowDelegate{
     func didTapDirectionsButton(spot:Spot)
@@ -28,52 +27,58 @@ class SpotRow: UITableViewCell{
     
     var delegate: SpotRowDelegate?
     
-    var spot: Spot!
+    //var spot: Spot!
+    var spot: Spot!{
+        didSet{
+            spotCollectionView.reloadData()
+            spotCollectionView.showsHorizontalScrollIndicator = false
+        }
+    }
 
     func configureRow(spot: Spot, img: UIImage? = nil){
-       
+ 
         self.spot = spot
         self.userName.text = spot.username
         self.spotName.text = spot.spotName
         self.spotLocation.text = spot.spotLocation
-        
-        if spot.distance != nil{
-            spotDistance.isHidden = false
-            miLabel.isHidden = false
-           
-            let distanceToSpot = String(format: "%.1f", spot.distance!)
-            self.spotDistance.text = distanceToSpot
-      
-        }else{
-            
-            spotDistance.isHidden = true
-            miLabel.isHidden = true
-        }
 
-        DispatchQueue.main.async {
-            self.spotCollectionView.reloadData()
-            self.spotCollectionView.showsHorizontalScrollIndicator = false
-        }
-        
         //download images
         if img != nil{
+            
             self.userImage.image = img
+       
         }else{
             //cache image
             let ref = FIRStorage.storage().reference(forURL:spot.userImageURL)
-            ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
+            ref.data(withMaxSize: 1 * 1024 * 1024, completion: {(data, error) in
                 if error != nil{
                     print("Mke: Unable to download image from firebase storage")
                 }else{
                     print("Mike: Image downloaded from firebase storge")
                     if let imgData = data {
-                        if let img = UIImage(data: imgData){
-                            DispatchQueue.main.async { self.userImage.image = img }
-                            FeedVC.profileImageCache.setObject(img, forKey: spot.userImageURL as NSString)
-                        }
+
+                            if let img = UIImage(data: imgData){
+                                self.userImage.image = img
+                                FeedVC.imageCache.setObject(img, forKey: spot.userImageURL as NSString)
+                            }
+                            
+                        
                     }
                 }
             })
+        }
+        
+        if spot.distance != nil{
+            spotDistance.isHidden = false
+            miLabel.isHidden = false
+            
+            let distanceToSpot = String(format: "%.1f", spot.distance!)
+            self.spotDistance.text = distanceToSpot
+            
+        }else{
+            
+            spotDistance.isHidden = true
+            miLabel.isHidden = true
         }
     }
   
@@ -101,20 +106,26 @@ extension SpotRow : UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
    
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! SpotPhotoCell
-        
-        cell.emptyImageView()
+  
 
+        cell.emptyImageView()
+        
+        cell.activityIndicator.hidesWhenStopped = false
+        cell.activityIndicator.startAnimating()
+ 
         if indexPath.row < spot.imageUrls.count{
             
         if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
-                print(indexPath.row)
             
                 cell.configureCell(spot: spot, img: img, count: indexPath.row)
             }else{
                 cell.configureCell(spot: spot, count: indexPath.row)
             }
-       
+            
         }
+        
+        cell.activityIndicator.stopAnimating()
+        cell.activityIndicator.hidesWhenStopped = true
             return cell
         }
  

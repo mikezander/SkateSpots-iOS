@@ -22,24 +22,33 @@ class DetailPhotoCell: UICollectionViewCell{
         
         //download images
         if img != nil{
-            self.spotImage.image = img
+            DispatchQueue.main.async {
+                self.spotImage.image = img
+            }
+            
         }else{
             
             //cache image
-            
+ 
             let ref = FIRStorage.storage().reference(forURL:spot.imageUrls[count])
             ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
                 if error != nil{
                     print("Mke: Unable to download image from firebase storage")
                 }else{
                     print("Mike: Image downloaded from firebase storge")
+                    
                     if let imgData = data {
-                        if let img = UIImage(data: imgData){
-                            self.spotImage.image = img
+                        
+                        DispatchQueue.main.async {
                             
-                            FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
+                            if let img = UIImage(data: imgData){
+                                self.spotImage.image = img
+                                FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
+                            }
                         }
+                      
                     }
+                   
                 }
             })
             

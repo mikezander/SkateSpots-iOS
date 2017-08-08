@@ -152,7 +152,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="414" height="503"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profiletemp" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh" customClass="CircleView" customModule="SkateSpots" customModuleProvider="target">
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh" customClass="CircleView" customModule="SkateSpots" customModuleProvider="target">
                                                     <rect key="frame" x="13" y="5" width="53" height="53"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="53" id="6pc-n5-TZd"/>
@@ -187,7 +187,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fvM-i2-JLz">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fvM-i2-JLz">
                                                     <rect key="frame" x="0.0" y="59" width="413" height="373"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="57a-CY-HVd">
@@ -207,15 +207,21 @@
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IzG-xc-yJk">
                                                                         <rect key="frame" x="0.0" y="25" width="376" height="396"/>
                                                                     </imageView>
+                                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OWk-bY-6G0">
+                                                                        <rect key="frame" x="178" y="208" width="20" height="20"/>
+                                                                    </activityIndicatorView>
                                                                 </subviews>
                                                             </view>
                                                             <constraints>
+                                                                <constraint firstItem="OWk-bY-6G0" firstAttribute="centerX" secondItem="u2H-bT-D7V" secondAttribute="centerX" id="6Yj-Bh-zyV"/>
+                                                                <constraint firstItem="OWk-bY-6G0" firstAttribute="centerY" secondItem="u2H-bT-D7V" secondAttribute="centerY" id="MsR-dS-GEo"/>
                                                                 <constraint firstAttribute="trailing" secondItem="IzG-xc-yJk" secondAttribute="trailing" id="Wpd-7u-7d9"/>
                                                                 <constraint firstItem="IzG-xc-yJk" firstAttribute="top" secondItem="u2H-bT-D7V" secondAttribute="top" constant="25" id="glg-fc-HQ2"/>
                                                                 <constraint firstAttribute="bottom" secondItem="IzG-xc-yJk" secondAttribute="bottom" constant="15" id="n0S-yV-dvL"/>
                                                                 <constraint firstItem="IzG-xc-yJk" firstAttribute="leading" secondItem="u2H-bT-D7V" secondAttribute="leading" id="yGN-ph-x3O"/>
                                                             </constraints>
                                                             <connections>
+                                                                <outlet property="activityIndicator" destination="OWk-bY-6G0" id="5LP-dX-NLS"/>
                                                                 <outlet property="spotImage" destination="IzG-xc-yJk" id="TnW-Tq-mGs"/>
                                                                 <segue destination="swM-zT-Qto" kind="show" id="wHi-97-VC8"/>
                                                             </connections>
@@ -1202,7 +1208,6 @@
         <image name="globe_tab" width="25" height="25"/>
         <image name="home_btn" width="24" height="28"/>
         <image name="nycpushphoto-1" width="570" height="570"/>
-        <image name="profiletemp" width="1080" height="720"/>
         <image name="slapchat_logo" width="231" height="52"/>
         <image name="temp_profile_pic" width="20" height="20"/>
     </resources>

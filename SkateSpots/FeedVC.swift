@@ -267,7 +267,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotRowCell") as! SpotRow
         
-        if let img = FeedVC.profileImageCache.object(forKey: spot.userImageURL as NSString){
+        if let img = FeedVC.imageCache.object(forKey: spot.userImageURL as NSString){
 
             cell.configureRow(spot: spot, img: img)
         }else{
