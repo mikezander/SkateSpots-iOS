@@ -60,15 +60,15 @@ class CommentCell: UITableViewCell{
         comment.backgroundColor = UIColor.clear
 
         if screenSize.height <= 568.0 {
-            comment.font = UIFont(name: ".SFUIText-Medium", size: 13)
+            comment.font = UIFont(name: "Helvetica", size: 13)
             userName.font = UIFont(name: "Avenir", size: 12)
         }else if screenSize.height > 568.0 &&  screenSize.height < 700.0{
-            comment.font = UIFont(name: ".SFUIText-Medium", size: 14)
+            comment.font = UIFont(name: "Helvetica", size: 14)
             userName.font = UIFont(name: "Avenir", size: 13)
             //userName.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightThin)
         }else {
             
-            comment.font = UIFont(name: ".SFUIText-Medium", size: 15)
+            comment.font = UIFont(name: "Helvetica", size: 15)
             userName.font = UIFont(name: "Avenir", size: 14)
         }
         

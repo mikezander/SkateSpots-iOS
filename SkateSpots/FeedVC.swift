@@ -24,7 +24,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var spotTableView: UITableView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
-    
+
     var spots = [Spot]()
     var allSpotsR = [Spot]()
     var allSpotsD = [Spot]()
@@ -50,7 +50,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         menuView.sizeToFit()
-        
+
+
     }
     
     override func viewWillAppear(_ animated: Bool) {

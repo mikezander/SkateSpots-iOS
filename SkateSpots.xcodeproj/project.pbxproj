@@ -12,6 +12,7 @@
 		C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C3B1F0EBA690058628D /* RoundedButton.swift */; };
 		C4128C3E1F0EC0270058628D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */; };
 		C41640651F39144800BF244C /* VC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41640641F39144800BF244C /* VC+Extension.swift */; };
+		C419DD261F3B860600D8CC06 /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C419DD251F3B84B400D8CC06 /* Billabong.ttf */; };
 		C41D8B271F0ECB12009C174C /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B261F0ECB12009C174C /* LogInVC.swift */; };
 		C41D8B2A1F0ED23A009C174C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B291F0ED23A009C174C /* AuthService.swift */; };
 		C41D8B2C1F0EE3F8009C174C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B2B1F0EE3F8009C174C /* DataService.swift */; };
@@ -43,6 +44,7 @@
 		C4128C3B1F0EBA690058628D /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C41640641F39144800BF244C /* VC+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VC+Extension.swift"; sourceTree = "<group>"; };
+		C419DD251F3B84B400D8CC06 /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Billabong.ttf; sourceTree = "<group>"; };
 		C41D8B261F0ECB12009C174C /* LogInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		C41D8B291F0ED23A009C174C /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		C41D8B2B1F0EE3F8009C174C /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 				C4128C391F0EAF290058628D /* RoundTextField.swift */,
 				C4128C3B1F0EBA690058628D /* RoundedButton.swift */,
 				C4CE591B1F28663500180BA5 /* CircleView.swift */,
+				C419DD251F3B84B400D8CC06 /* Billabong.ttf */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C419DD261F3B860600D8CC06 /* Billabong.ttf in Resources */,
 				C4B0C5531F0D7B78004B6923 /* LaunchScreen.storyboard in Resources */,
 				C4128C3E1F0EC0270058628D /* GoogleService-Info.plist in Resources */,
 				C4B0C5501F0D7B78004B6923 /* Assets.xcassets in Resources */,
