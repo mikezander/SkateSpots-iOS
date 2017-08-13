@@ -12,6 +12,9 @@
 		C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C3B1F0EBA690058628D /* RoundedButton.swift */; };
 		C4128C3E1F0EC0270058628D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */; };
 		C41640651F39144800BF244C /* VC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41640641F39144800BF244C /* VC+Extension.swift */; };
+		C41878851F3F80A100573D3A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41878841F3F80A100573D3A /* FBSDKCoreKit.framework */; };
+		C41878871F3F80A800573D3A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41878861F3F80A800573D3A /* FBSDKLoginKit.framework */; };
+		C41878891F3F822800573D3A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41878881F3F822800573D3A /* Bolts.framework */; };
 		C419DD261F3B860600D8CC06 /* Billabong.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C419DD251F3B84B400D8CC06 /* Billabong.ttf */; };
 		C41D8B271F0ECB12009C174C /* LogInVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B261F0ECB12009C174C /* LogInVC.swift */; };
 		C41D8B2A1F0ED23A009C174C /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B291F0ED23A009C174C /* AuthService.swift */; };
@@ -44,6 +47,9 @@
 		C4128C3B1F0EBA690058628D /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C41640641F39144800BF244C /* VC+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VC+Extension.swift"; sourceTree = "<group>"; };
+		C41878841F3F80A100573D3A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
+		C41878861F3F80A800573D3A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
+		C41878881F3F822800573D3A /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
 		C419DD251F3B84B400D8CC06 /* Billabong.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = Billabong.ttf; sourceTree = "<group>"; };
 		C41D8B261F0ECB12009C174C /* LogInVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LogInVC.swift; sourceTree = "<group>"; };
 		C41D8B291F0ED23A009C174C /* AuthService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
@@ -77,6 +83,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				57FC50BD408C25F2FA754EBE /* Pods_SkateSpots.framework in Frameworks */,
+				C41878851F3F80A100573D3A /* FBSDKCoreKit.framework in Frameworks */,
+				C41878871F3F80A800573D3A /* FBSDKLoginKit.framework in Frameworks */,
+				C41878891F3F822800573D3A /* Bolts.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -86,6 +95,9 @@
 		159A3B3B7AF9BF2A3864AAF5 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C41878881F3F822800573D3A /* Bolts.framework */,
+				C41878861F3F80A800573D3A /* FBSDKLoginKit.framework */,
+				C41878841F3F80A100573D3A /* FBSDKCoreKit.framework */,
 				7F138B80A80EA608D62D712B /* Pods_SkateSpots.framework */,
 			);
 			name = Frameworks;
@@ -215,7 +227,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0810;
+				LastUpgradeCheck = 0820;
 				ORGANIZATIONNAME = "Michael Alexander";
 				TargetAttributes = {
 					C4B0C5441F0D7B78004B6923 = {
@@ -463,6 +475,24 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SkateSpots/SkateSpots.entitlements;
 				DEVELOPMENT_TEAM = Q9BD9AV679;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Cosmos\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GTMSessionFetcher\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GoogleToolboxForMac\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SVProgressHUD\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SwiftKeychainWrapper\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseAuth/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseCore/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseDatabase/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseStorage/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/GoogleInterchangeUtilities/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/GoogleSymbolUtilities/Frameworks/frameworks\"",
+					"~/Documents/FacebookSDKs-iOS-4",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SkateSpots/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = michaelalexander.SkateSpots;
@@ -479,6 +509,24 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SkateSpots/SkateSpots.entitlements;
 				DEVELOPMENT_TEAM = Q9BD9AV679;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/Cosmos\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GTMSessionFetcher\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/GoogleToolboxForMac\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SVProgressHUD\"",
+					"\"$PODS_CONFIGURATION_BUILD_DIR/SwiftKeychainWrapper\"",
+					"\"${PODS_ROOT}/FirebaseAnalytics/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseAuth/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseCore/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseDatabase/Frameworks\"",
+					"\"${PODS_ROOT}/FirebaseInstanceID/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/FirebaseStorage/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/GoogleInterchangeUtilities/Frameworks/frameworks\"",
+					"\"${PODS_ROOT}/GoogleSymbolUtilities/Frameworks/frameworks\"",
+					"~/Documents/FacebookSDKs-iOS-4",
+					"$(PROJECT_DIR)",
+				);
 				INFOPLIST_FILE = SkateSpots/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = michaelalexander.SkateSpots;

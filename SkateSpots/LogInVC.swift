@@ -9,21 +9,30 @@
 import UIKit
 import FirebaseStorage
 import FirebaseAuth
+import FBSDKLoginKit
 
-class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
+class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FBSDKLoginButtonDelegate{
 
     @IBOutlet weak var userProflieView: CircleView!
     @IBOutlet weak var userNameField: RoundTextfield!
     @IBOutlet weak var emailField: RoundTextfield!
     @IBOutlet weak var passwordField: RoundTextfield!
     
+    let fbLoginButton = FBSDKLoginButton()
+    
     var imagePicker: UIImagePickerController!
     
     var userProfileURL = ""
     var imageSelected = false
+    //var fbProfileURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        fbLoginButton.frame = CGRect(x:0 ,y:UIScreen.main.bounds.height - 50,width:UIScreen.main.bounds.width,height:50)
+        fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
+        fbLoginButton.delegate = self
+        view.addSubview(fbLoginButton)
         
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
@@ -51,7 +60,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 
                 if self.imageSelected{
                     if let userImg = self.userProflieView.image{
-                        self.addPhotoToStorage(image: userImg)
+                        DataService.instance.addPhotoToStorage(image: userImg)
                     }
                 
                 }else{
@@ -68,6 +77,47 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
         }
        
+    }
+    
+    func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
+        print("User logged in")
+        fbLoginButton.isHidden = true
+        
+        if error != nil{
+        
+            fbLoginButton.isHidden = false
+       
+        }else if result.isCancelled{
+        
+            fbLoginButton.isHidden = false
+        }
+        
+        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+        
+        FIRAuth.auth()?.signIn(with: credential){(user, error) in
+            
+            if let user = FIRAuth.auth()?.currentUser{
+            let uid = user.uid
+            let name = user.displayName
+            let email = user.email
+           // let photoUrl = user.photoURL
+                
+            DataService.instance.saveFirebaseUser(uid: uid, email: email!, username: name!)
+            
+            DataService.instance.saveFacebookProfilePicture(uid: uid)
+
+            
+            print("User logged in to firebase using facebook")
+            }
+        
+            self.performSegue(withIdentifier: "goToFeed", sender: nil)
+        }
+      
+        
+    }
+
+    func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
+        print("User logged out")
     }
     
     func setGestureRecognizer() -> UITapGestureRecognizer {
@@ -105,33 +155,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         }
     }
     
-    func addPhotoToStorage(image: UIImage){
-        
-        if let imgData = UIImageJPEGRepresentation(image, 0.2){
-            
-            let imgUid = NSUUID().uuidString
-            let metadata = FIRStorageMetadata()
-            metadata.contentType = "image/jpeg"
-           
-            DataService.instance.REF_USER_IMAGE.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
-                
-                if error != nil{
-                    print("unable to upload image to firebase storage(\(error?.localizedDescription))")
-                }else{
-                    
-                    let downloadURL = metadata?.downloadURL()?.absoluteString
-                    if let url = downloadURL{
-
-                        self.userProfileURL = ("\(url)")
-                        let ref = DataService.instance.refrenceToCurrentUser()
-                        ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
-                        
-                        }
-                    }
-                }
-                
-            }
-        }
+   
 
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -140,4 +164,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         super.touchesBegan(touches, with: event)
         
     }
+}
+
+class ViewController: UIViewController {
+    var dict : NSDictionary!
 }

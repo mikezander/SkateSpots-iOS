@@ -11,6 +11,7 @@ import Firebase
 import FirebaseStorage
 import FirebaseDatabase
 import SwiftKeychainWrapper
+import FBSDKLoginKit
 
 let DB_BASE = FIRDatabase.database().reference()
 let STORAGE_BASE = FIRStorage.storage().reference()
@@ -63,6 +64,67 @@ class DataService{
         
         REF_USERS.child(uid).child("profile").setValue(profile)
     }
+    
+    func saveFacebookProfilePicture(uid:String){
+    
+        let request = FBSDKGraphRequest(graphPath: "me/picture", parameters: ["height": 300, "width": "300", "redirect": false], httpMethod: "GET")
+        request!.start(completionHandler: {(connection,result,error) -> Void in
+            if(error == nil) {
+                
+                if let dictionary = result as? [String:Any],
+                    let dataDic = dictionary["data"] as? [String:Any],
+                    let urlPic = dataDic["url"] as? String {
+                    //access urlPic here
+                    if let imageData = NSData(contentsOf: URL(string: urlPic)!) as Data? {
+                        let profilePicRef = DataService.instance.REF_SPOT_IMAGES.child(uid+"/profile_pic.jpg") //user.uid
+                        _ = profilePicRef.put(imageData, metadata: nil) {
+                            metadata, error in
+                            if(error == nil) {
+                                _ = metadata!.downloadURL
+                            }
+                            else {
+                                print("Error in dowloading the image")
+                            }
+                        }
+                        let image = UIImage(data: imageData)
+                        self.addPhotoToStorage(image: image!)
+                    }
+                }
+            }
+            
+        })
+    
+    }
+    
+    func addPhotoToStorage(image: UIImage){
+        
+        if let imgData = UIImageJPEGRepresentation(image, 0.2){
+            
+            let imgUid = NSUUID().uuidString
+            let metadata = FIRStorageMetadata()
+            metadata.contentType = "image/jpeg"
+            
+            DataService.instance.REF_USER_IMAGE.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
+                
+                if error != nil{
+                    print("unable to upload image to firebase storage(\(error?.localizedDescription))")
+                }else{
+                    
+                    let downloadURL = metadata?.downloadURL()?.absoluteString
+                    if let url = downloadURL{
+                        
+                        //self.userProfileURL = ("\(url)")
+                        let ref = DataService.instance.refrenceToCurrentUser()
+                        ref.child("profile").child("userImageURL").setValue(url)
+                        
+                    }
+                }
+            }
+            
+        }
+    }
+    
+
     
     func updateDBUser(uid: String, child: String, userData: Dictionary<String, AnyObject>){
         REF_USERS.child(uid).child(child).updateChildValues(userData)

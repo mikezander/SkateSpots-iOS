@@ -12,6 +12,7 @@ import FirebaseAuth
 import FirebaseStorage
 import CoreLocation
 import MapKit
+import FBSDKCoreKit
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
 
@@ -71,6 +72,13 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
   
+
+    @IBAction func signOutFBTest(_ sender: Any) {
+        try! FIRAuth.auth()!.signOut()
+        
+        FBSDKAccessToken.setCurrent(nil)
+        
+    }
 
     @IBAction func filterButtonPressed(_ sender: UIButton) {
         

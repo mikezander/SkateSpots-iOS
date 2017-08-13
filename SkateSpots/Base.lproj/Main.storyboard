@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c2b-5P-XCM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c2b-5P-XCM">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -133,10 +133,20 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntA-vK-N9d">
+                                        <rect key="frame" x="8" y="10" width="46" height="30"/>
+                                        <state key="normal" title="Button"/>
+                                        <connections>
+                                            <action selector="signOutFBTest:" destination="S87-nh-BjV" eventType="touchUpInside" id="lC1-n1-e3e"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="BPL-oN-ccj" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="20" id="Gdc-T6-kg8"/>
+                                    <constraint firstItem="ntA-vK-N9d" firstAttribute="leading" secondItem="wFT-RZ-Rk3" secondAttribute="leading" constant="8" id="Hcc-jT-k83"/>
+                                    <constraint firstItem="ntA-vK-N9d" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="10" id="V3u-Pj-a12"/>
+                                    <constraint firstAttribute="bottom" secondItem="ntA-vK-N9d" secondAttribute="bottom" constant="10" id="dq2-Ik-p0Z"/>
                                     <constraint firstAttribute="bottom" secondItem="BPL-oN-ccj" secondAttribute="bottom" id="fN3-zQ-Lkp"/>
                                     <constraint firstAttribute="height" constant="50" id="fSq-rB-1YU"/>
                                     <constraint firstAttribute="trailing" secondItem="BPL-oN-ccj" secondAttribute="trailing" constant="97" id="nL0-4S-bef"/>
@@ -1090,24 +1100,24 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="nycpushphoto-1" translatesAutoresizingMaskIntoConstraints="NO" id="n6A-bB-xvh">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="city_push" translatesAutoresizingMaskIntoConstraints="NO" id="n6A-bB-xvh">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                             </imageView>
                             <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NM1-4q-kgK">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
-                                <color key="backgroundColor" red="0.27450980390000002" green="0.59215686270000001" blue="0.01176470588" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="temp_profile_pic" translatesAutoresizingMaskIntoConstraints="NO" id="ZTa-41-ERd" customClass="CircleView" customModule="SkateSpots" customModuleProvider="target">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_profile_pic" translatesAutoresizingMaskIntoConstraints="NO" id="ZTa-41-ERd" customClass="CircleView" customModule="SkateSpots" customModuleProvider="target">
                                 <rect key="frame" x="157" y="107" width="100" height="100"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="100" id="5St-Qb-X8h"/>
                                     <constraint firstAttribute="width" constant="100" id="6Gz-jL-KXQ"/>
+                                    <constraint firstAttribute="height" constant="100" id="qUW-jS-oek"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jSK-7x-0fx" customClass="RoundTextfield" customModule="SkateSpots" customModuleProvider="target">
-                                <rect key="frame" x="74.666666666666686" y="222" width="265" height="42"/>
+                                <rect key="frame" x="75" y="222" width="265" height="42"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="wya-gF-y2I"/>
+                                    <constraint firstAttribute="height" constant="42" id="acH-ib-WSA"/>
                                     <constraint firstAttribute="width" constant="265" id="zu7-8e-onb"/>
                                 </constraints>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1129,9 +1139,9 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter email" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="SF2-nU-LXu" customClass="RoundTextfield" customModule="SkateSpots" customModuleProvider="target">
-                                <rect key="frame" x="74.666666666666686" y="279" width="265" height="42"/>
+                                <rect key="frame" x="75" y="279" width="265" height="42"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="Yp2-Gv-7n5"/>
+                                    <constraint firstAttribute="height" constant="42" id="0Y0-al-Zb1"/>
                                     <constraint firstAttribute="width" constant="265" id="yZD-BX-J4P"/>
                                 </constraints>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -1153,10 +1163,10 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter password" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Mhr-im-vTS" customClass="RoundTextfield" customModule="SkateSpots" customModuleProvider="target">
-                                <rect key="frame" x="74.666666666666686" y="336" width="265" height="42"/>
+                                <rect key="frame" x="75" y="336" width="265" height="42"/>
                                 <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="2Rm-ta-lsO"/>
                                     <constraint firstAttribute="width" constant="265" id="5rt-rw-CaT"/>
-                                    <constraint firstAttribute="height" constant="42" id="70S-nG-U8d"/>
                                 </constraints>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
@@ -1177,16 +1187,16 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="Sk8Spots_logo" translatesAutoresizingMaskIntoConstraints="NO" id="8QW-QP-jRQ">
-                                <rect key="frame" x="103.66666666666669" y="40" width="210" height="47"/>
+                                <rect key="frame" x="104" y="40" width="210" height="47"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="210" id="gE1-Xv-uGR"/>
                                     <constraint firstAttribute="height" constant="47" id="ijw-Iq-AAm"/>
                                 </constraints>
                             </imageView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="HdW-xF-ghF" customClass="RoundedButton" customModule="SkateSpots" customModuleProvider="target">
-                                <rect key="frame" x="74.666666666666686" y="393" width="265" height="42"/>
+                                <rect key="frame" x="75" y="393" width="265" height="42"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="42" id="L48-Kc-KMc"/>
+                                    <constraint firstAttribute="height" constant="42" id="NtS-MP-neX"/>
                                     <constraint firstAttribute="width" constant="265" id="ohF-a9-heW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
@@ -1245,12 +1255,12 @@
     </scenes>
     <resources>
         <image name="Sk8Spots_logo" width="206" height="47"/>
+        <image name="add_profile_pic" width="33" height="33"/>
         <image name="adventure_icon" width="40" height="40"/>
         <image name="black_photo_btn" width="20" height="18"/>
+        <image name="city_push" width="190" height="190"/>
         <image name="globe_tab" width="25" height="25"/>
         <image name="home_btn" width="24" height="28"/>
-        <image name="nycpushphoto-1" width="570" height="570"/>
-        <image name="temp_profile_pic" width="20" height="20"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="myg-hR-9mM"/>

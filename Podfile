@@ -6,10 +6,10 @@ target 'SkateSpots' do
   use_frameworks!
 
   # Pods for SkateSpots
-  pod 'Firebase/Core'
-  pod 'Firebase/Auth'
-  pod 'Firebase/Database'
-  pod 'Firebase/Storage'
+  pod 'Firebase/Core', '3.4.7'
+  pod 'Firebase/Auth', '3.1.0'
+  pod 'Firebase/Database', '3.1.1'
+  pod 'Firebase/Storage', '1.0.5'
   pod 'Cosmos'
   pod 'SwiftKeychainWrapper'
   pod 'SVProgressHUD'
