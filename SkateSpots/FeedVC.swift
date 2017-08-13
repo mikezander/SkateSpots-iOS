@@ -52,7 +52,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         menuView.layer.shadowRadius = 6
         menuView.sizeToFit()
 
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -70,8 +69,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         
     }
-
-  
 
     @IBAction func signOutFBTest(_ sender: Any) {
         try! FIRAuth.auth()!.signOut()

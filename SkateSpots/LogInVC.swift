@@ -24,7 +24,6 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     var userProfileURL = ""
     var imageSelected = false
-    //var fbProfileURL: URL?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -98,10 +97,17 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             
             if let user = FIRAuth.auth()?.currentUser{
             let uid = user.uid
-            let name = user.displayName
+            var name = user.displayName
             let email = user.email
-           // let photoUrl = user.photoURL
-                
+
+                let delimiter = " "
+                if (name?.contains(delimiter))!{
+
+                    var token = name?.components(separatedBy: delimiter)
+                    name = "\(token![0]) " + String(token![1].characters.prefix(1))
+
+                }
+    
             DataService.instance.saveFirebaseUser(uid: uid, email: email!, username: name!)
             
             DataService.instance.saveFacebookProfilePicture(uid: uid)
@@ -155,9 +161,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         }
     }
     
-   
-
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         view.endEditing(true)
         
@@ -166,6 +170,3 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     }
 }
 
-class ViewController: UIViewController {
-    var dict : NSDictionary!
-}
