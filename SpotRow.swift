@@ -124,7 +124,6 @@ extension SpotRow : UICollectionViewDataSource {
         }
         
         cell.activityIndicator.stopAnimating()
-        cell.activityIndicator.hidesWhenStopped = true
             return cell
         }
  

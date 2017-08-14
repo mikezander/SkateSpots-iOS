@@ -87,7 +87,7 @@ class DataService{
                             }
                         }
                         let image = UIImage(data: imageData)
-                        self.addPhotoToStorage(image: image!)
+                        self.addProfilePicToStorage(image: image!)
                     }
                 }
             }
@@ -96,7 +96,7 @@ class DataService{
     
     }
     
-    func addPhotoToStorage(image: UIImage){
+    func addProfilePicToStorage(image: UIImage){
         
         if let imgData = UIImageJPEGRepresentation(image, 0.2){
             
@@ -123,9 +123,7 @@ class DataService{
             
         }
     }
-    
 
-    
     func updateDBUser(uid: String, child: String, userData: Dictionary<String, AnyObject>){
         REF_USERS.child(uid).child(child).updateChildValues(userData)
         // set value will wipe whats already there*

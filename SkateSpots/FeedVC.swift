@@ -13,6 +13,7 @@ import FirebaseStorage
 import CoreLocation
 import MapKit
 import FBSDKCoreKit
+import SwiftKeychainWrapper
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
 
@@ -71,10 +72,11 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
     @IBAction func signOutFBTest(_ sender: Any) {
-        try! FIRAuth.auth()!.signOut()
-        
-        FBSDKAccessToken.setCurrent(nil)
-        
+        let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
+        print("Mike: ID remover from keychain \(keychainResult)")
+        try! FIRAuth.auth()?.signOut()
+        performSegue(withIdentifier: "LogInVC", sender: nil)
+      
     }
 
     @IBAction func filterButtonPressed(_ sender: UIButton) {

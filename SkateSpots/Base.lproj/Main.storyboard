@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c2b-5P-XCM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c2b-5P-XCM">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -103,7 +103,7 @@
                         <viewControllerLayoutGuide type="bottom" id="Ig4-Vx-gIv"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="Ubf-V7-QLu">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                     </view>
@@ -134,8 +134,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntA-vK-N9d">
-                                        <rect key="frame" x="8" y="10" width="46" height="30"/>
-                                        <state key="normal" title="Button"/>
+                                        <rect key="frame" x="8" y="10" width="110" height="30"/>
+                                        <state key="normal" title="logout *testing*"/>
                                         <connections>
                                             <action selector="signOutFBTest:" destination="S87-nh-BjV" eventType="touchUpInside" id="lC1-n1-e3e"/>
                                         </connections>
@@ -246,8 +246,10 @@
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IzG-xc-yJk">
                                                                         <rect key="frame" x="0.0" y="25" width="376" height="396"/>
                                                                     </imageView>
-                                                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OWk-bY-6G0">
+                                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OWk-bY-6G0">
                                                                         <rect key="frame" x="178" y="208" width="20" height="20"/>
+                                                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                                        <color key="color" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </activityIndicatorView>
                                                                 </subviews>
                                                             </view>
@@ -1215,6 +1217,11 @@
                                     <action selector="logInPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="sRb-zi-kFx"/>
                                 </connections>
                             </button>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="VRA-pg-Bst">
+                                <rect key="frame" x="197" y="358" width="20" height="20"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="color" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
@@ -1223,7 +1230,9 @@
                             <constraint firstItem="SF2-nU-LXu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CxC-T9-xlG"/>
                             <constraint firstItem="8QW-QP-jRQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="1.5" id="FSJ-tN-B2Q"/>
                             <constraint firstItem="jSK-7x-0fx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Glm-iE-Yxh"/>
+                            <constraint firstItem="VRA-pg-Bst" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="Lc7-Ck-oap"/>
                             <constraint firstItem="Mhr-im-vTS" firstAttribute="top" secondItem="SF2-nU-LXu" secondAttribute="bottom" constant="15" id="M1U-6w-bTf"/>
+                            <constraint firstItem="VRA-pg-Bst" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="OSI-gg-Hj3"/>
                             <constraint firstItem="NM1-4q-kgK" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="YJy-s3-R41"/>
                             <constraint firstItem="8QW-QP-jRQ" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="20" id="YwI-Sf-AEo"/>
                             <constraint firstAttribute="trailing" secondItem="NM1-4q-kgK" secondAttribute="trailing" id="ZVB-km-AFN"/>
@@ -1241,6 +1250,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="VRA-pg-Bst" id="OG6-5a-lCe"/>
                         <outlet property="emailField" destination="SF2-nU-LXu" id="5dX-x1-Flo"/>
                         <outlet property="passwordField" destination="Mhr-im-vTS" id="esY-e0-j1a"/>
                         <outlet property="userNameField" destination="jSK-7x-0fx" id="cyK-8e-nto"/>
@@ -1264,6 +1274,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="myg-hR-9mM"/>
-        <segue reference="NSR-GJ-ilx"/>
+        <segue reference="wHi-97-VC8"/>
     </inferredMetricsTieBreakers>
 </document>

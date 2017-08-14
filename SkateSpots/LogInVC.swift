@@ -17,6 +17,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     @IBOutlet weak var userNameField: RoundTextfield!
     @IBOutlet weak var emailField: RoundTextfield!
     @IBOutlet weak var passwordField: RoundTextfield!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     let fbLoginButton = FBSDKLoginButton()
     
@@ -47,6 +48,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             return
         }
 
+        
+        
         if let email = emailField.text, let pwd = passwordField.text, let usrName = userNameField.text,
             (email.characters.count > 0 && pwd.characters.count > 0){
             
@@ -59,7 +62,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 
                 if self.imageSelected{
                     if let userImg = self.userProflieView.image{
-                        DataService.instance.addPhotoToStorage(image: userImg)
+                        DataService.instance.addProfilePicToStorage(image: userImg)
                     }
                 
                 }else{
@@ -93,6 +96,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         
         let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
         
+        activityIndicator.startAnimating()
+        
         FIRAuth.auth()?.signIn(with: credential){(user, error) in
             
             if let user = FIRAuth.auth()?.currentUser{
@@ -116,6 +121,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             print("User logged in to firebase using facebook")
             }
         
+            self.activityIndicator.stopAnimating()
             self.performSegue(withIdentifier: "goToFeed", sender: nil)
         }
       
