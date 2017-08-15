@@ -23,6 +23,9 @@
 		C41D8B351F11431C009C174C /* SpotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B341F11431C009C174C /* SpotVC.swift */; };
 		C4433E6A1F1FB82600B00002 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4433E691F1FB82600B00002 /* MapVC.swift */; };
 		C4433E6C1F1FBC5200B00002 /* SpotPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4433E6B1F1FBC5200B00002 /* SpotPin.swift */; };
+		C4AD89A81F433C9100D47460 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD89A71F433C9100D47460 /* ProfileVC.swift */; };
+		C4AD89AA1F43700700D47460 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD89A91F43700700D47460 /* ProfileCell.swift */; };
+		C4AD89AC1F437DD300D47460 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD89AB1F437DD300D47460 /* HeaderCell.swift */; };
 		C4B0C5491F0D7B78004B6923 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */; };
 		C4B0C54B1F0D7B78004B6923 /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B0C54A1F0D7B78004B6923 /* FeedVC.swift */; };
 		C4B0C54E1F0D7B78004B6923 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4B0C54C1F0D7B78004B6923 /* Main.storyboard */; };
@@ -58,6 +61,9 @@
 		C41D8B341F11431C009C174C /* SpotVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotVC.swift; sourceTree = "<group>"; };
 		C4433E691F1FB82600B00002 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C4433E6B1F1FBC5200B00002 /* SpotPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPin.swift; sourceTree = "<group>"; };
+		C4AD89A71F433C9100D47460 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = ../ProfileVC.swift; sourceTree = "<group>"; };
+		C4AD89A91F43700700D47460 /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
+		C4AD89AB1F437DD300D47460 /* HeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
 		C4B0C5451F0D7B78004B6923 /* SkateSpots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkateSpots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4B0C54A1F0D7B78004B6923 /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
@@ -119,6 +125,8 @@
 				C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */,
 				C4CE59141F24497800180BA5 /* DetailPhotoCell.swift */,
 				C4B46CED1F2F948A007D3206 /* CommentCell.swift */,
+				C4AD89A91F43700700D47460 /* ProfileCell.swift */,
+				C4AD89AB1F437DD300D47460 /* HeaderCell.swift */,
 				C4128C391F0EAF290058628D /* RoundTextField.swift */,
 				C4128C3B1F0EBA690058628D /* RoundedButton.swift */,
 				C4CE591B1F28663500180BA5 /* CircleView.swift */,
@@ -135,6 +143,7 @@
 				C41D8B341F11431C009C174C /* SpotVC.swift */,
 				C4433E691F1FB82600B00002 /* MapVC.swift */,
 				C4CE59121F241A0F00180BA5 /* DetailVC.swift */,
+				C4AD89A71F433C9100D47460 /* ProfileVC.swift */,
 				C41640641F39144800BF244C /* VC+Extension.swift */,
 			);
 			name = Controller;
@@ -331,6 +340,8 @@
 				C4B46CEE1F2F948A007D3206 /* CommentCell.swift in Sources */,
 				C4B0C54B1F0D7B78004B6923 /* FeedVC.swift in Sources */,
 				C41D8B2C1F0EE3F8009C174C /* DataService.swift in Sources */,
+				C4AD89AA1F43700700D47460 /* ProfileCell.swift in Sources */,
+				C4AD89AC1F437DD300D47460 /* HeaderCell.swift in Sources */,
 				C4433E6A1F1FB82600B00002 /* MapVC.swift in Sources */,
 				C41D8B351F11431C009C174C /* SpotVC.swift in Sources */,
 				C4128C3A1F0EAF290058628D /* RoundTextField.swift in Sources */,
@@ -348,6 +359,7 @@
 				C4CE591E1F2A645900180BA5 /* User.swift in Sources */,
 				C4E36FD61F1ACA44000ABF4D /* SpotPhotoCell.swift in Sources */,
 				C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */,
+				C4AD89A81F433C9100D47460 /* ProfileVC.swift in Sources */,
 				C4CE59131F241A0F00180BA5 /* DetailVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -129,6 +129,71 @@ class DataService{
         // set value will wipe whats already there*
         
     }
+
+    
+    func getSpotsFromUser(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: [Spot]?, _ error: String?) -> Void){
+        
+        var spots = [Spot]()
+ 
+        userRef.child("spots").observe(.value, with:{ (snapshot) in
+            let spotKeyDict = snapshot.value as? [String : AnyObject] ?? [:]
+            
+            for spotKey in spotKeyDict{
+                
+                self.REF_SPOTS.child(spotKey.key).observeSingleEvent(of: .value, with: { (snapshot) in
+                    if let spotDict = snapshot.value as? Dictionary<String, AnyObject>{
+                        
+                        let spot = Spot(spotKey: spotKey.key, spotData: spotDict)
+                        spots.insert(spot, at: 0)
+                        
+                        if spots.count == spotKeyDict.count{
+                            completionHandlerForGET(true, spots, nil)
+                        }
+                    }
+                })
+                
+            }
+         
+        })
+        
+    }
+    
+ 
+    func getCurrentUserData(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: User?) -> Void){
+    
+        var user: User?
+        
+        userRef.observeSingleEvent(of: .value, with: {(snapshot) in
+            
+            if snapshot.exists(){
+                
+                if let userName = snapshot.childSnapshot(forPath: "username").value as? String{
+                    let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as! String
+                    
+                    user = User(userName: userName, userImageURL:userImageURL)
+                    
+                }
+                
+                
+                completionHandlerForGET(true, user)
+            
+            }else{
+            
+            
+            }
+            
+           
+            
+            
+       
+        }){ (error) in
+            print(error.localizedDescription)
+            completionHandlerForGET(false, nil)
+        }
+
+    }
+       
+      
     
     func refrenceToCurrentUser() -> FIRDatabaseReference{
         let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
