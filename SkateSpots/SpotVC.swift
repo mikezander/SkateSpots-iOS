@@ -588,7 +588,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 
                 if let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String{
                 
-                    self.user = User(userName: username, userImageURL: userImageURL)
+                    self.user = User(userName: username, userImageURL: userImageURL, bio: "", link: "")
 
                     spot["username"] = self.user.userName as AnyObject?
                     spot["userImageURL"] = self.user.userImageURL as AnyObject?

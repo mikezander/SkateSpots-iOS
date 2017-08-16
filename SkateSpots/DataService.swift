@@ -60,7 +60,9 @@ class DataService{
         print("Mike: Data saved to keychain\(keychainResult)")
         
         let profile: Dictionary<String, AnyObject> = ["username": username as AnyObject,
-                                                      "email": email as AnyObject]
+                                                      "email": email as AnyObject,
+                                                      "bio": "" as AnyObject,
+                                                      "link": "" as AnyObject]
         
         REF_USERS.child(uid).child("profile").setValue(profile)
     }
@@ -144,6 +146,7 @@ class DataService{
                     if let spotDict = snapshot.value as? Dictionary<String, AnyObject>{
                         
                         let spot = Spot(spotKey: spotKey.key, spotData: spotDict)
+                        spot.removeCountry(spotLocation: spot.spotLocation)
                         spots.insert(spot, at: 0)
                         
                         if spots.count == spotKeyDict.count{
@@ -169,8 +172,10 @@ class DataService{
                 
                 if let userName = snapshot.childSnapshot(forPath: "username").value as? String{
                     let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as! String
+                    let bio = snapshot.childSnapshot(forPath: "bio").value as! String
+                    let link = snapshot.childSnapshot(forPath: "link").value as! String
                     
-                    user = User(userName: userName, userImageURL:userImageURL)
+                    user = User(userName: userName, userImageURL:userImageURL, bio: bio, link: link)
                     
                 }
                 

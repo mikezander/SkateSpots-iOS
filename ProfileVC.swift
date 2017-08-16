@@ -29,6 +29,8 @@ class ProfileVC: UIViewController{
         print(spots.count)
        
         spotTableView.register(HeaderCell.self, forCellReuseIdentifier: "headerCell")
+        
+        print(UIScreen.main.bounds.height)
      
     }
     
@@ -70,7 +72,23 @@ class ProfileVC: UIViewController{
         })
     
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if segue.identifier == "editProfile" {
+            if let viewController = segue.destination as? EditProfileVC {
+                if(self.user != nil){
+                    viewController.user = self.user!
+                }
+            }
+        }
+    }
+    
+  
+    
     @IBAction func backBtnPressed(_ sender: Any) {
+       _ = navigationController?.popViewController(animated: true)
+        
         dismiss(animated: true, completion: nil)
     }
     
@@ -90,6 +108,8 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         if let userName = user?.userName{
          headerCell.userName.text = userName
         }
+        
+        headerCell.contributions.text = "Contributions: \(spots.count)"
 
         if let userImage = user?.userImageURL{
             let ref = FIRStorage.storage().reference(forURL: (userImage))

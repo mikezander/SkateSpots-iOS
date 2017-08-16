@@ -270,6 +270,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         rateBtn.center = CGPoint(x: screenWidth / 2, y: ratingView.frame.origin.y + 50)
         rateBtn.setTitle("Rate Spot!", for: .normal)
         rateBtn.backgroundColor = UIColor.black
+        rateBtn.isEnabled = false
         rateBtn.layer.masksToBounds = false
         rateBtn.layer.cornerRadius = 4.0
         rateBtn.addTarget(self, action:#selector(rateSpotPressed), for: .touchUpInside)
@@ -434,7 +435,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 
                 if let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String{
                     
-                    self.user = User(userName: username, userImageURL: userImageURL)
+                    self.user = User(userName: username, userImageURL: userImageURL, bio: "", link: "")
                     
                     //let comment = Comment(userKey: (FIRAuth.auth()?.currentUser?.uid)!, userName: self.user.userName, userImageURL: self.user.userImageURL, comment: self.commentView.text)
                     
@@ -516,7 +517,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull{
-                self.rateBtn.isEnabled = true
+                //self.rateBtn.isEnabled = true
             }else{
                 self.rateBtn.isEnabled = false
                 self.ratingView.settings.updateOnTouch = false
@@ -535,6 +536,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     }
     
     func backButtonPressed() {
+        _ = navigationController?.popViewController(animated: true)
+        
         dismiss(animated: true, completion: nil)
     }
     
