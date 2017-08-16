@@ -17,15 +17,17 @@ class EditProfileVC: UIViewController{
     @IBOutlet weak var linkTextField: UITextField!
 
     var user: User!
-    var spots: [Spot]?
+    var spots = [Spot]()
     
     let currentUserID = FIRAuth.auth()!.currentUser!.uid
     
     override func viewDidLoad() {
         super.viewDidLoad()
-       userNameTextField.text = user.userName
+       
+        userNameTextField.text = user.userName
+        bioTextField.text = user.bio
         
-       print(spots?.count)
+   
         
        userNameTextField.layer.borderWidth = 1
         userNameTextField.layer.cornerRadius = 4
@@ -55,16 +57,16 @@ class EditProfileVC: UIViewController{
             
         }
         
-        if bioTextField.text != ""{
+        if bioTextField.text != user.bio{
             userDict.updateValue(bioTextField.text as AnyObject, forKey: "bio")
         
         }
         
-        if linkTextField.text != ""{
+        if linkTextField.text != user.link{
             userDict.updateValue(linkTextField.text as AnyObject, forKey: "link")
         }
         
-        for spot in spots!{
+        for spot in spots{
          DataService.instance.updateSpots(uid: spot.spotKey, userData: spotsDict)
         }
 

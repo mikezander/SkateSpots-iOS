@@ -16,6 +16,8 @@ class ProfileVC: UIViewController{
     var user: User? = nil
     let currentUserRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
     var profileView = UIView()
+    var status = String()
+    var headerViewHeight = CGFloat()
 
     @IBOutlet weak var spotTableView: UITableView!
 
@@ -30,7 +32,7 @@ class ProfileVC: UIViewController{
        
         spotTableView.register(HeaderCell.self, forCellReuseIdentifier: "headerCell")
         
-        print(UIScreen.main.bounds.height)
+        status = getStatus()
      
     }
     
@@ -79,16 +81,27 @@ class ProfileVC: UIViewController{
             if let viewController = segue.destination as? EditProfileVC {
                 if self.user != nil{
                     viewController.user = self.user!
+                    viewController.spots = self.spots //double check this
                 }
-                
-                if self.spots != nil{
-                    viewController.spots = self.spots
-                }
+   
             }
         }
     }
+
+    func getStatus()->String{
+        
+        var status = String()
     
-  
+        if spots.count < 2{
+            status = "Lurker"
+            print("here1")
+        }else if spots.count >= 2{
+            status = "Noob"
+            print("here2")
+        }
+    
+        return status
+    }
     
     @IBAction func backBtnPressed(_ sender: Any) {
        _ = navigationController?.popViewController(animated: true)
@@ -100,20 +113,32 @@ class ProfileVC: UIViewController{
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return UIScreen.main.bounds.height / 2
+        return 275.0
     }
 
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView:UIView =  UIView()
-        headerView.frame = CGRect(x: 0, y: 50,  width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height / 2)
+        
+        headerView.frame = CGRect(x: 0, y: 50,  width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+        
         let headerCell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! HeaderCell
         
         if let userName = user?.userName{
          headerCell.userName.text = userName
         }
         
-        headerCell.contributions.text = "Contributions: \(spots.count)"
+        if let bio = user?.bio{
+            headerCell.bio.text = bio
+        }
+        
+        if let link = user?.link{
+            headerCell.link.text = link
+        }
+        
+        headerCell.contributions.text = "👊 Contributions: \(spots.count)"
+        
+        headerCell.status.text = "👤 Status: \(getStatus())"
 
         if let userImage = user?.userImageURL{
             let ref = FIRStorage.storage().reference(forURL: (userImage))
@@ -130,11 +155,13 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
                 
             })
         }
-        
- 
+
+        headerViewHeight = headerCell.returnHeight()
         headerView.addSubview(headerCell)
         return headerView
     }
+    
+
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return spots.count
