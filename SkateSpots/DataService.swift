@@ -131,6 +131,12 @@ class DataService{
         // set value will wipe whats already there*
         
     }
+    
+    func updateSpots(uid: String, userData: Dictionary<String, AnyObject>){
+        REF_SPOTS.child(uid).updateChildValues(userData)
+        // set value will wipe whats already there*
+        
+    }
 
     
     func getSpotsFromUser(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: [Spot]?, _ error: String?) -> Void){

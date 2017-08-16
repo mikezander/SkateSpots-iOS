@@ -77,8 +77,12 @@ class ProfileVC: UIViewController{
         
         if segue.identifier == "editProfile" {
             if let viewController = segue.destination as? EditProfileVC {
-                if(self.user != nil){
+                if self.user != nil{
                     viewController.user = self.user!
+                }
+                
+                if self.spots != nil{
+                    viewController.spots = self.spots
                 }
             }
         }
