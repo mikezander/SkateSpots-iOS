@@ -55,13 +55,29 @@ class EditProfileVC: UIViewController{
             
         }
         
+        if bioTextField.text != ""{
+            userDict.updateValue(bioTextField.text as AnyObject, forKey: "bio")
+        
+        }
+        
+        if linkTextField.text != ""{
+            userDict.updateValue(linkTextField.text as AnyObject, forKey: "link")
+        }
+        
         for spot in spots!{
          DataService.instance.updateSpots(uid: spot.spotKey, userData: spotsDict)
         }
-       
-        
+
         DataService.instance.updateDBUser(uid: currentUserID, child: "profile", userData: userDict)
     
     }
     
 }
+
+
+
+
+
+
+
+
