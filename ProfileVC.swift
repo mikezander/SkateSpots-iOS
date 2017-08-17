@@ -109,6 +109,9 @@ class ProfileVC: UIViewController{
         dismiss(animated: true, completion: nil)
     }
     
+    
+
+    
 }
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
     
@@ -132,11 +135,14 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
             headerCell.bio.text = bio
         }
         
-        if let link = user?.link{
-            //headerCell.link.text = link
-            headerCell.linkButton.setTitle(link, for: .normal)
-            headerCell.linkButton.sizeToFit()
-            headerCell.linkButton.center.x = view.frame.width / 2
+        if let linkText = user?.link{
+            headerCell.link.center.x = view.frame.width / 2
+            var link = UITextView() //work around for bug
+            link = headerCell.link
+            link.text = linkText
+            link.sizeToFit()
+            link.center.x = view.frame.width / 2
+            headerView.addSubview(link)
         }
         
         
@@ -165,7 +171,6 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         headerView.addSubview(headerCell)
         return headerView
     }
-    
 
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
