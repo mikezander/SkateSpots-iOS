@@ -10,7 +10,7 @@ import UIKit
 import FirebaseAuth
 import FirebaseStorage
 
-class ProfileVC: UIViewController{
+class ProfileVC: UIViewController, ProfileEditedProtocol{
     
      static let _instance = ProfileVC()
 
@@ -20,7 +20,7 @@ class ProfileVC: UIViewController{
     var profileView = UIView()
     var status = String()
     var headerViewHeight = CGFloat()
-    var newData = false
+    var profileEdited: Bool = false
 
     @IBOutlet weak var spotTableView: UITableView!
 
@@ -36,9 +36,27 @@ class ProfileVC: UIViewController{
         spotTableView.register(HeaderCell.self, forCellReuseIdentifier: "headerCell")
         
         status = getStatus()
+ 
      
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+       
+        if profileEdited{
+        
+            addUserData()
+            spotTableView.reloadData()
+            
+        }
+       
+    }
+    
+    func hasProfileBeenEdited(edited: Bool){
+    
+        self.profileEdited = edited
+    }
+
  
     func addUserData(){
     
@@ -85,6 +103,7 @@ class ProfileVC: UIViewController{
                 if self.user != nil{
                     viewController.user = self.user!
                     viewController.spots = self.spots //double check this
+                    viewController.delegate = self
                 }
    
             }

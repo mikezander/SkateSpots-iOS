@@ -9,6 +9,10 @@
 import UIKit
 import FirebaseAuth
 
+protocol ProfileEditedProtocol {
+    func hasProfileBeenEdited(edited: Bool)
+}
+
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var profileImage: CircleView!
@@ -18,11 +22,14 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     var imagePicker: UIImagePickerController!
     var imageSelected = false
+    var hasBeenEdited = false
 
     var user: User!
     var spots = [Spot]()
     
     let currentUserID = FIRAuth.auth()!.currentUser!.uid
+    
+    var delegate: ProfileEditedProtocol?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -58,29 +65,28 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         var userDict = [String:AnyObject]()
         var spotsDict = [String:AnyObject]()
         var photoDict = [String:AnyObject]()
-        
-        
-        
-        if userNameTextField.text != "" || userNameTextField.text != user.userName{
+  
+        if userNameTextField.text != "" && userNameTextField.text != user.userName{
             
             userDict.updateValue(userNameTextField.text as AnyObject, forKey: "username")
             spotsDict.updateValue(userNameTextField.text as AnyObject, forKey: "username")
-            
+            hasBeenEdited = true
         }
-        
-       
-        
+  
         if bioTextField.text != user.bio{
             userDict.updateValue(bioTextField.text as AnyObject, forKey: "bio")
-        
+            hasBeenEdited = true
         }
         
         if linkTextField.text != user.link{
             userDict.updateValue(linkTextField.text as AnyObject, forKey: "link")
+            hasBeenEdited = true
         }
         
-        DataService.instance.updateDBUser(uid: currentUserID, child: "profile", userData: userDict)
-
+        if hasBeenEdited{
+            DataService.instance.updateDBUser(uid: currentUserID, child: "profile", userData: userDict)
+        }
+        
         if self.imageSelected{
             
             DataService.instance.deleteFromStorage(urlString: user.userImageURL)
@@ -91,6 +97,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                         photoDict.updateValue( url as AnyObject, forKey: "userImageURL")
                     
                     self.addDictToSpot(dict: photoDict)
+                    self.hasBeenEdited = true
+                    print("here4")
                 }
   
         }
@@ -99,9 +107,15 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
         addDictToSpot(dict: spotsDict)
         
+ 
+        delegate?.hasProfileBeenEdited(edited: hasBeenEdited)
+       
         _ = self.navigationController?.popViewController(animated: true)
-        self.dismiss(animated: true, completion: {ProfileVC._instance.newData = true})
+   
+        self.dismiss(animated: true, completion: nil)
+        
     }
+    
     
     func addDictToSpot(dict: [String:AnyObject]){
     
