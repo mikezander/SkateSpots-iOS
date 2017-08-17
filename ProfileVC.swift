@@ -38,6 +38,7 @@ class ProfileVC: UIViewController{
         status = getStatus()
      
     }
+    
  
     func addUserData(){
     

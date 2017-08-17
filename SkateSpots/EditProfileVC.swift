@@ -57,6 +57,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
         var userDict = [String:AnyObject]()
         var spotsDict = [String:AnyObject]()
+        var photoDict = [String:AnyObject]()
         
         
         
@@ -66,6 +67,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             spotsDict.updateValue(userNameTextField.text as AnyObject, forKey: "username")
             
         }
+        
+       
         
         if bioTextField.text != user.bio{
             userDict.updateValue(bioTextField.text as AnyObject, forKey: "bio")
@@ -85,21 +88,28 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             if let userImg = self.profileImage.image{
                 DataService.instance.addProfilePicToStorageWithCompletion(image: userImg){ url in
 
-                        spotsDict.updateValue( url as AnyObject, forKey: "userImageURL")
+                        photoDict.updateValue( url as AnyObject, forKey: "userImageURL")
+                    
+                    self.addDictToSpot(dict: photoDict)
                 }
   
         }
     
         }
         
-        for spot in self.spots{
-            
-            DataService.instance.updateSpot(uid: spot.spotKey, userData: spotsDict)
-            
-        }
+        addDictToSpot(dict: spotsDict)
         
         _ = self.navigationController?.popViewController(animated: true)
         self.dismiss(animated: true, completion: {ProfileVC._instance.newData = true})
+    }
+    
+    func addDictToSpot(dict: [String:AnyObject]){
+    
+        for spot in spots{
+        
+            DataService.instance.updateSpot(uid: spot.spotKey, userData: dict)
+        }
+    
     }
     
     func setGestureRecognizer() -> UITapGestureRecognizer {
