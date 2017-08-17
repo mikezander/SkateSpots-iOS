@@ -63,27 +63,8 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
         link.textColor = UIColor.blue
         link.backgroundColor = UIColor.groupTableViewBackground
         link.font = UIFont(name: "Avenir",size: 13)
-
         contentView.addSubview(link)
-        
-        
-        
-        
-       /* link = UILabel()
-        link.frame = CGRect(x: 0 , y: bio.frame.origin.y + 20, width: screenSize.width, height: 20)
-        link.textAlignment = .center
-        link.textColor = UIColor.blue
-        link.font = UIFont(name: "Avenir",size: 14)
-        contentView.addSubview(link)
-        
-        linkButton = UIButton()
-        linkButton.frame = CGRect(x:0,y: bio.frame.origin.y + 17 ,width:screenSize.width / 2,height: 20)
-        linkButton.backgroundColor = UIColor.black//groupTableViewBackground
-        linkButton.titleLabel?.font = UIFont(name: "Avenir",size: 14)
-        linkButton.setTitleColor(UIColor.blue, for: .normal)
-        linkButton.setTitle(link.text, for: .normal)
-        contentView.addSubview(linkButton)*/
-        
+ 
         contributions = UILabel()
         contributions.frame = CGRect(x: profilePhoto.frame.origin.x , y: link.frame.origin.y + 30, width: 150, height: 20)
         //contributions.textAlignment = .center

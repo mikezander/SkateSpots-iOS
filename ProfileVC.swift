@@ -144,9 +144,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
             link.center.x = view.frame.width / 2
             headerView.addSubview(link)
         }
-        
-        
-        
+
         headerCell.contributions.text = "👊 Contributions: \(spots.count)"
         
         headerCell.status.text = "👤 Status: \(getStatus())"
