@@ -9,12 +9,15 @@
 import UIKit
 import FirebaseAuth
 
-class EditProfileVC: UIViewController{
+class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var profileImage: CircleView!
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var bioTextField: UITextField!
     @IBOutlet weak var linkTextField: UITextField!
+    
+    var imagePicker: UIImagePickerController!
+    var imageSelected = false
 
     var user: User!
     var spots = [Spot]()
@@ -36,6 +39,12 @@ class EditProfileVC: UIViewController{
         
         linkTextField.layer.borderWidth = 1
         linkTextField.layer.cornerRadius = 4
+        
+        imagePicker = UIImagePickerController()
+        imagePicker.allowsEditing = true
+        imagePicker.delegate = self
+        
+        profileImage.addGestureRecognizer(setGestureRecognizer())
     }
 
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -48,6 +57,8 @@ class EditProfileVC: UIViewController{
         
         var userDict = [String:AnyObject]()
         var spotsDict = [String:AnyObject]()
+        
+        
         
         if userNameTextField.text != "" || userNameTextField.text != user.userName{
             
@@ -65,14 +76,65 @@ class EditProfileVC: UIViewController{
             userDict.updateValue(linkTextField.text as AnyObject, forKey: "link")
         }
         
-        for spot in spots{
-         DataService.instance.updateSpot(uid: spot.spotKey, userData: spotsDict)
-        }
-
         DataService.instance.updateDBUser(uid: currentUserID, child: "profile", userData: userDict)
+
+        if self.imageSelected{
+            
+            DataService.instance.deleteFromStorage(urlString: user.userImageURL)
+            
+            if let userImg = self.profileImage.image{
+                DataService.instance.addProfilePicToStorageWithCompletion(image: userImg){ url in
+
+                        spotsDict.updateValue( url as AnyObject, forKey: "userImageURL")
+                }
+  
+        }
     
-        _ = navigationController?.popViewController(animated: true)
+        }
+        
+        for spot in self.spots{
+            
+            DataService.instance.updateSpot(uid: spot.spotKey, userData: spotsDict)
+            
+        }
+        
+        _ = self.navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: {ProfileVC._instance.newData = true})
+    }
+    
+    func setGestureRecognizer() -> UITapGestureRecognizer {
+        var tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(showPhotoActionSheet))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        return tapGestureRecognizer
+    }
+    
+    func showPhotoActionSheet(){
+        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        
+        actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                self.imagePicker.sourceType = .camera
+                self.present(self.imagePicker, animated: true, completion: nil)
+            } else { print("Sorry cant take photo") }
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action:UIAlertAction) in
+            self.imagePicker.sourceType = .photoLibrary
+            self.present(self.imagePicker, animated: true, completion: nil)
+        }))
+        
+        actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))
+        
+        present(actionSheet, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: true, completion: nil)
+        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
+            profileImage.image = image
+            imageSelected = true
+        }
     }
     
 }

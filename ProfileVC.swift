@@ -11,6 +11,8 @@ import FirebaseAuth
 import FirebaseStorage
 
 class ProfileVC: UIViewController{
+    
+     static let _instance = ProfileVC()
 
     var spots = [Spot]()
     var user: User? = nil
@@ -18,6 +20,7 @@ class ProfileVC: UIViewController{
     var profileView = UIView()
     var status = String()
     var headerViewHeight = CGFloat()
+    var newData = false
 
     @IBOutlet weak var spotTableView: UITableView!
 
@@ -35,8 +38,7 @@ class ProfileVC: UIViewController{
         status = getStatus()
      
     }
-    
-
+ 
     func addUserData(){
     
         DataService.instance.getCurrentUserData(userRef: currentUserRef.child("profile"), completionHandlerForGET: { success, data in
@@ -126,7 +128,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         headerView.frame = CGRect(x: 0, y: 0,  width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         
         let headerCell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! HeaderCell
-        
+       
         if let userName = user?.userName{
          headerCell.userName.text = userName
         }
@@ -148,8 +150,9 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         headerCell.contributions.text = "👊 Contributions: \(spots.count)"
         
         headerCell.status.text = "👤 Status: \(getStatus())"
-
+        
         if let userImage = user?.userImageURL{
+            DispatchQueue.global().async {
             let ref = FIRStorage.storage().reference(forURL: (userImage))
             ref.data(withMaxSize: 1 * 1024 * 1024, completion:{ (data, error) in
                 if error != nil{
@@ -157,12 +160,16 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
                 }else{
                     
                     if let data = data{
-                        headerCell.profilePhoto.image = UIImage(data:data)
+                        DispatchQueue.main.async {
+                            headerCell.profilePhoto.image = UIImage(data:data)
+                        }
+                        
                     }
                 }
                 
                 
             })
+            } //outer backgorund queue
         }
 
         headerViewHeight = headerCell.returnHeight()

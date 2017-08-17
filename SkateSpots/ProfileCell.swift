@@ -31,7 +31,7 @@ class ProfileCell: UITableViewCell{
         }else{
             
             //cache image
-            
+
             let ref = FIRStorage.storage().reference(forURL:spot.imageUrls[count])
             ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
                 if error != nil{
@@ -39,19 +39,18 @@ class ProfileCell: UITableViewCell{
                 }else{
                     print("Mike: Image downloaded from firebase storge")
                     if let imgData = data {
-                        
-                        DispatchQueue.main.async {
+
                             
                             if let img = UIImage(data: imgData){
                                 self.spotImage.image = img
                                 FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
                             }
-                            
-                        }
+  
                     }
                 }
                 
             })
+            
         }
         
     }

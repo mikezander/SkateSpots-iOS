@@ -128,6 +128,48 @@ class DataService{
             
         }
     }
+    
+    func addProfilePicToStorageWithCompletion(image: UIImage,completion: @escaping (_ urlString:String) -> ()){
+        
+        if let imgData = UIImageJPEGRepresentation(image, 0.2){
+            
+            let imgUid = NSUUID().uuidString
+            let metadata = FIRStorageMetadata()
+            metadata.contentType = "image/jpeg"
+            
+            DataService.instance.REF_USER_IMAGE.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
+                
+                if error != nil{
+                    print("unable to upload image to firebase storage(\(error?.localizedDescription))")
+                }else{
+                    
+                    let downloadURL = metadata?.downloadURL()?.absoluteString
+                    if let url = downloadURL{
+                        
+                        //self.userProfileURL = ("\(url)")
+                        let ref = DataService.instance.refrenceToCurrentUser()
+                        ref.child("profile").child("userImageURL").setValue(url)
+                        completion(url)
+                    }
+                }
+                
+            }
+            
+        }
+    }
+    
+    func deleteFromStorage(urlString: String){
+ 
+        let imageRef = FIRStorage.storage().reference(forURL: urlString)
+        imageRef.delete { (error) in
+            if error == nil{
+             print("successfully deleted")
+            }else{
+            print("could not delete")
+            }
+        }
+        
+    }
 
     func updateDBUser(uid: String, child: String, userData: Dictionary<String, AnyObject>){
         REF_USERS.child(uid).child(child).updateChildValues(userData)
