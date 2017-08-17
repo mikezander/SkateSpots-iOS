@@ -70,6 +70,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             
             userDict.updateValue(userNameTextField.text as AnyObject, forKey: "username")
             spotsDict.updateValue(userNameTextField.text as AnyObject, forKey: "username")
+            addDictToSpot(dict: spotsDict)
             hasBeenEdited = true
         }
   
@@ -98,22 +99,27 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                     
                     self.addDictToSpot(dict: photoDict)
                     self.hasBeenEdited = true
-                    print("here4")
+                    
+                    self.delegate?.hasProfileBeenEdited(edited: self.hasBeenEdited)
+                    
+                    _ = self.navigationController?.popViewController(animated: true)
+                    
+                    self.dismiss(animated: true, completion: nil)
                 }
   
         }
     
+        }else{
+        
+            delegate?.hasProfileBeenEdited(edited: hasBeenEdited)
+            
+            _ = self.navigationController?.popViewController(animated: true)
+            
+            self.dismiss(animated: true, completion: nil)
+        
+        
         }
-        
-        addDictToSpot(dict: spotsDict)
-        
- 
-        delegate?.hasProfileBeenEdited(edited: hasBeenEdited)
-       
-        _ = self.navigationController?.popViewController(animated: true)
-   
-        self.dismiss(animated: true, completion: nil)
-        
+     
     }
     
     

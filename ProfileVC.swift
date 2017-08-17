@@ -43,10 +43,12 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
        
+        print(profileEdited)
         if profileEdited{
         
             addUserData()
             spotTableView.reloadData()
+            profileEdited = false
             
         }
        
