@@ -13,7 +13,6 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
     var profilePhoto: UIImageView!
     var userName: UILabel!
     var bio: UILabel!
-    var linkButton: UIButton!
     var link: UITextView!
     var contributions: UILabel!
     var status: UILabel!
@@ -23,7 +22,6 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:)")
     }
-    
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -67,14 +65,12 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
  
         contributions = UILabel()
         contributions.frame = CGRect(x: profilePhoto.frame.origin.x , y: link.frame.origin.y + 30, width: 150, height: 20)
-        //contributions.textAlignment = .center
         contributions.textColor = UIColor.lightGray
         contributions.font = UIFont(name: "Avenir-Black",size: 14)
         contentView.addSubview(contributions)
         
         status = UILabel()
         status.frame = CGRect(x: contributions.frame.origin.x , y: contributions.frame.origin.y + 25, width: screenSize.width, height: 20)
-        //status.textAlignment = .center
         status.textColor = UIColor.lightGray
         status.font = UIFont(name: "Avenir-Black",size: 14)
         contentView.addSubview(status)
@@ -85,11 +81,5 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
     
     return status.frame.origin.y
     }
-    
-    
-
-    
-    
-    
 
 }

@@ -26,10 +26,9 @@ class EditProfileVC: UIViewController{
        
         userNameTextField.text = user.userName
         bioTextField.text = user.bio
+        linkTextField.text = user.link
         
-   
-        
-       userNameTextField.layer.borderWidth = 1
+        userNameTextField.layer.borderWidth = 1
         userNameTextField.layer.cornerRadius = 4
         
         bioTextField.layer.borderWidth = 1
