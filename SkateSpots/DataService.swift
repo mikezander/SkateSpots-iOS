@@ -135,7 +135,7 @@ class DataService{
         
     }
     
-    func updateSpots(uid: String, userData: Dictionary<String, AnyObject>){
+    func updateSpot(uid: String, userData: Dictionary<String, AnyObject>){
         REF_SPOTS.child(uid).updateChildValues(userData)
         // set value will wipe whats already there*
         

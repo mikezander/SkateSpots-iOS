@@ -13,6 +13,7 @@ class HeaderCell: UITableViewCell{
     var profilePhoto: UIImageView!
     var userName: UILabel!
     var bio: UILabel!
+    var linkButton: UIButton!
     var link: UILabel!
     var contributions: UILabel!
     var status: UILabel!
@@ -57,6 +58,14 @@ class HeaderCell: UITableViewCell{
         link.textColor = UIColor.blue
         link.font = UIFont(name: "Avenir",size: 14)
         contentView.addSubview(link)
+        
+        linkButton = UIButton()
+        linkButton.frame = CGRect(x:0,y: bio.frame.origin.y + 17 ,width:screenSize.width / 2,height: 20)
+        linkButton.backgroundColor = UIColor.groupTableViewBackground
+        linkButton.titleLabel?.font = UIFont(name: "Avenir",size: 14)
+        linkButton.setTitleColor(UIColor.blue, for: .normal)
+        linkButton.setTitle(link.text, for: .normal)
+        contentView.addSubview(linkButton)
         
         contributions = UILabel()
         contributions.frame = CGRect(x: profilePhoto.frame.origin.x , y: link.frame.origin.y + 25, width: 150, height: 20)

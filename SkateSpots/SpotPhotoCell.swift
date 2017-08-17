@@ -23,10 +23,9 @@ class SpotPhotoCell: UICollectionViewCell{
 
         //download images
         if img != nil{
-            
-            DispatchQueue.main.async {
+
                 self.spotImage.image = img
-            }
+            
             
         }else{
             
@@ -39,15 +38,14 @@ class SpotPhotoCell: UICollectionViewCell{
                 }else{
                     print("Mike: Image downloaded from firebase storge")
                     if let imgData = data {
-                        
-                        DispatchQueue.main.async {
+
                         
                             if let img = UIImage(data: imgData){
                                 self.spotImage.image = img
                                 FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
                             }
                             
-                        }
+                        
                     }
                 }
                 

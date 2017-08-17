@@ -67,11 +67,13 @@ class EditProfileVC: UIViewController{
         }
         
         for spot in spots{
-         DataService.instance.updateSpots(uid: spot.spotKey, userData: spotsDict)
+         DataService.instance.updateSpot(uid: spot.spotKey, userData: spotsDict)
         }
 
         DataService.instance.updateDBUser(uid: currentUserID, child: "profile", userData: userDict)
     
+        _ = navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
     
 }

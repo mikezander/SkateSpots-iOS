@@ -36,7 +36,7 @@ class ProfileVC: UIViewController{
      
     }
     
-    
+
     func addUserData(){
     
         DataService.instance.getCurrentUserData(userRef: currentUserRef.child("profile"), completionHandlerForGET: { success, data in
@@ -119,8 +119,8 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView:UIView =  UIView()
-        
-        headerView.frame = CGRect(x: 0, y: 50,  width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
+
+        headerView.frame = CGRect(x: 0, y: 0,  width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         
         let headerCell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! HeaderCell
         
@@ -133,8 +133,13 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         }
         
         if let link = user?.link{
-            headerCell.link.text = link
+            //headerCell.link.text = link
+            headerCell.linkButton.setTitle(link, for: .normal)
+            headerCell.linkButton.sizeToFit()
+            headerCell.linkButton.center.x = view.frame.width / 2
         }
+        
+        
         
         headerCell.contributions.text = "👊 Contributions: \(spots.count)"
         
