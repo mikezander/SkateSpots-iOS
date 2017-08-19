@@ -23,6 +23,8 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         
        loadSpotsArray()
         
+        spotTableView.separatorColor = UIColor.black
+        
         
         
     }
@@ -51,35 +53,16 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         
         let spot = spots[indexPath.row]
      
-       let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell")!
+       let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell") as! FavoriteCell
 
-
-            let ref = FIRStorage.storage().reference(forURL: (spot.imageUrls[0]))
-            ref.data(withMaxSize: 1 * 1024 * 1024, completion:{ (data, error) in
-                if error != nil{
-                    print("Mke: Unable to download image from firebase storage")
-                }else{
-                    
-                    if let data = data{
-
-                        print(data)
-                        cell.imageView?.image = UIImage(data:data)
-                        
-
-                    }
-                }
-                
-                
-            })
-
-        
-        
-        cell.textLabel?.text = spot.spotName
-        //cell.detailTextLabel?.text = spot.spotLocation
        
-        
-        
-        // Configure the cell...
+        if let img = FeedVC.imageCache.object(forKey: NSString(string: spot.imageUrls[0])){
+            
+            cell.configureFavoriteCell(spot: spot,img: img)
+        }else{
+            cell.configureFavoriteCell(spot:spot)
+        }
+
         return cell
     }
 
