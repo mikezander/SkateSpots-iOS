@@ -38,6 +38,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var commentView = UITextView()
     var postButton = UIButton()
     var directionsButton = UIButton()
+    var favoriteButton = UIButton()
     var descriptionTextView = UITextView()
     var kickOutImageView = UIImageView()
     var bestTimeimageView = UIImageView()
@@ -365,6 +366,22 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         directionsButton.addTarget(self, action:#selector(getDirections), for: .touchUpInside)
         containerView.addSubview(directionsButton)
         
+        favoriteButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  directionsButton.frame.origin.y + directionsButton.frame.height + 15 , width: 135, height: 25))
+        favoriteButton.setTitle("Favorite", for: .normal)
+        favoriteButton.backgroundColor = UIColor.black
+        favoriteButton.setTitleColor(UIColor.white, for: .normal)
+        favoriteButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        favoriteButton.layer.shadowOffset = CGSize(width:0.0,height: 2.0)
+        favoriteButton.layer.shadowOpacity = 1.0
+        favoriteButton.layer.shadowRadius = 0.0
+        favoriteButton.layer.masksToBounds = false
+        favoriteButton.layer.cornerRadius = 4.0
+        favoriteButton.addTarget(self, action:#selector(addSpotToFavorites), for: .touchUpInside)
+        containerView.addSubview(favoriteButton)
+        
+
+        
+        
 }
     
     override func viewDidLayoutSubviews() {
@@ -526,6 +543,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 self.rateBtn.setTitle("Rated 🙌", for: .normal)
             }
         })
+    }
+    
+    func addSpotToFavorites(){
+        
+        let favDict = [spot.spotKey:true]
+    
+        DataService.instance.updateDBUser(uid: FIRAuth.auth()!.currentUser!.uid, child: "favorites", userData: favDict as Dictionary<String, AnyObject>)
+    
     }
     
     func getDirections(){
