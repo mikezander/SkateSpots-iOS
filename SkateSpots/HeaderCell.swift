@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class HeaderCell: UITableViewCell, UITextViewDelegate{
 
@@ -80,6 +81,41 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
     func returnHeight()->CGFloat{
     
     return status.frame.origin.y
+    }
+    
+    func configureProfilePic(user: User, img: UIImage? = nil){
+
+        //download images
+        if img != nil{
+            
+            self.profilePhoto.image = img
+            
+            
+        }else{
+            
+            //cache image
+            
+            let ref = FIRStorage.storage().reference(forURL:user.userImageURL)
+            ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
+                if error != nil{
+                    print("Mike: Unable to download image from firebase storage")
+                }else{
+                    print("Mike: Image downloaded from firebase storge")
+                    if let imgData = data {
+                        
+                        
+                        if let img = UIImage(data: imgData){
+                            self.profilePhoto.image = img
+                            FeedVC.imageCache.setObject(img, forKey: user.userImageURL as NSString)
+                        }
+                        
+                        
+                    }
+                }
+                
+            })
+        }
+        
     }
 
 }

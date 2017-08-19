@@ -184,11 +184,11 @@ class DataService{
     }
 
     
-    func getSpotsFromUser(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: [Spot]?, _ error: String?) -> Void){
+    func getSpotsFromUser(userRef: FIRDatabaseReference, child: String, completionHandlerForGET: @escaping (_ success: Bool, _ data: [Spot]?, _ error: String?) -> Void){
         
         var spots = [Spot]()
  
-        userRef.child("spots").observe(.value, with:{ (snapshot) in
+        userRef.child(child).observe(.value, with:{ (snapshot) in
             let spotKeyDict = snapshot.value as? [String : AnyObject] ?? [:]
             
             for spotKey in spotKeyDict{
@@ -213,7 +213,7 @@ class DataService{
     }
     
  
-    func getCurrentUserData(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: User?) -> Void){
+    func getCurrentUserProfileData(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: User?) -> Void){
     
         var user: User?
         
@@ -248,8 +248,7 @@ class DataService{
         }
 
     }
-       
-      
+
     
     func refrenceToCurrentUser() -> FIRDatabaseReference{
         let uid = KeychainWrapper.standard.string(forKey: KEY_UID)

@@ -61,7 +61,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
  
     func addUserData(){
     
-        DataService.instance.getCurrentUserData(userRef: currentUserRef.child("profile"), completionHandlerForGET: { success, data in
+        DataService.instance.getCurrentUserProfileData(userRef: currentUserRef.child("profile"), completionHandlerForGET: { success, data in
             
             if let data = data{
                 
@@ -84,7 +84,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     
     func appendSpotsArray(){
         
-        DataService.instance.getSpotsFromUser(userRef: currentUserRef, completionHandlerForGET: {success, data, error in
+        DataService.instance.getSpotsFromUser(userRef: currentUserRef, child: "spots",completionHandlerForGET: {success, data, error in
             
             if error == nil{
                 self.spots = data!
@@ -173,25 +173,16 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         headerCell.status.text = "👤 Status: \(getStatus())"
         
         if let userImage = user?.userImageURL{
-           // DispatchQueue.global().async {
-            let ref = FIRStorage.storage().reference(forURL: (userImage))
-            ref.data(withMaxSize: 1 * 1024 * 1024, completion:{ (data, error) in
-                if error != nil{
-                    print("Mke: Unable to download image from firebase storage")
-                }else{
-                    
-                    if let data = data{
-                        //DispatchQueue.main.async {
-                            headerCell.profilePhoto.image = UIImage(data:data)
-                       // }
-                        
-                    }
-                }
-                
-                
-            })
-           // } //outer backgorund queue
+        
+        if let img = FeedVC.imageCache.object(forKey: NSString(string: userImage)){
+            
+            headerCell.configureProfilePic(user: user!,img: img)
+        }else{
+            headerCell.configureProfilePic(user:user!)
         }
+            
+        }
+       
 
         headerViewHeight = headerCell.returnHeight()
         headerView.addSubview(headerCell)
