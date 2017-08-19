@@ -721,6 +721,11 @@
                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="100" id="dWu-ad-X13"/>
                                 </constraints>
                             </imageView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="TMK-5Q-oPi">
+                                <rect key="frame" x="197" y="333.66666666666669" width="20" height="20"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <color key="color" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -736,12 +741,15 @@
                             <constraint firstAttribute="trailingMargin" secondItem="bkz-RS-UcJ" secondAttribute="trailing" constant="25" id="QSm-Vd-waX"/>
                             <constraint firstItem="bkz-RS-UcJ" firstAttribute="top" secondItem="GGX-ed-VFz" secondAttribute="bottom" constant="50" id="WPk-Ej-6vu"/>
                             <constraint firstAttribute="trailing" secondItem="KIL-PT-FPI" secondAttribute="trailing" id="bX3-ZS-rYR"/>
+                            <constraint firstItem="TMK-5Q-oPi" firstAttribute="centerX" secondItem="clK-hq-an6" secondAttribute="centerX" id="ezh-Lj-UtZ"/>
                             <constraint firstItem="KIL-PT-FPI" firstAttribute="leading" secondItem="clK-hq-an6" secondAttribute="leading" id="gtF-F2-Tmm"/>
+                            <constraint firstItem="TMK-5Q-oPi" firstAttribute="centerY" secondItem="clK-hq-an6" secondAttribute="centerY" id="jnK-eb-i0B"/>
                             <constraint firstItem="bkz-RS-UcJ" firstAttribute="leading" secondItem="clK-hq-an6" secondAttribute="leadingMargin" constant="25" id="mav-dX-Mz8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ITh-nm-3ID" secondAttribute="trailing" constant="25" id="pcP-Fu-vd4"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="activityIndicator" destination="TMK-5Q-oPi" id="8fo-KR-Lk3"/>
                         <outlet property="bioTextField" destination="ITh-nm-3ID" id="V7K-SK-ceW"/>
                         <outlet property="linkTextField" destination="Kd5-NN-mef" id="j7j-wX-gNu"/>
                         <outlet property="profileImage" destination="GGX-ed-VFz" id="Ssj-7E-k6n"/>
@@ -1495,7 +1503,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fWj-2D-zkp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fWj-2D-zkp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1519,7 +1527,7 @@
         <image name="home_btn" width="24" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qnT-aP-8uy"/>
+        <segue reference="myg-hR-9mM"/>
         <segue reference="wHi-97-VC8"/>
     </inferredMetricsTieBreakers>
 </document>

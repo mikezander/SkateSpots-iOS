@@ -19,6 +19,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var bioTextField: UITextField!
     @IBOutlet weak var linkTextField: UITextField!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var imagePicker: UIImagePickerController!
     var imageSelected = false
@@ -90,6 +91,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
         if self.imageSelected{
             
+            activityIndicator.startAnimating()
+            
             DataService.instance.deleteFromStorage(urlString: user.userImageURL)
             
             if let userImg = self.profileImage.image{
@@ -101,6 +104,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                     self.hasBeenEdited = true
                     
                     self.delegate?.hasProfileBeenEdited(edited: self.hasBeenEdited)
+                    
+                    self.activityIndicator.stopAnimating()
                     
                     _ = self.navigationController?.popViewController(animated: true)
                     

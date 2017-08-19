@@ -42,8 +42,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-       
-        print(profileEdited)
+
         if profileEdited{
         
             addUserData()
@@ -174,7 +173,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         headerCell.status.text = "👤 Status: \(getStatus())"
         
         if let userImage = user?.userImageURL{
-            DispatchQueue.global().async {
+           // DispatchQueue.global().async {
             let ref = FIRStorage.storage().reference(forURL: (userImage))
             ref.data(withMaxSize: 1 * 1024 * 1024, completion:{ (data, error) in
                 if error != nil{
@@ -182,16 +181,16 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
                 }else{
                     
                     if let data = data{
-                        DispatchQueue.main.async {
+                        //DispatchQueue.main.async {
                             headerCell.profilePhoto.image = UIImage(data:data)
-                        }
+                       // }
                         
                     }
                 }
                 
                 
             })
-            } //outer backgorund queue
+           // } //outer backgorund queue
         }
 
         headerViewHeight = headerCell.returnHeight()
