@@ -23,7 +23,8 @@ class FavoriteCell: UITableViewCell{
     
     func configureFavoriteCell(spot:Spot, img: UIImage? = nil){
         
-        titleLabel.text = spot.spotName
+        
+        titleLabel.text = " \(spot.spotName)"
         spotTypeLabel.text = spot.spotType
         detailLabel.text = spot.spotLocation
         

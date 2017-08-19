@@ -132,7 +132,7 @@
                                     <constraint firstAttribute="height" constant="50" id="UW8-y6-lKk"/>
                                 </constraints>
                             </view>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="81" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ngX-gl-sts">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="81" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ngX-gl-sts">
                                 <rect key="frame" x="0.0" y="50" width="414" height="637"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
@@ -140,7 +140,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="81"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Ibx-du-cM5" id="OBJ-WD-Zj9">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="80"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="81"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gaT-mg-Mwe">
@@ -150,46 +150,52 @@
                                                         <constraint firstAttribute="height" constant="80" id="zTi-NS-B08"/>
                                                     </constraints>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpI-0y-QMt">
-                                                    <rect key="frame" x="130" y="8" width="42" height="21"/>
-                                                    <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="ibB-vs-Dnf"/>
-                                                    </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
                                                 <label opaque="NO" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="G2a-fA-8g0">
-                                                    <rect key="frame" x="130" y="59" width="35.333333333333343" height="21"/>
+                                                    <rect key="frame" x="105" y="52" width="32" height="18"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="uHT-1P-RwP"/>
+                                                        <constraint firstAttribute="height" constant="18" id="ALJ-Wf-rYS"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krP-Bi-bWs">
-                                                    <rect key="frame" x="130" y="37" width="35.333333333333343" height="21"/>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="DJi-oZ-vSh">
+                                                    <rect key="frame" x="0.0" y="75" width="414" height="1"/>
+                                                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="21" id="6Y6-Cr-x4Q"/>
+                                                        <constraint firstAttribute="height" constant="1" id="f0F-gF-iul"/>
                                                     </constraints>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                </view>
+                                                <label opaque="NO" userInteractionEnabled="NO" alpha="0.40000000000000002" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="krP-Bi-bWs">
+                                                    <rect key="frame" x="105" y="37" width="32" height="18"/>
+                                                    <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="13"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text=" Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wpI-0y-QMt">
+                                                    <rect key="frame" x="100" y="5" width="314" height="35"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="35" id="CxT-yk-Icg"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="28"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                             </subviews>
                                             <constraints>
+                                                <constraint firstAttribute="bottom" secondItem="DJi-oZ-vSh" secondAttribute="bottom" id="1oG-au-zag"/>
+                                                <constraint firstItem="G2a-fA-8g0" firstAttribute="leading" secondItem="gaT-mg-Mwe" secondAttribute="trailing" constant="25" id="1ut-Fa-AwH"/>
                                                 <constraint firstAttribute="bottom" secondItem="gaT-mg-Mwe" secondAttribute="bottom" id="1wi-7R-JRL"/>
-                                                <constraint firstItem="wpI-0y-QMt" firstAttribute="top" secondItem="OBJ-WD-Zj9" secondAttribute="topMargin" id="35s-VY-I7q"/>
-                                                <constraint firstItem="krP-Bi-bWs" firstAttribute="top" secondItem="wpI-0y-QMt" secondAttribute="bottom" constant="8" id="7OX-lZ-Bgp"/>
-                                                <constraint firstItem="krP-Bi-bWs" firstAttribute="top" secondItem="wpI-0y-QMt" secondAttribute="bottom" constant="8" id="HsL-kA-tMs"/>
-                                                <constraint firstItem="G2a-fA-8g0" firstAttribute="top" secondItem="krP-Bi-bWs" secondAttribute="bottom" constant="1" id="L3L-bN-g7R"/>
-                                                <constraint firstAttribute="bottom" secondItem="G2a-fA-8g0" secondAttribute="bottom" id="LbT-a9-nLc"/>
-                                                <constraint firstItem="wpI-0y-QMt" firstAttribute="leading" secondItem="gaT-mg-Mwe" secondAttribute="trailing" constant="50" id="dPU-XK-p8X"/>
-                                                <constraint firstItem="G2a-fA-8g0" firstAttribute="leading" secondItem="gaT-mg-Mwe" secondAttribute="trailing" constant="50" id="ffw-0a-iqE"/>
-                                                <constraint firstItem="G2a-fA-8g0" firstAttribute="top" secondItem="krP-Bi-bWs" secondAttribute="bottom" constant="1" id="gPt-PY-NCa"/>
-                                                <constraint firstItem="krP-Bi-bWs" firstAttribute="leading" secondItem="gaT-mg-Mwe" secondAttribute="trailing" constant="50" id="m6D-qE-mqa"/>
+                                                <constraint firstItem="wpI-0y-QMt" firstAttribute="top" secondItem="OBJ-WD-Zj9" secondAttribute="top" constant="5" id="Hts-fU-hdR"/>
+                                                <constraint firstItem="wpI-0y-QMt" firstAttribute="leading" secondItem="gaT-mg-Mwe" secondAttribute="trailing" constant="20" id="JXo-ni-6Lj"/>
+                                                <constraint firstItem="G2a-fA-8g0" firstAttribute="top" secondItem="krP-Bi-bWs" secondAttribute="bottom" constant="-3" id="KbQ-wn-QC0"/>
+                                                <constraint firstItem="DJi-oZ-vSh" firstAttribute="leading" secondItem="OBJ-WD-Zj9" secondAttribute="leading" id="LNy-b6-oTp"/>
+                                                <constraint firstItem="DJi-oZ-vSh" firstAttribute="top" secondItem="G2a-fA-8g0" secondAttribute="bottom" constant="5" id="Meb-eG-O4d"/>
+                                                <constraint firstAttribute="trailing" secondItem="wpI-0y-QMt" secondAttribute="trailing" id="Mvb-ce-8PM"/>
+                                                <constraint firstAttribute="trailing" secondItem="DJi-oZ-vSh" secondAttribute="trailing" id="aM4-Gu-BtN"/>
                                                 <constraint firstItem="gaT-mg-Mwe" firstAttribute="top" secondItem="OBJ-WD-Zj9" secondAttribute="top" id="s0F-uH-KrL"/>
+                                                <constraint firstItem="krP-Bi-bWs" firstAttribute="top" secondItem="wpI-0y-QMt" secondAttribute="bottom" constant="-3" id="tl8-IY-QWp"/>
+                                                <constraint firstItem="krP-Bi-bWs" firstAttribute="leading" secondItem="gaT-mg-Mwe" secondAttribute="trailing" constant="25" id="vZO-Yf-pc7"/>
                                                 <constraint firstItem="gaT-mg-Mwe" firstAttribute="leading" secondItem="OBJ-WD-Zj9" secondAttribute="leading" id="zW0-Nt-MXn"/>
                                             </constraints>
                                         </tableViewCellContentView>

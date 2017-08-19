@@ -22,9 +22,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         super.viewDidLoad()
         
        loadSpotsArray()
-        
-        spotTableView.separatorColor = UIColor.black
-        
+
         
         
     }
