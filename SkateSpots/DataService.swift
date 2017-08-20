@@ -172,10 +172,15 @@ class DataService{
     }
 
     func updateDBUser(uid: String, child: String, userData: Dictionary<String, AnyObject>){
-        REF_USERS.child(uid).child(child).updateChildValues(userData)
+       let ref = REF_USERS.child(uid).child(child).childByAutoId()
+        
+        ref.updateChildValues(userData)
+        
+        //REF_USERS.child(uid).child(child).updateChildValues(userData)
         // set value will wipe whats already there*
         
     }
+ 
     
     func updateSpot(uid: String, userData: Dictionary<String, AnyObject>){
         REF_SPOTS.child(uid).updateChildValues(userData)
@@ -187,28 +192,42 @@ class DataService{
     func getSpotsFromUser(userRef: FIRDatabaseReference, child: String, completionHandlerForGET: @escaping (_ success: Bool, _ data: [Spot]?, _ error: String?) -> Void){
         
         var spots = [Spot]()
- 
+        
         userRef.child(child).observe(.value, with:{ (snapshot) in
-            let spotKeyDict = snapshot.value as? [String : AnyObject] ?? [:]
             
-            for spotKey in spotKeyDict{
-                
-                self.REF_SPOTS.child(spotKey.key).observeSingleEvent(of: .value, with: { (snapshot) in
-                    if let spotDict = snapshot.value as? Dictionary<String, AnyObject>{
+            if let spotKeyDict = snapshot.children.allObjects as? [FIRDataSnapshot]{
+                for snap in spotKeyDict{
+                    if let spotDict = snap.value as? Dictionary<String, AnyObject>{
                         
-                        let spot = Spot(spotKey: spotKey.key, spotData: spotDict)
-                        spot.removeCountry(spotLocation: spot.spotLocation)
-                        spots.insert(spot, at: 0)
-                        
-                        if spots.count == spotKeyDict.count{
-                            completionHandlerForGET(true, spots, nil)
+                        for spotKey in spotDict{
+                            
+                            self.REF_SPOTS.child(spotKey.key).observeSingleEvent(of: .value, with: { (snapshot) in
+                                if let spotDict = snapshot.value as? Dictionary<String, AnyObject>{
+
+                                    let spot = Spot(spotKey: spotKey.key, spotData: spotDict)
+                                    spot.removeCountry(spotLocation: spot.spotLocation)
+                                    spots.insert(spot, at: 0)
+                                    print(spot.spotName)
+                                    
+                                    if spots.count == spotKeyDict.count{
+                                        completionHandlerForGET(true, spots, nil)
+                                    }
+                                }
+                                
+                                
+                            })
+                            
                         }
-                    }
-                })
+                        
+                    }//if let spotDict
+                    
+                } // for snap in spotDict
                 
-            }
-         
+            } //FIRDataSnapshot
+            
         })
+
+        
         
     }
     

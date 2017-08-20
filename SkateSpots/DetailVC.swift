@@ -550,6 +550,10 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         let favDict = [spot.spotKey:true]
     
         DataService.instance.updateDBUser(uid: FIRAuth.auth()!.currentUser!.uid, child: "favorites", userData: favDict as Dictionary<String, AnyObject>)
+        
+        favoriteButton.isEnabled = false
+        favoriteButton.isOpaque = false
+        errorAlert(title: "Added \(spot.spotName) to favorites", message: "")
     
     }
     

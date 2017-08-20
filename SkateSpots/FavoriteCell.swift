@@ -22,9 +22,14 @@ class FavoriteCell: UITableViewCell{
     
     
     func configureFavoriteCell(spot:Spot, img: UIImage? = nil){
-        
+        if UIScreen.main.bounds.width == 320.0{
+        spotTypeLabel.font = spotTypeLabel.font.withSize(9)
+        }else if UIScreen.main.bounds.width == 375.0{
+        spotTypeLabel.font = spotTypeLabel.font.withSize(11)
+        }
         
         titleLabel.text = " \(spot.spotName)"
+        
         spotTypeLabel.text = spot.spotType
         detailLabel.text = spot.spotLocation
         

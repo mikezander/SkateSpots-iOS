@@ -25,6 +25,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
 
         
         
+        
     }
     
     func loadSpotsArray(){
