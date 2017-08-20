@@ -86,9 +86,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         self.view.addSubview(customNav)
         
         let btn1 = UIButton()
-        btn1.setTitle("Back", for: .normal)
+        btn1.setImage(UIImage(named:"back"), for: .normal)
        
-        btn1.frame = CGRect(x:0, y:20, width: 45,height: 35)
+        btn1.frame = CGRect(x:4, y:16, width: 30,height: 30)
         btn1.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
         self.view.addSubview(btn1)
         

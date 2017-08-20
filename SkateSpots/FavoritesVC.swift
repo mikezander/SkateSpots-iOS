@@ -44,6 +44,13 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     }
     
+    @IBAction func backButtonPressed(_ sender: Any) {
+        
+        _ = navigationController?.popViewController(animated: true)
+        
+        dismiss(animated: true, completion: nil)
+        
+    }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return spots.count
     }
