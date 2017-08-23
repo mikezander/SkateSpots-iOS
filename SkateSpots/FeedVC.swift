@@ -273,11 +273,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func lblClick(tapGesture:UITapGestureRecognizer){
-        print("Label tag is:\(tapGesture.view!.tag)")
-        print(spots[tapGesture.view!.tag].user)
         
         let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
-        
         vc.userKey = spots[tapGesture.view!.tag].user
         self.navigationController?.pushViewController(vc, animated:true)
     }

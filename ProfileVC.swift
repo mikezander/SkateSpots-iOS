@@ -38,8 +38,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             if let key = userKey{
             userRef = DataService.instance.REF_USERS.child(key)
             }
-        
-            
+    
         }
         
         addUserData()
@@ -148,7 +147,19 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         dismiss(animated: true, completion: nil)
     }
     
+    func setGestureRecognizer() -> UITapGestureRecognizer {
+        var tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(spotCicked))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        return tapGestureRecognizer
+    }
     
+    func spotCicked(tapGesture:UITapGestureRecognizer){
+        
+        let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToDetail") as! DetailVC
+        vc.spot = spots[tapGesture.view!.tag]
+       self.present(vc, animated: true, completion: nil)
+    }
 
     
 }
@@ -223,6 +234,12 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         }else{
             cell.configureCell(spot: spot, count: 0)
         }
+        
+        cell.spotImage.isUserInteractionEnabled = true
+        
+        cell.spotImage.tag = indexPath.row
+        
+        cell.spotImage.addGestureRecognizer(setGestureRecognizer())
     
         return cell
     }
