@@ -170,6 +170,12 @@ class DataService{
         }
         
     }
+    
+    func updateUserProfile(uid: String, child: String, userData: Dictionary<String, AnyObject>){
+    
+        REF_USERS.child(uid).child(child).updateChildValues(userData)
+    
+    }
 
     func updateDBUser(uid: String, child: String, userData: Dictionary<String, AnyObject>){
        let ref = REF_USERS.child(uid).child(child).childByAutoId()

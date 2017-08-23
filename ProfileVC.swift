@@ -16,6 +16,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
 
     var spots = [Spot]()
     var user: User? = nil
+    var userKey : String? = nil
     let currentUserRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
     var profileView = UIView()
     var status = String()
@@ -26,6 +27,8 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(userKey)
         
         addUserData()
         

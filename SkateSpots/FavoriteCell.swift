@@ -65,5 +65,7 @@ class FavoriteCell: UITableViewCell{
         }
         
     }
-    
+    func emptyImageView(){
+        self.spotPhoto.image = nil
+    }
 }

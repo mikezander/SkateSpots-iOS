@@ -81,6 +81,8 @@ class SpotRow: UITableViewCell{
             miLabel.isHidden = true
         }
     }
+ 
+
   
     @IBAction func directionsButtonPressed(_ sender: Any) {
         delegate?.didTapDirectionsButton(spot: spot)

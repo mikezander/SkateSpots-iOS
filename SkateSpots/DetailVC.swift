@@ -249,7 +249,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         containerView.addSubview(commentView)
         
         
-        
         postButton = UIButton()
         postButton.frame = CGRect(x: screenWidth - 50, y: tableView.frame.origin.y + tableView.frame.height, width: 40, height: 40)
         postButton.backgroundColor = UIColor.black
@@ -317,8 +316,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             
         })
         
-        
-    
+
         let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
         commentRef.observe(.value, with: {(snapshot) in
         
@@ -379,9 +377,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         favoriteButton.addTarget(self, action:#selector(addSpotToFavorites), for: .touchUpInside)
         containerView.addSubview(favoriteButton)
         
-
-        
-        
+       
 }
     
     override func viewDidLayoutSubviews() {
@@ -411,8 +407,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         }
     }
     
-   
-    
+
     func configCommentCountLabel(count: Int){
         switch count {
         case 0:

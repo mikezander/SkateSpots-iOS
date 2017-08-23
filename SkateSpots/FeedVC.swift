@@ -264,6 +264,23 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         let heightOffset:CGFloat = 140
         return (screenHeight - heightOffset)
     }
+    
+    func setGestureRecognizer() -> UITapGestureRecognizer {
+        var tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(lblClick))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        return tapGestureRecognizer
+    }
+    
+    func lblClick(tapGesture:UITapGestureRecognizer){
+        print("Label tag is:\(tapGesture.view!.tag)")
+        print(spots[tapGesture.view!.tag].user)
+        
+        let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
+        
+        vc.userKey = spots[tapGesture.view!.tag].user
+        self.navigationController?.pushViewController(vc, animated:true)
+    }
  
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -276,6 +293,12 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         let spot = spots[indexPath.row]
 
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotRowCell") as! SpotRow
+        
+        cell.userName.isUserInteractionEnabled = true
+        
+        cell.userName.tag = indexPath.row
+        
+        cell.userName.addGestureRecognizer(setGestureRecognizer())
         
         if let img = FeedVC.imageCache.object(forKey: spot.userImageURL as NSString){
 

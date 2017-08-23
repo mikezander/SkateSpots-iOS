@@ -15,6 +15,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     var spots = [Spot]()
     
+    
     @IBOutlet weak var spotTableView: UITableView!
     let currentUserRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
 
@@ -23,11 +24,8 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         
        loadSpotsArray()
 
-        
-        
-        
     }
-    
+  
     func loadSpotsArray(){
     
         DataService.instance.getSpotsFromUser(userRef: currentUserRef, child: "favorites", completionHandlerForGET: {success, data, error in
@@ -38,9 +36,12 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             }
              DispatchQueue.main.async {
                  self.spotTableView.reloadData()
+                
               }
             
+            
         })
+    
     
     }
     
@@ -61,7 +62,8 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
      
        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell") as! FavoriteCell
 
-       
+       cell.emptyImageView()
+        
         if let img = FeedVC.imageCache.object(forKey: NSString(string: spot.imageUrls[0])){
             
             cell.configureFavoriteCell(spot: spot,img: img)

@@ -86,7 +86,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         }
         
         if hasBeenEdited{
-            DataService.instance.updateDBUser(uid: currentUserID, child: "profile", userData: userDict)
+            DataService.instance.updateUserProfile(uid: currentUserID, child: "profile", userData: userDict)
         }
         
         if self.imageSelected{
