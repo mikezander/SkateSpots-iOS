@@ -63,15 +63,15 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
 
         spotNameField.delegate = self
         spotNameField.layer.cornerRadius = 7.0
-        spotNameField.layer.borderWidth = 0.50
-        
+        spotNameField.layer.borderWidth = 1.0
+    
         descriptionTextView.delegate = self
         descriptionTextView.text = "Spot Description"
         descriptionTextView.textContainer.maximumNumberOfLines = 6
         descriptionTextView.textContainer.lineBreakMode = .byTruncatingTail
         descriptionTextView.textColor = UIColor.lightGray
         descriptionTextView.layer.cornerRadius = 7.0
-        descriptionTextView.layer.borderWidth = 0.50
+        descriptionTextView.layer.borderWidth = 1.0
         
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true

@@ -80,7 +80,9 @@ class CommentCell: UITableViewCell{
 
     }
    
-
+    func emptyImageView(){
+        self.profilePhoto.image = nil
+    }
  
     
 

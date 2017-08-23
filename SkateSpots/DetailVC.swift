@@ -71,13 +71,17 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         self.scrollView = UIScrollView()
         self.scrollView.delegate = self
         
-        if screenHeight > 568.0{
-        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + screenHeight / 4 )
-        }else{
-        self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 2 - 20))
+        print("\(screenHeight)height")
+        
+        if screenHeight >= 736.0{ // for 6+, 7+
+            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + screenHeight / 4 - 10)
+        }else if screenHeight <= 568.0{// for 5, 5s, SE and under ** 168 difference to 6+, 7+
+            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 + 158))
+            
+        }else{ // for 6, 7 and in between largest and smallest iphones ** 69 difference to 6+, 7+
+            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 + 59))
         }
-        
-        
+
         containerView = UIView()
         scrollView.addSubview(containerView)
         view.addSubview(scrollView)
@@ -350,7 +354,21 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             print(error.localizedDescription)
         }
         //x: screenWidth / 2 - 75
-        directionsButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  rateBtn.frame.origin.y + rateBtn.frame.height + 15 , width: 135, height: 25))
+        
+        favoriteButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  rateBtn.frame.origin.y + rateBtn.frame.height + 20 , width: 135, height: 25))
+        favoriteButton.setTitle("Favorite", for: .normal)
+        favoriteButton.backgroundColor = UIColor.black
+        favoriteButton.setTitleColor(UIColor.white, for: .normal)
+        favoriteButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
+        favoriteButton.layer.shadowOffset = CGSize(width:0.0,height: 2.0)
+        favoriteButton.layer.shadowOpacity = 1.0
+        favoriteButton.layer.shadowRadius = 0.0
+        favoriteButton.layer.masksToBounds = false
+        favoriteButton.layer.cornerRadius = 4.0
+        favoriteButton.addTarget(self, action:#selector(addSpotToFavorites), for: .touchUpInside)
+        containerView.addSubview(favoriteButton)
+        
+        directionsButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  favoriteButton.frame.origin.y + favoriteButton.frame.height + 20 , width: 135, height: 25))
         directionsButton.setImage(UIImage(named:"direction_icon.png"), for: .normal)
         directionsButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 25)
         directionsButton.setTitle("Directions", for: .normal)
@@ -366,18 +384,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         directionsButton.addTarget(self, action:#selector(getDirections), for: .touchUpInside)
         containerView.addSubview(directionsButton)
         
-        favoriteButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  directionsButton.frame.origin.y + directionsButton.frame.height + 15 , width: 135, height: 25))
-        favoriteButton.setTitle("Favorite", for: .normal)
-        favoriteButton.backgroundColor = UIColor.black
-        favoriteButton.setTitleColor(UIColor.white, for: .normal)
-        favoriteButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
-        favoriteButton.layer.shadowOffset = CGSize(width:0.0,height: 2.0)
-        favoriteButton.layer.shadowOpacity = 1.0
-        favoriteButton.layer.shadowRadius = 0.0
-        favoriteButton.layer.masksToBounds = false
-        favoriteButton.layer.cornerRadius = 4.0
-        favoriteButton.addTarget(self, action:#selector(addSpotToFavorites), for: .touchUpInside)
-        containerView.addSubview(favoriteButton)
+        
         
         if isFavorite{
             favoriteButton.isEnabled = false
@@ -455,8 +462,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 if let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String{
                     
                     self.user = User(userName: username, userImageURL: userImageURL, bio: "", link: "")
-                    
-                    //let comment = Comment(userKey: (FIRAuth.auth()?.currentUser?.uid)!, userName: self.user.userName, userImageURL: self.user.userImageURL, comment: self.commentView.text)
                     
                     let comment: Dictionary<String, AnyObject> = [
                         "userKey": (FIRAuth.auth()?.currentUser?.uid)! as AnyObject,
@@ -689,6 +694,8 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CommentCell
    
+        cell.emptyImageView()
+        
         DispatchQueue.main.async {
             cell.userName.text = self.commentsArray[indexPath.row].userName
             
