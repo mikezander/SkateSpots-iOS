@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseDatabase
 
 class ProfileVC: UIViewController, ProfileEditedProtocol{
     
@@ -17,7 +18,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     var spots = [Spot]()
     var user: User? = nil
     var userKey : String? = nil
-    let currentUserRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
+    var userRef:FIRDatabaseReference! //= DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
     var profileView = UIView()
     var status = String()
     var headerViewHeight = CGFloat()
@@ -28,7 +29,18 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        print(userKey)
+        if userKey == nil{
+        
+        userRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
+        
+        }else{
+        
+            if let key = userKey{
+            userRef = DataService.instance.REF_USERS.child(key)
+            }
+        
+            
+        }
         
         addUserData()
         
@@ -64,7 +76,8 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
  
     func addUserData(){
     
-        DataService.instance.getCurrentUserProfileData(userRef: currentUserRef.child("profile"), completionHandlerForGET: { success, data in
+        print("userkey should be loaded")
+        DataService.instance.getCurrentUserProfileData(userRef: userRef.child("profile"), completionHandlerForGET: { success, data in
             
             if let data = data{
                 
@@ -87,7 +100,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     
     func appendSpotsArray(){
         
-        DataService.instance.getSpotsFromUser(userRef: currentUserRef, child: "spots",completionHandlerForGET: {success, data, error in
+        DataService.instance.getSpotsFromUser(userRef: userRef, child: "spots",completionHandlerForGET: {success, data, error in
             
             if error == nil{
                 self.spots = data!
