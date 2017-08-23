@@ -120,7 +120,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             let spotDetailPage = segue.destination as? DetailVC {
             let spot = spotCell.spot
             spotDetailPage.spot = spot
-            spotDetailPage.favoriteButton.isEnabled = false
+            spotDetailPage.isFavorite = true
         }
     }
 

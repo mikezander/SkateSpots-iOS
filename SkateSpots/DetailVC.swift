@@ -44,6 +44,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var bestTimeimageView = UIImageView()
     var kickOutLabel = UILabel()
     var bestTimeLabel = UILabel()
+    var isFavorite = false
     
     let kickOutImageName = "cop_logo.png"
     let bestTimeImageName = "time_logo.png"
@@ -377,6 +378,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         favoriteButton.layer.cornerRadius = 4.0
         favoriteButton.addTarget(self, action:#selector(addSpotToFavorites), for: .touchUpInside)
         containerView.addSubview(favoriteButton)
+        
+        if isFavorite{
+            favoriteButton.isEnabled = false
+            favoriteButton.layer.opacity = 0.4
+        }
         
        
 }
