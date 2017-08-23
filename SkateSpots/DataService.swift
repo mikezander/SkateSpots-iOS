@@ -237,6 +237,25 @@ class DataService{
         
     }
     
+    func retrieveFavoritesAutoIDs(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: [String]?) -> Void){
+    
+        var IDs = [String]()
+        
+        userRef.child("favorites").observeSingleEvent(of: .value, with: {snapshot in
+            
+            for childSnap in  snapshot.children.allObjects {
+                let snap = childSnap as! FIRDataSnapshot
+                
+                IDs.insert(snap.key, at: 0)
+            }
+            
+            completionHandlerForGET(true, IDs)
+            
+            
+        })
+        
+    }
+    
  
     func getCurrentUserProfileData(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: User?) -> Void){
     

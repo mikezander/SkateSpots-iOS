@@ -10,11 +10,13 @@ import Foundation
 import UIKit
 import FirebaseAuth
 import FirebaseStorage
+import FirebaseDatabase
 
 class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     var spots = [Spot]()
     var spot: Spot!
+    var uniqueIDs = [String]()
     
     @IBOutlet weak var spotTableView: UITableView!
     let currentUserRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
@@ -23,6 +25,13 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         super.viewDidLoad()
         
        loadSpotsArray()
+        
+       loadAutoIdArray()
+        
+        for id in uniqueIDs{
+        print(id)
+        }
+        
 
     }
   
@@ -45,6 +54,20 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     }
     
+    func loadAutoIdArray(){
+        
+        DataService.instance.retrieveFavoritesAutoIDs(userRef: currentUserRef, completionHandlerForGET: { success, data in
+            if success == true{
+                self.uniqueIDs = data!
+                print(self.uniqueIDs)
+            }else{
+            print("error getting favorite auto ids")
+            }
+
+        })
+    
+    }
+    
     @IBAction func backButtonPressed(_ sender: Any) {
         
         _ = navigationController?.popViewController(animated: true)
@@ -54,6 +77,23 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return spots.count
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+
+        
+        if editingStyle == .delete{
+            
+            currentUserRef.child("favorites").child(uniqueIDs[indexPath.row]).removeValue()
+            
+        spots.remove(at: indexPath.item)
+        tableView.deleteRows(at: [indexPath], with: .fade)
+            
+        }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -80,6 +120,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             let spotDetailPage = segue.destination as? DetailVC {
             let spot = spotCell.spot
             spotDetailPage.spot = spot
+            spotDetailPage.favoriteButton.isEnabled = false
         }
     }
 
