@@ -14,7 +14,7 @@ import FirebaseStorage
 class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     var spots = [Spot]()
-    
+    var spot: Spot!
     
     @IBOutlet weak var spotTableView: UITableView!
     let currentUserRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
@@ -72,6 +72,15 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         }
 
         return cell
+    }
+
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        
+        if let spotCell = sender as? FavoriteCell,
+            let spotDetailPage = segue.destination as? DetailVC {
+            let spot = spotCell.spot
+            spotDetailPage.spot = spot
+        }
     }
 
         

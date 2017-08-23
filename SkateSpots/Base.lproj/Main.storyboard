@@ -220,6 +220,7 @@
                                             <outlet property="spotPhoto" destination="gaT-mg-Mwe" id="OpC-Sl-GQA"/>
                                             <outlet property="spotTypeLabel" destination="krP-Bi-bWs" id="Doi-S0-Khp"/>
                                             <outlet property="titleLabel" destination="wpI-0y-QMt" id="WJe-Tt-909"/>
+                                            <segue destination="swM-zT-Qto" kind="presentation" identifier="goToDetail" id="amF-RC-GHK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -799,6 +800,7 @@
                     </view>
                     <navigationItem key="navigationItem" id="iVv-Bp-Fq9"/>
                     <connections>
+                        <outlet property="editButton" destination="NYQ-ob-8xD" id="g0w-At-AnF"/>
                         <outlet property="spotTableView" destination="dkE-Bw-0m5" id="4eg-hR-XLO"/>
                     </connections>
                 </viewController>
@@ -1694,6 +1696,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="myg-hR-9mM"/>
-        <segue reference="wHi-97-VC8"/>
+        <segue reference="amF-RC-GHK"/>
     </inferredMetricsTieBreakers>
 </document>

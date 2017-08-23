@@ -61,6 +61,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
         refCurrentSpot = DataService.instance.REF_SPOTS.child(spot.spotKey)
         
         let screenWidth = screenSize.width

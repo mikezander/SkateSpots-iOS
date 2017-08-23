@@ -23,6 +23,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     var status = String()
     var headerViewHeight = CGFloat()
     var profileEdited: Bool = false
+    @IBOutlet weak var editButton: UIButton!
 
     @IBOutlet weak var spotTableView: UITableView!
 
@@ -38,6 +39,8 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             if let key = userKey{
             userRef = DataService.instance.REF_USERS.child(key)
             }
+            editButton.isEnabled = false
+            editButton.isHidden = true
     
         }
         

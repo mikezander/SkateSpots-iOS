@@ -20,8 +20,12 @@ class FavoriteCell: UITableViewCell{
    
     @IBOutlet weak var detailLabel: UILabel!//spot location
     
+    var spot: Spot!
     
     func configureFavoriteCell(spot:Spot, img: UIImage? = nil){
+        
+        self.spot = spot
+        
         if UIScreen.main.bounds.width == 320.0{
         spotTypeLabel.font = spotTypeLabel.font.withSize(9)
         }else if UIScreen.main.bounds.width == 375.0{
