@@ -110,12 +110,12 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 23))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = .black
-        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 125)
+        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 130)
         spotNameLbl.textAlignment = .center
         spotNameLbl.text = spot.spotName
         self.containerView.addSubview(spotNameLbl)
         
-        pageControl = UIPageControl(frame: CGRect(x: -25, y: spotNameLbl.frame.origin.y - 20, width: 50, height: 20))
+        pageControl = UIPageControl(frame: CGRect(x: -25, y: spotNameLbl.frame.origin.y - 15, width: 50, height: 20))
         pageControl.pageIndicatorTintColor = UIColor.lightGray
         pageControl.currentPageIndicatorTintColor = FLAT_GREEN
         containerView.addSubview(pageControl)
@@ -571,6 +571,22 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         arg.sizeToFit()
         arg.isScrollEnabled = false
     }
+    
+    func setGestureRecognizer() -> UITapGestureRecognizer {
+        var tapGestureRecognizer = UITapGestureRecognizer()
+        tapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(lblClick))
+        tapGestureRecognizer.numberOfTapsRequired = 1
+        tapGestureRecognizer.cancelsTouchesInView = false
+        return tapGestureRecognizer
+    }
+    
+    func lblClick(tapGesture:UITapGestureRecognizer){
+        let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
+        vc.userKey = commentsArray[tapGesture.view!.tag].userKey
+        print(commentsArray[tapGesture.view!.tag].userKey)
+        self.present(vc, animated: true, completion: nil)
+        //self.navigationController?.pushViewController(vc, animated:true)
+    }
    
     
     //shifts the view up from bottom text field to be visible
@@ -670,8 +686,15 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
             cell.userName.text = self.commentsArray[indexPath.row].userName
             
             cell.comment.text = self.commentsArray[indexPath.row].comment
-
+            
+            cell.userName.tag = indexPath.row
+            
+            cell.userName.addGestureRecognizer(self.setGestureRecognizer())
+            
         }
+        
+        
+        
         let ref = FIRStorage.storage().reference(forURL: commentsArray[indexPath.row].userImageURL)
         ref.data(withMaxSize: 1 * 1024 * 1024, completion:{ (data, error) in
             if error != nil{
@@ -685,7 +708,9 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
            
             
         })
-   
+
+       
+        
         return cell
     }
  

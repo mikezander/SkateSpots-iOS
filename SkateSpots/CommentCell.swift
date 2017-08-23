@@ -42,6 +42,7 @@ class CommentCell: UITableViewCell{
         userName = UILabel()
         userName.frame = CGRect(x: profilePhoto.frame.origin.x+profilePhoto.frame.width+10 , y: 5, width: screenSize.width - (profilePhoto.frame.origin.x+profilePhoto.frame.width + 25), height: 20)
         userName.textColor = UIColor.blue
+        userName.isUserInteractionEnabled = true
         userName.font = UIFont(name: "Avenir",size: 14)
         
         contentView.addSubview(userName)
