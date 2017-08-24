@@ -15,6 +15,7 @@ protocol ProfileEditedProtocol {
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
+
     @IBOutlet weak var profileImage: CircleView!
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var bioTextField: UITextField!
@@ -34,10 +35,17 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        
        
         userNameTextField.text = user.userName
         bioTextField.text = user.bio
         linkTextField.text = user.link
+        
+        userNameTextField.delegate = self
+        bioTextField.delegate = self
+        linkTextField.delegate = self
         
         userNameTextField.layer.borderWidth = 1
         userNameTextField.layer.cornerRadius = 4
@@ -174,7 +182,14 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
 }
 
+extension EditProfileVC: UITextFieldDelegate, UITextViewDelegate{
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
+}
 
+}
 
 
 

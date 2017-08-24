@@ -599,12 +599,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             }
         })
 
-        //let spotsRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("spots").child(firebasePost.key)
         let userSpotsDict: Dictionary<String,AnyObject> = [firebasePost.key: true as AnyObject]
         
         DataService.instance.updateDBUser(uid: FIRAuth.auth()!.currentUser!.uid, child: "spots", userData: userSpotsDict)
-        
-       // spotsRef.setValue(true)
 
         spotNameField.text = ""
         imageSelected = false

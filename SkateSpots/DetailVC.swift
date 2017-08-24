@@ -696,7 +696,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
    
         cell.emptyImageView()
         
-        DispatchQueue.main.async {
+       // DispatchQueue.main.async {
             cell.userName.text = self.commentsArray[indexPath.row].userName
             
             cell.comment.text = self.commentsArray[indexPath.row].comment
@@ -705,7 +705,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
             
             cell.userName.addGestureRecognizer(self.setGestureRecognizer())
             
-        }
+       // }
         
         
         
