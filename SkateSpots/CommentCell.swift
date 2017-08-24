@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseStorage
 
 class CommentCell: UITableViewCell{
 
@@ -78,6 +79,41 @@ class CommentCell: UITableViewCell{
         
         contentView.addSubview(comment)
 
+    }
+    
+    func configureProfilePic(comment: Comment, img: UIImage? = nil){
+        
+        //download images
+        if img != nil{
+            
+            self.profilePhoto.image = img
+            
+            
+        }else{
+            
+            //cache image
+            
+            let ref = FIRStorage.storage().reference(forURL:comment.userImageURL)
+            ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
+                if error != nil{
+                    print("Mike: Unable to download image from firebase storage")
+                }else{
+                    print("Mike: Image downloaded from firebase storge")
+                    if let imgData = data {
+                        
+                        
+                        if let img = UIImage(data: imgData){
+                            self.profilePhoto.image = img
+                            FeedVC.imageCache.setObject(img, forKey: comment.userImageURL as NSString)
+                        }
+                        
+                        
+                    }
+                }
+                
+            })
+        }
+        
     }
    
     func emptyImageView(){

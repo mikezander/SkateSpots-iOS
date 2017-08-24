@@ -357,7 +357,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         favoriteButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  rateBtn.frame.origin.y + rateBtn.frame.height + 20 , width: 135, height: 25))
         favoriteButton.setTitle("Favorite", for: .normal)
+        favoriteButton.setImage(UIImage(named:"add_fav.png"), for: .normal)
+        favoriteButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: -2,bottom: 0,right: 55)
         favoriteButton.backgroundColor = UIColor.black
+        favoriteButton.titleEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 20)
+
         favoriteButton.setTitleColor(UIColor.white, for: .normal)
         favoriteButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         favoriteButton.layer.shadowOffset = CGSize(width:0.0,height: 2.0)
@@ -560,7 +564,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         favoriteButton.isEnabled = false
         favoriteButton.isOpaque = false
-        errorAlert(title: "Added \(spot.spotName) to favorites", message: "")
+        errorAlert(title: "", message: "Added \(spot.spotName) to favorites")
     
     }
     
@@ -696,20 +700,28 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
    
         cell.emptyImageView()
         
-       // DispatchQueue.main.async {
-            cell.userName.text = self.commentsArray[indexPath.row].userName
+        let comment = commentsArray[indexPath.row]
+        
+
+            cell.userName.text = comment.userName
             
-            cell.comment.text = self.commentsArray[indexPath.row].comment
+            cell.comment.text = comment.comment
             
             cell.userName.tag = indexPath.row
             
             cell.userName.addGestureRecognizer(self.setGestureRecognizer())
             
-       // }
+
+        
+        if let img = FeedVC.imageCache.object(forKey: NSString(string: comment.userImageURL)){
+            
+            cell.configureProfilePic(comment: comment,img: img)
+        }else{
+            cell.configureProfilePic(comment:comment)
+        }
         
         
-        
-        let ref = FIRStorage.storage().reference(forURL: commentsArray[indexPath.row].userImageURL)
+      /*  let ref = FIRStorage.storage().reference(forURL: commentsArray[indexPath.row].userImageURL)
         ref.data(withMaxSize: 1 * 1024 * 1024, completion:{ (data, error) in
             if error != nil{
                 print("Mke: Unable to download image from firebase storage")
@@ -721,7 +733,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
             }
            
             
-        })
+        })*/
 
        
         
