@@ -30,9 +30,10 @@ class MapVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getUsersLocation()
-
-        centerMapOnLocation(location: myLocation)
+        getUsersLocation(){
+        
+            centerMapOnLocation(location: myLocation)
+        }
 
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
@@ -59,7 +60,9 @@ class MapVC: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        getUsersLocation()
+        getUsersLocation(){
+            centerMapOnLocation(location: myLocation)
+        }
     }
 
     func centerMapOnLocation(location: CLLocation) {
@@ -68,13 +71,15 @@ class MapVC: UIViewController{
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
-    func getUsersLocation(){
+    func getUsersLocation(finished: () -> Void){
     
         manager = CLLocationManager()
         manager.delegate = self
         manager.requestWhenInUseAuthorization()
         manager.requestLocation()
         mapView.delegate = self
+        
+        finished()
     }
     
 }

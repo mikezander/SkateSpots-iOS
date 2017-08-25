@@ -518,6 +518,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SkateSpots/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = michaelalexander.SkateSpots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -552,6 +553,7 @@
 					"$(PROJECT_DIR)",
 				);
 				INFOPLIST_FILE = SkateSpots/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = michaelalexander.SkateSpots;
 				PRODUCT_NAME = "$(TARGET_NAME)";

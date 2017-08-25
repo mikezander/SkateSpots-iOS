@@ -530,7 +530,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 self.ratingDisplayView.text = ("(\(1))")
                 
                 let updatedRating = (self.ratingView.rating * 10).rounded() / 10
-                print("\(updatedRating) Updatedrating")
                 self.ratingDisplayView.rating = updatedRating
                 self.ratingDisplayLbl.text = "\(updatedRating) out of 5 stars"
                 

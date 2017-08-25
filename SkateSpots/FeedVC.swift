@@ -208,12 +208,11 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         spots = allSpotsR
  
         spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
-
-    
+       
         for spot in spots{
             let distanceInMeters = myLocation.distance(from: spot.location)
-            let miles = distanceInMeters / 1609
-            spot.distance = miles
+            let milesAway = distanceInMeters / 1609
+            spot.distance = milesAway
             
             spot.removeCountry(spotLocation: spot.spotLocation)
 
@@ -230,8 +229,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             
             manager.delegate = self
             manager.requestWhenInUseAuthorization()
-            manager.requestLocation()
-        
+            manager.startUpdatingLocation()
+            //manager.requestLocation()
+            
         }else{
             
             loadSpotsbyRecentlyUploaded()
@@ -246,13 +246,15 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             print("Found MY location: \(location)")
             myLocation = location
         }
+        manager.stopUpdatingLocation()
         sortSpotsByDistance {
-             DispatchQueue.main.async {
-             self.spotTableView.reloadData()
-             self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
+            DispatchQueue.main.async {
+                self.spotTableView.reloadData()
+                self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
             }
         }
     }
+  
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find MY location: \(error.localizedDescription)")
