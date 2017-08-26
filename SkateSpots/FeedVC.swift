@@ -242,11 +242,14 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     @IBAction func favButtonPressed(_ sender: Any) {
     }
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        
+        manager.stopUpdatingLocation()
+        
         if let location = locations.first {
             print("Found MY location: \(location)")
             myLocation = location
         }
-        manager.stopUpdatingLocation()
+
         sortSpotsByDistance {
             DispatchQueue.main.async {
                 self.spotTableView.reloadData()

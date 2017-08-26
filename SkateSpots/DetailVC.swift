@@ -323,36 +323,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         })
         
 
-        let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
-        commentRef.observe(.value, with: {(snapshot) in
-        
-            self.commentsArray = []
-            self.commentCount = 0
-            
-            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
-                
-                for snap in snapshot{
-                   
-                    self.commentCount += 1
-                    
-                    if let commentDict = snap.value as? Dictionary<String, AnyObject>{
-                        print(commentDict)
-                        let key = snap.key
-                        let comment = Comment(commentKey: key, commentData: commentDict)
-                        self.commentsArray.append(comment)
-                        
-                        //perform ui main
-                        self.tableView.reloadData()
-                        let lastItem = IndexPath(item: self.commentsArray.count - 1, section: 0)
-                        self.tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
-                    }
-                }
-              self.configCommentCountLabel(count: self.commentCount)
-            }
-        
-        }) {(error) in
-            print(error.localizedDescription)
-        }
+        loadComments()
         //x: screenWidth / 2 - 75
         
         favoriteButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  rateBtn.frame.origin.y + rateBtn.frame.height + 20 , width: 135, height: 25))
@@ -425,7 +396,58 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         }
     }
     
-
+    func loadComments(){
+    
+        let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
+        commentRef.observe(.value, with: {(snapshot) in
+            
+            self.commentsArray = []
+            self.commentCount = 0
+            
+            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
+                
+                for snap in snapshot{
+                    
+                    self.commentCount += 1
+                    
+                    if var commentDict = snap.value as? Dictionary<String, AnyObject>{
+                        print(commentDict)
+                        let key = snap.key
+                        
+                        DataService.instance.getCurrentUserProfileData(userRef: DataService.instance.REF_USERS.child(commentDict["userKey"] as! String).child("profile"), completionHandlerForGET: {success, data in
+                            
+                            let user = data!
+                            commentDict["username"] = user.userName as AnyObject
+                            commentDict["userImageURL"] = user.userImageURL as AnyObject
+                            
+                            let comment = Comment(commentKey: key, commentData: commentDict)
+                            self.commentsArray.append(comment)
+                            
+                            DispatchQueue.main.async {
+                                self.tableView.reloadData()
+                                let lastItem = IndexPath(item: self.commentsArray.count - 1, section: 0)
+                                self.tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
+                            }
+                            
+                            
+                        })
+                        
+                        
+                    }
+                    
+                }
+                
+                
+                
+                self.configCommentCountLabel(count: self.commentCount)
+            }
+            
+        }) {(error) in
+            print(error.localizedDescription)
+        }
+        
+    }
+    
     func configCommentCountLabel(count: Int){
         switch count {
         case 0:
@@ -478,8 +500,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     let commentRef = DataService.instance.REF_SPOTS.child(self.spot.spotKey).child("comments").childByAutoId()
                     
                     commentRef.setValue(comment)
-                    self.tableView.reloadData()
-                 
 
                 }
             }
@@ -765,6 +785,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
     return height
     
 }
+    
 
 }
 extension DetailVC: UITextViewDelegate{
