@@ -234,8 +234,6 @@ class DataService{
             
         })
 
-        
-        
     }
     
     func retrieveFavoritesAutoIDs(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: [String]?) -> Void){
