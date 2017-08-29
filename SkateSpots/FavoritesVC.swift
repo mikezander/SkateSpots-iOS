@@ -26,7 +26,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         
        loadSpotsArray()
         
-       loadAutoIdArray()
+       //loadAutoIdArray()
         
         for id in uniqueIDs{
         print(id)
@@ -41,7 +41,10 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             
             if error == nil{
                 self.spots = data!
+                self.uniqueIDs = keys
+                
                 print(self.spots.count)
+                
             }
              DispatchQueue.main.async {
                  self.spotTableView.reloadData()
@@ -54,7 +57,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     }
     
-    func loadAutoIdArray(){
+   /* func loadAutoIdArray(){
         
         DataService.instance.retrieveFavoritesAutoIDs(userRef: currentUserRef, completionHandlerForGET: { success, data in
             if success == true{
@@ -66,7 +69,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
 
         })
     
-    }
+    }*/
     
     @IBAction func backButtonPressed(_ sender: Any) {
         
@@ -90,6 +93,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             
             currentUserRef.child("favorites").child(uniqueIDs[indexPath.row]).removeValue()
             
+        uniqueIDs.remove(at: indexPath.item)
         spots.remove(at: indexPath.item)
         tableView.deleteRows(at: [indexPath], with: .fade)
             
