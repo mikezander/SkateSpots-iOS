@@ -230,7 +230,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             manager.delegate = self
             manager.requestWhenInUseAuthorization()
             manager.startUpdatingLocation()
-            //manager.requestLocation()
+            //maybe use bestAccuracy
             
         }else{
             

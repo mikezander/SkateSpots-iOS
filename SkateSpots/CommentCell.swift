@@ -32,7 +32,7 @@ class CommentCell: UITableViewCell{
        CellHeight = 100
     
         profilePhoto = UIImageView()
-        profilePhoto.frame = CGRect(x: 10, y: 5, width: 50, height: 50)
+        profilePhoto.frame = CGRect(x: 10, y: 5, width: 40, height: 40)
         profilePhoto.layer.borderWidth = 1
         profilePhoto.layer.masksToBounds = false
         profilePhoto.layer.borderColor = FLAT_GREEN.cgColor

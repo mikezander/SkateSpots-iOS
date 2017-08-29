@@ -65,7 +65,8 @@ class DataService{
         let profile: Dictionary<String, AnyObject> = ["username": username as AnyObject,
                                                       "email": email as AnyObject,
                                                       "bio": "" as AnyObject,
-                                                      "link": "" as AnyObject]
+                                                      "link": "" as AnyObject,
+                                                      "igLink": "" as AnyObject]
         
         REF_USERS.child(uid).child("profile").setValue(profile)
     }
@@ -269,8 +270,9 @@ class DataService{
                     let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as! String
                     let bio = snapshot.childSnapshot(forPath: "bio").value as! String
                     let link = snapshot.childSnapshot(forPath: "link").value as! String
+                    let igLink = snapshot.childSnapshot(forPath: "igLink").value as! String
                     
-                    user = User(userName: userName, userImageURL:userImageURL, bio: bio, link: link)
+                    user = User(userName: userName, userImageURL:userImageURL, bio: bio, link: link, igLink: igLink)
                     
                 }
                 

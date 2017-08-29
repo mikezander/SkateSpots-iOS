@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c2b-5P-XCM">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="12121" systemVersion="16G29" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="c2b-5P-XCM">
     <device id="retina5_5" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12089"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -364,14 +364,14 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="503"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9FZ-wn-ttt" id="Q15-SB-RDq">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="502"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="502.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh" customClass="CircleView" customModule="SkateSpots" customModuleProvider="target">
-                                                    <rect key="frame" x="13" y="5" width="53" height="53"/>
+                                                    <rect key="frame" x="13" y="5" width="50" height="50"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="53" id="6pc-n5-TZd"/>
-                                                        <constraint firstAttribute="width" constant="53" id="t81-bV-dmm"/>
+                                                        <constraint firstAttribute="height" constant="50" id="6pc-n5-TZd"/>
+                                                        <constraint firstAttribute="width" constant="50" id="t81-bV-dmm"/>
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XUb-An-8cx">
@@ -413,7 +413,7 @@
                                                     </collectionViewFlowLayout>
                                                     <cells>
                                                         <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photoCell" id="u2H-bT-D7V" customClass="SpotPhotoCell" customModule="SkateSpots" customModuleProvider="target">
-                                                            <rect key="frame" x="0.0" y="-32" width="376" height="436"/>
+                                                            <rect key="frame" x="0.0" y="-31.666666666666668" width="376" height="436"/>
                                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                             <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                                                 <rect key="frame" x="0.0" y="0.0" width="376" height="436"/>
@@ -465,7 +465,7 @@
                                                     <color key="currentPageIndicatorTintColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                                 </pageControl>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="6jl-8r-mSA">
-                                                    <rect key="frame" x="74" y="11" width="200" height="35"/>
+                                                    <rect key="frame" x="71" y="11" width="200" height="35"/>
                                                     <constraints>
                                                         <constraint firstAttribute="width" constant="200" id="tB6-xB-jq1"/>
                                                         <constraint firstAttribute="height" constant="35" id="ugP-jZ-ZfR"/>
@@ -710,10 +710,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="210" id="FSx-Nv-ahg" customClass="ProfileCell" customModule="SkateSpots" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="56" width="414" height="210"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="210"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FSx-Nv-ahg" id="bBi-MO-Nas">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KlQ-kC-Ueo">
@@ -926,6 +926,12 @@
                                 <color key="textColor" red="0.0" green="0.0" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" placeholder="Instagram username" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="s9t-mJ-g6s">
+                                <rect key="frame" x="45" y="405" width="324" height="30"/>
+                                <nil key="textColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -936,7 +942,9 @@
                             <constraint firstItem="ITh-nm-3ID" firstAttribute="top" secondItem="bkz-RS-UcJ" secondAttribute="bottom" constant="25" id="8RE-xn-isV"/>
                             <constraint firstItem="GGX-ed-VFz" firstAttribute="centerX" secondItem="clK-hq-an6" secondAttribute="centerX" id="AqO-2c-AZL"/>
                             <constraint firstAttribute="trailingMargin" secondItem="Kd5-NN-mef" secondAttribute="trailing" constant="25" id="Beo-In-doG"/>
+                            <constraint firstItem="s9t-mJ-g6s" firstAttribute="top" secondItem="Kd5-NN-mef" secondAttribute="bottom" constant="25" id="Bwc-MT-wiG"/>
                             <constraint firstItem="KIL-PT-FPI" firstAttribute="top" secondItem="clK-hq-an6" secondAttribute="top" id="Bz0-L7-afV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="s9t-mJ-g6s" secondAttribute="trailing" constant="25" id="FNc-Sa-Z1x"/>
                             <constraint firstItem="Kd5-NN-mef" firstAttribute="top" secondItem="ITh-nm-3ID" secondAttribute="bottom" constant="25" id="LdE-ZG-hbL"/>
                             <constraint firstItem="GGX-ed-VFz" firstAttribute="top" secondItem="KIL-PT-FPI" secondAttribute="bottom" constant="40" id="Poz-7o-zOb"/>
                             <constraint firstAttribute="trailingMargin" secondItem="bkz-RS-UcJ" secondAttribute="trailing" constant="25" id="QSm-Vd-waX"/>
@@ -946,6 +954,7 @@
                             <constraint firstItem="FDr-pn-gEg" firstAttribute="leading" secondItem="clK-hq-an6" secondAttribute="leadingMargin" id="f3Q-GL-E9m"/>
                             <constraint firstItem="KIL-PT-FPI" firstAttribute="leading" secondItem="clK-hq-an6" secondAttribute="leading" id="gtF-F2-Tmm"/>
                             <constraint firstItem="TMK-5Q-oPi" firstAttribute="centerY" secondItem="clK-hq-an6" secondAttribute="centerY" id="jnK-eb-i0B"/>
+                            <constraint firstItem="s9t-mJ-g6s" firstAttribute="leading" secondItem="clK-hq-an6" secondAttribute="leadingMargin" constant="25" id="lDS-qH-XgU"/>
                             <constraint firstItem="bkz-RS-UcJ" firstAttribute="leading" secondItem="clK-hq-an6" secondAttribute="leadingMargin" constant="25" id="mav-dX-Mz8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ITh-nm-3ID" secondAttribute="trailing" constant="25" id="pcP-Fu-vd4"/>
                             <constraint firstItem="FDr-pn-gEg" firstAttribute="top" secondItem="GGX-ed-VFz" secondAttribute="bottom" constant="5" id="vEh-uQ-SS1"/>
@@ -954,6 +963,7 @@
                     <connections>
                         <outlet property="activityIndicator" destination="TMK-5Q-oPi" id="8fo-KR-Lk3"/>
                         <outlet property="bioTextField" destination="ITh-nm-3ID" id="V7K-SK-ceW"/>
+                        <outlet property="igLinkTextfield" destination="s9t-mJ-g6s" id="Uez-my-8Fo"/>
                         <outlet property="linkTextField" destination="Kd5-NN-mef" id="j7j-wX-gNu"/>
                         <outlet property="profileImage" destination="GGX-ed-VFz" id="Ssj-7E-k6n"/>
                         <outlet property="userNameTextField" destination="bkz-RS-UcJ" id="hk0-Pl-wpO"/>
@@ -1706,7 +1716,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fWj-2D-zkp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fWj-2D-zkp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1732,12 +1742,12 @@
         <image name="edit" width="21" height="21"/>
         <image name="edit_profile" width="16" height="16"/>
         <image name="globe_tab" width="25" height="25"/>
-        <image name="home_btn" width="24" height="28"/>
+        <image name="home_btn" width="21" height="24"/>
         <image name="profile_navbar" width="21" height="21"/>
         <image name="star" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="myg-hR-9mM"/>
-        <segue reference="amF-RC-GHK"/>
+        <segue reference="wHi-97-VC8"/>
     </inferredMetricsTieBreakers>
 </document>

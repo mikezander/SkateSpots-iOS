@@ -30,10 +30,11 @@ class MapVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        getUsersLocation(){
-        
-            centerMapOnLocation(location: myLocation)
-        }
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
+        mapView.delegate = self
 
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
@@ -60,9 +61,7 @@ class MapVC: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        getUsersLocation(){
-            centerMapOnLocation(location: myLocation)
-        }
+       
     }
 
     func centerMapOnLocation(location: CLLocation) {
@@ -71,25 +70,23 @@ class MapVC: UIViewController{
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
-    func getUsersLocation(finished: () -> Void){
-    
-        manager = CLLocationManager()
-        manager.delegate = self
-        manager.requestWhenInUseAuthorization()
-        manager.requestLocation()
-        mapView.delegate = self
-        
-        finished()
-    }
+  
     
 }
 extension MapVC: CLLocationManagerDelegate{
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first {
-            print("Found MY location: \(location)")
-            myLocation = location
-        }
+        let location = locations[0]
+        
+        let span: MKCoordinateSpan = MKCoordinateSpanMake(0.1, 0.1)
+        let userLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
+        let region: MKCoordinateRegion = MKCoordinateRegionMake(userLocation, span)
+        
+        mapView.setRegion(region, animated: true)
+        
+        self.mapView.showsUserLocation = true
+        
+        manager.stopUpdatingLocation()
        
     }
     

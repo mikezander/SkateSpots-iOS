@@ -487,7 +487,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 
                 if let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String{
                     
-                    self.user = User(userName: username, userImageURL: userImageURL, bio: "", link: "")
+                    self.user = User(userName: username, userImageURL: userImageURL, bio: "", link: "", igLink: "")
                     
                     let comment: Dictionary<String, AnyObject> = [
                         "userKey": (FIRAuth.auth()?.currentUser?.uid)! as AnyObject,

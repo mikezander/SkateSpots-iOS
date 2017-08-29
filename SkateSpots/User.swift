@@ -16,6 +16,7 @@ class User{
     private var _userImageURL: String
     private var _bio: String
     private var _link: String
+    private var _igLink: String
     
 
     var userKey: String{
@@ -37,12 +38,17 @@ class User{
     var link: String{
         return _link
     }
+    
+    var igLink: String{
+        return _igLink
+    }
   
-    init(userName: String, userImageURL: String, bio: String, link: String){
+    init(userName: String, userImageURL: String, bio: String, link: String, igLink: String){
         self._userName = userName
         self._userImageURL = userImageURL
         self._bio = bio
         self._link = link
+        self._igLink = igLink
     }
     
     init(userKey: String, userData: Dictionary<String, AnyObject>){
@@ -56,6 +62,8 @@ class User{
         self._bio = userData["bio"] as? String ?? ""
         
         self._link = userData["link"] as? String ?? ""
+        
+        self._igLink = userData["igLink"] as? String ?? ""
         
     }
     

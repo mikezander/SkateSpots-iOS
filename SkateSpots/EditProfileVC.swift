@@ -20,6 +20,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var bioTextField: UITextField!
     @IBOutlet weak var linkTextField: UITextField!
+    @IBOutlet weak var igLinkTextfield: UITextField!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     var imagePicker: UIImagePickerController!
@@ -42,10 +43,12 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         userNameTextField.text = user.userName
         bioTextField.text = user.bio
         linkTextField.text = user.link
+        igLinkTextfield.text = user.igLink
         
         userNameTextField.delegate = self
         bioTextField.delegate = self
         linkTextField.delegate = self
+        igLinkTextfield.delegate = self
         
         userNameTextField.layer.borderWidth = 1
         userNameTextField.layer.cornerRadius = 4
@@ -55,6 +58,9 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
         linkTextField.layer.borderWidth = 1
         linkTextField.layer.cornerRadius = 4
+        
+        igLinkTextfield.layer.borderWidth = 1
+        igLinkTextfield.layer.cornerRadius = 4
         
         imagePicker = UIImagePickerController()
         imagePicker.allowsEditing = true
@@ -93,6 +99,12 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             hasBeenEdited = true
         }
         
+        if igLinkTextfield.text != user.igLink{
+            userDict.updateValue(igLinkTextfield.text as AnyObject, forKey: "igLink")
+            hasBeenEdited = true
+        
+        }
+        
         if hasBeenEdited{
             DataService.instance.updateUserProfile(uid: currentUserID, child: "profile", userData: userDict)
         }
@@ -101,7 +113,10 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             
             activityIndicator.startAnimating()
             
-            DataService.instance.deleteFromStorage(urlString: user.userImageURL)
+            if user.userImageURL != DEFAULT_PROFILE_PIC_URL{
+                DataService.instance.deleteFromStorage(urlString: user.userImageURL)
+            }
+            
             
             if let userImg = self.profileImage.image{
                 DataService.instance.addProfilePicToStorageWithCompletion(image: userImg){ url in

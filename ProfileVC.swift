@@ -23,6 +23,9 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     var status = String()
     var headerViewHeight = CGFloat()
     var profileEdited: Bool = false
+    var igUsername = ""
+    
+    
     @IBOutlet weak var editButton: UIButton!
 
     @IBOutlet weak var spotTableView: UITableView!
@@ -52,7 +55,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
        
         spotTableView.register(HeaderCell.self, forCellReuseIdentifier: "headerCell")
         
-        status = getStatus()
+        //status = getStatus()
  
      
     }
@@ -129,7 +132,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         }
     }
 
-    func getStatus()->String{
+   /* func getStatus()->String{
         
         var status = String()
     
@@ -142,7 +145,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         }
     
         return status
-    }
+    } */
     
     @IBAction func backBtnPressed(_ sender: Any) {
        _ = navigationController?.popViewController(animated: true)
@@ -163,13 +166,17 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         vc.spot = spots[tapGesture.view!.tag]
        self.present(vc, animated: true, completion: nil)
     }
-
     
+    func instagramLinkPressed(){
+    print("pressed")
+    }
+    
+     
 }
 extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
-        return 275.0
+        return 295.0
     }
 
     
@@ -186,21 +193,57 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         
         if let bio = user?.bio{
             headerCell.bio.text = bio
+            headerCell.bio.sizeToFit()
+            headerCell.bio.center.x = view.frame.width / 2
         }
         
         if let linkText = user?.link{
             headerCell.link.center.x = view.frame.width / 2
+            
+            if headerCell.bio.text == ""{
+                headerCell.link.center.y = headerCell.bio.frame.origin.y + 10
+            }else{
+                headerCell.link.center.y = headerCell.bio.frame.origin.y + headerCell.bio.frame.height - 5
+            }
+            
+            
             var link = UITextView() //work around for bug
             link = headerCell.link
             link.text = linkText
             link.sizeToFit()
             link.center.x = view.frame.width / 2
+            
             headerView.addSubview(link)
+        }
+        
+        if let igLinkText = user?.igLink{
+            
+            if headerCell.bio.text == "" && headerCell.link.text == ""{
+                headerCell.igLink.center.y = headerCell.bio.frame.origin.y + 18
+            }else if headerCell.link.text == ""{
+                headerCell.igLink.center.y = headerCell.link.frame.origin.y + 15
+            }else{
+                headerCell.igLink.center.y = headerCell.link.frame.origin.y + headerCell.link.frame.height + 2
+            }
+            
+            
+            
+            
+            if user?.igLink == ""{
+                headerCell.igLink.isHidden = true
+            }else{
+                headerCell.igUsername = igLinkText
+                headerCell.igLink.setTitle(igLinkText, for: .normal)
+                headerCell.igLink.sizeToFit()
+                headerCell.igLink.center.x = view.frame.width / 2
+                headerView.addSubview(headerCell.igLink)
+            }
+            
         }
 
         headerCell.contributions.text = "👊 Contributions: \(spots.count)"
         
-        headerCell.status.text = "👤 Status: \(getStatus())"
+        //headerCell.status.text = "👤 Status: \(getStatus())"
         
         if let userImage = user?.userImageURL{
         
