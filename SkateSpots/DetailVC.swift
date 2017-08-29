@@ -697,7 +697,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             
         }
         
-        
         return cell
     }
     
@@ -729,8 +728,6 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
             cell.userName.tag = indexPath.row
             
             cell.userName.addGestureRecognizer(self.setGestureRecognizer())
-            
-
         
         if let img = FeedVC.imageCache.object(forKey: NSString(string: comment.userImageURL)){
             
@@ -738,24 +735,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
         }else{
             cell.configureProfilePic(comment:comment)
         }
-        
-        
-      /*  let ref = FIRStorage.storage().reference(forURL: commentsArray[indexPath.row].userImageURL)
-        ref.data(withMaxSize: 1 * 1024 * 1024, completion:{ (data, error) in
-            if error != nil{
-                print("Mke: Unable to download image from firebase storage")
-            }else{
-            
-                if let data = data{
-                    cell.profilePhoto.image = UIImage(data:data)
-                }
-            }
-           
-            
-        })*/
 
-       
-        
         return cell
     }
  

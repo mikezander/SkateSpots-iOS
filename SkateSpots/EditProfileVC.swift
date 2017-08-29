@@ -68,6 +68,16 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
         profileImage.addGestureRecognizer(setGestureRecognizer())
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        subscribeToKeyboardNotifications()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        unsubscribeToKeyboardNotifications()
+    }
 
     @IBAction func backButtonPressed(_ sender: Any) {
         _ = navigationController?.popViewController(animated: true)
@@ -194,6 +204,46 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             imageSelected = true
         }
     }
+    
+    
+    //shifts the view up from bottom text field to be visible
+    func keyboardWillShow(notification: NSNotification){
+        
+        if bioTextField.isFirstResponder || linkTextField.isFirstResponder || igLinkTextfield.isFirstResponder{
+            view.frame.origin.y = -(getKeyboardHeight(notification: notification) / 2)
+        }
+    }
+    
+    //shifts view down once done editing bottom text field
+    func keyboardWillHide(notification: NSNotification){
+        
+        if bioTextField.isFirstResponder || linkTextField.isFirstResponder || igLinkTextfield.isFirstResponder{
+            view.frame.origin.y = 0
+        }
+    }
+    
+    //helper function for keyboardWillShow
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat{
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
+    
+    
+    func subscribeToKeyboardNotifications(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+    }
+    
+    func unsubscribeToKeyboardNotifications(){
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+    }
+
     
 }
 
