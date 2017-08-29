@@ -37,7 +37,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
   
     func loadSpotsArray(){
     
-        DataService.instance.getSpotsFromUser(userRef: currentUserRef, child: "favorites", completionHandlerForGET: {success, data, error in
+        DataService.instance.getSpotsFromUser(userRef: currentUserRef, child: "favorites", completionHandlerForGET: {success, data, keys, error in
             
             if error == nil{
                 self.spots = data!

@@ -24,6 +24,8 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     var headerViewHeight = CGFloat()
     var profileEdited: Bool = false
     var igUsername = ""
+    var allowEdit = false
+    var keys = [String]()
     
     
     @IBOutlet weak var editButton: UIButton!
@@ -36,6 +38,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         if userKey == nil{
         
         userRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
+            allowEdit = true
         
         }else{
         
@@ -44,6 +47,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             }
             editButton.isEnabled = false
             editButton.isHidden = true
+            allowEdit = false
     
         }
         
@@ -80,8 +84,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
 
  
     func addUserData(){
-    
-        print("userkey should be loaded")
+
         DataService.instance.getCurrentUserProfileData(userRef: userRef.child("profile"), completionHandlerForGET: { success, data in
             
             if let data = data{
@@ -105,12 +108,14 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     
     func appendSpotsArray(){
         
-        DataService.instance.getSpotsFromUser(userRef: userRef, child: "spots",completionHandlerForGET: {success, data, error in
+        DataService.instance.getSpotsFromUser(userRef: userRef, child: "spots",completionHandlerForGET: {success, data,keys, error in
             
             if error == nil{
                 self.spots = data!
+                self.keys = keys
             }
             DispatchQueue.main.async {
+                print(keys)
                 self.spotTableView.reloadData()
             }
             
@@ -132,20 +137,6 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         }
     }
 
-   /* func getStatus()->String{
-        
-        var status = String()
-    
-        if spots.count < 2{
-            status = "Lurker"
-            print("here1")
-        }else if spots.count >= 2{
-            status = "Noob"
-            print("here2")
-        }
-    
-        return status
-    } */
     
     @IBAction func backBtnPressed(_ sender: Any) {
        _ = navigationController?.popViewController(animated: true)
@@ -267,6 +258,48 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         return spots.count
     }
     
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+
+        
+            if editingStyle == .delete{
+                
+
+                
+                let alertController = UIAlertController(title: "Warning", message: "Are you sure you want to delete \(spots[indexPath.row].spotName)?", preferredStyle: .alert)
+                
+                let deleteAction = UIAlertAction(title: "Delete Spot", style: .destructive, handler: { (action) in
+                    
+                    DataService.instance.REF_SPOTS.child(self.spots[indexPath.row].spotKey).removeValue()
+                    self.userRef.child("spots").child(self.keys[indexPath.row]).removeValue()
+                    print(self.spots[indexPath.row].spotKey)
+                    print(self.keys[indexPath.row])
+                    
+                    self.spots.remove(at: indexPath.item)
+                    self.keys.remove(at: indexPath.item)
+                    
+                    DispatchQueue.main.async {
+                        tableView.deleteRows(at: [indexPath], with: .fade)
+                        self.spotTableView.reloadData()
+                    }
+                    
+                    
+                    
+                })
+                alertController.addAction(deleteAction)
+                
+                let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+                alertController.addAction(cancelAction)
+                
+                present(alertController, animated: true, completion: nil)
+                
+                
+            }
+  
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return allowEdit
+    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         

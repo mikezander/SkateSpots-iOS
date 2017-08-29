@@ -196,16 +196,18 @@ class DataService{
     }
 
     
-    func getSpotsFromUser(userRef: FIRDatabaseReference, child: String, completionHandlerForGET: @escaping (_ success: Bool, _ data: [Spot]?, _ error: String?) -> Void){
+    func getSpotsFromUser(userRef: FIRDatabaseReference, child: String, completionHandlerForGET: @escaping (_ success: Bool, _ data: [Spot]?, _ _keys:[String],_ error: String?) -> Void){
         
         var spots = [Spot]()
+        var keys = [String]()
         
         userRef.child(child).observe(.value, with:{ (snapshot) in
             
             if let spotKeyDict = snapshot.children.allObjects as? [FIRDataSnapshot]{
                 for snap in spotKeyDict{
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
-                        
+                        //keys.append(snap.key)
+                        keys.insert(snap.key, at: 0)
                         for spotKey in spotDict{
                             
                             self.REF_SPOTS.child(spotKey.key).observeSingleEvent(of: .value, with: { (snapshot) in
@@ -217,7 +219,7 @@ class DataService{
                                     print(spot.spotName)
                                     
                                     if spots.count == spotKeyDict.count{
-                                        completionHandlerForGET(true, spots, nil)
+                                        completionHandlerForGET(true, spots,keys, nil)
                                     }
                                 }
                                 
