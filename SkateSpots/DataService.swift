@@ -113,7 +113,7 @@ class DataService{
             DataService.instance.REF_USER_IMAGE.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
                 
                 if error != nil{
-                    print("unable to upload image to firebase storage(\(error?.localizedDescription))")
+                    print("unable to upload image to firebase storage(\(String(describing: error?.localizedDescription)))")
                 }else{
                     
                     let downloadURL = metadata?.downloadURL()?.absoluteString
@@ -141,7 +141,7 @@ class DataService{
             DataService.instance.REF_USER_IMAGE.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
                 
                 if error != nil{
-                    print("unable to upload image to firebase storage(\(error?.localizedDescription))")
+                    print("unable to upload image to firebase storage(\(String(describing: error?.localizedDescription)))")
                 }else{
                     
                     let downloadURL = metadata?.downloadURL()?.absoluteString

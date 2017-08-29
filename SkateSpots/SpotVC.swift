@@ -488,7 +488,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             placeMark = placemarks?[0]
             
             // Address dictionary
-            print(placeMark.addressDictionary, terminator: "")
+            print(placeMark.addressDictionary as Any, terminator: "")
             
             // Location name
             if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
@@ -525,7 +525,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             
             self.locationFound = true
             self.locationFoundIndex = self.count
-            print("\(self.locationFoundIndex)here")
+            print("\(String(describing: self.locationFoundIndex))here")
         })
     
     }
