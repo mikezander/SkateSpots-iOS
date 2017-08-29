@@ -19,6 +19,9 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     @IBOutlet weak var passwordField: RoundTextfield!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
+    @IBOutlet weak var logInButton: RoundedButton!
+    @IBOutlet weak var logInLabel: UILabel!
+    @IBOutlet weak var logInSwitch: UIButton!
     let fbLoginButton = FBSDKLoginButton()
     
     var imagePicker: UIImagePickerController!
@@ -43,42 +46,66 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
 
     @IBAction func logInPressed(_ sender: Any) {
 
+        
         guard isInternetAvailable() else {
             errorAlert(title: "Network connection error", message: "Make sure you have a network connection and try again")
             return
         }
+        
+        if logInButton.title(for: .normal) == "Log In"{
+            if let email = emailField.text, let pwd = passwordField.text,(email.characters.count > 0 && pwd.characters.count > 0){
+            
+                AuthService.instance.logInExisting(email: email, password: pwd, onComplete: {(errMsg, data) in
+                    
+                    guard errMsg == nil else{
+                        self.errorAlert(title: "Error Authenticating", message: errMsg!)
+                        return
+                    }
+                    self.performSegue(withIdentifier: "goToFeed", sender: nil)
+                
+                })
+            }else{
+               
+                errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
+            }
+        
+        }else{
+        
+            if let email = emailField.text, let pwd = passwordField.text, let usrName = userNameField.text,
+                (email.characters.count > 0 && pwd.characters.count > 0){
+                
+                AuthService.instance.login(email: email, password: pwd, username: usrName, onComplete: { (errMsg, data) in
+                    
+                    //print("\(errMsg!)ovahere")
+                    //print("\(data!)ovahere")
+                    
+                    guard errMsg == nil else{
+                        self.errorAlert(title: "Error Authenticating", message: errMsg!)
+                        return
+                    }
+                    
+                    if self.imageSelected{
+                        if let userImg = self.userProflieView.image{
+                            DataService.instance.addProfilePicToStorage(image: userImg)
+                        }
+                        
+                    }else{
+                        self.userProfileURL = DEFAULT_PROFILE_PIC_URL
+                        let ref = DataService.instance.refrenceToCurrentUser()
+                        ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
+                        
+                    }
+                    //self.dismiss(animated: true, completion: nil)
+                    self.performSegue(withIdentifier: "goToFeed", sender: nil)
+                })
+                
+            } else{
+                errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
+            }
 
         
-        
-        if let email = emailField.text, let pwd = passwordField.text, let usrName = userNameField.text,
-            (email.characters.count > 0 && pwd.characters.count > 0){
-            
-            AuthService.instance.login(email: email, password: pwd, username: usrName, onComplete: { (errMsg, data) in
-                
-                guard errMsg == nil else{
-                    self.errorAlert(title: "Error Authenticating", message: errMsg!)
-                    return
-                }
-                
-                if self.imageSelected{
-                    if let userImg = self.userProflieView.image{
-                        DataService.instance.addProfilePicToStorage(image: userImg)
-                    }
-                
-                }else{
-                    self.userProfileURL = DEFAULT_PROFILE_PIC_URL
-                    let ref = DataService.instance.refrenceToCurrentUser()
-                    ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
-                
-                }
-                //self.dismiss(animated: true, completion: nil)
-                self.performSegue(withIdentifier: "goToFeed", sender: nil)
-            })
-        
-        } else{
-            errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
         }
-       
+
     }
     
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
@@ -128,6 +155,37 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         
     }
 
+    @IBAction func logInExistingPressed(_ sender: Any) {
+
+        if logInButton.title(for: .normal) == "Sign Up"{
+            userProflieView.alpha = 0.3
+            userProflieView.isUserInteractionEnabled = false
+            userNameField.alpha = 0.3
+            userNameField.isUserInteractionEnabled = false
+            
+            logInButton.setTitle("Log In", for: .normal)
+            logInSwitch.setTitle("Sign Up", for: .normal)
+            logInLabel.text = "Don't have an account?"
+        
+        }else if logInButton.title(for: .normal) == "Log In"{
+        
+            userProflieView.alpha = 1
+            userProflieView.isUserInteractionEnabled = true
+            userNameField.alpha = 1
+            userNameField.isUserInteractionEnabled = true
+            
+            logInButton.setTitle("Sign Up", for: .normal)
+            logInSwitch.setTitle("Log In", for: .normal)
+            logInLabel.text = "Existing account?"
+        }
+        
+        
+        
+        
+        
+        //logInButton.setTitle("Log In", for: .normal)
+        
+    }
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("User logged out")
     }

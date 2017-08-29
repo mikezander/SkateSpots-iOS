@@ -1554,6 +1554,28 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vJd-YK-YWJ">
+                                <rect key="frame" x="188.66666666666666" y="444" width="40" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="pr7-3y-ts6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <state key="normal" title="Log In">
+                                    <color key="titleColor" red="0.76078431369999999" green="0.95294117649999999" blue="0.34901960780000002" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="logInExistingPressed:" destination="BYZ-38-t0r" eventType="touchUpInside" id="9wn-OM-Yyw"/>
+                                </connections>
+                            </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Existing account?" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uLU-y5-WKq">
+                                <rect key="frame" x="74.999999999999986" y="449" width="108.66666666666664" height="21"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="21" id="8er-Hv-UAQ"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_profile_pic" translatesAutoresizingMaskIntoConstraints="NO" id="ZTa-41-ERd" customClass="CircleView" customModule="SkateSpots" customModuleProvider="target">
                                 <rect key="frame" x="157" y="107" width="100" height="100"/>
                                 <constraints>
@@ -1647,7 +1669,7 @@
                                     <constraint firstAttribute="width" constant="265" id="ohF-a9-heW"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
-                                <state key="normal" title="Log In">
+                                <state key="normal" title="Sign Up">
                                     <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 </state>
                                 <userDefinedRuntimeAttributes>
@@ -1672,6 +1694,8 @@
                         <constraints>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="n6A-bB-xvh" secondAttribute="bottom" id="3qp-uz-iHs"/>
                             <constraint firstItem="ZTa-41-ERd" firstAttribute="top" secondItem="8QW-QP-jRQ" secondAttribute="bottom" constant="20" id="6eg-ba-cFn"/>
+                            <constraint firstItem="vJd-YK-YWJ" firstAttribute="top" secondItem="HdW-xF-ghF" secondAttribute="bottom" constant="9" id="8A4-DM-u0r"/>
+                            <constraint firstItem="vJd-YK-YWJ" firstAttribute="leading" secondItem="uLU-y5-WKq" secondAttribute="trailing" constant="5" id="8Yt-CT-xDl"/>
                             <constraint firstItem="SF2-nU-LXu" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="CxC-T9-xlG"/>
                             <constraint firstItem="8QW-QP-jRQ" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" constant="1.5" id="FSJ-tN-B2Q"/>
                             <constraint firstItem="jSK-7x-0fx" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Glm-iE-Yxh"/>
@@ -1685,10 +1709,12 @@
                             <constraint firstItem="NM1-4q-kgK" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="bxf-7q-6Jl"/>
                             <constraint firstAttribute="trailing" secondItem="n6A-bB-xvh" secondAttribute="trailing" id="gQj-0I-MZm"/>
                             <constraint firstItem="n6A-bB-xvh" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="ge3-H1-hF1"/>
+                            <constraint firstItem="uLU-y5-WKq" firstAttribute="leading" secondItem="HdW-xF-ghF" secondAttribute="leading" id="ihP-0r-lbf"/>
                             <constraint firstItem="ZTa-41-ERd" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="m8s-9R-XgF"/>
                             <constraint firstItem="HdW-xF-ghF" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="mVJ-7N-R1z"/>
                             <constraint firstItem="jSK-7x-0fx" firstAttribute="top" secondItem="ZTa-41-ERd" secondAttribute="bottom" constant="15" id="mvr-tJ-PQa"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="NM1-4q-kgK" secondAttribute="bottom" id="nrW-fL-xEc"/>
+                            <constraint firstItem="uLU-y5-WKq" firstAttribute="top" secondItem="HdW-xF-ghF" secondAttribute="bottom" constant="14" id="rEx-aP-y9Y"/>
                             <constraint firstItem="HdW-xF-ghF" firstAttribute="top" secondItem="Mhr-im-vTS" secondAttribute="bottom" constant="15" id="t6F-1r-p6m"/>
                             <constraint firstItem="n6A-bB-xvh" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="tiI-vF-N1h"/>
                             <constraint firstItem="SF2-nU-LXu" firstAttribute="top" secondItem="jSK-7x-0fx" secondAttribute="bottom" constant="15" id="ttI-YN-dDl"/>
@@ -1697,6 +1723,9 @@
                     <connections>
                         <outlet property="activityIndicator" destination="VRA-pg-Bst" id="OG6-5a-lCe"/>
                         <outlet property="emailField" destination="SF2-nU-LXu" id="5dX-x1-Flo"/>
+                        <outlet property="logInButton" destination="HdW-xF-ghF" id="GwC-xH-3UX"/>
+                        <outlet property="logInLabel" destination="uLU-y5-WKq" id="pI8-ca-R6r"/>
+                        <outlet property="logInSwitch" destination="vJd-YK-YWJ" id="4kD-Ut-bDD"/>
                         <outlet property="passwordField" destination="Mhr-im-vTS" id="esY-e0-j1a"/>
                         <outlet property="userNameField" destination="jSK-7x-0fx" id="cyK-8e-nto"/>
                         <outlet property="userProflieView" destination="ZTa-41-ERd" id="fdk-AT-GDa"/>
@@ -1716,7 +1745,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fWj-2D-zkp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fWj-2D-zkp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

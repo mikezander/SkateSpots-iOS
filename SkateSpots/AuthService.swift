@@ -18,11 +18,15 @@ class AuthService{
         return _instance
     }
     
+    
+    
     func login(email: String, password: String, username: String, onComplete: Completion?){
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
             
             if error != nil{
                 if let errorCode = FIRAuthErrorCode(rawValue: error!._code){ //CHECK _CODE FOR ERROR
+                    print(errorCode.rawValue) // set error message for 17009 email in use wrong password
+
                     if errorCode == .errorCodeUserNotFound{
                         //could handle this by creating sign up button..mispelled email will create new account
                         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
@@ -58,6 +62,20 @@ class AuthService{
         })
     }
     
+    func logInExisting(email: String, password: String, onComplete: Completion?){
+    
+        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
+            if error != nil{
+                self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
+            } else{
+                // we have successfully logged in
+                onComplete?(nil, user)
+            }
+        })
+    
+    
+    }
+    
     func handleFirebaseError(error: NSError, onComplete: Completion?){
         print(error.debugDescription)
         if let errorCode = FIRAuthErrorCode(rawValue: error.code){
@@ -70,7 +88,13 @@ class AuthService{
                 break
             case .errorCodeEmailAlreadyInUse, .errorCodeAccountExistsWithDifferentCredential:
                 onComplete?("Could not create account email already in use", nil)
-            // todo password less than 6
+            // todo password less than 6  // , .errorCodeAccountExistsWithDifferentCredential
+            case .errorCodeWeakPassword:
+                onComplete?("Make sure password is 6 characters or more", nil)
+            case .errorCodeNetworkError:
+                onComplete?("Make sure your internet is available", nil)
+            case .errorCodeUserNotFound:
+                onComplete?("Invalid email. There are no users found with that email address.", nil)
             default:
                 onComplete?("There was a problem authenticating. Try again.\(error.description)", nil)
             }
