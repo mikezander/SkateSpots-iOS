@@ -76,13 +76,11 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 
                 AuthService.instance.login(email: email, password: pwd, username: usrName, onComplete: { (errMsg, data) in
                     
-                    //print("\(errMsg!)ovahere")
-                    //print("\(data!)ovahere")
-                    
                     guard errMsg == nil else{
                         self.errorAlert(title: "Error Authenticating", message: errMsg!)
                         return
                     }
+                    
                     
                     if self.imageSelected{
                         if let userImg = self.userProflieView.image{
@@ -95,7 +93,9 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                         ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
                         
                     }
-                    //self.dismiss(animated: true, completion: nil)
+                    
+                    //FIRAuth.auth()?.currentUser?.sendEmailVerification(completion: nil)
+                 
                     self.performSegue(withIdentifier: "goToFeed", sender: nil)
                 })
                 
@@ -108,6 +108,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
 
     }
     
+    
+    //** FB Log In Button **
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         print("User logged in")
         fbLoginButton.isHidden = true
@@ -179,13 +181,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             logInLabel.text = "Existing account?"
         }
         
-        
-        
-        
-        
-        //logInButton.setTitle("Log In", for: .normal)
-        
     }
+    
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("User logged out")
     }
