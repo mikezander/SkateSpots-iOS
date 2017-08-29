@@ -25,13 +25,6 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         super.viewDidLoad()
         
        loadSpotsArray()
-        
-       //loadAutoIdArray()
-        
-        for id in uniqueIDs{
-        print(id)
-        }
-        
 
     }
   
@@ -56,21 +49,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     
     }
-    
-   /* func loadAutoIdArray(){
-        
-        DataService.instance.retrieveFavoritesAutoIDs(userRef: currentUserRef, completionHandlerForGET: { success, data in
-            if success == true{
-                self.uniqueIDs = data!
-                print(self.uniqueIDs)
-            }else{
-            print("error getting favorite auto ids")
-            }
 
-        })
-    
-    }*/
-    
     @IBAction func backButtonPressed(_ sender: Any) {
         
         _ = navigationController?.popViewController(animated: true)
@@ -79,7 +58,21 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return spots.count
+        
+        if spots.count == 0 {
+            let emptyLabel = UILabel(frame: CGRect(x:0, y:0,width: UIScreen.main.bounds.width,height:UIScreen.main.bounds.height))
+            emptyLabel.text = "Add spots to favorites!"
+            emptyLabel.alpha = 0.4
+            emptyLabel.textAlignment = NSTextAlignment.center
+            self.spotTableView.backgroundView = emptyLabel
+            self.spotTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+            return 0
+        
+        }else{
+            spotTableView.backgroundView?.isHidden = true
+            return spots.count
+        }
+        
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -101,7 +94,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
+
         let spot = spots[indexPath.row]
      
        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell") as! FavoriteCell
