@@ -93,9 +93,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                         ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
                         
                     }
-                    
-                    //FIRAuth.auth()?.currentUser?.sendEmailVerification(completion: nil)
-                 
+
                     self.performSegue(withIdentifier: "goToFeed", sender: nil)
                 })
                 
@@ -143,6 +141,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 }
     
             DataService.instance.saveFirebaseUser(uid: uid, email: email!, username: name!)
+            
             
             DataService.instance.saveFacebookProfilePicture(uid: uid)
 

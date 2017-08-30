@@ -123,6 +123,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             sender.setTitleColor(FLAT_GREEN, for: .normal)
             otherBtn.backgroundColor = UIColor.clear
             otherBtn.setTitleColor(.black, for: .normal)
+                otherBtn.isSelected = false
             
         case 7:
             sender.isSelected = true

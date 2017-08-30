@@ -28,6 +28,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     var keys = [String]()
     
     
+    @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
 
     @IBOutlet weak var spotTableView: UITableView!
@@ -48,10 +49,17 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             editButton.isEnabled = false
             editButton.isHidden = true
             allowEdit = false
+            headerLabel.isHidden = true
     
         }
         
         addUserData()
+        
+       
+        
+  
+        
+           
         
         appendSpotsArray()
 

@@ -86,7 +86,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         scrollView.addSubview(containerView)
         view.addSubview(scrollView)
         
-        let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 50))
+        let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 55))
         customNav.backgroundColor = FLAT_GREEN
 
         self.view.addSubview(customNav)
@@ -94,10 +94,16 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         let btn1 = UIButton()
         btn1.setImage(UIImage(named:"back"), for: .normal)
        
-        btn1.frame = CGRect(x:4, y:16, width: 30,height: 30)
+        btn1.frame = CGRect(x:4, y:21, width: 30,height: 30)
         btn1.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
         self.view.addSubview(btn1)
         
+        let headerLabel = UILabel()
+        headerLabel.frame = CGRect(x: screenWidth / 2 - 60,y: 23,width:250, height:28)
+        headerLabel.text = "Spot Details"
+        headerLabel.textColor = UIColor.white
+        headerLabel.font = UIFont(name: "Gurmukhi MN", size: 20)
+        self.view.addSubview(headerLabel)
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -113,7 +119,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.backgroundColor = UIColor.white
         self.containerView.addSubview(collectionview)
  
-        spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 200, height: 23))
+        spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 23))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = .black
         spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 130)
@@ -126,7 +132,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         pageControl.currentPageIndicatorTintColor = FLAT_GREEN
         containerView.addSubview(pageControl)
         
-        spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 300, height: 21))
+        spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
         spotTypeLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         spotTypeLbl.textColor = .black
         spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 105)

@@ -244,7 +244,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
     }
 
-    
 }
 
 extension EditProfileVC: UITextFieldDelegate, UITextViewDelegate{

@@ -267,7 +267,7 @@ class DataService{
             if snapshot.exists(){
                 
                 if let userName = snapshot.childSnapshot(forPath: "username").value as? String{
-                    let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as! String
+                    let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String ?? DEFAULT_PROFILE_PIC_URL
                     let bio = snapshot.childSnapshot(forPath: "bio").value as! String
                     let link = snapshot.childSnapshot(forPath: "link").value as! String
                     let igLink = snapshot.childSnapshot(forPath: "igLink").value as! String
