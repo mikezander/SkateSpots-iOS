@@ -100,7 +100,7 @@ extension SpotRow : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        pageControl.transform = CGAffineTransform(scaleX: 0.7, y: 0.7)
+        pageControl.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
         pageControl.hidesForSinglePage = true
         pageControl.currentPage = indexPath.row
     }
