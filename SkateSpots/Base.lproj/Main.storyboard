@@ -292,10 +292,8 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntA-vK-N9d">
-                                        <rect key="frame" x="108" y="10" width="44" height="40"/>
-                                        <state key="normal" title="logout">
-                                            <color key="titleColor" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
-                                        </state>
+                                        <rect key="frame" x="82" y="10" width="70" height="40"/>
+                                        <state key="normal" title="logouttest"/>
                                         <connections>
                                             <action selector="signOutFBTest:" destination="S87-nh-BjV" eventType="touchUpInside" id="lC1-n1-e3e"/>
                                         </connections>
@@ -1789,6 +1787,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="qnT-aP-8uy"/>
-        <segue reference="NSR-GJ-ilx"/>
+        <segue reference="wHi-97-VC8"/>
     </inferredMetricsTieBreakers>
 </document>
