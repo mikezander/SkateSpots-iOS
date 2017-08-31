@@ -365,60 +365,57 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     @IBAction func addSpotButtonPressed(_ sender: Any) {
-        
-        guard isInternetAvailable() else {
-            errorAlert(title: "Network connection error", message: "Make sure you have a network connection and try again")
-            return
-        }
-
-        guard let spotName = spotNameField.text, spotName != "" else{
-            errorAlert(title: "Error", message: "You must enter a spot name!")
-            return
-        }
-        
-        guard let defaultImg = addPhotoOne.image, imageSelected == true else{
-            errorAlert(title: "Error", message: "You must upload a spot image!")
-            return
-        }
-        
-        if !locationFound{
-            errorAlert(title: "Location not found!", message: "Make sure at least one of your photos have been taken at the spot")
-            return
-        }
-        
-        if SpotTypeControl.selectedSegmentIndex == 0{
+ 
             
-            if !ledgeBtn.isSelected && !railBtn.isSelected && !gapBtn.isSelected && !mannyBtn.isSelected
-                && !bumpBtn.isSelected && !trannyBtn.isSelected && !bankBtn.isSelected && !otherBtn.isSelected{
-                
-                errorAlert(title: "Error", message: "A spot type must be selected!")
+            guard let spotName = spotNameField.text, spotName != "" else{
+                errorAlert(title: "Error", message: "You must enter a spot name!")
                 return
             }
             
-            if ledgeBtn.isSelected { spotType += "Ledges" }
-            if railBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Rail" }
-            if gapBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Stairs/Gap" }
-            if bumpBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bump" }
-            if mannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Manual" }
-            if bankBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bank" }
-            if trannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Tranny" }
-            if otherBtn.isSelected { spotType += "Other" }
+            guard let defaultImg = addPhotoOne.image, imageSelected == true else{
+                errorAlert(title: "Error", message: "You must upload a spot image!")
+                return
+            }
             
+            if !locationFound{
+                errorAlert(title: "Location not found!", message: "Make sure at least one of your photos have been taken at the spot")
+                return
+            }
             
-        }else{
+            if SpotTypeControl.selectedSegmentIndex == 0{
+                
+                if !ledgeBtn.isSelected && !railBtn.isSelected && !gapBtn.isSelected && !mannyBtn.isSelected
+                    && !bumpBtn.isSelected && !trannyBtn.isSelected && !bankBtn.isSelected && !otherBtn.isSelected{
+                    
+                    errorAlert(title: "Error", message: "A spot type must be selected!")
+                    return
+                }
+                
+                if ledgeBtn.isSelected { spotType += "Ledges" }
+                if railBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Rail" }
+                if gapBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Stairs/Gap" }
+                if bumpBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bump" }
+                if mannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Manual" }
+                if bankBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bank" }
+                if trannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Tranny" }
+                if otherBtn.isSelected { spotType += "Other" }
+                
+                
+            }else{
+                
+                spotType += "Skatepark"
+            }
             
-            spotType += "Skatepark"
+            if anytimeBtn.isSelected{ bestTimeToSkate = "Anytime" }
+            if weekdayBtn.isSelected{ bestTimeToSkate = "Weekday" }
+            if weekendBtn.isSelected{ bestTimeToSkate = "Weekend" }
+            if nightBtn.isSelected{ bestTimeToSkate = "Night" }
+            
+            addPhotosToStorage(image: defaultImg, true)
+            
+            performSegue(withIdentifier: "backToFeedVC", sender: nil)
         }
-        
-        if anytimeBtn.isSelected{ bestTimeToSkate = "Anytime" }
-        if weekdayBtn.isSelected{ bestTimeToSkate = "Weekday" }
-        if weekendBtn.isSelected{ bestTimeToSkate = "Weekend" }
-        if nightBtn.isSelected{ bestTimeToSkate = "Night" }
-        
-        addPhotosToStorage(image: defaultImg, true)
-        
-        performSegue(withIdentifier: "backToFeedVC", sender: nil)
-    }
+    
  
     func addPhotosToStorage(image: UIImage,_ isDefault: Bool){
 
@@ -612,6 +609,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
 
     }
 }
+
 extension SpotVC: UITextFieldDelegate, UITextViewDelegate{
 
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

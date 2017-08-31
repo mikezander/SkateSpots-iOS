@@ -32,6 +32,7 @@ class DataService{
     private var _REF_BASE = DB_BASE
     private var _REF_SPOTS = DB_BASE.child("spots")
     private var _REF_USERS = DB_BASE.child("users")
+    private var _REF_CONNECTION = FIRDatabase.database().reference(withPath: ".info/connected")
 
     // Storage Refrences
     private var _REF_SPOT_IMAGES = STORAGE_BASE.child("post-pics")
@@ -48,7 +49,12 @@ class DataService{
     var REF_USERS: FIRDatabaseReference{
         return _REF_USERS
     }
+    
+    var REF_CONNECTION: FIRDatabaseReference{
+        return _REF_CONNECTION
+    }
 
+    //Storage references
     var REF_SPOT_IMAGES: FIRStorageReference{
         return _REF_SPOT_IMAGES
     }
@@ -56,7 +62,7 @@ class DataService{
     var REF_USER_IMAGE: FIRStorageReference{
         return _REF_USER_IMAGE
     }
-
+    
     
     func saveFirebaseUser(uid: String, email: String, username: String){
         let keychainResult = KeychainWrapper.standard.set(uid, forKey: KEY_UID)
@@ -257,7 +263,6 @@ class DataService{
         
     }
     
- 
     func getCurrentUserProfileData(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: User?) -> Void){
     
         var user: User?
@@ -280,14 +285,9 @@ class DataService{
                 completionHandlerForGET(true, user)
             
             }else{
-            
-            
+                print("user profile snapshot doesn't exist")
             }
-            
-           
-            
-            
-       
+   
         }){ (error) in
             print(error.localizedDescription)
             completionHandlerForGET(false, nil)
@@ -295,7 +295,6 @@ class DataService{
 
     }
 
-    
     func refrenceToCurrentUser() -> FIRDatabaseReference{
         let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
         let user = REF_USERS.child(uid!)

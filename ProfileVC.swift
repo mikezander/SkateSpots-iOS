@@ -18,7 +18,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     var spots = [Spot]()
     var user: User? = nil
     var userKey : String? = nil
-    var userRef:FIRDatabaseReference! //= DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
+    var userRef:FIRDatabaseReference!
     var profileView = UIView()
     var status = String()
     var headerViewHeight = CGFloat()
@@ -26,7 +26,6 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     var igUsername = ""
     var allowEdit = false
     var keys = [String]()
-    
     
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
@@ -54,22 +53,13 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         }
         
         addUserData()
-        
-       
-        
-  
-        
-           
-        
+
         appendSpotsArray()
 
         print(spots.count)
        
         spotTableView.register(HeaderCell.self, forCellReuseIdentifier: "headerCell")
-        
-        //status = getStatus()
- 
-     
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -108,7 +98,6 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
                 print("data is empty")
             }
 
- 
         })
 
     }
@@ -132,7 +121,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
+ 
         if segue.identifier == "editProfile" {
             if let viewController = segue.destination as? EditProfileVC {
                 if self.user != nil{
@@ -300,7 +289,6 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
                 alertController.addAction(cancelAction)
                 
                 present(alertController, animated: true, completion: nil)
-                
                 
             }
   

@@ -30,10 +30,8 @@ class MapVC: UIViewController{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyBest
-        manager.requestWhenInUseAuthorization()
-        manager.startUpdatingLocation()
+        getUsersLocation()
+        
         mapView.delegate = self
 
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
@@ -70,6 +68,19 @@ class MapVC: UIViewController{
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
+    func getUsersLocation(){
+    
+        manager.delegate = self
+        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.requestWhenInUseAuthorization()
+        manager.startUpdatingLocation()
+    }
+    
+    @IBAction func refreshLocationPressed(_ sender: Any) {
+        
+        getUsersLocation()
+        
+    }
   
     
 }

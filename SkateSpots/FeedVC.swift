@@ -80,7 +80,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
     @IBAction func filterButtonPressed(_ sender: UIButton) {
-        
+
         trailingConstraint.constant = -160
         self.spotTableView.isUserInteractionEnabled = true
         
@@ -155,6 +155,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }
         spotTableView.reloadData()
         spotTableView.scrollToRow(at: topItem, at: .top, animated: false)
+            
+        
     }
    
     @IBAction func openFilterMenu(_ sender: Any) {
@@ -182,48 +184,49 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func loadSpotsbyRecentlyUploaded(){
-        DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
-            
-            self.spots = [] //clears up spot array each time its loaded
-            
-            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
-                for snap in snapshot{
-                    if let spotDict = snap.value as? Dictionary<String, AnyObject>{
-                        let key = snap.key
-                        let spot = Spot(spotKey: key, spotData: spotDict)
-                        //self.spots.append(spot)
-                        self.spots.insert(spot, at: 0)
-                        
+        
+            DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
+                
+                self.spots = [] //clears up spot array each time its loaded
+                
+                if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
+                    for snap in snapshot{
+                        if let spotDict = snap.value as? Dictionary<String, AnyObject>{
+                            let key = snap.key
+                            let spot = Spot(spotKey: key, spotData: spotDict)
+                            //self.spots.append(spot)
+                            self.spots.insert(spot, at: 0)
+                            
+                        }
                     }
                 }
-            }
-            DispatchQueue.main.async { self.spotTableView.reloadData() }
-            self.allSpotsR = self.spots
-        })
-        filterButton.setTitle("Filter Spots", for: .normal)
+                DispatchQueue.main.async { self.spotTableView.reloadData() }
+                self.allSpotsR = self.spots
+            })
+            filterButton.setTitle("Filter Spots", for: .normal)
+
     }
 
     func sortSpotsByDistance(completed: @escaping DownloadComplete){
-        
-        spots = allSpotsR
- 
-        spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
-       
-        for spot in spots{
-            let distanceInMeters = myLocation.distance(from: spot.location)
-            let milesAway = distanceInMeters / 1609
-            spot.distance = milesAway
+
+            spots = allSpotsR
             
-            spot.removeCountry(spotLocation: spot.spotLocation)
-
-        }
-        completed()
-        self.allSpotsD = spots
-        filterButton.setTitle("Filter Spots", for: .normal)
+            spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
+            
+            for spot in spots{
+                let distanceInMeters = myLocation.distance(from: spot.location)
+                let milesAway = distanceInMeters / 1609
+                spot.distance = milesAway
+                
+                spot.removeCountry(spotLocation: spot.spotLocation)
+                
+            }
+            completed()
+            self.allSpotsD = spots
+            filterButton.setTitle("Filter Spots", for: .normal)
         
-    }
+        }
     
-
     @IBAction func toggle(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1{
             
@@ -235,12 +238,15 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }else{
             
             loadSpotsbyRecentlyUploaded()
+            
+            
             spotTableView.scrollToRow(at: topItem, at: .top, animated: false)
-        }
+                spotTableView.reloadData()
+            
     }
-    
-    @IBAction func favButtonPressed(_ sender: Any) {
+        
     }
+
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         
         manager.stopUpdatingLocation()
