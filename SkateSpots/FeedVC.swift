@@ -194,7 +194,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                         if let spotDict = snap.value as? Dictionary<String, AnyObject>{
                             let key = snap.key
                             let spot = Spot(spotKey: key, spotData: spotDict)
-                            //self.spots.append(spot)
                             self.spots.insert(spot, at: 0)
                             
                         }

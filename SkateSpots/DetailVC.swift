@@ -290,7 +290,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         rateBtn.alpha = 0.3
         containerView.addSubview(rateBtn)
         
-        let ref = DataService.instance.refrenceToCurrentUser()
+        let ref = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
         ratingRef = ref.child("rated").child(spot.spotKey)
         
         

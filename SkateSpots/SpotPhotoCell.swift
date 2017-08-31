@@ -16,8 +16,6 @@ class SpotPhotoCell: UICollectionViewCell{
 
     var spot: Spot!
     
-    
-    
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
 
