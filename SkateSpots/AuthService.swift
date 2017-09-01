@@ -18,20 +18,13 @@ class AuthService{
         return _instance
     }
     
-    
-    
     func login(email: String, password: String, username: String, onComplete: Completion?){
-        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
-            
-            if error != nil{
-                if let errorCode = FIRAuthErrorCode(rawValue: error!._code){ //CHECK _CODE FOR ERROR
-                    print(errorCode.rawValue) // set error message for 17009 email in use wrong password
-
-                    if errorCode == .errorCodeUserNotFound{
-                        //could handle this by creating sign up button..mispelled email will create new account
+    
                         FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
                             if error != nil{
-                             
+                            
+                                if let errorCode = FIRAuthErrorCode(rawValue: error!._code){print(errorCode.rawValue)}
+                                
                                 self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
                             
                             } else{
@@ -51,28 +44,22 @@ class AuthService{
                                 }
                             }
                         })
-                    }
-                }else{
-                    self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
-                }
-            }else{
-                //Successfully logged in
-                onComplete?(nil, user)
-            }
-        })
+        
     }
     
     func logInExisting(email: String, password: String, onComplete: Completion?){
     
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
             if error != nil{
+              
+                if let errorCode = FIRAuthErrorCode(rawValue: error!._code){print(errorCode.rawValue)}
+                
                 self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
             } else{
                 // we have successfully logged in
                 onComplete?(nil, user)
             }
         })
-    
     
     }
     
@@ -82,13 +69,12 @@ class AuthService{
             switch errorCode {
             case .errorCodeInvalidEmail:
                 onComplete?("Invalid email address", nil)
-                break
             case .errorCodeWrongPassword:
-                onComplete?("Invalid password", nil)
-                break
-            case .errorCodeEmailAlreadyInUse, .errorCodeAccountExistsWithDifferentCredential:
-                onComplete?("Could not create account email already in use", nil)
-            // todo password less than 6  // , .errorCodeAccountExistsWithDifferentCredential
+                onComplete?("Invalid password\n\n If you've previously logged in with Facebook, you cannot log in with the same email you use for facebook. Log back in using Facebook or use a different email to create a new account", nil)
+            case .errorCodeEmailAlreadyInUse:   //, .errorCodeAccountExistsWithDifferentCredential
+                onComplete?("Could not create account email already in use. Please use Log In.", nil)
+            case .errorCodeAccountExistsWithDifferentCredential:
+                onComplete?("Could not create account email already in use existing credentials", nil)
             case .errorCodeWeakPassword:
                 onComplete?("Make sure password is 6 characters or more", nil)
             case .errorCodeNetworkError:

@@ -14,6 +14,7 @@ import CoreLocation
 import MapKit
 import FBSDKCoreKit
 import SwiftKeychainWrapper
+import FBSDKLoginKit
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
 
@@ -75,6 +76,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
         print("Mike: ID remover from keychain \(keychainResult)")
         try! FIRAuth.auth()?.signOut()
+        
+        //try! FBSDKLoginManager().logOut()
+        
         performSegue(withIdentifier: "LogInVC", sender: nil)
       
     }

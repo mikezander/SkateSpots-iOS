@@ -43,6 +43,12 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         
         userProflieView.addGestureRecognizer(setGestureRecognizer())
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+        
+    }
 
     @IBAction func logInPressed(_ sender: Any) {
 
@@ -65,12 +71,14 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             }
         
         }else{
-        
+            
+            
+
             if let email = emailField.text, let pwd = passwordField.text, let usrName = userNameField.text,
                 (email.characters.count > 0 && pwd.characters.count > 0){
                 
                 AuthService.instance.login(email: email, password: pwd, username: usrName, onComplete: { (errMsg, data) in
-                    
+                
                     guard errMsg == nil else{
                         self.errorAlert(title: "Error Authenticating", message: errMsg!)
                         return
@@ -104,50 +112,60 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     //** FB Log In Button **
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-        print("User logged in")
+
         fbLoginButton.isHidden = true
-        
-        if error != nil{
-        
-            fbLoginButton.isHidden = false
        
-        }else if result.isCancelled{
+        if result.isCancelled{
         
             fbLoginButton.isHidden = false
-        }
         
-        let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
-        
-        activityIndicator.startAnimating()
-        
-        FIRAuth.auth()?.signIn(with: credential){(user, error) in
+        }else{
             
-            if let user = FIRAuth.auth()?.currentUser{
-            let uid = user.uid
-            var name = user.displayName
-            let email = user.email
-
-                let delimiter = " "
-                if (name?.contains(delimiter))!{
-
-                    var token = name?.components(separatedBy: delimiter)
-                    name = "\(token![0]) " + String(token![1].characters.prefix(1))
-
+            let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+            
+            activityIndicator.startAnimating()
+            
+            FIRAuth.auth()?.signIn(with: credential){(user, error) in
+                
+                print("\(FBSDKAccessToken.current)token")
+                
+                if let user = FIRAuth.auth()?.currentUser{
+                    
+                    let uid = user.uid
+                    var name = user.displayName
+                    let email = user.email
+                    
+                    let delimiter = " "
+                    if (name?.contains(delimiter))!{
+                        
+                        var token = name?.components(separatedBy: delimiter)
+                        name = "\(token![0]) " + String(token![1].characters.prefix(1))
+                        
+                    }
+                    
+                    let userRef = DataService.instance.REF_USERS.child(user.uid)
+                    userRef.observeSingleEvent(of: .value, with: {snapshot in
+                        
+                        if ( snapshot.value is NSNull ) {
+                            print("fb user hasnt logged in before") //didnt find it, ok to proceed
+                            
+                            DataService.instance.saveFirebaseUser(uid: uid, email: email!, username: name!)
+                            DataService.instance.saveFacebookProfilePicture(uid: uid)
+                            
+                        } else {
+                            print("fb user loggen in before")//found it, stop!
+                        }
+                    })
+                    
+                    print("User logged in to firebase using facebook")
+                    
                 }
-    
-            DataService.instance.saveFirebaseUser(uid: uid, email: email!, username: name!)
-            
-            
-            DataService.instance.saveFacebookProfilePicture(uid: uid)
-
-            
-            print("User logged in to firebase using facebook")
+                
+                self.activityIndicator.stopAnimating()
+                self.performSegue(withIdentifier: "goToFeed", sender: nil)
             }
         
-            self.activityIndicator.stopAnimating()
-            self.performSegue(withIdentifier: "goToFeed", sender: nil)
         }
-      
         
     }
 
@@ -179,6 +197,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginButton!) {
         print("User logged out")
+        
     }
     
     func setGestureRecognizer() -> UITapGestureRecognizer {
