@@ -14,6 +14,7 @@ class DetailPhotoCell: UICollectionViewCell{
     //@IBOutlet var spotImage: UIImageView!
    
     var spotImage = UIImageView()
+    var activityIndicator = UIActivityIndicatorView()
 
     var spot: Spot!
 
@@ -24,7 +25,9 @@ class DetailPhotoCell: UICollectionViewCell{
         if img != nil{
             DispatchQueue.main.async {
                 self.spotImage.image = img
+                self.activityIndicator.stopAnimating()
             }
+            
             
         }else{
             
@@ -50,6 +53,8 @@ class DetailPhotoCell: UICollectionViewCell{
                     }
                    
                 }
+                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+
             })
             
         }

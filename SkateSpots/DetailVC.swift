@@ -44,6 +44,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var bestTimeimageView = UIImageView()
     var kickOutLabel = UILabel()
     var bestTimeLabel = UILabel()
+    var myActivityIndicator = UIActivityIndicatorView()
     var isFavorite = false
     
     let kickOutImageName = "cop_logo.png"
@@ -62,7 +63,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        
         refCurrentSpot = DataService.instance.REF_SPOTS.child(spot.spotKey)
         
         let screenWidth = screenSize.width
@@ -98,6 +98,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         btn1.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
         self.view.addSubview(btn1)
         
+        myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+        myActivityIndicator.frame = CGRect(x:screenWidth - 35 , y:25, width: 30,height: 30)
+        myActivityIndicator.hidesWhenStopped = true
+        view.addSubview(myActivityIndicator)
+        
         let headerLabel = UILabel()
         headerLabel.frame = CGRect(x: screenWidth / 2 - 60,y: 23,width:250, height:28)
         headerLabel.text = "Spot Details"
@@ -118,7 +123,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.showsHorizontalScrollIndicator = false
         collectionview.backgroundColor = UIColor.white
         self.containerView.addSubview(collectionview)
- 
+
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = .black
@@ -232,8 +237,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         containerView.addSubview(tableView)
         
-       
-       
+        
         //y: screenHeight + (screenHeight / 3) - 10
         commentLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
         // you will probably want to set the font (remember to use Dynamic Type!)
@@ -696,7 +700,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         pageControl.hidesForSinglePage = true
         pageControl.currentPage = indexPath.row
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
        
         let screenWidth = screenSize.width
@@ -704,13 +708,16 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight - 150))
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DetailPhotoCell
-  
+
         cell.spotImage = image
         cell.addSubview(image)
         
+        myActivityIndicator.startAnimating()
+        
+        cell.activityIndicator = myActivityIndicator
+  
         if indexPath.row < spot.imageUrls.count{
 
-            
             if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
                 print(indexPath.row)
                 
@@ -719,8 +726,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 cell.configureCell(spot: spot, count: indexPath.row)
             }
             
+
         }
-        
+
         return cell
     }
     
