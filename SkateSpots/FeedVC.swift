@@ -18,31 +18,28 @@ import FBSDKLoginKit
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
 
-    let manager = CLLocationManager()
-    var myLocation = CLLocation()
     typealias DownloadComplete = () -> ()
-    var firstSort = true
-    var spotNumber = Int()
-   
+
     @IBOutlet weak var filterButton: UIButton!
     @IBOutlet weak var spotTableView: UITableView!
     @IBOutlet weak var segmentControl: UISegmentedControl!
+    @IBOutlet weak var menuView: UIView!
+    @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
+    
+    static var imageCache: NSCache<NSString, UIImage> = NSCache()
+    static var profileImageCache: NSCache<NSString, UIImage> = NSCache()
 
     var spots = [Spot]()
     var allSpotsR = [Spot]()
     var allSpotsD = [Spot]()
+    let manager = CLLocationManager()
+    var myLocation = CLLocation()
+    var spotNumber = Int()
     var firstRun = true
-   
+    var firstSort = true
+    var menuShowing = false
     let topItem = IndexPath(item: 0, section: 0)
 
-    static var imageCache: NSCache<NSString, UIImage> = NSCache()
-    static var profileImageCache: NSCache<NSString, UIImage> = NSCache()
-    
-    @IBOutlet weak var menuView: UIView!
-    @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
-    
-    var menuShowing = false
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -62,8 +59,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         super.viewWillAppear(true)
        
         spotTableView.reloadData()
-                
-           
 
     }
 
@@ -75,9 +70,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
            return
         }
         
-        
-        
-        
+     
     }
 
     @IBAction func signOutFBTest(_ sender: Any) {
@@ -114,63 +107,51 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }else{
             self.spots = self.allSpotsD
         }
-
-        if sender.tag == 0{
-            if self.segmentControl.selectedSegmentIndex == 0{
-                self.spots = self.allSpotsR
-            }else{
-                self.spots = self.allSpotsD
-            }
-         
-            self.filterButton.setTitle("Filter Spots", for: .normal)
-        
-        }else if sender.tag == 1{
-            let filtered = self.spots.filter({return $0.sortBySpotType(type: "skatepark") == true})
-            self.spots = filtered
-            self.filterButton.setTitle("Skatepark", for: .normal)
-        
-        }else if sender.tag == 2{
-            let filtered = self.spots.filter({return $0.sortBySpotType(type: "ledges") == true})
-            self.spots = filtered
-            self.filterButton.setTitle("Ledges", for: .normal)
-            
-        }else if sender.tag == 3{
-            let filtered = self.spots.filter({return $0.sortBySpotType(type: "rail") == true})
-            self.spots = filtered
-            self.filterButton.setTitle("Rail", for: .normal)
-            
-        }else if sender.tag == 4{
-            let filtered = self.spots.filter({return $0.sortBySpotType(type: "stairs/gap") == true})
-            self.spots = filtered
-            self.filterButton.setTitle("Stairs/Gap", for: .normal)
-            
-        }else if sender.tag == 5{
-            let filtered = self.spots.filter({return $0.sortBySpotType(type: "bump") == true})
-            self.spots = filtered
-            self.filterButton.setTitle("Bump", for: .normal)
-            
-        }else if sender.tag == 6{
-            let filtered = self.spots.filter({return $0.sortBySpotType(type: "manual") == true})
-            self.spots = filtered
-            self.filterButton.setTitle("Manual", for: .normal)
-            
-        }else if sender.tag == 7{
-            let filtered = self.spots.filter({return $0.sortBySpotType(type: "bank") == true})
-            self.spots = filtered
-            self.filterButton.setTitle("Bank", for: .normal)
-
-        }else if sender.tag == 8{
-            let filtered = self.spots.filter({return $0.sortBySpotType(type: "tranny") == true})
-            self.spots = filtered
-            self.filterButton.setTitle("Tranny", for: .normal)
-            
-        }else if sender.tag == 9{
-            let filtered = self.spots.filter({return $0.sortBySpotType(type: "other") == true})
-            self.spots = filtered
-            self.filterButton.setTitle("Other", for: .normal)
-            
-        }
-        
+                
+                switch(sender.tag){
+                
+                case 0 :
+                    if self.segmentControl.selectedSegmentIndex == 0{
+                        self.spots = self.allSpotsR
+                    }else{
+                        self.spots = self.allSpotsD
+                    }
+                    self.filterButton.setTitle("Filter Spots", for: .normal)
+                   
+                    break
+                case 1:
+                    self.filterSpotsBy(type: "Skatepark")
+                    break
+                case 2:
+                    self.filterSpotsBy(type: "Ledges")
+                    break
+                case 3:
+                    self.filterSpotsBy(type: "Rail")
+                    break
+                case 4:
+                    self.filterSpotsBy(type: "Stairs/Gap")
+                    break
+                case 5:
+                    self.filterSpotsBy(type: "Bump")
+                    break
+                case 6:
+                    self.filterSpotsBy(type: "Manual")
+                    break
+                case 7:
+                    self.filterSpotsBy(type: "Bank")
+                    break
+                case 8:
+                    self.filterSpotsBy(type: "Tranny")
+                    break
+                case 9:
+                    self.filterSpotsBy(type: "Other")
+                    break
+                    
+                default:
+                    break
+                
+                }
+                
                 self.spotTableView.reloadData()
                 
                 if self.spotTableView.numberOfRows(inSection: 0) > 0{
@@ -185,6 +166,14 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
         })
         
+    }
+    
+    func filterSpotsBy(type:String){
+        let lowercaseType = type.lowercased()
+        let filtered = self.spots.filter({return $0.sortBySpotType(type: lowercaseType) == true})
+        self.spots = filtered
+        self.filterButton.setTitle(type, for: .normal)
+
     }
    
     @IBAction func openFilterMenu(_ sender: Any) {
@@ -270,7 +259,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 }else{
                     
                     self.loadSpotsbyRecentlyUploaded()
-                    
                     
                     self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
                     self.spotTableView.reloadData()
