@@ -373,7 +373,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="503"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9FZ-wn-ttt" id="Q15-SB-RDq">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="503"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="502.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh" customClass="CircleView" customModule="SkateSpots" customModuleProvider="target">
@@ -422,23 +422,22 @@
                                                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="IzG-xc-yJk">
                                                                         <rect key="frame" x="0.0" y="25" width="376" height="396"/>
                                                                     </imageView>
-                                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="OWk-bY-6G0">
+                                                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="FZ0-ct-JLH">
                                                                         <rect key="frame" x="178" y="208" width="20" height="20"/>
-                                                                        <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                                         <color key="color" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                                                                     </activityIndicatorView>
                                                                 </subviews>
                                                             </view>
                                                             <constraints>
-                                                                <constraint firstItem="OWk-bY-6G0" firstAttribute="centerX" secondItem="u2H-bT-D7V" secondAttribute="centerX" id="6Yj-Bh-zyV"/>
-                                                                <constraint firstItem="OWk-bY-6G0" firstAttribute="centerY" secondItem="u2H-bT-D7V" secondAttribute="centerY" id="MsR-dS-GEo"/>
+                                                                <constraint firstItem="FZ0-ct-JLH" firstAttribute="centerY" secondItem="u2H-bT-D7V" secondAttribute="centerY" id="FJu-F6-MsZ"/>
+                                                                <constraint firstItem="FZ0-ct-JLH" firstAttribute="centerX" secondItem="u2H-bT-D7V" secondAttribute="centerX" id="I99-0U-kWs"/>
                                                                 <constraint firstAttribute="trailing" secondItem="IzG-xc-yJk" secondAttribute="trailing" id="Wpd-7u-7d9"/>
                                                                 <constraint firstItem="IzG-xc-yJk" firstAttribute="top" secondItem="u2H-bT-D7V" secondAttribute="top" constant="25" id="glg-fc-HQ2"/>
                                                                 <constraint firstAttribute="bottom" secondItem="IzG-xc-yJk" secondAttribute="bottom" constant="15" id="n0S-yV-dvL"/>
                                                                 <constraint firstItem="IzG-xc-yJk" firstAttribute="leading" secondItem="u2H-bT-D7V" secondAttribute="leading" id="yGN-ph-x3O"/>
                                                             </constraints>
                                                             <connections>
-                                                                <outlet property="activityIndicator" destination="OWk-bY-6G0" id="5LP-dX-NLS"/>
+                                                                <outlet property="activityIndicator" destination="FZ0-ct-JLH" id="GgO-Xj-0Hs"/>
                                                                 <outlet property="spotImage" destination="IzG-xc-yJk" id="TnW-Tq-mGs"/>
                                                                 <segue destination="swM-zT-Qto" kind="presentation" id="wHi-97-VC8"/>
                                                             </connections>
@@ -721,10 +720,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="210" id="FSx-Nv-ahg" customClass="ProfileCell" customModule="SkateSpots" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55" width="414" height="210"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="210"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FSx-Nv-ahg" id="bBi-MO-Nas">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KlQ-kC-Ueo">
@@ -1786,7 +1785,7 @@
         <image name="star" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="qnT-aP-8uy"/>
+        <segue reference="myg-hR-9mM"/>
         <segue reference="wHi-97-VC8"/>
     </inferredMetricsTieBreakers>
 </document>

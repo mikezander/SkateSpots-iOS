@@ -24,6 +24,7 @@ class SpotRow: UITableViewCell{
     @IBOutlet weak var spotDistance: UILabel!
     @IBOutlet weak var miLabel: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
+
     
     var delegate: SpotRowDelegate?
     
@@ -90,8 +91,11 @@ class SpotRow: UITableViewCell{
 }
 
 extension SpotRow : UICollectionViewDataSource {
+    
+    
     override func prepareForReuse() {
-        
+        super.prepareForReuse()
+
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -111,9 +115,7 @@ extension SpotRow : UICollectionViewDataSource {
   
 
         cell.emptyImageView()
-
-        cell.activityIndicator.startAnimating()
- 
+        
         if indexPath.row < spot.imageUrls.count{
             
         if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
@@ -125,7 +127,7 @@ extension SpotRow : UICollectionViewDataSource {
             
         }
         
-        cell.activityIndicator.stopAnimating()
+        
             return cell
         }
  

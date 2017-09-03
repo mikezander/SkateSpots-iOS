@@ -21,12 +21,12 @@ class SpotPhotoCell: UICollectionViewCell{
 
         //download images
         if img != nil{
-
                 self.spotImage.image = img
-            
-            
+            DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+
         }else{
             
+
             //cache image
 
             let ref = FIRStorage.storage().reference(forURL:spot.imageUrls[count])
@@ -46,7 +46,7 @@ class SpotPhotoCell: UICollectionViewCell{
                         
                     }
                 }
-                
+                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
             })
         }
         
@@ -54,6 +54,7 @@ class SpotPhotoCell: UICollectionViewCell{
     
     func emptyImageView(){
         self.spotImage.image = nil
+        activityIndicator.startAnimating()
     }
     
 }
