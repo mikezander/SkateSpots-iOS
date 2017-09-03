@@ -35,7 +35,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
 
         userNameTextField.text = user.userName
@@ -85,77 +85,89 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     @IBAction func saveChangesPressed(_ sender: Any) {
         
-        var userDict = [String:AnyObject]()
-        var spotsDict = [String:AnyObject]()
-        var photoDict = [String:AnyObject]()
-  
-        if userNameTextField.text != "" && userNameTextField.text != user.userName{
+        DataService.instance.isConnectedToFirebase(completion: { connected in
             
-            userDict.updateValue(userNameTextField.text as AnyObject, forKey: "username")
-            spotsDict.updateValue(userNameTextField.text as AnyObject, forKey: "username")
-            addDictToSpot(dict: spotsDict)
-            hasBeenEdited = true
-        }
-  
-        if bioTextField.text != user.bio{
-            userDict.updateValue(bioTextField.text as AnyObject, forKey: "bio")
-            hasBeenEdited = true
-        }
-        
-        if linkTextField.text != user.link{
-            userDict.updateValue(linkTextField.text as AnyObject, forKey: "link")
-            hasBeenEdited = true
-        }
-        
-        if igLinkTextfield.text != user.igLink{
-            userDict.updateValue(igLinkTextfield.text as AnyObject, forKey: "igLink")
-            hasBeenEdited = true
-        
-        }
-        
-        if hasBeenEdited{
-            DataService.instance.updateUserProfile(uid: currentUserID, child: "profile", userData: userDict)
-        }
-        
-        if self.imageSelected{
-            
-            activityIndicator.startAnimating()
-            
-            if user.userImageURL != DEFAULT_PROFILE_PIC_URL{
-                DataService.instance.deleteFromStorage(urlString: user.userImageURL)
-            }
-            
-            
-            if let userImg = self.profileImage.image{
-                DataService.instance.addProfilePicToStorageWithCompletion(image: userImg){ url in
-
-                        photoDict.updateValue( url as AnyObject, forKey: "userImageURL")
+            if connected && hasConnected{
+                
+                var userDict = [String:AnyObject]()
+                var spotsDict = [String:AnyObject]()
+                var photoDict = [String:AnyObject]()
+                
+                if self.userNameTextField.text != "" && self.userNameTextField.text != self.user.userName{
                     
-                    self.addDictToSpot(dict: photoDict)
+                    userDict.updateValue(self.userNameTextField.text as AnyObject, forKey: "username")
+                    spotsDict.updateValue(self.userNameTextField.text as AnyObject, forKey: "username")
+                    self.addDictToSpot(dict: spotsDict)
+                    self.hasBeenEdited = true
+                }
+                
+                if self.bioTextField.text != self.user.bio{
+                    userDict.updateValue(self.bioTextField.text as AnyObject, forKey: "bio")
+                    self.hasBeenEdited = true
+                }
+                
+                if self.linkTextField.text != self.user.link{
+                    userDict.updateValue(self.linkTextField.text as AnyObject, forKey: "link")
+                    self.hasBeenEdited = true
+                }
+                
+                if self.igLinkTextfield.text != self.user.igLink{
+                    userDict.updateValue(self.igLinkTextfield.text as AnyObject, forKey: "igLink")
                     self.hasBeenEdited = true
                     
-                    self.delegate?.hasProfileBeenEdited(edited: self.hasBeenEdited)
+                }
+                
+                if self.hasBeenEdited{
+                    DataService.instance.updateUserProfile(uid: self.currentUserID, child: "profile", userData: userDict)
+                }
+                
+                if self.imageSelected{
                     
-                    self.activityIndicator.stopAnimating()
+                    self.activityIndicator.startAnimating()
+                    
+                    if self.user.userImageURL != DEFAULT_PROFILE_PIC_URL{
+                        DataService.instance.deleteFromStorage(urlString: self.user.userImageURL)
+                    }
+                    
+                    
+                    if let userImg = self.profileImage.image{
+                        DataService.instance.addProfilePicToStorageWithCompletion(image: userImg){ url in
+                            
+                            photoDict.updateValue( url as AnyObject, forKey: "userImageURL")
+                            
+                            self.addDictToSpot(dict: photoDict)
+                            self.hasBeenEdited = true
+                            
+                            self.delegate?.hasProfileBeenEdited(edited: self.hasBeenEdited)
+                            
+                            self.activityIndicator.stopAnimating()
+                            
+                            _ = self.navigationController?.popViewController(animated: true)
+                            
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                        
+                    }
+                    
+                }else{
+                    
+                    self.delegate?.hasProfileBeenEdited(edited: self.hasBeenEdited)
                     
                     _ = self.navigationController?.popViewController(animated: true)
                     
                     self.dismiss(animated: true, completion: nil)
+                    
+                    
                 }
-  
-        }
-    
-        }else{
-        
-            delegate?.hasProfileBeenEdited(edited: hasBeenEdited)
+
+                
+            }else{
+                self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
+            }
             
-            _ = self.navigationController?.popViewController(animated: true)
-            
-            self.dismiss(animated: true, completion: nil)
+        })
         
         
-        }
-     
     }
     
     
@@ -176,6 +188,12 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     func showPhotoActionSheet(){
+        
+        guard hasConnected else {
+            errorAlert(title: "Network Connection Error", message: "Make sure you connected and try again")
+            return
+        }
+        
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in

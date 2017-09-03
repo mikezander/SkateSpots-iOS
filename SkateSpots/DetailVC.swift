@@ -119,7 +119,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.backgroundColor = UIColor.white
         self.containerView.addSubview(collectionview)
  
-        spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 23))
+        spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = .black
         spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 130)
@@ -396,6 +396,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
+        tableView.reloadData()
+        
         if commentsArray.count > 0{
         let lastItem = IndexPath(item: commentsArray.count - 1, section: 0)
         tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
@@ -482,6 +484,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     func commentPressed(completion: @escaping (Bool) -> ()){
         
+        if isInternetAvailable() && hasConnected{
+
+        
         if commentView.text != "Add a comment" && commentView.text != "" && commentView.text != " " && commentView.text != "  "{
 
             postButton.isEnabled = false
@@ -515,54 +520,66 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             
  
         }
+            
+            
+        }else{
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+        }
         
     }
     
     func rateSpotPressed(){
- 
-        handleOneReviewPerSpot(ref: ratingRef)
         
-        ratingRef.setValue(true)
+        if isInternetAvailable() && hasConnected{
+        
+            handleOneReviewPerSpot(ref: ratingRef)
+            
+            ratingRef.setValue(true)
+            
+            refCurrentSpot.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
+                    var ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
+                    
+                    ratingVotes += 1
+                    
+                    let rating: Dictionary<String, AnyObject> = [
+                        "rating": (self.ratingView.rating + ratingTally) as AnyObject,
+                        "ratingVotes": ratingVotes as AnyObject
+                    ]
+                    self.refCurrentSpot.updateChildValues(rating)
+                    
+                    var updatedRating = (self.ratingView.rating + ratingTally) / Double(ratingVotes)
+                    updatedRating = (updatedRating * 10).rounded() / 10
+                    print("\(updatedRating) Updatedrating")
+                    self.ratingDisplayView.rating = updatedRating
+                    self.ratingDisplayView.text = ("(\(ratingVotes))")
+                    
+                    self.ratingDisplayLbl.text = "\(updatedRating) out of 5 stars"
+                    
+                    
+                }else{
+                    let rating: Dictionary<String, AnyObject> = [
+                        "rating": self.ratingView.rating as AnyObject,
+                        "ratingVotes": 1 as AnyObject
+                    ]
+                    self.refCurrentSpot.updateChildValues(rating)
+                    
+                    self.ratingDisplayView.rating = self.ratingView.rating
+                    self.ratingDisplayView.text = ("(\(1))")
+                    
+                    let updatedRating = (self.ratingView.rating * 10).rounded() / 10
+                    self.ratingDisplayView.rating = updatedRating
+                    self.ratingDisplayLbl.text = "\(updatedRating) out of 5 stars"
+                    
+                }
+                
+                
+            })
 
-        refCurrentSpot.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
-             var ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
-                
-                ratingVotes += 1
-                
-                let rating: Dictionary<String, AnyObject> = [
-                    "rating": (self.ratingView.rating + ratingTally) as AnyObject,
-                    "ratingVotes": ratingVotes as AnyObject
-                    ]
-                self.refCurrentSpot.updateChildValues(rating)
-                
-                var updatedRating = (self.ratingView.rating + ratingTally) / Double(ratingVotes)
-                updatedRating = (updatedRating * 10).rounded() / 10
-                print("\(updatedRating) Updatedrating")
-                self.ratingDisplayView.rating = updatedRating
-                self.ratingDisplayView.text = ("(\(ratingVotes))")
-                
-                self.ratingDisplayLbl.text = "\(updatedRating) out of 5 stars"
-            
-           
-            }else{
-                let rating: Dictionary<String, AnyObject> = [
-                    "rating": self.ratingView.rating as AnyObject,
-                    "ratingVotes": 1 as AnyObject
-                    ]
-                self.refCurrentSpot.updateChildValues(rating)
-                
-                self.ratingDisplayView.rating = self.ratingView.rating
-                self.ratingDisplayView.text = ("(\(1))")
-                
-                let updatedRating = (self.ratingView.rating * 10).rounded() / 10
-                self.ratingDisplayView.rating = updatedRating
-                self.ratingDisplayLbl.text = "\(updatedRating) out of 5 stars"
-                
-            }
-            
-        
-        })
+        }else{
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+        }
+ 
         
     }
     
@@ -589,6 +606,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         favoriteButton.isEnabled = false
         favoriteButton.isOpaque = false
+        favoriteButton.alpha = 0.3
         errorAlert(title: "", message: "Added \(spot.spotName) to favorites")
     
     }

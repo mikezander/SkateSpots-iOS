@@ -289,6 +289,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func showPhotoActionSheet(){
+        
+        guard isInternetAvailable() && hasConnected else{
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+            return
+        }
+        
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
@@ -365,6 +371,11 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     @IBAction func addSpotButtonPressed(_ sender: Any) {
+        
+            guard isInternetAvailable() && hasConnected else{
+                errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+                return
+            }
  
             
             guard let spotName = spotNameField.text, spotName != "" else{

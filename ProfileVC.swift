@@ -34,32 +34,38 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        if userKey == nil{
-        
-        userRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
-            allowEdit = true
-        
-        }else{
-        
-            if let key = userKey{
-            userRef = DataService.instance.REF_USERS.child(key)
+ 
+
+            if userKey == nil{
+                
+                userRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
+                allowEdit = true
+                
+            }else{
+                
+                if let key = userKey{
+                    userRef = DataService.instance.REF_USERS.child(key)
+                }
+                editButton.isEnabled = false
+                editButton.isHidden = true
+                allowEdit = false
+                headerLabel.isHidden = true
+                
             }
-            editButton.isEnabled = false
-            editButton.isHidden = true
-            allowEdit = false
-            headerLabel.isHidden = true
-    
+            
+            addUserData()
+            
+            appendSpotsArray()
+            
+            print(spots.count)
+            
+            spotTableView.register(HeaderCell.self, forCellReuseIdentifier: "headerCell")
+        
+        guard hasConnected else{
+            errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
+            return
         }
         
-        addUserData()
-
-        appendSpotsArray()
-
-        print(spots.count)
-       
-        spotTableView.register(HeaderCell.self, forCellReuseIdentifier: "headerCell")
-
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -119,6 +125,22 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         })
     
     }
+    
+    override func shouldPerformSegue(withIdentifier identifier: String, sender: Any?) -> Bool {
+        var connected = Bool()
+        
+        if isInternetAvailable() && hasConnected{
+            connected = true
+        }else if !isInternetAvailable(){
+            errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
+            connected = false
+        
+        }
+
+        return connected
+    }
+    
+    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
  

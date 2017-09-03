@@ -24,6 +24,11 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        guard hasConnected else {
+            errorAlert(title: "Network Connection Error", message: "Make sure you connected and try again")
+            return
+        }
+        
        loadSpotsArray()
 
     }

@@ -45,6 +45,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        isConnected()
 
         DispatchQueue.main.async { self.spotTableView.reloadData() }
         
@@ -58,7 +60,11 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+       
         spotTableView.reloadData()
+                
+           
+
     }
 
     override func viewDidAppear(_ animated: Bool) {
@@ -68,6 +74,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             performSegue(withIdentifier: "LogInVC", sender: nil)
            return
         }
+        
+        
         
         
     }
@@ -84,8 +92,13 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
     @IBAction func filterButtonPressed(_ sender: UIButton) {
+        
+        
+        DataService.instance.isConnectedToFirebase(completion: { connected in
+            
+            if connected && hasConnected{
 
-        trailingConstraint.constant = -160
+        self.trailingConstraint.constant = -160
         self.spotTableView.isUserInteractionEnabled = true
         
         UIView.animate(withDuration: 0.5, delay:0, usingSpringWithDamping: 1, initialSpringVelocity:1,
@@ -94,72 +107,83 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                         self.view.layoutIfNeeded()
         })
         
-        menuShowing = !menuShowing
+        self.menuShowing = !self.menuShowing
         
-        if segmentControl.selectedSegmentIndex == 0{
-            spots = allSpotsR
+        if self.segmentControl.selectedSegmentIndex == 0{
+            self.spots = self.allSpotsR
         }else{
-            spots = allSpotsD
+            self.spots = self.allSpotsD
         }
 
         if sender.tag == 0{
-            if segmentControl.selectedSegmentIndex == 0{
-                spots = allSpotsR
+            if self.segmentControl.selectedSegmentIndex == 0{
+                self.spots = self.allSpotsR
             }else{
-                spots = allSpotsD
+                self.spots = self.allSpotsD
             }
          
-            filterButton.setTitle("Filter Spots", for: .normal)
+            self.filterButton.setTitle("Filter Spots", for: .normal)
         
         }else if sender.tag == 1{
-            let filtered = spots.filter({return $0.sortBySpotType(type: "skatepark") == true})
-            spots = filtered
-            filterButton.setTitle("Skatepark", for: .normal)
+            let filtered = self.spots.filter({return $0.sortBySpotType(type: "skatepark") == true})
+            self.spots = filtered
+            self.filterButton.setTitle("Skatepark", for: .normal)
         
         }else if sender.tag == 2{
-            let filtered = spots.filter({return $0.sortBySpotType(type: "ledges") == true})
-            spots = filtered
-            filterButton.setTitle("Ledges", for: .normal)
+            let filtered = self.spots.filter({return $0.sortBySpotType(type: "ledges") == true})
+            self.spots = filtered
+            self.filterButton.setTitle("Ledges", for: .normal)
             
         }else if sender.tag == 3{
-            let filtered = spots.filter({return $0.sortBySpotType(type: "rail") == true})
-            spots = filtered
-            filterButton.setTitle("Rail", for: .normal)
+            let filtered = self.spots.filter({return $0.sortBySpotType(type: "rail") == true})
+            self.spots = filtered
+            self.filterButton.setTitle("Rail", for: .normal)
             
         }else if sender.tag == 4{
-            let filtered = spots.filter({return $0.sortBySpotType(type: "stairs/gap") == true})
-            spots = filtered
-            filterButton.setTitle("Stairs/Gap", for: .normal)
+            let filtered = self.spots.filter({return $0.sortBySpotType(type: "stairs/gap") == true})
+            self.spots = filtered
+            self.filterButton.setTitle("Stairs/Gap", for: .normal)
             
         }else if sender.tag == 5{
-            let filtered = spots.filter({return $0.sortBySpotType(type: "bump") == true})
-            spots = filtered
-            filterButton.setTitle("Bump", for: .normal)
+            let filtered = self.spots.filter({return $0.sortBySpotType(type: "bump") == true})
+            self.spots = filtered
+            self.filterButton.setTitle("Bump", for: .normal)
             
         }else if sender.tag == 6{
-            let filtered = spots.filter({return $0.sortBySpotType(type: "manual") == true})
-            spots = filtered
-            filterButton.setTitle("Manual", for: .normal)
+            let filtered = self.spots.filter({return $0.sortBySpotType(type: "manual") == true})
+            self.spots = filtered
+            self.filterButton.setTitle("Manual", for: .normal)
             
         }else if sender.tag == 7{
-            let filtered = spots.filter({return $0.sortBySpotType(type: "bank") == true})
-            spots = filtered
-            filterButton.setTitle("Bank", for: .normal)
+            let filtered = self.spots.filter({return $0.sortBySpotType(type: "bank") == true})
+            self.spots = filtered
+            self.filterButton.setTitle("Bank", for: .normal)
 
         }else if sender.tag == 8{
-            let filtered = spots.filter({return $0.sortBySpotType(type: "tranny") == true})
-            spots = filtered
-            filterButton.setTitle("Tranny", for: .normal)
+            let filtered = self.spots.filter({return $0.sortBySpotType(type: "tranny") == true})
+            self.spots = filtered
+            self.filterButton.setTitle("Tranny", for: .normal)
             
         }else if sender.tag == 9{
-            let filtered = spots.filter({return $0.sortBySpotType(type: "other") == true})
-            spots = filtered
-            filterButton.setTitle("Other", for: .normal)
+            let filtered = self.spots.filter({return $0.sortBySpotType(type: "other") == true})
+            self.spots = filtered
+            self.filterButton.setTitle("Other", for: .normal)
             
         }
-        spotTableView.reloadData()
-        spotTableView.scrollToRow(at: topItem, at: .top, animated: false)
+        
+                self.spotTableView.reloadData()
+                
+                if self.spotTableView.numberOfRows(inSection: 0) > 0{
+                    self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
+                }
+
             
+
+            }else{
+                self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
+            }
+    
+        })
         
     }
    
@@ -231,22 +255,35 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }
     
     @IBAction func toggle(_ sender: UISegmentedControl) {
-        if sender.selectedSegmentIndex == 1{
+        
+        DataService.instance.isConnectedToFirebase(completion: { connected in
             
-            manager.delegate = self
-            manager.requestWhenInUseAuthorization()
-            manager.startUpdatingLocation()
-            //maybe use bestAccuracy
+            if connected && hasConnected{
+                
+                if sender.selectedSegmentIndex == 1{
+                    
+                    self.manager.delegate = self
+                    self.manager.requestWhenInUseAuthorization()
+                    self.manager.startUpdatingLocation()
+                    //maybe use bestAccuracy
+                    
+                }else{
+                    
+                    self.loadSpotsbyRecentlyUploaded()
+                    
+                    
+                    self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
+                    self.spotTableView.reloadData()
+                    
+                }
             
-        }else{
-            
-            loadSpotsbyRecentlyUploaded()
-            
-            
-            spotTableView.scrollToRow(at: topItem, at: .top, animated: false)
-                spotTableView.reloadData()
-            
-    }
+            }else{
+            self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
+            }
+        
+        })
+        
+       
         
     }
 
@@ -288,6 +325,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     func lblClick(tapGesture:UITapGestureRecognizer){
         
+        
         let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
         vc.userKey = spots[tapGesture.view!.tag].user
         self.navigationController?.pushViewController(vc, animated:true)
@@ -322,7 +360,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         return cell
     }
-
+    
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
         if let spotCell = sender as? SpotPhotoCell,

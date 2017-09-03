@@ -63,6 +63,18 @@ class DataService{
         return _REF_USER_IMAGE
     }
     
+    func isConnectedToFirebase(completion: @escaping (_ connected:Bool) -> ()){
+    
+    REF_CONNECTION.observe(.value, with: { snapshot in
+    if snapshot.value as? Bool ?? false {
+   completion(true)
+    } else {
+   completion(false)
+    }
+    })
+    
+    }
+    
     
     func saveFirebaseUser(uid: String, email: String, username: String){
         let keychainResult = KeychainWrapper.standard.set(uid, forKey: KEY_UID)
