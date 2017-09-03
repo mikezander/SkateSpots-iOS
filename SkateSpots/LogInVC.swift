@@ -51,6 +51,11 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     }
 
     @IBAction func logInPressed(_ sender: Any) {
+        
+        guard hasConnected else {
+            errorAlert(title: "Network Connection Error", message: "Make sure you connected and try again")
+            return
+        }
 
     
         if logInButton.title(for: .normal) == "Log In"{
@@ -65,6 +70,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                     self.performSegue(withIdentifier: "goToFeed", sender: nil)
                 
                 })
+           
             }else{
                
                 errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
