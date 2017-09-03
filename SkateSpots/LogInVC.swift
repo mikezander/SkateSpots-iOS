@@ -60,6 +60,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
         if logInButton.title(for: .normal) == "Log In"{
             if let email = emailField.text, let pwd = passwordField.text,(email.characters.count > 0 && pwd.characters.count > 0){
+                
+                activityIndicator.startAnimating()
             
                 AuthService.instance.logInExisting(email: email, password: pwd, onComplete: {(errMsg, data) in
                     
@@ -67,6 +69,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                         self.errorAlert(title: "Error Authenticating", message: errMsg!)
                         return
                     }
+                    
+                    DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                     self.performSegue(withIdentifier: "goToFeed", sender: nil)
                 
                 })
@@ -82,6 +86,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
 
             if let email = emailField.text, let pwd = passwordField.text, let usrName = userNameField.text,
                 (email.characters.count > 0 && pwd.characters.count > 0){
+                
+                activityIndicator.startAnimating()
                 
                 AuthService.instance.login(email: email, password: pwd, username: usrName, onComplete: { (errMsg, data) in
                 
@@ -102,7 +108,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                         ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
                         
                     }
-
+                    
+                    DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                     self.performSegue(withIdentifier: "goToFeed", sender: nil)
                 })
                 
