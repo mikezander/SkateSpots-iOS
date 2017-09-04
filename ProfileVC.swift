@@ -326,6 +326,8 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! ProfileCell
         
+        cell.activityIdicator.startAnimating()
+        
         if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[0] as NSString){
             
             cell.configureCell(spot: spot, img: img, count: 0)

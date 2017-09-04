@@ -741,13 +741,18 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3Xt-iX-BDU">
+                                                    <rect key="frame" x="197" y="61" width="20" height="20"/>
+                                                </activityIndicatorView>
                                             </subviews>
                                             <constraints>
                                                 <constraint firstItem="G0V-0F-rgM" firstAttribute="top" secondItem="KlQ-kC-Ueo" secondAttribute="bottom" constant="8" id="1Kf-sR-DD7"/>
                                                 <constraint firstItem="G0V-0F-rgM" firstAttribute="leading" secondItem="bBi-MO-Nas" secondAttribute="leadingMargin" id="7Hs-oc-sLg"/>
                                                 <constraint firstItem="uWl-WW-3ad" firstAttribute="leading" secondItem="bBi-MO-Nas" secondAttribute="leadingMargin" id="BKP-1o-HfV"/>
                                                 <constraint firstItem="G0V-0F-rgM" firstAttribute="trailing" secondItem="bBi-MO-Nas" secondAttribute="trailingMargin" id="Fog-yO-uZg"/>
+                                                <constraint firstItem="KlQ-kC-Ueo" firstAttribute="top" secondItem="3Xt-iX-BDU" secondAttribute="bottom" constant="-81" id="HKT-hp-DQQ"/>
                                                 <constraint firstAttribute="trailing" secondItem="KlQ-kC-Ueo" secondAttribute="trailing" id="Tss-un-saD"/>
+                                                <constraint firstItem="3Xt-iX-BDU" firstAttribute="centerX" secondItem="bBi-MO-Nas" secondAttribute="centerX" id="UrU-vW-z4h"/>
                                                 <constraint firstItem="KlQ-kC-Ueo" firstAttribute="top" secondItem="bBi-MO-Nas" secondAttribute="top" id="Vt9-vZ-pex"/>
                                                 <constraint firstItem="uWl-WW-3ad" firstAttribute="top" secondItem="G0V-0F-rgM" secondAttribute="bottom" constant="8" id="XDT-v0-txm"/>
                                                 <constraint firstAttribute="bottom" secondItem="uWl-WW-3ad" secondAttribute="bottom" constant="5.3300000000000001" id="ttY-Kz-9NZ"/>
@@ -756,6 +761,7 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                         <connections>
+                                            <outlet property="activityIdicator" destination="3Xt-iX-BDU" id="VRj-qK-5TW"/>
                                             <outlet property="spotImage" destination="KlQ-kC-Ueo" id="ZIs-yW-0tz"/>
                                             <outlet property="spotLocationLabel" destination="uWl-WW-3ad" id="T6X-Dm-0fk"/>
                                             <outlet property="spotNameLabel" destination="G0V-0F-rgM" id="CUI-CX-RPu"/>
@@ -1753,7 +1759,7 @@
                     </tabBarItem>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fWj-2D-zkp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fWj-2D-zkp">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>

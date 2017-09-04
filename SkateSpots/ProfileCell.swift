@@ -17,6 +17,7 @@ class ProfileCell: UITableViewCell{
     
     @IBOutlet weak var spotLocationLabel: UILabel!
     
+    @IBOutlet weak var activityIdicator: UIActivityIndicatorView!
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spotNameLabel.text = spot.spotName
         self.spotLocationLabel.text = spot.spotLocation
@@ -26,6 +27,7 @@ class ProfileCell: UITableViewCell{
             
             DispatchQueue.main.async {
                 self.spotImage.image = img
+                self.activityIndicator.stopAnimating()
             }
             
         }else{
@@ -48,7 +50,7 @@ class ProfileCell: UITableViewCell{
   
                     }
                 }
-                
+                DispatchQueue.main.async{self.activityIndicator.stopAnimating()}
             })
             
         }
