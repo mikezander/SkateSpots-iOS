@@ -27,7 +27,7 @@ class ProfileCell: UITableViewCell{
             
             DispatchQueue.main.async {
                 self.spotImage.image = img
-                self.activityIndicator.stopAnimating()
+                self.activityIdicator.stopAnimating()
             }
             
         }else{
@@ -50,7 +50,7 @@ class ProfileCell: UITableViewCell{
   
                     }
                 }
-                DispatchQueue.main.async{self.activityIndicator.stopAnimating()}
+                DispatchQueue.main.async{self.activityIdicator.stopAnimating()}
             })
             
         }
