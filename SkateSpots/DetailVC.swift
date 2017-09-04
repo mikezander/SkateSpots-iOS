@@ -455,7 +455,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             }
             
         }) {(error) in
-            print(error.localizedDescription)
+            self.errorAlert(title: "Error Loading Comments", message: "\(error.localizedDescription)")
         }
         
     }
