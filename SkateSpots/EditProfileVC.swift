@@ -126,13 +126,19 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                     self.activityIndicator.startAnimating()
                     
                     if self.user.userImageURL != DEFAULT_PROFILE_PIC_URL{
-                        DataService.instance.deleteFromStorage(urlString: self.user.userImageURL, completion: {error in
+                        DataService.instance.deleteFromStorage(urlString: self.user.userImageURL, completion: { error in
                         
                             guard error == nil else{
                                 self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
                                 return
                             }
+                            
+                        })
                         
+                        
+                        
+                    }
+                    
                             if let userImg = self.profileImage.image{
                                 
                                 DataService.instance.addProfilePicToStorageWithCompletion(image: userImg){ url in
@@ -153,11 +159,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                                 
                             }
                         
-                        })
-                        
-                        
-                    
-                    }
+                      
                     
                     
                     

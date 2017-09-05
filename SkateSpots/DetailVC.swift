@@ -96,7 +96,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
        
         btn1.frame = CGRect(x:4, y:21, width: 30,height: 30)
         btn1.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
-        self.view.addSubview(btn1)
+        view.addSubview(btn1)
         
         myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
         myActivityIndicator.frame = CGRect(x:screenWidth - 35 , y:25, width: 30,height: 30)
@@ -108,7 +108,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         headerLabel.text = "Spot Details"
         headerLabel.textColor = UIColor.white
         headerLabel.font = UIFont(name: "Gurmukhi MN", size: 20)
-        self.view.addSubview(headerLabel)
+        view.addSubview(headerLabel)
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
@@ -122,7 +122,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.register(DetailPhotoCell.self, forCellWithReuseIdentifier: cellId)
         collectionview.showsHorizontalScrollIndicator = false
         collectionview.backgroundColor = UIColor.white
-        self.containerView.addSubview(collectionview)
+        containerView.addSubview(collectionview)
 
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
@@ -130,7 +130,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 130)
         spotNameLbl.textAlignment = .center
         spotNameLbl.text = spot.spotName
-        self.containerView.addSubview(spotNameLbl)
+        containerView.addSubview(spotNameLbl)
         
         pageControl = UIPageControl(frame: CGRect(x: -25, y: spotNameLbl.frame.origin.y - 13, width: 50, height: 20))
         pageControl.pageIndicatorTintColor = UIColor.lightGray
@@ -143,7 +143,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 105)
         spotTypeLbl.textAlignment = .center
         spotTypeLbl.text = spot.spotType
-        self.containerView.addSubview(spotTypeLbl)
+        containerView.addSubview(spotTypeLbl)
         
         ratingDisplayView.settings.starSize = 25
         ratingDisplayView.frame =  CGRect(x:0, y:0, width: 250,height: 20)
@@ -152,14 +152,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingDisplayView.settings.fillMode = .precise
         containerView.addSubview(ratingDisplayView)
         
-        
         ratingDisplayLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
         ratingDisplayLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         ratingDisplayLbl.textColor = .black
         ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 65)
         ratingDisplayLbl.textAlignment = .center
         ratingDisplayLbl.alpha = 0.4
-        self.containerView.addSubview(ratingDisplayLbl)
+        containerView.addSubview(ratingDisplayLbl)
 
         let descriptionLbl = UILabel(frame: CGRect(x: 10, y: screenHeight - 50, width: screenWidth - 5, height: 20))
         descriptionLbl.font = UIFont(name: "Avenir-Black", size: 14)
@@ -173,8 +172,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         descriptionTextView.isSelectable = false
         descriptionTextView.font = UIFont(name: "Helvetica", size: 14)
         descriptionTextView.alpha = 0.75
-        
-        
         descriptionTextView.backgroundColor = UIColor.clear
         
         if spot.spotDescription == "Spot Description"{
@@ -198,7 +195,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         kickOutLabel.textAlignment = .center
         kickOutLabel.text = "\(spot.kickOut) bust"
         containerView.addSubview(kickOutLabel)
-        
         
         let bestTimeImage = UIImage(named:bestTimeImageName)
         bestTimeimageView = UIImageView(image: bestTimeImage)
@@ -226,32 +222,22 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         grayView.layer.shadowPath = shadowPath.cgPath
         containerView.addSubview(grayView)
        
-        
-        
-        // y: screenHeight + screenHeight / 3
         tableView.frame = CGRect(x:10, y: kickOutLabel.frame.origin.y + 70, width: screenWidth - 20, height: screenHeight / 3 + 40)
         tableView.register(CommentCell.self, forCellReuseIdentifier: "cell")
         tableView.layer.borderWidth = 1
         tableView.delegate = self
         tableView.dataSource = self
-        
         containerView.addSubview(tableView)
-        
-        
-        //y: screenHeight + (screenHeight / 3) - 10
+
         commentLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
-        // you will probably want to set the font (remember to use Dynamic Type!)
         commentLbl.font = UIFont.preferredFont(forTextStyle: .headline)
         commentLbl.textColor = .white
         commentLbl.center = CGPoint(x: screenWidth / 2, y: tableView.frame.origin.y - 20)
         commentLbl.textAlignment = .center
         commentLbl.alpha = 0.5
         commentLbl.font = commentLbl.font.withSize(15)
-        
-        self.containerView.addSubview(commentLbl)
+        containerView.addSubview(commentLbl)
 
-        
-        //y: screenHeight + ((screenHeight / 3) * 2)
         commentView = UITextView(frame: CGRect(x: 10, y: tableView.frame.origin.y + tableView.frame.height, width: tableView.frame.size.width - 40, height: 40))
         commentView.delegate = self
         commentView.text = "Add a comment"
@@ -261,9 +247,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         commentView.textColor = UIColor.lightGray
         commentView.layer.borderWidth = 1.25
         commentView.layer.cornerRadius = 2.0
-        
         containerView.addSubview(commentView)
-        
         
         postButton = UIButton()
         postButton.frame = CGRect(x: screenWidth - 50, y: tableView.frame.origin.y + tableView.frame.height, width: 40, height: 40)
@@ -271,7 +255,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         postButton.layer.borderWidth = 2.0
         postButton.setImage(UIImage(named: "comment_btn")?.withRenderingMode(.alwaysOriginal), for: .normal)
         postButton.setImage(UIImage(named: "comment_btn")?.withRenderingMode(.alwaysOriginal), for: .highlighted)
-        //postButton.setTitle("Name your Button ", for: .normal)
         postButton.addTarget(self, action:#selector(commentPressedHandler), for: .touchUpInside)
         containerView.addSubview(postButton)
 
@@ -290,13 +273,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         rateBtn.layer.masksToBounds = false
         rateBtn.layer.cornerRadius = 4.0
         rateBtn.addTarget(self, action:#selector(rateSpotPressed), for: .touchUpInside)
-        
         rateBtn.alpha = 0.3
         containerView.addSubview(rateBtn)
         
         let ref = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
         ratingRef = ref.child("rated").child(spot.spotKey)
-        
         
         handleOneReviewPerSpot(ref: ratingRef)
         
@@ -307,8 +288,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             self.ratingView.text = "(\(displayRating))"
             self.ratingView.settings.filledBorderColor = UIColor.black
         }
-        
-        
         
         refCurrentSpot.observeSingleEvent(of: .value, with: { (snapshot) in
             if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
@@ -332,9 +311,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             
         })
         
-
         loadComments()
-        //x: screenWidth / 2 - 75
         
         favoriteButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  rateBtn.frame.origin.y + rateBtn.frame.height + 20 , width: 135, height: 25))
         favoriteButton.setTitle("Favorite", for: .normal)
@@ -369,14 +346,10 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         directionsButton.addTarget(self, action:#selector(getDirections), for: .touchUpInside)
         containerView.addSubview(directionsButton)
         
-        
-        
         if isFavorite{
             favoriteButton.isEnabled = false
             favoriteButton.layer.opacity = 0.4
         }
-        
-       
 }
     
     override func viewDidLayoutSubviews() {
@@ -388,6 +361,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
         subscribeToKeyboardNotifications()
     }
     
@@ -448,8 +422,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     }
                     
                 }
-                
-                
                 
                 self.configCommentCountLabel(count: self.commentCount)
             }
@@ -576,15 +548,12 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     self.ratingDisplayLbl.text = "\(updatedRating) out of 5 stars"
                     
                 }
-                
-                
             })
 
         }else{
             errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
         }
- 
-        
+   
     }
     
     func handleOneReviewPerSpot(ref: FIRDatabaseReference){
@@ -777,9 +746,8 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
     let temp = commentsArray[indexPath.row].comment
         let tempCount = temp.characters.count
     print(tempCount)
-      /*  if tempCount >= 30 && tempCount <= 60{
-           height = 75
-        }else */if tempCount >= 60 && tempCount <= 80{
+    
+    if tempCount >= 60 && tempCount <= 80{
         height = 80
         }else if tempCount > 80 && tempCount < 100{
             height = 90

@@ -71,7 +71,7 @@ class MapVC: UIViewController{
     func getUsersLocation(){
     
         manager.delegate = self
-        manager.desiredAccuracy = kCLLocationAccuracyBest
+        manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         manager.requestWhenInUseAuthorization()
         manager.startUpdatingLocation()
     }

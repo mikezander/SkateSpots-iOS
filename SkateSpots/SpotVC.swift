@@ -320,14 +320,17 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             
             if (!locationFound) && (latitude == nil) && (longitude == nil){
-            if(picker.sourceType == .camera){
+           
+                if(picker.sourceType == .camera){
                 
                 locationManager = CLLocationManager()
                 locationManager.delegate = self
+                //locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+                locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
                 locationManager.requestWhenInUseAuthorization()
-                locationManager.requestLocation()
-    
-            }else{
+                locationManager.startUpdatingLocation()
+
+                }else{
             
                 if let imageUrl = info[UIImagePickerControllerReferenceURL] as? NSURL{
                     let asset = PHAsset.fetchAssets(withALAssetURLs:[imageUrl as URL], options: nil).firstObject as PHAsset?
@@ -350,6 +353,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             topPhotoLabel.isHidden = false
             imageSelected = true
             count += 1
+            
         }else{
             print("valid image wasn't selected")
         }
@@ -371,7 +375,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     @IBAction func addSpotButtonPressed(_ sender: Any) {
-        
+
             guard isInternetAvailable() && hasConnected else{
                 errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
                 return
@@ -389,7 +393,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             }
             
             if !locationFound{
-                errorAlert(title: "Location not found!", message: "Make sure at least one of your photos have been taken at the spot")
+                errorAlert(title: "Location not found!", message: "* Make sure at least one of your photos have been taken at the spot ")
                 return
             }
             
@@ -473,12 +477,21 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func locationManager(_ manager:CLLocationManager, didUpdateLocations locations:[CLLocation]) {
-        if let location = locations.first {
-            print("Found user's location: \(location.coordinate.latitude)")
-            latitude = location.coordinate.latitude
-            longitude = location.coordinate.longitude
-            reverseGeocodeLocation(location: location)
+ 
+        locationManager.stopUpdatingLocation()
+        
+        if latitude == nil && longitude == nil{
+            
+            if let location = locations.first{
+                print("1")
+                print("Found user's location: \(location.coordinate.latitude)")
+                latitude = location.coordinate.latitude
+                longitude = location.coordinate.longitude
+                reverseGeocodeLocation(location: location)
+            }
+            
         }
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -489,54 +502,62 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     func reverseGeocodeLocation(location: CLLocation){
     
         let geoCoder = CLGeocoder()
+
         
-        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
-            
-            // Place details
-            var placeMark: CLPlacemark!
-            placeMark = placemarks?[0]
-            
-            // Address dictionary
-            print(placeMark.addressDictionary as Any, terminator: "")
-            
-            // Location name
-            if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
-                print(locationName, terminator: "")
-               // self.locationString += locationName as String
-               // self.locationString += " "
-            }
-            
-            // Street address
-            if let street = placeMark.addressDictionary!["Thoroughfare"] as? NSString {
-                print(street, terminator: "")
-                print("yoo")
-            }
-            
-            // City
-            if let city = placeMark.addressDictionary!["City"] as? NSString {
-                print(city, terminator: "")
-                self.locationString += city as String
-                self.locationString += ","
-            }
-            
-            // State  // can also get Zip code. use "ZIP"
-            if let state = placeMark.addressDictionary!["State"] as? NSString {
-                print(state, terminator: "")
-                self.locationString += state as String
-                self.locationString += "-" //used as deliminator in Spot.swift
-            }
-            
-            // Country
-            if let country = placeMark.addressDictionary!["Country"] as? NSString {
-                print(country, terminator: "")
-                self.locationString += country as String
-            }
-            
-            self.locationFound = true
-            self.locationFoundIndex = self.count
-            print("\(String(describing: self.locationFoundIndex))here")
-        })
-    
+            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
+                
+                guard error == nil else{
+                    
+                    self.errorAlert(title: "Network Connetion Error", message: "Make sure you have an internet connection while uploading spot")
+                    return
+                }
+                
+                // Place details
+                var placeMark: CLPlacemark!
+                placeMark = placemarks?[0]
+                
+                // Address dictionary
+                print(placeMark.addressDictionary as Any, terminator: "")
+                
+                // Location name
+                if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
+                    print(locationName, terminator: "")
+                    // self.locationString += locationName as String
+                    // self.locationString += " "
+                }
+                
+                // Street address
+                if let street = placeMark.addressDictionary!["Thoroughfare"] as? NSString {
+                    print(street, terminator: "")
+                    print("yoo")
+                }
+                
+                // City
+                if let city = placeMark.addressDictionary!["City"] as? NSString {
+                    print(city, terminator: "")
+                    self.locationString += city as String
+                    self.locationString += ","
+                }
+                
+                // State  // can also get Zip code. use "ZIP"
+                if let state = placeMark.addressDictionary!["State"] as? NSString {
+                    print(state, terminator: "")
+                    self.locationString += state as String
+                    self.locationString += "-" //used as deliminator in Spot.swift
+                }
+                
+                // Country
+                if let country = placeMark.addressDictionary!["Country"] as? NSString {
+                    print(country, terminator: "")
+                    self.locationString += country as String
+                }
+                
+                self.locationFound = true
+                self.locationFoundIndex = self.count
+                print("\(String(describing: self.locationFoundIndex))here")
+            })
+
+  
     }
 
     @IBAction func toggleSpotType(_ sender: UISegmentedControl) {

@@ -92,6 +92,9 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 AuthService.instance.login(email: email, password: pwd, username: usrName, onComplete: { (errMsg, data) in
                 
                     guard errMsg == nil else{
+                        
+                        DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+                        
                         self.errorAlert(title: "Error Authenticating", message: errMsg!)
                         return
                     }

@@ -15,6 +15,7 @@ import MapKit
 import FBSDKCoreKit
 import SwiftKeychainWrapper
 import FBSDKLoginKit
+import SVProgressHUD
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
 
@@ -47,17 +48,21 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
         DispatchQueue.main.async { self.spotTableView.reloadData() }
         
+        SVProgressHUD.show()
+        
         loadSpotsbyRecentlyUploaded()
+        
+        SVProgressHUD.dismiss()
         
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         menuView.sizeToFit()
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-       
+
         spotTableView.reloadData()
 
     }
@@ -252,6 +257,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 if sender.selectedSegmentIndex == 1{
                     
                     self.manager.delegate = self
+                    self.manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
                     self.manager.requestWhenInUseAuthorization()
                     self.manager.startUpdatingLocation()
                     //maybe use bestAccuracy
