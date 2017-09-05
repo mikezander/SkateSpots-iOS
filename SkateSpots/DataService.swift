@@ -160,6 +160,7 @@ class DataService{
                 
                 if error != nil{
                     print("unable to upload image to firebase storage(\(String(describing: error?.localizedDescription)))")
+                    return
                 }else{
                     
                     let downloadURL = metadata?.downloadURL()?.absoluteString
@@ -177,13 +178,15 @@ class DataService{
         }
     }
     
-    func deleteFromStorage(urlString: String){
+    func deleteFromStorage(urlString: String,completion: @escaping (_ error:String?) -> ()){
  
         let imageRef = FIRStorage.storage().reference(forURL: urlString)
         imageRef.delete { (error) in
             if error == nil{
+            completion(nil)
              print("successfully deleted")
             }else{
+            completion(error as? String)
             print("could not delete")
             }
         }

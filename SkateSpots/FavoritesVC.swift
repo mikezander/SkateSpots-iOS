@@ -19,6 +19,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     var uniqueIDs = [String]()
     
     @IBOutlet weak var spotTableView: UITableView!
+   
     let currentUserRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
 
     override func viewDidLoad() {

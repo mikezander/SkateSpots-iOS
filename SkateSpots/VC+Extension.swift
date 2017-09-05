@@ -60,6 +60,27 @@ extension UIViewController{
         })
 
     }
+    
+    func connectedToInternet(completion: @escaping (_ response:HTTPURLResponse?, _ error: String?) -> ()) {
+
+        let urlString: String = "http://www.google.com/"
+        let url = URL(string: urlString)
+
+        
+        let task = URLSession.shared.dataTask(with: url!) { (data, response, error) -> Void in
+            
+            if error != nil {
+               completion(nil, error as? String)
+            } else {
+                completion(response as? HTTPURLResponse, nil)
+            }
+            
+        }
+        
+        task.resume()
+
+        
+    }
 
 
 }

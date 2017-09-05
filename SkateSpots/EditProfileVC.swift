@@ -126,28 +126,41 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                     self.activityIndicator.startAnimating()
                     
                     if self.user.userImageURL != DEFAULT_PROFILE_PIC_URL{
-                        DataService.instance.deleteFromStorage(urlString: self.user.userImageURL)
-                    }
-                    
-                    
-                    if let userImg = self.profileImage.image{
-                        DataService.instance.addProfilePicToStorageWithCompletion(image: userImg){ url in
-                            
-                            photoDict.updateValue( url as AnyObject, forKey: "userImageURL")
-                            
-                            self.addDictToSpot(dict: photoDict)
-                            self.hasBeenEdited = true
-                            
-                            self.delegate?.hasProfileBeenEdited(edited: self.hasBeenEdited)
-                            
-                            self.activityIndicator.stopAnimating()
-                            
-                            _ = self.navigationController?.popViewController(animated: true)
-                            
-                            self.dismiss(animated: true, completion: nil)
-                        }
+                        DataService.instance.deleteFromStorage(urlString: self.user.userImageURL, completion: {error in
                         
+                            guard error == nil else{
+                                self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
+                                return
+                            }
+                        
+                            if let userImg = self.profileImage.image{
+                                
+                                DataService.instance.addProfilePicToStorageWithCompletion(image: userImg){ url in
+                                    
+                                    photoDict.updateValue( url as AnyObject, forKey: "userImageURL")
+                                    
+                                    self.addDictToSpot(dict: photoDict)
+                                    self.hasBeenEdited = true
+                                    
+                                    self.delegate?.hasProfileBeenEdited(edited: self.hasBeenEdited)
+                                    
+                                    self.activityIndicator.stopAnimating()
+                                    
+                                    _ = self.navigationController?.popViewController(animated: true)
+                                    
+                                    self.dismiss(animated: true, completion: nil)
+                                }
+                                
+                            }
+                        
+                        })
+                        
+                        
+                    
                     }
+                    
+                    
+                    
                     
                 }else{
                     
@@ -188,6 +201,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     func showPhotoActionSheet(){
+        
+       
         
         guard hasConnected else {
             errorAlert(title: "Network Connection Error", message: "Make sure you connected and try again")
