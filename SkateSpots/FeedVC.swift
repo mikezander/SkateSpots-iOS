@@ -49,14 +49,15 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         DispatchQueue.main.async { self.spotTableView.reloadData() }
         
         SVProgressHUD.show()
-        
+
         loadSpotsbyRecentlyUploaded()
-        
+
         SVProgressHUD.dismiss()
         
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         menuView.sizeToFit()
+        
         
     }
     
@@ -69,13 +70,17 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+
+        guard isInternetAvailable() else{
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again1")
+            return
+        }
        // performSegue(withIdentifier: "LogInVC", sender: nil) used for logging out, firebase tracks phone id*
         if FIRAuth.auth()?.currentUser == nil {
             performSegue(withIdentifier: "LogInVC", sender: nil)
            return
         }
-        
-     
+
     }
 
     @IBAction func signOutFBTest(_ sender: Any) {
@@ -92,9 +97,12 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     @IBAction func filterButtonPressed(_ sender: UIButton) {
         
         
-        DataService.instance.isConnectedToFirebase(completion: { connected in
+        //DataService.instance.isConnectedToFirebase(completion: { connected in
             
-            if connected && hasConnected{
+            if isInternetAvailable() && hasConnected{
+                
+                
+                print("yerr3  \(hasConnected)")
 
         self.trailingConstraint.constant = -160
         self.spotTableView.isUserInteractionEnabled = true
@@ -166,10 +174,12 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             
 
             }else{
-                self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
+                
+                
+                self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again2")
             }
     
-        })
+       // })
         
     }
     
@@ -205,8 +215,20 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         menuShowing = !menuShowing
     }
     
-    func loadSpotsbyRecentlyUploaded(){
+    func regainedConnection(){
+        DataService.instance.isConnectedToFirebase(completion: { connected in
         
+        
+            print("connection toggled")
+        })
+    
+    }
+    
+    func loadSpotsbyRecentlyUploaded(){
+
+
+            if self.isInternetAvailable() {
+
             DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
                 
                 self.spots = [] //clears up spot array each time its loaded
@@ -224,18 +246,32 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 DispatchQueue.main.async { self.spotTableView.reloadData() }
                 self.allSpotsR = self.spots
             })
-            filterButton.setTitle("Filter Spots", for: .normal)
+            self.filterButton.setTitle("Filter Spots", for: .normal)
+                
+            }else{
+                
+                
+                self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again3")
+            }
 
     }
 
     func sortSpotsByDistance(completed: @escaping DownloadComplete){
 
-            spots = allSpotsR
+        
+       // DataService.instance.isConnectedToFirebase(completion: { connected in
             
-            spots.sort(by: { $0.distance(to: myLocation) < $1.distance(to: myLocation) })
+            //if connected && 
+            if hasConnected{
+                
+            print("yerr2 \(hasConnected)")
+
+            self.spots = self.allSpotsR
             
-            for spot in spots{
-                let distanceInMeters = myLocation.distance(from: spot.location)
+            self.spots.sort(by: { $0.distance(to: self.myLocation) < $1.distance(to: self.myLocation) })
+            
+            for spot in self.spots{
+                let distanceInMeters = self.myLocation.distance(from: spot.location)
                 let milesAway = distanceInMeters / 1609
                 spot.distance = milesAway
                 
@@ -243,41 +279,46 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 
             }
             completed()
-            self.allSpotsD = spots
-            filterButton.setTitle("Filter Spots", for: .normal)
+            self.allSpotsD = self.spots
+            self.filterButton.setTitle("Filter Spots", for: .normal)
+                
+            }else{
+                
+                
+                self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again3")
+            }
+            
+      //  })
+
         
         }
     
     @IBAction func toggle(_ sender: UISegmentedControl) {
         
-        DataService.instance.isConnectedToFirebase(completion: { connected in
-            
-            if connected && hasConnected{
+        if self.spots.count > 0 && isInternetAvailable(){
+        
+            if sender.selectedSegmentIndex == 1{
                 
-                if sender.selectedSegmentIndex == 1{
-                    
-                    self.manager.delegate = self
-                    self.manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-                    self.manager.requestWhenInUseAuthorization()
-                    self.manager.startUpdatingLocation()
-                    //maybe use bestAccuracy
-                    
-                }else{
-                    
-                    self.loadSpotsbyRecentlyUploaded()
-                    
-                    self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
-                    self.spotTableView.reloadData()
-                    
-                }
-            
+                self.manager.delegate = self
+                self.manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+                self.manager.requestWhenInUseAuthorization()
+                self.manager.startUpdatingLocation()
+                //maybe use bestAccuracy
+                
             }else{
-            self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
+                
+                self.loadSpotsbyRecentlyUploaded()
+                
+                self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
+                self.spotTableView.reloadData()
+                
             }
+
+        }else{
         
-        })
+        }
+
         
-       
         
     }
 

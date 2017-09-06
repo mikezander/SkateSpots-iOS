@@ -124,8 +124,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         }
 
     }
-    
-    
+
     //** FB Log In Button **
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
 

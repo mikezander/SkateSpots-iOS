@@ -358,6 +358,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             favoriteButton.isEnabled = false
             favoriteButton.layer.opacity = 0.4
         }
+        
 }
     
     override func viewDidLayoutSubviews() {
@@ -382,6 +383,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
+        guard hasConnected && isInternetAvailable() else{
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again1")
+            return
+        }
+        
         tableView.reloadData()
         
         if commentsArray.count > 0{
@@ -391,7 +397,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     }
     
     func loadComments(){
-
+        
         let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
         commentRef.observe(.value, with: {(snapshot) in
             
@@ -434,11 +440,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 self.configCommentCountLabel(count: self.commentCount)
             }
             
-        }) {(error) in
-            self.errorAlert(title: "Error Loading Comments", message: "\(error.localizedDescription)")
-
-        }
-
+        })
+            
     }
     
     func configCommentCountLabel(count: Int){
@@ -508,7 +511,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             
             
         }else{
-            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again2")
         }
         
     }
@@ -560,7 +563,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             })
 
         }else{
-            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again3")
         }
    
     }
@@ -720,14 +723,6 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
             return commentsArray.count
     }
-    
-    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
-        
-        if commentsArray.count != commentCount{
-            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
-        }
-    }
-
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CommentCell

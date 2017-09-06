@@ -101,6 +101,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
 
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+ 
+        
+    }
+    
     @IBAction func bustSlider(_ sender: UISlider) {
         bustLabel.text = String(Int(sender.value))
         
@@ -507,8 +513,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
                 
                 guard error == nil else{
-                    
-                    self.errorAlert(title: "Network Connetion Error", message: "Make sure you have an internet connection while uploading spot")
+
+                    self.errorAlert(title: "Internet Connetion Error", message: "Bad internet connection while trying to find this photos location. Retry when you are connected")
+            
+                    self.longitude = nil
+                    self.latitude = nil
+
                     return
                 }
                 

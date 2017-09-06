@@ -61,11 +61,15 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             
             spotTableView.register(HeaderCell.self, forCellReuseIdentifier: "headerCell")
         
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        
         guard hasConnected else{
             errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
             return
         }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
