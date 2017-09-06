@@ -373,7 +373,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="503"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9FZ-wn-ttt" id="Q15-SB-RDq">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="503"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="502.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh" customClass="CircleView" customModule="SkateSpots" customModuleProvider="target">
@@ -720,10 +720,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="210" id="FSx-Nv-ahg" customClass="ProfileCell" customModule="SkateSpots" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55" width="414" height="210"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="210"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FSx-Nv-ahg" id="bBi-MO-Nas">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KlQ-kC-Ueo">
@@ -1010,12 +1010,19 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="PeY-Bv-95d">
+                                        <rect key="frame" x="386" y="30" width="20" height="20"/>
+                                        <color key="color" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </activityIndicatorView>
                                 </subviews>
                                 <color key="backgroundColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="PeY-Bv-95d" firstAttribute="top" secondItem="7Kp-jX-4Dw" secondAttribute="top" constant="30" id="8D9-pH-as6"/>
                                     <constraint firstItem="Lab-EA-rCk" firstAttribute="leading" secondItem="7Kp-jX-4Dw" secondAttribute="leading" constant="98" id="CRW-RX-Vi1"/>
                                     <constraint firstAttribute="trailing" secondItem="Lab-EA-rCk" secondAttribute="trailing" constant="97" id="DBM-KF-XIs"/>
                                     <constraint firstAttribute="height" constant="60" id="F9g-tS-xxh"/>
+                                    <constraint firstAttribute="trailing" secondItem="PeY-Bv-95d" secondAttribute="trailing" constant="8" id="Wap-cu-8rF"/>
+                                    <constraint firstAttribute="bottom" secondItem="PeY-Bv-95d" secondAttribute="bottom" constant="10" id="inR-iP-lcL"/>
                                     <constraint firstItem="Lab-EA-rCk" firstAttribute="top" secondItem="7Kp-jX-4Dw" secondAttribute="top" constant="27" id="j1V-Cm-xfc"/>
                                 </constraints>
                             </view>
@@ -1502,6 +1509,7 @@
                     <size key="freeformSize" width="414" height="936"/>
                     <connections>
                         <outlet property="SpotTypeControl" destination="XTg-OB-r0y" id="JVG-DR-52d"/>
+                        <outlet property="activityIndicator" destination="PeY-Bv-95d" id="Z0k-Fr-LLb"/>
                         <outlet property="addPhotoFour" destination="PxF-cn-KHR" id="YxB-2I-q73"/>
                         <outlet property="addPhotoOne" destination="gIN-b9-viL" id="vmI-er-Edp"/>
                         <outlet property="addPhotoThree" destination="fZQ-gE-wxo" id="YZH-V5-lpU"/>

@@ -42,6 +42,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var nightBtn: UIButton!
     @IBOutlet weak var addSpotButton: UIButton!
     @IBOutlet weak var topPhotoLabel: UILabel!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
 
     var imagePicker: UIImagePickerController!
     var count = 0
@@ -326,7 +327,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             
             if (!locationFound) && (latitude == nil) && (longitude == nil){
-           
+
                 if(picker.sourceType == .camera){
                 
                 locationManager = CLLocationManager()
@@ -506,6 +507,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
 
     
     func reverseGeocodeLocation(location: CLLocation){
+        
+        activityIndicator.startAnimating()
     
         let geoCoder = CLGeocoder()
 
@@ -518,7 +521,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             
                     self.longitude = nil
                     self.latitude = nil
-
+                    
+                    DispatchQueue.main.async{self.activityIndicator.stopAnimating()}
+                    
                     return
                 }
                 
@@ -565,6 +570,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 self.locationFound = true
                 self.locationFoundIndex = self.count
                 print("\(String(describing: self.locationFoundIndex))here")
+                DispatchQueue.main.async{self.activityIndicator.stopAnimating()}
             })
 
   
