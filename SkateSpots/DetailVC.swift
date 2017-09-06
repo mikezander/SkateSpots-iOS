@@ -45,6 +45,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var kickOutLabel = UILabel()
     var bestTimeLabel = UILabel()
     var myActivityIndicator = UIActivityIndicatorView()
+    var commentActivityIndicator = UIActivityIndicatorView()
     var isFavorite = false
     
     let kickOutImageName = "cop_logo.png"
@@ -237,6 +238,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         commentLbl.alpha = 0.5
         commentLbl.font = commentLbl.font.withSize(15)
         containerView.addSubview(commentLbl)
+        
+        commentActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+        commentActivityIndicator.frame = CGRect(x:0 , y: 0, width: 30,height: 30)
+        commentActivityIndicator.center = CGPoint(x: screenWidth - 20 , y: tableView.frame.origin.y - 20)
+        commentActivityIndicator.hidesWhenStopped = true
+        containerView.addSubview(commentActivityIndicator)
+        
 
         commentView = UITextView(frame: CGRect(x: 10, y: tableView.frame.origin.y + tableView.frame.height, width: tableView.frame.size.width - 40, height: 40))
         commentView.delegate = self
@@ -312,7 +320,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         })
         
         loadComments()
-        
+ 
         favoriteButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  rateBtn.frame.origin.y + rateBtn.frame.height + 20 , width: 135, height: 25))
         favoriteButton.setTitle("Favorite", for: .normal)
         favoriteButton.setImage(UIImage(named:"add_fav.png"), for: .normal)
@@ -383,7 +391,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     }
     
     func loadComments(){
-    
+
         let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
         commentRef.observe(.value, with: {(snapshot) in
             
@@ -422,14 +430,15 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     }
                     
                 }
-                
+               
                 self.configCommentCountLabel(count: self.commentCount)
             }
             
         }) {(error) in
             self.errorAlert(title: "Error Loading Comments", message: "\(error.localizedDescription)")
+
         }
-        
+
     }
     
     func configCommentCountLabel(count: Int){
@@ -560,7 +569,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull{
-                //self.rateBtn.isEnabled = true
+
             }else{
                 self.rateBtn.isEnabled = false
                 self.ratingView.settings.updateOnTouch = false
@@ -708,9 +717,15 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 }
 extension DetailVC: UITableViewDelegate, UITableViewDataSource{
 
-    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return commentsArray.count
+            return commentsArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, didEndDisplaying cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+        
+        if commentsArray.count != commentCount{
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+        }
     }
 
 
@@ -718,6 +733,10 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CommentCell
    
         cell.emptyImageView()
+        
+        commentActivityIndicator.startAnimating()
+        
+        cell.activityIndicator = commentActivityIndicator
         
         let comment = commentsArray[indexPath.row]
         

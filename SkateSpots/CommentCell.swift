@@ -14,6 +14,7 @@ class CommentCell: UITableViewCell{
     var profilePhoto: UIImageView!
     var userName: UILabel!
     var comment: UITextView!
+    var activityIndicator = UIActivityIndicatorView()
 
     var CellHeight = CGFloat()
 
@@ -87,8 +88,8 @@ class CommentCell: UITableViewCell{
         if img != nil{
             
             self.profilePhoto.image = img
-            
-            
+            DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+           
         }else{
             
             //cache image
@@ -110,7 +111,7 @@ class CommentCell: UITableViewCell{
                         
                     }
                 }
-                
+                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
             })
         }
         
