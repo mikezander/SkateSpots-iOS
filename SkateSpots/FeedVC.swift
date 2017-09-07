@@ -46,7 +46,10 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         isConnected()
         
-        SVProgressHUD.show()
+        if FIRAuth.auth()?.currentUser != nil{
+            SVProgressHUD.show()
+            
+        }
         
         NotificationCenter.default.addObserver(self, selector: #selector(internetConnectionFound(notification:)), name: notificationName, object: nil)
 
@@ -58,24 +61,23 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-
+        
         spotTableView.reloadData()
 
     }
 
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
+        
+        if FIRAuth.auth()?.currentUser == nil {
+            performSegue(withIdentifier: "LogInVC", sender: nil)
+            return
+        }
 
         guard isInternetAvailable() else{
             errorAlert(title: "\n\n\n\n\nInternet Connection Error", message: "Make sure you are connected and try again")
             return
         }
-        
-        if FIRAuth.auth()?.currentUser == nil {
-            performSegue(withIdentifier: "LogInVC", sender: nil)
-           return
-        }
-
     }
     
     func internetConnectionFound(notification: NSNotification){
@@ -89,7 +91,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
         print("Mike: ID remover from keychain \(keychainResult)")
         try! FIRAuth.auth()?.signOut()
-        
         performSegue(withIdentifier: "LogInVC", sender: nil)
       
     }
@@ -99,7 +100,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
             if isInternetAvailable() && hasConnected{
      
-
+            SVProgressHUD.show()
+                
         self.trailingConstraint.constant = -160
         self.spotTableView.isUserInteractionEnabled = true
         
@@ -161,6 +163,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 
                 }
                 
+                SVProgressHUD.dismiss()
                 self.spotTableView.reloadData()
                 
                 if self.spotTableView.numberOfRows(inSection: 0) > 0{
@@ -207,7 +210,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
     func loadSpotsbyRecentlyUploaded(){
-
+ 
             DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
                 
                 self.spots = [] //clears up spot array each time its loaded
@@ -255,7 +258,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     @IBAction func toggle(_ sender: UISegmentedControl) {
         
         if hasConnected && isInternetAvailable(){ //Double check this
-        
+ 
+            SVProgressHUD.show()
+            
             if sender.selectedSegmentIndex == 1{
                 
                 self.manager.delegate = self
@@ -290,6 +295,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
         sortSpotsByDistance {
             DispatchQueue.main.async {
+                SVProgressHUD.dismiss()
                 self.spotTableView.reloadData()
                 self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
             }
@@ -316,7 +322,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func lblClick(tapGesture:UITapGestureRecognizer){
-        
         
         let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
         vc.userKey = spots[tapGesture.view!.tag].user

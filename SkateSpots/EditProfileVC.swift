@@ -8,6 +8,7 @@
 
 import UIKit
 import FirebaseAuth
+import SwiftKeychainWrapper
 
 protocol ProfileEditedProtocol {
     func hasProfileBeenEdited(edited: Bool)
@@ -185,7 +186,15 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
     }
     
-    
+
+    @IBAction func logOutPressed(_ sender: Any) {
+        
+        let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
+        print("Mike: ID remover from keychain \(keychainResult)")
+        try! FIRAuth.auth()?.signOut()
+        performSegue(withIdentifier: "LoggedOut", sender: nil)
+        
+    }
     func addDictToSpot(dict: [String:AnyObject]){
     
         for spot in spots{

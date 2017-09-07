@@ -291,13 +291,6 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ntA-vK-N9d">
-                                        <rect key="frame" x="82" y="10" width="70" height="40"/>
-                                        <state key="normal" title="logouttest"/>
-                                        <connections>
-                                            <action selector="signOutFBTest:" destination="S87-nh-BjV" eventType="touchUpInside" id="lC1-n1-e3e"/>
-                                        </connections>
-                                    </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lx3-RU-oc8">
                                         <rect key="frame" x="8" y="26" width="30" height="30"/>
                                         <constraints>
@@ -324,15 +317,12 @@
                                 <color key="backgroundColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="vHg-Le-BDU" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="28" id="64B-RZ-kWv"/>
-                                    <constraint firstItem="BPL-oN-ccj" firstAttribute="leading" secondItem="ntA-vK-N9d" secondAttribute="trailing" constant="-54" id="9Jc-KI-Hci"/>
                                     <constraint firstItem="BPL-oN-ccj" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="27" id="Gdc-T6-kg8"/>
                                     <constraint firstItem="lx3-RU-oc8" firstAttribute="leading" secondItem="wFT-RZ-Rk3" secondAttribute="leading" constant="8" id="Hce-zL-fD2"/>
                                     <constraint firstAttribute="bottom" secondItem="vHg-Le-BDU" secondAttribute="bottom" constant="2" id="QOX-LR-Q06"/>
-                                    <constraint firstItem="ntA-vK-N9d" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="10" id="V3u-Pj-a12"/>
                                     <constraint firstItem="lx3-RU-oc8" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="26" id="YAw-Iu-Sde"/>
                                     <constraint firstAttribute="bottom" secondItem="lx3-RU-oc8" secondAttribute="bottom" constant="4" id="asD-Dn-Sva"/>
                                     <constraint firstAttribute="trailing" secondItem="vHg-Le-BDU" secondAttribute="trailing" constant="8" id="boK-gZ-O4A"/>
-                                    <constraint firstAttribute="bottom" secondItem="ntA-vK-N9d" secondAttribute="bottom" constant="10" id="dq2-Ik-p0Z"/>
                                     <constraint firstAttribute="height" constant="60" id="fSq-rB-1YU"/>
                                     <constraint firstAttribute="trailing" secondItem="BPL-oN-ccj" secondAttribute="trailing" constant="97" id="nL0-4S-bef"/>
                                     <constraint firstItem="BPL-oN-ccj" firstAttribute="leading" secondItem="wFT-RZ-Rk3" secondAttribute="leading" constant="98" id="zoT-0T-JYe"/>
@@ -948,6 +938,14 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5Vv-fn-PiE">
+                                <rect key="frame" x="180" y="649" width="55" height="30"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                                <state key="normal" title="Log Out"/>
+                                <connections>
+                                    <action selector="logOutPressed:" destination="g0b-WY-Rn6" eventType="touchUpInside" id="R3Z-3D-Z3O"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.87058823529999996" green="0.87058823529999996" blue="0.88235294119999996" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
@@ -966,6 +964,7 @@
                             <constraint firstAttribute="trailingMargin" secondItem="bkz-RS-UcJ" secondAttribute="trailing" constant="25" id="QSm-Vd-waX"/>
                             <constraint firstItem="bkz-RS-UcJ" firstAttribute="top" secondItem="GGX-ed-VFz" secondAttribute="bottom" constant="50" id="WPk-Ej-6vu"/>
                             <constraint firstAttribute="trailing" secondItem="KIL-PT-FPI" secondAttribute="trailing" id="bX3-ZS-rYR"/>
+                            <constraint firstItem="izB-gt-gni" firstAttribute="top" secondItem="5Vv-fn-PiE" secondAttribute="bottom" constant="8" id="duN-Zd-mqL"/>
                             <constraint firstItem="TMK-5Q-oPi" firstAttribute="centerX" secondItem="clK-hq-an6" secondAttribute="centerX" id="ezh-Lj-UtZ"/>
                             <constraint firstItem="FDr-pn-gEg" firstAttribute="leading" secondItem="clK-hq-an6" secondAttribute="leadingMargin" id="f3Q-GL-E9m"/>
                             <constraint firstItem="KIL-PT-FPI" firstAttribute="leading" secondItem="clK-hq-an6" secondAttribute="leading" id="gtF-F2-Tmm"/>
@@ -974,6 +973,7 @@
                             <constraint firstItem="bkz-RS-UcJ" firstAttribute="leading" secondItem="clK-hq-an6" secondAttribute="leadingMargin" constant="25" id="mav-dX-Mz8"/>
                             <constraint firstAttribute="trailingMargin" secondItem="ITh-nm-3ID" secondAttribute="trailing" constant="25" id="pcP-Fu-vd4"/>
                             <constraint firstItem="FDr-pn-gEg" firstAttribute="top" secondItem="GGX-ed-VFz" secondAttribute="bottom" constant="5" id="vEh-uQ-SS1"/>
+                            <constraint firstItem="5Vv-fn-PiE" firstAttribute="centerX" secondItem="clK-hq-an6" secondAttribute="centerX" id="waC-8B-fgl"/>
                         </constraints>
                     </view>
                     <connections>
@@ -983,6 +983,7 @@
                         <outlet property="linkTextField" destination="Kd5-NN-mef" id="j7j-wX-gNu"/>
                         <outlet property="profileImage" destination="GGX-ed-VFz" id="Ssj-7E-k6n"/>
                         <outlet property="userNameTextField" destination="bkz-RS-UcJ" id="hk0-Pl-wpO"/>
+                        <segue destination="BYZ-38-t0r" kind="presentation" identifier="LoggedOut" id="aTI-2D-YLZ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ezv-Yc-HVP" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1800,7 +1801,8 @@
         <image name="star" width="21" height="21"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="myg-hR-9mM"/>
         <segue reference="wHi-97-VC8"/>
+        <segue reference="myg-hR-9mM"/>
+        <segue reference="ZX4-qG-Pn9"/>
     </inferredMetricsTieBreakers>
 </document>
