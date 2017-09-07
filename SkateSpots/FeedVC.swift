@@ -79,6 +79,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func internetConnectionFound(notification: NSNotification){
+
         loadSpotsbyRecentlyUploaded()
         print("connection made!")
         NotificationCenter.default.removeObserver(self, name: notificationName, object: nil)
@@ -168,7 +169,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
             }else{
                 
-                self.errorAlert(title: "uiuInternet Connection Error", message: "Make sure you have a connection and try again")
+                self.errorAlert(title: "Internet Connection Error", message: "Make sure you have a connection and try again")
             }
 
     }
@@ -207,8 +208,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
     func loadSpotsbyRecentlyUploaded(){
 
-            if self.isInternetAvailable(){
-
             DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
                 
                 self.spots = [] //clears up spot array each time its loaded
@@ -230,22 +229,10 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 self.allSpotsR = self.spots
             })
             self.filterButton.setTitle("Filter Spots", for: .normal)
-                
-            }else{
-                self.errorAlert(title: "8Internet Connection Error", message: "Make sure you have a connection and try again")
-            }
 
     }
 
     func sortSpotsByDistance(completed: @escaping DownloadComplete){
-
-        
-       // DataService.instance.isConnectedToFirebase(completion: { connected in
-            
-            //if connected && 
-            if hasConnected{
-                
-            print("yerr2 \(hasConnected)")
 
             self.spots = self.allSpotsR
             
@@ -262,20 +249,12 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             completed()
             self.allSpotsD = self.spots
             self.filterButton.setTitle("Filter Spots", for: .normal)
-                
-            }else{
-                
-                self.errorAlert(title: "3Network Connection Error", message: "Make sure you have a connection and try again")
-            }
-            
-
-
         
         }
     
     @IBAction func toggle(_ sender: UISegmentedControl) {
         
-        if self.spots.count > 0 && isInternetAvailable(){
+        if hasConnected && isInternetAvailable(){ //Double check this
         
             if sender.selectedSegmentIndex == 1{
                 
@@ -283,19 +262,17 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 self.manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
                 self.manager.requestWhenInUseAuthorization()
                 self.manager.startUpdatingLocation()
-                //maybe use bestAccuracy
-                
+
             }else{
                 
                 self.loadSpotsbyRecentlyUploaded()
-                
                 self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
                 self.spotTableView.reloadData()
                 
             }
 
         }else{
-        
+            self.errorAlert(title: "Internet Connection Error", message: "Make sure you have a connection and try again")
         }
 
         
@@ -375,7 +352,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         return cell
     }
-    
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
 
