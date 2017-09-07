@@ -76,7 +76,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 })
            
             }else{
-               
+                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                 errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
             }
         
@@ -94,7 +94,6 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                     guard errMsg == nil else{
                         
                         DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
-                        
                         self.errorAlert(title: "Error Authenticating", message: errMsg!)
                         return
                     }
@@ -117,6 +116,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 })
                 
             } else{
+                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                 errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
             }
 

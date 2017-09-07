@@ -163,7 +163,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 
                 }
                 
-                SVProgressHUD.dismiss()
+                 SVProgressHUD.dismiss()
+                
                 self.spotTableView.reloadData()
                 
                 if self.spotTableView.numberOfRows(inSection: 0) > 0{
