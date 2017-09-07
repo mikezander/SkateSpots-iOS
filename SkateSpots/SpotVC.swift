@@ -332,7 +332,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 
                 locationManager = CLLocationManager()
                 locationManager.delegate = self
-                //locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
                 locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
                 locationManager.requestWhenInUseAuthorization()
                 locationManager.startUpdatingLocation()

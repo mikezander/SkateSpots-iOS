@@ -45,20 +45,15 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         super.viewDidLoad()
         
         isConnected()
-
-        DispatchQueue.main.async { self.spotTableView.reloadData() }
         
         SVProgressHUD.show()
-
-        loadSpotsbyRecentlyUploaded()
-
-        SVProgressHUD.dismiss()
         
+        NotificationCenter.default.addObserver(self, selector: #selector(internetConnectionFound(notification:)), name: notificationName, object: nil)
+
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         menuView.sizeToFit()
-        
-        
+    
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -72,15 +67,21 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         super.viewDidAppear(true)
 
         guard isInternetAvailable() else{
-            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again1")
+            errorAlert(title: "\n\n\n\n\nInternet Connection Error", message: "Make sure you are connected and try again")
             return
         }
-       // performSegue(withIdentifier: "LogInVC", sender: nil) used for logging out, firebase tracks phone id*
+        
         if FIRAuth.auth()?.currentUser == nil {
             performSegue(withIdentifier: "LogInVC", sender: nil)
            return
         }
 
+    }
+    
+    func internetConnectionFound(notification: NSNotification){
+        loadSpotsbyRecentlyUploaded()
+        print("connection made!")
+        NotificationCenter.default.removeObserver(self, name: notificationName, object: nil)
     }
 
     @IBAction func signOutFBTest(_ sender: Any) {
@@ -88,21 +89,15 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         print("Mike: ID remover from keychain \(keychainResult)")
         try! FIRAuth.auth()?.signOut()
         
-        //try! FBSDKLoginManager().logOut()
-        
         performSegue(withIdentifier: "LogInVC", sender: nil)
       
     }
 
     @IBAction func filterButtonPressed(_ sender: UIButton) {
         
-        
-        //DataService.instance.isConnectedToFirebase(completion: { connected in
-            
+
             if isInternetAvailable() && hasConnected{
-                
-                
-                print("yerr3  \(hasConnected)")
+     
 
         self.trailingConstraint.constant = -160
         self.spotTableView.isUserInteractionEnabled = true
@@ -171,16 +166,11 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                     self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
                 }
 
-            
-
             }else{
                 
-                
-                self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again2")
+                self.errorAlert(title: "uiuInternet Connection Error", message: "Make sure you have a connection and try again")
             }
-    
-       // })
-        
+
     }
     
     func filterSpotsBy(type:String){
@@ -214,20 +204,10 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }
         menuShowing = !menuShowing
     }
-    
-    func regainedConnection(){
-        DataService.instance.isConnectedToFirebase(completion: { connected in
-        
-        
-            print("connection toggled")
-        })
-    
-    }
-    
+
     func loadSpotsbyRecentlyUploaded(){
 
-
-            if self.isInternetAvailable() {
+            if self.isInternetAvailable(){
 
             DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
                 
@@ -243,15 +223,16 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                         }
                     }
                 }
-                DispatchQueue.main.async { self.spotTableView.reloadData() }
+                DispatchQueue.main.async {
+                    SVProgressHUD.dismiss()
+                    self.spotTableView.reloadData()
+                }
                 self.allSpotsR = self.spots
             })
             self.filterButton.setTitle("Filter Spots", for: .normal)
                 
             }else{
-                
-                
-                self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again3")
+                self.errorAlert(title: "8Internet Connection Error", message: "Make sure you have a connection and try again")
             }
 
     }
@@ -284,11 +265,10 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 
             }else{
                 
-                
-                self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again3")
+                self.errorAlert(title: "3Network Connection Error", message: "Make sure you have a connection and try again")
             }
             
-      //  })
+
 
         
         }

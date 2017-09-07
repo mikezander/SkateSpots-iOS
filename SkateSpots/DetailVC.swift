@@ -461,8 +461,10 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     func commentPressedHandler(){
         commentPressed { (success) in
             guard success == true else {
+                self.errorAlert(title: "Post comment failed", message: "Post comment failed. Check your internet conenction and try again")
                 return
             }
+
            self.commentView.text = ""
            self.postButton.isEnabled = true
            self.commentView.resignFirstResponder()
@@ -474,9 +476,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         if isInternetAvailable() && hasConnected{
 
-        
         if commentView.text != "Add a comment" && commentView.text != "" && commentView.text != " " && commentView.text != "  "{
-
+            
             postButton.isEnabled = false
 
             DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in

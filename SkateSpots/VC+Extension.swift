@@ -10,6 +10,7 @@ import UIKit
 import SystemConfiguration
 
 var hasConnected = false
+let notificationName = Notification.Name("NotificationIdentifier")
 
 extension UIViewController{
     
@@ -47,10 +48,9 @@ extension UIViewController{
             if connected{
                 
                hasConnected = true
-                
-                
+               NotificationCenter.default.post(name: notificationName, object: nil)
+           
             }else{
-                
                 hasConnected = false
                 //self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
             }
