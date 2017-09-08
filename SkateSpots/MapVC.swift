@@ -32,7 +32,7 @@ class MapVC: UIViewController{
         
         getUsersLocation()
         
-        mapView.delegate = self
+       // mapView.delegate = self
 
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
@@ -54,6 +54,19 @@ class MapVC: UIViewController{
            
             self.mapView.addAnnotations(self.spotPins)
         })
+        
+        if isInternetAvailable() && hasConnected{
+        
+            mapView.delegate = self
+        }else{
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(self.internetConnectionFound(notification:)), name: notificationName, object: nil)
+            
+            errorAlert(title: "Internet Connection Error", message: "Make sure you are connected and try again")
+            return
+        }
+        
+        
        
     }
     
@@ -81,8 +94,13 @@ class MapVC: UIViewController{
         getUsersLocation()
         
     }
-  
     
+    func internetConnectionFound(notification: NSNotification){
+        print("connection made")
+        mapView.delegate = self
+        NotificationCenter.default.removeObserver(self, name: notificationName, object: nil)
+    }
+  
 }
 extension MapVC: CLLocationManagerDelegate{
 
@@ -124,6 +142,16 @@ extension MapVC: MKMapViewDelegate {
             view.calloutOffset = CGPoint(x: -5, y: 5)
   
             FIRStorage.storage().reference(forURL: annotation.imageUrl).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
+               
+                guard error == nil else{
+
+                    NotificationCenter.default.addObserver(self, selector: #selector(self.internetConnectionFound(notification:)), name: notificationName, object: nil)
+
+                    self.errorAlert(title: "Internet Connection Error", message: "Error uploading spot images, make sure you are connected and try again.")
+                    
+                    return
+                }
+                
                 let image = UIImage(data: data!)
                 let cropRect = CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0)
                 let myImageView = UIImageView(frame: cropRect)
@@ -138,7 +166,6 @@ extension MapVC: MKMapViewDelegate {
         }
     
        view.pinTintColor = annotation.markerTintColor
-       
     
         return view
     }
@@ -163,4 +190,5 @@ extension MapVC: MKMapViewDelegate {
 }
 
 }
+
 
