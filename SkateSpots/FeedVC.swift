@@ -39,18 +39,14 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     var firstRun = true
     var firstSort = true
     var menuShowing = false
+    var isLoggedIn = Bool()
     let topItem = IndexPath(item: 0, section: 0)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         isConnected()
-        
-        if FIRAuth.auth()?.currentUser != nil{
-            SVProgressHUD.show()
-            
-        }
-        
+
         NotificationCenter.default.addObserver(self, selector: #selector(internetConnectionFound(notification:)), name: notificationName, object: nil)
 
         menuView.layer.shadowOpacity = 1
@@ -70,12 +66,16 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         super.viewDidAppear(true)
         
         if FIRAuth.auth()?.currentUser == nil {
+            isLoggedIn = false
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
+        }else{
+            isLoggedIn = true
         }
 
         guard isInternetAvailable() else{
-            errorAlert(title: "\n\n\n\n\nInternet Connection Error", message: "Make sure you are connected and try again")
+            spotTableView.backgroundView = setUpPlaceholderForNoInternet()
+            errorAlert(title: "Internet Connection Error", message: "Make sure you are connected and try again//")
             return
         }
     }
@@ -211,6 +211,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
     func loadSpotsbyRecentlyUploaded(){
+        
+        
+        if isLoggedIn{ SVProgressHUD.show() }    
  
             DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
                 
@@ -237,6 +240,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 
     func sortSpotsByDistance(completed: @escaping DownloadComplete){
+        
+            SVProgressHUD.show()
 
             self.spots = self.allSpotsR
             
@@ -260,8 +265,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         if hasConnected && isInternetAvailable(){ //Double check this
  
-            SVProgressHUD.show()
-            
             if sender.selectedSegmentIndex == 1{
                 
                 self.manager.delegate = self
@@ -280,9 +283,17 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }else{
             self.errorAlert(title: "Internet Connection Error", message: "Make sure you have a connection and try again")
         }
-
-        
-        
+    
+    }
+    
+    func setUpPlaceholderForNoInternet() -> UIView{
+        let placeholderView = UIView()
+        placeholderView.frame = CGRect(x: 0,y: 0,width: UIScreen.main.bounds.width,height: spotTableView.frame.height)
+        let placeholderImage = UIImageView()
+        placeholderImage.frame = CGRect(x: 0,y: 0,width: UIScreen.main.bounds.width,height: spotTableView.frame.height)
+        placeholderImage.image = UIImage(named: "noInternetPlaceholder")
+        placeholderView.addSubview(placeholderImage)
+        return placeholderView
     }
 
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
@@ -331,7 +342,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
  
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return spots.count
+            return spots.count
     }
     
    
