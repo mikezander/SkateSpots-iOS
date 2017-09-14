@@ -15,11 +15,11 @@ import FirebaseStorage
 import MapKit
 
 class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
-
+    
     var spot: Spot!
     
     var user: User!
-
+    
     var commentsArray = [Comment]()
     
     var ratingRef:FIRDatabaseReference!
@@ -38,6 +38,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var commentView = UITextView()
     var postButton = UIButton()
     var directionsButton = UIButton()
+    var reportButton = UIButton()
     var favoriteButton = UIButton()
     var descriptionTextView = UITextView()
     var kickOutImageView = UIImageView()
@@ -56,46 +57,38 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     var commentCount = 0
     
     let tableView = UITableView()
-
+    
     let screenSize = UIScreen.main.bounds
     
     var refCurrentSpot: FIRDatabaseReference!
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        super.viewDidLoad()
+        
         refCurrentSpot = DataService.instance.REF_SPOTS.child(spot.spotKey)
         
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
-
+        
         self.scrollView = UIScrollView()
         self.scrollView.delegate = self
         
-        print("\(screenHeight)height")
-        
-        if screenHeight >= 736.0{ // for 6+, 7+
-            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + screenHeight / 4 - 10)
-        }else if screenHeight <= 568.0{// for 5, 5s, SE and under ** 168 difference to 6+, 7+
-            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 + 158))
-            
-        }else{ // for 6, 7 and in between largest and smallest iphones ** 69 difference to 6+, 7+
-            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 + 59))
-        }
-
         containerView = UIView()
+        
         scrollView.addSubview(containerView)
         view.addSubview(scrollView)
+        scrollView.contentInset = UIEdgeInsets(top:7, left: 0, bottom: 0, right: 0)
         
-        let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 55))
+        let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 60))
         customNav.backgroundColor = FLAT_GREEN
-
         self.view.addSubview(customNav)
         
         let btn1 = UIButton()
         btn1.setImage(UIImage(named:"back"), for: .normal)
-       
-        btn1.frame = CGRect(x:4, y:21, width: 30,height: 30)
+        
+        btn1.frame = CGRect(x:4, y:26, width: 30,height: 30)
         btn1.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
         view.addSubview(btn1)
         
@@ -105,7 +98,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         view.addSubview(myActivityIndicator)
         
         let headerLabel = UILabel()
-        headerLabel.frame = CGRect(x: screenWidth / 2 - 60,y: 23,width:250, height:28)
+        headerLabel.frame = CGRect(x: screenWidth / 2 - 55,y: 26,width:250, height:28)
         headerLabel.text = "Spot Details"
         headerLabel.textColor = UIColor.white
         headerLabel.font = UIFont(name: "Gurmukhi MN", size: 20)
@@ -115,7 +108,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         layout.itemSize = CGSize(width: screenWidth, height: screenHeight)
         layout.scrollDirection = .horizontal
-
+        
         collectionview = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionview.collectionViewLayout = layout
         collectionview.dataSource = self
@@ -124,7 +117,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.showsHorizontalScrollIndicator = false
         collectionview.backgroundColor = UIColor.white
         containerView.addSubview(collectionview)
-
+        
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = .black
@@ -141,14 +134,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
         spotTypeLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         spotTypeLbl.textColor = .black
-        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 105)
+        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 106)
         spotTypeLbl.textAlignment = .center
         spotTypeLbl.text = spot.spotType
         containerView.addSubview(spotTypeLbl)
         
         ratingDisplayView.settings.starSize = 25
         ratingDisplayView.frame =  CGRect(x:0, y:0, width: 250,height: 20)
-        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 85)
+        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 86)
         ratingDisplayView.settings.updateOnTouch = false
         ratingDisplayView.settings.fillMode = .precise
         containerView.addSubview(ratingDisplayView)
@@ -156,11 +149,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingDisplayLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
         ratingDisplayLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         ratingDisplayLbl.textColor = .black
-        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 65)
+        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 66)
         ratingDisplayLbl.textAlignment = .center
         ratingDisplayLbl.alpha = 0.4
         containerView.addSubview(ratingDisplayLbl)
-
+        
         let descriptionLbl = UILabel(frame: CGRect(x: 10, y: screenHeight - 50, width: screenWidth - 5, height: 20))
         descriptionLbl.font = UIFont(name: "Avenir-Black", size: 14)
         descriptionLbl.textColor = UIColor.lightGray
@@ -185,6 +178,12 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         adjustUITextViewHeight(arg: descriptionTextView)
         containerView.addSubview(descriptionTextView)
         
+        let doYourPath = UIBezierPath(rect: CGRect(x: 5, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 7, width: screenWidth - 10, height: 0.7))
+        let layer = CAShapeLayer()
+        layer.path = doYourPath.cgPath
+        layer.fillColor = UIColor.lightGray.cgColor
+        containerView.layer.addSublayer(layer)
+
         let kickOutImage = UIImage(named: kickOutImageName)
         kickOutImageView = UIImageView(image: kickOutImage)
         kickOutImageView.frame = CGRect(x: screenWidth / 4 - 20, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 25, width: 50, height: 50)
@@ -208,7 +207,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         bestTimeLabel.textAlignment = .center
         bestTimeLabel.text = "\(spot.bestTimeToSkate) spot"
         containerView.addSubview(bestTimeLabel)
-
+        
         let grayView = UIView(frame: CGRect(x: 0, y: kickOutLabel.frame.origin.y + 30 , width: screenWidth, height: screenHeight / 2 + 36))
         grayView.backgroundColor = UIColor.lightGray
         let shadowSize : CGFloat = 7.0
@@ -222,14 +221,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         grayView.layer.shadowOpacity = 0.8
         grayView.layer.shadowPath = shadowPath.cgPath
         containerView.addSubview(grayView)
-       
+        
         tableView.frame = CGRect(x:10, y: kickOutLabel.frame.origin.y + 70, width: screenWidth - 20, height: screenHeight / 3 + 40)
         tableView.register(CommentCell.self, forCellReuseIdentifier: "cell")
         tableView.layer.borderWidth = 1
         tableView.delegate = self
         tableView.dataSource = self
         containerView.addSubview(tableView)
-
+        
         commentLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
         commentLbl.font = UIFont.preferredFont(forTextStyle: .headline)
         commentLbl.textColor = .white
@@ -245,7 +244,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         commentActivityIndicator.hidesWhenStopped = true
         containerView.addSubview(commentActivityIndicator)
         
-
         commentView = UITextView(frame: CGRect(x: 10, y: tableView.frame.origin.y + tableView.frame.height, width: tableView.frame.size.width - 40, height: 40))
         commentView.delegate = self
         commentView.text = "Add a comment"
@@ -255,6 +253,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         commentView.textColor = UIColor.lightGray
         commentView.layer.borderWidth = 1.25
         commentView.layer.cornerRadius = 2.0
+        commentView.autocorrectionType = .no
+        commentView.spellCheckingType = .no
         containerView.addSubview(commentView)
         
         postButton = UIButton()
@@ -265,16 +265,27 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         postButton.setImage(UIImage(named: "comment_btn")?.withRenderingMode(.alwaysOriginal), for: .highlighted)
         postButton.addTarget(self, action:#selector(commentPressedHandler), for: .touchUpInside)
         containerView.addSubview(postButton)
-
+        
+        //Setting scrollview content size
+        
+        if screenHeight >= 736.0{ // for 6+, 7+
+            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4) + (descriptionTextView.frame.height - 65))
+        }else if screenHeight <= 568.0{// for 5, 5s, SE and under ** 168 difference to 6+, 7+
+            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 ) + (83 + descriptionTextView.frame.height))
+            
+        }else{ // for 6, 7 and in between largest and smallest iphones ** 69 difference to 6+, 7+
+            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 ) + (descriptionTextView.frame.height - 16))
+        }
+        
         ratingView.settings.starSize = 30
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
-        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: commentView.frame.origin.y + commentView.frame.height + screenHeight / 4)
+        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: commentView.frame.origin.y + commentView.frame.height + (screenHeight / 4 - 10))
         ratingView.settings.fillMode = .precise
         ratingView.settings.updateOnTouch = true
         containerView.addSubview(ratingView)
         
-        rateBtn = RoundedButton(frame: CGRect(x:0, y:0, width: 135,height: 25))
-        rateBtn.center = CGPoint(x: screenWidth / 2, y: ratingView.frame.origin.y + 50)
+        rateBtn = RoundedButton(frame: CGRect(x:0, y:0, width: 125,height: 30))
+        rateBtn.center = CGPoint(x: screenWidth / 2, y:ratingView.frame.origin.y + 58)
         rateBtn.setTitle("Rate Spot!", for: .normal)
         rateBtn.backgroundColor = UIColor.black
         rateBtn.isEnabled = false
@@ -302,8 +313,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 let ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
                 
                 var rating = ratingTally / Double(ratingVotes)
-                //let displayRating = String(format: "%.1f", rating)
-                
                 rating = (rating * 10).rounded() / 10
                 print("\(rating) rating")
                 self.ratingDisplayView.rating = rating
@@ -320,14 +329,15 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         })
         
         loadComments()
- 
-        favoriteButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  rateBtn.frame.origin.y + rateBtn.frame.height + 20 , width: 135, height: 25))
+        
+        favoriteButton = UIButton(frame: CGRect(x: 0, y:  0 , width: 135, height: 30))
+        favoriteButton.center = CGPoint(x:screenWidth / 4 ,y: rateBtn.frame.origin.y + rateBtn.frame.height + 115)
         favoriteButton.setTitle("Favorite", for: .normal)
         favoriteButton.setImage(UIImage(named:"add_fav.png"), for: .normal)
         favoriteButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: -2,bottom: 0,right: 55)
         favoriteButton.backgroundColor = UIColor.black
         favoriteButton.titleEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 20)
-
+        
         favoriteButton.setTitleColor(UIColor.white, for: .normal)
         favoriteButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         favoriteButton.layer.shadowOffset = CGSize(width:0.0,height: 2.0)
@@ -338,7 +348,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         favoriteButton.addTarget(self, action:#selector(addSpotToFavorites), for: .touchUpInside)
         containerView.addSubview(favoriteButton)
         
-        directionsButton = UIButton(frame: CGRect(x: screenWidth / 2 - 67.5, y:  favoriteButton.frame.origin.y + favoriteButton.frame.height + 20 , width: 135, height: 25))
+        directionsButton = UIButton(frame: CGRect(x:0, y: 0, width: 135, height: 30))
+        directionsButton.center = CGPoint(x:(screenWidth / 4) * 3,y: rateBtn.frame.origin.y + rateBtn.frame.height + 115)
         directionsButton.setImage(UIImage(named:"direction_icon.png"), for: .normal)
         directionsButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 25)
         directionsButton.setTitle("Directions", for: .normal)
@@ -359,7 +370,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             favoriteButton.layer.opacity = 0.4
         }
         
-}
+        
+        reportButton = UIButton(frame: CGRect(x: screenWidth / 2 - 50,y: scrollView.contentSize.height - 87,width: 100,height:50))
+        reportButton.setTitle("Report Spot", for: .normal)
+        reportButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
+        reportButton.setTitleColor(UIColor.blue, for: .normal)
+        reportButton.addTarget(self, action:#selector(reportSpotPressed), for: .touchUpInside)
+        containerView.addSubview(reportButton)
+    }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -379,7 +397,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         unsubscribeToKeyboardNotifications()
     }
-
+    
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
@@ -391,8 +409,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         tableView.reloadData()
         
         if commentsArray.count > 0{
-        let lastItem = IndexPath(item: commentsArray.count - 1, section: 0)
-        tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
+            let lastItem = IndexPath(item: commentsArray.count - 1, section: 0)
+            tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
         }
     }
     
@@ -436,12 +454,12 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     }
                     
                 }
-               
+                
                 self.configCommentCountLabel(count: self.commentCount)
             }
             
         })
-            
+        
     }
     
     func configCommentCountLabel(count: Int){
@@ -464,10 +482,10 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 self.errorAlert(title: "Post comment failed", message: "Post comment failed. Check your internet conenction and try again")
                 return
             }
-
-           self.commentView.text = ""
-           self.postButton.isEnabled = true
-           self.commentView.resignFirstResponder()
+            
+            self.commentView.text = ""
+            self.postButton.isEnabled = true
+            self.commentView.resignFirstResponder()
         }
         
     }
@@ -475,40 +493,40 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     func commentPressed(completion: @escaping (Bool) -> ()){
         
         if isInternetAvailable() && hasConnected{
-
-        if commentView.text != "Add a comment" && commentView.text != "" && commentView.text != " " && commentView.text != "  "{
             
-            postButton.isEnabled = false
-
-            DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
-            if !snapshot.exists() { print("snapshot not found! SpotRow.swift");return }
-            
-            if let username = snapshot.childSnapshot(forPath: "username").value as? String{
+            if commentView.text != "Add a comment" && commentView.text != "" && commentView.text != " " && commentView.text != "  "{
                 
-                if let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String{
+                postButton.isEnabled = false
+                
+                DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
+                    if !snapshot.exists() { print("snapshot not found! SpotRow.swift");return }
                     
-                    self.user = User(userName: username, userImageURL: userImageURL, bio: "", link: "", igLink: "")
+                    if let username = snapshot.childSnapshot(forPath: "username").value as? String{
+                        
+                        if let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String{
+                            
+                            self.user = User(userName: username, userImageURL: userImageURL, bio: "", link: "", igLink: "")
+                            
+                            let comment: Dictionary<String, AnyObject> = [
+                                "userKey": (FIRAuth.auth()?.currentUser?.uid)! as AnyObject,
+                                "username": self.user.userName as AnyObject,
+                                "userImageURL" : self.user.userImageURL as AnyObject,
+                                "comment": self.commentView.text as AnyObject,
+                                
+                                ]
+                            
+                            let commentRef = DataService.instance.REF_SPOTS.child(self.spot.spotKey).child("comments").childByAutoId()
+                            
+                            commentRef.setValue(comment)
+                            
+                        }
+                    }
                     
-                    let comment: Dictionary<String, AnyObject> = [
-                        "userKey": (FIRAuth.auth()?.currentUser?.uid)! as AnyObject,
-                        "username": self.user.userName as AnyObject,
-                        "userImageURL" : self.user.userImageURL as AnyObject,
-                        "comment": self.commentView.text as AnyObject,
-                       
-                    ]
-                    
-                    let commentRef = DataService.instance.REF_SPOTS.child(self.spot.spotKey).child("comments").childByAutoId()
-                    
-                    commentRef.setValue(comment)
-
-                }
+                    completion(true)
+                })
+                
+                
             }
-            
-            completion(true)
-        })
-            
- 
-        }
             
             
         }else{
@@ -520,7 +538,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     func rateSpotPressed(){
         
         if isInternetAvailable() && hasConnected{
-        
+            
             handleOneReviewPerSpot(ref: ratingRef)
             
             ratingRef.setValue(true)
@@ -562,18 +580,18 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                     
                 }
             })
-
+            
         }else{
             errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again3")
         }
-   
+        
     }
     
     func handleOneReviewPerSpot(ref: FIRDatabaseReference){
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull{
-
+                
             }else{
                 self.rateBtn.isEnabled = false
                 self.ratingView.settings.updateOnTouch = false
@@ -587,14 +605,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     func addSpotToFavorites(){
         
         let favDict = [spot.spotKey:true]
-    
+        
         DataService.instance.updateDBUser(uid: FIRAuth.auth()!.currentUser!.uid, child: "favorites", userData: favDict as Dictionary<String, AnyObject>)
         
         favoriteButton.isEnabled = false
         favoriteButton.isOpaque = false
         favoriteButton.alpha = 0.3
         errorAlert(title: "", message: "Added \(spot.spotName) to favorites")
-    
+        
     }
     
     func getDirections(){
@@ -603,6 +621,34 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         mapItem.name = spot.spotName
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
     }
+    
+    func reportSpotPressed(){
+        
+        let alert = UIAlertController(title: "Report \(spot.spotName)", message: "Not a skate spot? Wrong location?    Let us know.", preferredStyle: UIAlertControllerStyle.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        alert.addTextField { (configurationTextField) in
+            //configure your textfield here
+            print(configurationTextField)
+            
+        }
+        alert.addAction(UIAlertAction(title: "Send", style: UIAlertActionStyle.default, handler:{ (UIAlertAction)in
+            if let textField = alert.textFields?.first {
+                
+                let reportDict: Dictionary<String, AnyObject> = [
+                    "spotKey": self.spot.spotKey as AnyObject,
+                    "spotName": self.spot.spotName as AnyObject,
+                    "report": textField.text as AnyObject
+                ]
+                let reportRef = DataService.instance.REF_REPORTS.childByAutoId()
+                reportRef.setValue(reportDict)
+                self.errorAlert(title: "", message: "\(self.spot.spotName) reported \n Thanks for your feedback!")
+                self.reportButton.isEnabled = false
+            }
+        }))
+        self.present(alert, animated: true, completion: {
+        })
+    }
+    
     
     func backButtonPressed() {
         _ = navigationController?.popViewController(animated: true)
@@ -632,7 +678,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         self.present(vc, animated: true, completion: nil)
         //self.navigationController?.pushViewController(vc, animated:true)
     }
-   
+    
     
     //shifts the view up from bottom text field to be visible
     func keyboardWillShow(notification: NSNotification){
@@ -684,22 +730,22 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
+        
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight - 150))
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DetailPhotoCell
-
+        
         cell.spotImage = image
         cell.addSubview(image)
         
         myActivityIndicator.startAnimating()
         
         cell.activityIndicator = myActivityIndicator
-  
+        
         if indexPath.row < spot.imageUrls.count{
-
+            
             if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
                 print(indexPath.row)
                 
@@ -708,7 +754,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 cell.configureCell(spot: spot, count: indexPath.row)
             }
             
-
+            
         }
 
         return cell
@@ -720,14 +766,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
 }
 extension DetailVC: UITableViewDelegate, UITableViewDataSource{
-
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-            return commentsArray.count
+        return commentsArray.count
     }
-
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as! CommentCell
-   
+        
         cell.emptyImageView()
         
         commentActivityIndicator.startAnimating()
@@ -736,14 +782,14 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
         
         let comment = commentsArray[indexPath.row]
         
-
-            cell.userName.text = comment.userName
-            
-            cell.comment.text = comment.comment
-            
-            cell.userName.tag = indexPath.row
-            
-            cell.userName.addGestureRecognizer(self.setGestureRecognizer())
+        
+        cell.userName.text = comment.userName
+        
+        cell.comment.text = comment.comment
+        
+        cell.userName.tag = indexPath.row
+        
+        cell.userName.addGestureRecognizer(self.setGestureRecognizer())
         
         if let img = FeedVC.imageCache.object(forKey: NSString(string: comment.userImageURL)){
             
@@ -751,19 +797,19 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
         }else{
             cell.configureProfilePic(comment:comment)
         }
-
+        
         return cell
     }
- 
-   func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
-    let height:CGFloat
     
-    let temp = commentsArray[indexPath.row].comment
+    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+        let height:CGFloat
+        
+        let temp = commentsArray[indexPath.row].comment
         let tempCount = temp.characters.count
-    print(tempCount)
-    
-    if tempCount >= 60 && tempCount <= 80{
-        height = 80
+        print(tempCount)
+        
+        if tempCount >= 60 && tempCount <= 80{
+            height = 80
         }else if tempCount > 80 && tempCount < 100{
             height = 90
         }else if tempCount >= 100 && tempCount <= 125{
@@ -774,19 +820,19 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
             height = 120
         }else{
             height = 70
+        }
+        
+        print(height)
+        return height
+        
     }
-
-    print(height)
-    return height
     
-}
     
-
 }
 extension DetailVC: UITextViewDelegate{
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
-           commentView.resignFirstResponder()
+            commentView.resignFirstResponder()
             commentView.layer.borderColor = UIColor.black.cgColor
             return false
         }

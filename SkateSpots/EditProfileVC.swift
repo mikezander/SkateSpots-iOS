@@ -15,7 +15,7 @@ protocol ProfileEditedProtocol {
 }
 
 class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
-
+    
     @IBOutlet weak var profileImage: CircleView!
     @IBOutlet weak var userNameTextField: UITextField!
     @IBOutlet weak var bioTextField: UITextField!
@@ -26,7 +26,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     var imagePicker: UIImagePickerController!
     var imageSelected = false
     var hasBeenEdited = false
-
+    
     var user: User!
     var spots = [Spot]()
     
@@ -36,9 +36,9 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
-
+        
         userNameTextField.text = user.userName
         bioTextField.text = user.bio
         linkTextField.text = user.link
@@ -77,7 +77,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         super.viewWillDisappear(true)
         unsubscribeToKeyboardNotifications()
     }
-
+    
     @IBAction func backButtonPressed(_ sender: Any) {
         _ = navigationController?.popViewController(animated: true)
         
@@ -128,7 +128,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                     
                     if self.user.userImageURL != DEFAULT_PROFILE_PIC_URL{
                         DataService.instance.deleteFromStorage(urlString: self.user.userImageURL, completion: { error in
-                        
+                            
                             guard error == nil else{
                                 self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
                                 return
@@ -140,31 +140,26 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                         
                     }
                     
-                            if let userImg = self.profileImage.image{
-                                
-                                DataService.instance.addProfilePicToStorageWithCompletion(image: userImg){ url in
-                                    
-                                    photoDict.updateValue( url as AnyObject, forKey: "userImageURL")
-                                    
-                                    self.addDictToSpot(dict: photoDict)
-                                    self.hasBeenEdited = true
-                                    
-                                    self.delegate?.hasProfileBeenEdited(edited: self.hasBeenEdited)
-                                    
-                                    self.activityIndicator.stopAnimating()
-                                    
-                                    _ = self.navigationController?.popViewController(animated: true)
-                                    
-                                    self.dismiss(animated: true, completion: nil)
-                                }
-                                
-                            }
+                    if let userImg = self.profileImage.image{
                         
-                      
-                    
-                    
-                    
-                    
+                        DataService.instance.addProfilePicToStorageWithCompletion(image: userImg){ url in
+                            
+                            photoDict.updateValue( url as AnyObject, forKey: "userImageURL")
+                            
+                            self.addDictToSpot(dict: photoDict)
+                            self.hasBeenEdited = true
+                            
+                            self.delegate?.hasProfileBeenEdited(edited: self.hasBeenEdited)
+                            
+                            self.activityIndicator.stopAnimating()
+                            
+                            _ = self.navigationController?.popViewController(animated: true)
+                            
+                            self.dismiss(animated: true, completion: nil)
+                        }
+                        
+                    }
+   
                 }else{
                     
                     self.delegate?.hasProfileBeenEdited(edited: self.hasBeenEdited)
@@ -173,9 +168,8 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                     
                     self.dismiss(animated: true, completion: nil)
                     
-                    
                 }
-
+                
                 
             }else{
                 self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
@@ -186,22 +180,38 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
     }
     
-
+    
     @IBAction func logOutPressed(_ sender: Any) {
         
-        let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
-        print("Mike: ID remover from keychain \(keychainResult)")
-        try! FIRAuth.auth()?.signOut()
-        performSegue(withIdentifier: "LoggedOut", sender: nil)
+        let userEmail = FIRAuth.auth()?.currentUser?.email
+        
+            let alertController = UIAlertController(title: "Are you sure you want to log out?", message: "If you signed up with email/password, you must remeber your password for \(userEmail!) to log back in.", preferredStyle: .alert)
+
+        
+        let deleteAction = UIAlertAction(title: "Log Out", style:.destructive, handler: { (action) in
+            
+            let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
+            print("Mike: ID remover from keychain \(keychainResult)")
+            try! FIRAuth.auth()?.signOut()
+            self.performSegue(withIdentifier: "LoggedOut", sender: nil)
+            
+        })
+        alertController.addAction(deleteAction)
+        
+        let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)
+        alertController.addAction(cancelAction)
+        
+        present(alertController, animated: true, completion: nil)
         
     }
-    func addDictToSpot(dict: [String:AnyObject]){
     
-        for spot in spots{
+    func addDictToSpot(dict: [String:AnyObject]){
         
+        for spot in spots{
+            
             DataService.instance.updateSpot(uid: spot.spotKey, userData: dict)
         }
-    
+        
     }
     
     func setGestureRecognizer() -> UITapGestureRecognizer {
@@ -213,7 +223,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     func showPhotoActionSheet(){
         
-       
+        
         
         guard hasConnected else {
             errorAlert(title: "Network Connection Error", message: "Make sure you connected and try again")
@@ -285,7 +295,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
     }
-
+    
 }
 
 extension EditProfileVC: UITextFieldDelegate, UITextViewDelegate{
@@ -293,8 +303,8 @@ extension EditProfileVC: UITextFieldDelegate, UITextViewDelegate{
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
-}
-
+    }
+    
 }
 
 

@@ -22,18 +22,39 @@ class MapVC: UIViewController{
     
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
-    
     @IBOutlet weak var mapView: MKMapView!
-
+    
     let regionRadius: CLLocationDistance = 5000
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         getUsersLocation()
         
-       // mapView.delegate = self
-
+        loadAnnotationData()
+        
+        if isInternetAvailable() && hasConnected{
+            
+            mapView.delegate = self
+        }else{
+            
+            NotificationCenter.default.addObserver(self, selector: #selector(self.internetConnectionFound(notification:)), name: notificationName, object: nil)
+            
+            errorAlert(title: "Internet Connection Error", message: "Make sure you are connected and try again")
+            return
+        }
+        
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
+    }
+    
+    func loadAnnotationData(){
+        
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
             self.spots = [] //clears up spot array each time its loaded
@@ -46,35 +67,16 @@ class MapVC: UIViewController{
                         let spotPin = SpotPin(spot: spot)
                         
                         self.spotPins.append(spotPin)
-            
+                        
                     }
                 }
                 
             }
-           
+            
             self.mapView.addAnnotations(self.spotPins)
         })
-        
-        if isInternetAvailable() && hasConnected{
-        
-            mapView.delegate = self
-        }else{
-            
-            NotificationCenter.default.addObserver(self, selector: #selector(self.internetConnectionFound(notification:)), name: notificationName, object: nil)
-            
-            errorAlert(title: "Internet Connection Error", message: "Make sure you are connected and try again")
-            return
-        }
-        
-        
-       
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-       
-    }
-
     func centerMapOnLocation(location: CLLocation) {
         let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
                                                                   regionRadius, regionRadius)
@@ -82,7 +84,7 @@ class MapVC: UIViewController{
     }
     
     func getUsersLocation(){
-    
+        
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         manager.requestWhenInUseAuthorization()
@@ -95,15 +97,18 @@ class MapVC: UIViewController{
         
     }
     
-    func internetConnectionFound(notification: NSNotification){
+    @objc func internetConnectionFound(notification: NSNotification){
         print("connection made")
+        
+        spotPins = []
+        loadAnnotationData()
         mapView.delegate = self
         NotificationCenter.default.removeObserver(self, name: notificationName, object: nil)
     }
-  
+    
 }
 extension MapVC: CLLocationManagerDelegate{
-
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0]
         
@@ -116,7 +121,7 @@ extension MapVC: CLLocationManagerDelegate{
         self.mapView.showsUserLocation = true
         
         manager.stopUpdatingLocation()
-       
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
@@ -125,8 +130,8 @@ extension MapVC: CLLocationManagerDelegate{
 }
 
 extension MapVC: MKMapViewDelegate {
-   
-   func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
+    
+    func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
         
         guard let annotation = annotation as? SpotPin else { return nil }
         
@@ -140,13 +145,13 @@ extension MapVC: MKMapViewDelegate {
             view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
-  
+            
             FIRStorage.storage().reference(forURL: annotation.imageUrl).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
-               
+                
                 guard error == nil else{
-
+                    
                     NotificationCenter.default.addObserver(self, selector: #selector(self.internetConnectionFound(notification:)), name: notificationName, object: nil)
-
+                    
                     self.errorAlert(title: "Internet Connection Error", message: "Error uploading spot images, make sure you are connected and try again.")
                     
                     return
@@ -159,17 +164,17 @@ extension MapVC: MKMapViewDelegate {
                 myImageView.image = image
                 view.leftCalloutAccessoryView = myImageView
                 view.isHighlighted = true
-
+                
             })
-
+            
             view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
-    
-       view.pinTintColor = annotation.markerTintColor
-    
+        
+        view.pinTintColor = annotation.markerTintColor
+        
         return view
     }
-   
+    
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
@@ -180,15 +185,15 @@ extension MapVC: MKMapViewDelegate {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
-
+        
         if segue.identifier == "DetailVC"{
             
             let vc = segue.destination as! DetailVC
             vc.spot = spot
         }
+        
+    }
     
-}
-
 }
 
 

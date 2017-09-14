@@ -11,13 +11,13 @@ import UIKit
 import FirebaseStorage
 
 class FavoriteCell: UITableViewCell{
-
-
+    
+    
     
     @IBOutlet weak var spotPhoto: UIImageView!
     @IBOutlet weak var titleLabel: UILabel! //spotName
     @IBOutlet weak var spotTypeLabel: UILabel!
-   
+    
     @IBOutlet weak var detailLabel: UILabel!//spot location
     
     var spot: Spot!
@@ -27,9 +27,9 @@ class FavoriteCell: UITableViewCell{
         self.spot = spot
         
         if UIScreen.main.bounds.width == 320.0{
-        spotTypeLabel.font = spotTypeLabel.font.withSize(9)
+            spotTypeLabel.font = spotTypeLabel.font.withSize(9)
         }else if UIScreen.main.bounds.width == 375.0{
-        spotTypeLabel.font = spotTypeLabel.font.withSize(11)
+            spotTypeLabel.font = spotTypeLabel.font.withSize(11)
         }
         
         titleLabel.text = " \(spot.spotName)"
@@ -41,7 +41,6 @@ class FavoriteCell: UITableViewCell{
         if img != nil{
             
             self.spotPhoto.image = img
-            
             
         }else{
             

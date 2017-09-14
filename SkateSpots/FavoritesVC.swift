@@ -19,9 +19,9 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     var uniqueIDs = [String]()
     
     @IBOutlet weak var spotTableView: UITableView!
-   
+    
     let currentUserRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -30,12 +30,12 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             return
         }
         
-       loadSpotsArray()
-
+        loadSpotsArray()
+        
     }
-  
-    func loadSpotsArray(){
     
+    func loadSpotsArray(){
+        
         DataService.instance.getSpotsFromUser(userRef: currentUserRef, child: "favorites", completionHandlerForGET: {success, data, keys, error in
             
             if error == nil{
@@ -45,17 +45,17 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
                 print(self.spots.count)
                 
             }
-             DispatchQueue.main.async {
-                 self.spotTableView.reloadData()
+            DispatchQueue.main.async {
+                self.spotTableView.reloadData()
                 
-              }
+            }
             
             
         })
-    
-    
+        
+        
     }
-
+    
     @IBAction func backButtonPressed(_ sender: Any) {
         
         _ = navigationController?.popViewController(animated: true)
@@ -73,7 +73,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             self.spotTableView.backgroundView = emptyLabel
             self.spotTableView.separatorStyle = UITableViewCellSeparatorStyle.none
             return 0
-        
+            
         }else{
             spotTableView.backgroundView?.isHidden = true
             return spots.count
@@ -86,26 +86,26 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-
+        
         
         if editingStyle == .delete{
             
             currentUserRef.child("favorites").child(uniqueIDs[indexPath.row]).removeValue()
             
-        uniqueIDs.remove(at: indexPath.item)
-        spots.remove(at: indexPath.item)
-        tableView.deleteRows(at: [indexPath], with: .fade)
+            uniqueIDs.remove(at: indexPath.item)
+            spots.remove(at: indexPath.item)
+            tableView.deleteRows(at: [indexPath], with: .fade)
             
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-
+        
         let spot = spots[indexPath.row]
-     
-       let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell") as! FavoriteCell
-
-       cell.emptyImageView()
+        
+        let cell = tableView.dequeueReusableCell(withIdentifier: "FavoriteCell") as! FavoriteCell
+        
+        cell.emptyImageView()
         
         if let img = FeedVC.imageCache.object(forKey: NSString(string: spot.imageUrls[0])){
             
@@ -113,10 +113,10 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         }else{
             cell.configureFavoriteCell(spot:spot)
         }
-
+        
         return cell
     }
-
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         
         if let spotCell = sender as? FavoriteCell,
@@ -126,8 +126,8 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             spotDetailPage.isFavorite = true
         }
     }
-
-        
+    
+    
 }
 
 

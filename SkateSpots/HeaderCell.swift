@@ -10,7 +10,7 @@ import UIKit
 import FirebaseStorage
 
 class HeaderCell: UITableViewCell, UITextViewDelegate{
-
+    
     var profilePhoto: UIImageView!
     var userName: UILabel!
     var bio: UITextView!
@@ -19,7 +19,7 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
     var contributions: UILabel!
     var status: UILabel!
     var igUsername = ""
-
+    
     let screenSize = UIScreen.main.bounds
     
     required init(coder aDecoder: NSCoder) {
@@ -28,7 +28,7 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
     
     override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-
+        
         profilePhoto = UIImageView()
         profilePhoto.frame = CGRect(x: screenSize.width / 2 - 65, y: 10, width: 125, height: 125)
         profilePhoto.layer.borderWidth = 2
@@ -81,22 +81,22 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
         igLink.titleLabel?.font = UIFont(name: "Avenir",size: 15)
         igLink.addTarget(self, action: #selector(instagramLinkPressed), for: .touchUpInside)
         contentView.addSubview(igLink)
- 
+        
         contributions = UILabel()
         contributions.frame = CGRect(x: profilePhoto.frame.origin.x , y: igLink.frame.origin.y + 75, width: 150, height: 20)
         contributions.textColor = UIColor.lightGray
         contributions.font = UIFont(name: "Avenir-Black",size: 14)
         contentView.addSubview(contributions)
-
+        
     }
     
-   
+    
     func returnHeight()->CGFloat{
-    
-    return contributions.frame.origin.y
+        
+        return contributions.frame.origin.y
     }
     
-     func instagramLinkPressed(){
+    func instagramLinkPressed(){
         
         if igUsername != ""{
             
@@ -110,35 +110,20 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
                 // if Instagram app is not installed, open URL inside Safari
                 application.open(webURL as URL)
             }
-        
-           /* let instagramHooks = "instagram://user?username=\(igUsername)"
-            let instagramUrl = NSURL(string: instagramHooks)
-            if UIApplication.shared.canOpenURL(instagramUrl! as URL)
-            {
-                
-                UIApplication.shared.open(instagramUrl! as URL, options: [:], completionHandler: nil)
-                
-            } else {
-                //redirect to safari because the user doesn't have Instagram
-                UIApplication.shared.open(NSURL(string: "http://instagram.com/")! as URL, options: [:], completionHandler: nil)
-            }*/
-        
+            
         }else{
             return
         }
         
     }
-
-    
     
     
     func configureProfilePic(user: User, img: UIImage? = nil){
-
+        
         //download images
         if img != nil{
             
             self.profilePhoto.image = img
-            
             
         }else{
             
@@ -166,5 +151,5 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
         }
         
     }
-
+    
 }

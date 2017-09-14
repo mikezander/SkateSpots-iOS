@@ -19,39 +19,39 @@ class AuthService{
     }
     
     func login(email: String, password: String, username: String, onComplete: Completion?){
-    
-                        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
-                            if error != nil{
-                            
-                                if let errorCode = FIRAuthErrorCode(rawValue: error!._code){print(errorCode.rawValue)}
-                                
-                                self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
-                            
-                            } else{
-                                if user?.uid != nil{
-                                
-                                    DataService.instance.saveFirebaseUser(uid: user!.uid, email: email, username: username)
-                                    
-                                    //Sign in
-                                    FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
-                                        if error != nil{
-                                           self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
-                                        } else{
-                                            // we have successfully logged in
-                                            onComplete?(nil, user)
-                                        }
-                                    })
-                                }
-                            }
-                        })
+        
+        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
+            if error != nil{
+                
+                if let errorCode = FIRAuthErrorCode(rawValue: error!._code){print(errorCode.rawValue)}
+                
+                self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
+                
+            } else{
+                if user?.uid != nil{
+                    
+                    DataService.instance.saveFirebaseUser(uid: user!.uid, email: email, username: username)
+                    
+                    //Sign in
+                    FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
+                        if error != nil{
+                            self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
+                        } else{
+                            // we have successfully logged in
+                            onComplete?(nil, user)
+                        }
+                    })
+                }
+            }
+        })
         
     }
     
     func logInExisting(email: String, password: String, onComplete: Completion?){
-    
+        
         FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
             if error != nil{
-              
+                
                 if let errorCode = FIRAuthErrorCode(rawValue: error!._code){print(errorCode.rawValue)}
                 
                 self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
@@ -60,7 +60,7 @@ class AuthService{
                 onComplete?(nil, user)
             }
         })
-    
+        
     }
     
     func handleFirebaseError(error: NSError, onComplete: Completion?){

@@ -70,7 +70,7 @@
 		C4AD89AD1F43BAB900D47460 /* EditProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileVC.swift; sourceTree = "<group>"; };
 		C4AD89AF1F48A47800D47460 /* FavoritesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoritesVC.swift; sourceTree = "<group>"; };
 		C4AD89B11F48B93200D47460 /* FavoriteCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FavoriteCell.swift; sourceTree = "<group>"; };
-		C4B0C5451F0D7B78004B6923 /* SkateSpots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SkateSpots.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4B0C5451F0D7B78004B6923 /* Sk8Spots.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Sk8Spots.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C4B0C54A1F0D7B78004B6923 /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		C4B0C54D1F0D7B78004B6923 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -191,7 +191,7 @@
 		C4B0C5461F0D7B78004B6923 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				C4B0C5451F0D7B78004B6923 /* SkateSpots.app */,
+				C4B0C5451F0D7B78004B6923 /* Sk8Spots.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -218,9 +218,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		C4B0C5441F0D7B78004B6923 /* SkateSpots */ = {
+		C4B0C5441F0D7B78004B6923 /* Sk8Spots */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = C4B0C5571F0D7B78004B6923 /* Build configuration list for PBXNativeTarget "SkateSpots" */;
+			buildConfigurationList = C4B0C5571F0D7B78004B6923 /* Build configuration list for PBXNativeTarget "Sk8Spots" */;
 			buildPhases = (
 				86AB6C8DEEDBC3E62F060450 /* [CP] Check Pods Manifest.lock */,
 				C4B0C5411F0D7B78004B6923 /* Sources */,
@@ -233,9 +233,9 @@
 			);
 			dependencies = (
 			);
-			name = SkateSpots;
+			name = Sk8Spots;
 			productName = SkateSpots;
-			productReference = C4B0C5451F0D7B78004B6923 /* SkateSpots.app */;
+			productReference = C4B0C5451F0D7B78004B6923 /* Sk8Spots.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -245,22 +245,25 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0810;
-				LastUpgradeCheck = 0820;
+				LastUpgradeCheck = 0830;
 				ORGANIZATIONNAME = "Michael Alexander";
 				TargetAttributes = {
 					C4B0C5441F0D7B78004B6923 = {
 						CreatedOnToolsVersion = 8.1;
-						DevelopmentTeam = Q9BD9AV679;
+						DevelopmentTeam = LAB4A2ATCG;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
 							com.apple.Keychain = {
+								enabled = 1;
+							};
+							com.apple.Push = {
 								enabled = 1;
 							};
 						};
 					};
 				};
 			};
-			buildConfigurationList = C4B0C5401F0D7B78004B6923 /* Build configuration list for PBXProject "SkateSpots" */;
+			buildConfigurationList = C4B0C5401F0D7B78004B6923 /* Build configuration list for PBXProject "Sk8Spots" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -273,7 +276,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				C4B0C5441F0D7B78004B6923 /* SkateSpots */,
+				C4B0C5441F0D7B78004B6923 /* Sk8Spots */,
 			);
 		};
 /* End PBXProject section */
@@ -439,7 +442,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -483,7 +486,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.1;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -498,7 +501,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SkateSpots/SkateSpots.entitlements;
-				DEVELOPMENT_TEAM = Q9BD9AV679;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = LAB4A2ATCG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/Cosmos\"",
@@ -522,7 +526,10 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = michaelalexander.SkateSpots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -533,7 +540,8 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SkateSpots/SkateSpots.entitlements;
-				DEVELOPMENT_TEAM = Q9BD9AV679;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				DEVELOPMENT_TEAM = LAB4A2ATCG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$PODS_CONFIGURATION_BUILD_DIR/Cosmos\"",
@@ -557,14 +565,17 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = michaelalexander.SkateSpots;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 3.0;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		C4B0C5401F0D7B78004B6923 /* Build configuration list for PBXProject "SkateSpots" */ = {
+		C4B0C5401F0D7B78004B6923 /* Build configuration list for PBXProject "Sk8Spots" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4B0C5551F0D7B78004B6923 /* Debug */,
@@ -573,7 +584,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		C4B0C5571F0D7B78004B6923 /* Build configuration list for PBXNativeTarget "SkateSpots" */ = {
+		C4B0C5571F0D7B78004B6923 /* Build configuration list for PBXNativeTarget "Sk8Spots" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				C4B0C5581F0D7B78004B6923 /* Debug */,

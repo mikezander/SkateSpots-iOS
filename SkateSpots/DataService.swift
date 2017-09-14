@@ -22,18 +22,20 @@ let STORAGE_BASE = FIRStorage.storage().reference()
 class DataService{
     private static let _instance = DataService()
     
-
+    
     
     static var instance: DataService{
         return _instance
     }
-
+    
     // DB Refrences
     private var _REF_BASE = DB_BASE
     private var _REF_SPOTS = DB_BASE.child("spots")
     private var _REF_USERS = DB_BASE.child("users")
+    private var _REF_REPORTS =  DB_BASE.child("reports")
+    
     private var _REF_CONNECTION = FIRDatabase.database().reference(withPath: ".info/connected")
-
+    
     // Storage Refrences
     private var _REF_SPOT_IMAGES = STORAGE_BASE.child("post-pics")
     private var _REF_USER_IMAGE = STORAGE_BASE.child("user-pics")
@@ -50,10 +52,14 @@ class DataService{
         return _REF_USERS
     }
     
+    var REF_REPORTS: FIRDatabaseReference{
+        return _REF_REPORTS
+    }
+    
     var REF_CONNECTION: FIRDatabaseReference{
         return _REF_CONNECTION
     }
-
+    
     //Storage references
     var REF_SPOT_IMAGES: FIRStorageReference{
         return _REF_SPOT_IMAGES
@@ -64,15 +70,15 @@ class DataService{
     }
     
     func isConnectedToFirebase(completion: @escaping (_ connected:Bool) -> ()){
-    
-    REF_CONNECTION.observe(.value, with: { snapshot in
-    if snapshot.value as? Bool ?? false {
-   completion(true)
-    } else {
-   completion(false)
-    }
-    })
-    
+        
+        REF_CONNECTION.observe(.value, with: { snapshot in
+            if snapshot.value as? Bool ?? false {
+                completion(true)
+            } else {
+                completion(false)
+            }
+        })
+        
     }
     
     
@@ -90,7 +96,7 @@ class DataService{
     }
     
     func saveFacebookProfilePicture(uid:String){
-    
+        
         let request = FBSDKGraphRequest(graphPath: "me/picture", parameters: ["height": 300, "width": "300", "redirect": false], httpMethod: "GET")
         request!.start(completionHandler: {(connection,result,error) -> Void in
             if(error == nil) {
@@ -117,7 +123,7 @@ class DataService{
             }
             
         })
-    
+        
     }
     
     func addProfilePicToStorage(image: UIImage){
@@ -179,43 +185,39 @@ class DataService{
     }
     
     func deleteFromStorage(urlString: String,completion: @escaping (_ error:String?) -> ()){
- 
+        
         let imageRef = FIRStorage.storage().reference(forURL: urlString)
         imageRef.delete { (error) in
             if error == nil{
-            completion(nil)
-             print("successfully deleted")
+                completion(nil)
+                print("successfully deleted")
             }else{
-            completion(error as? String)
-            print("could not delete")
+                completion(error as? String)
+                print("could not delete")
             }
         }
         
     }
     
     func updateUserProfile(uid: String, child: String, userData: Dictionary<String, AnyObject>){
-    
+        
         REF_USERS.child(uid).child(child).updateChildValues(userData)
-    
+        
     }
-
+    
     func updateDBUser(uid: String, child: String, userData: Dictionary<String, AnyObject>){
-       let ref = REF_USERS.child(uid).child(child).childByAutoId()
+        let ref = REF_USERS.child(uid).child(child).childByAutoId()
         
         ref.updateChildValues(userData)
-        
-        //REF_USERS.child(uid).child(child).updateChildValues(userData)
-        // set value will wipe whats already there*
-        
-    }
  
+    }
+    
     
     func updateSpot(uid: String, userData: Dictionary<String, AnyObject>){
         REF_SPOTS.child(uid).updateChildValues(userData)
-        // set value will wipe whats already there*
-        
-    }
 
+    }
+    
     
     func getSpotsFromUser(userRef: FIRDatabaseReference, child: String, completionHandlerForGET: @escaping (_ success: Bool, _ data: [Spot]?, _ _keys:[String],_ error: String?) -> Void){
         
@@ -227,13 +229,12 @@ class DataService{
             if let spotKeyDict = snapshot.children.allObjects as? [FIRDataSnapshot]{
                 for snap in spotKeyDict{
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
-                        //keys.append(snap.key)
                         keys.insert(snap.key, at: 0)
                         for spotKey in spotDict{
                             
                             self.REF_SPOTS.child(spotKey.key).observeSingleEvent(of: .value, with: { (snapshot) in
                                 if let spotDict = snapshot.value as? Dictionary<String, AnyObject>{
-
+                                    
                                     let spot = Spot(spotKey: spotKey.key, spotData: spotDict)
                                     spot.removeCountry(spotLocation: spot.spotLocation)
                                     spots.insert(spot, at: 0)
@@ -256,11 +257,11 @@ class DataService{
             } //FIRDataSnapshot
             
         })
-
+        
     }
     
     func retrieveFavoritesAutoIDs(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: [String]?) -> Void){
-    
+        
         var IDs = [String]()
         
         userRef.child("favorites").observeSingleEvent(of: .value, with: {snapshot in
@@ -279,7 +280,7 @@ class DataService{
     }
     
     func getCurrentUserProfileData(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: User?) -> Void){
-    
+        
         var user: User?
         
         userRef.observeSingleEvent(of: .value, with: {(snapshot) in
@@ -296,26 +297,25 @@ class DataService{
                     
                 }
                 
-                
                 completionHandlerForGET(true, user)
-            
+                
             }else{
                 print("user profile snapshot doesn't exist")
             }
-   
+            
         }){ (error) in
             print(error.localizedDescription)
             completionHandlerForGET(false, nil)
         }
-
+        
     }
-
+    
     func refrenceToCurrentUser() -> FIRDatabaseReference{
         let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
         let user = REF_USERS.child(uid!)
         return user
     }
-
-   
+    
+    
 }
 

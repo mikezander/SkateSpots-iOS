@@ -11,16 +11,20 @@ import FirebaseStorage
 
 class DetailPhotoCell: UICollectionViewCell{
 
-    //@IBOutlet var spotImage: UIImageView!
-   
+    
     var spotImage = UIImageView()
+    
     var activityIndicator = UIActivityIndicatorView()
-
+    
     var spot: Spot!
-
+    
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
-        
+
+        //spotImage.contentMode = .scaleAspectFill
+
+        //spotImage.clipsToBounds = true
+
         //download images
         if img != nil{
             DispatchQueue.main.async {
@@ -32,10 +36,11 @@ class DetailPhotoCell: UICollectionViewCell{
         }else{
             
             //cache image
- 
+            
             let ref = FIRStorage.storage().reference(forURL:spot.imageUrls[count])
             ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
                 if error != nil{
+                    DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                     print("Mke: Unable to download image from firebase storage")
                 }else{
                     print("Mike: Image downloaded from firebase storge")
@@ -49,18 +54,18 @@ class DetailPhotoCell: UICollectionViewCell{
                                 FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
                             }
                         }
-                      
+                        
                     }
-                   
+                    
                 }
                 DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
-
+                
             })
             
         }
         
         
-}
-
-
+    }
+    
+    
 }

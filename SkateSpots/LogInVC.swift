@@ -12,7 +12,7 @@ import FirebaseAuth
 import FBSDKLoginKit
 
 class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FBSDKLoginButtonDelegate{
-
+    
     @IBOutlet weak var userProflieView: CircleView!
     @IBOutlet weak var userNameField: RoundTextfield!
     @IBOutlet weak var emailField: RoundTextfield!
@@ -47,50 +47,62 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        
+        if UIScreen.main.bounds.height <= 568.0{
+            subscribeToKeyboardNotifications()
+        }
     }
-
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(true)
+        unsubscribeToKeyboardNotifications()
+    }
+    
     @IBAction func logInPressed(_ sender: Any) {
         
         guard hasConnected else {
             errorAlert(title: "Network Connection Error", message: "Make sure you connected and try again")
             return
         }
-
-    
+        
+        
         if logInButton.title(for: .normal) == "Log In"{
             if let email = emailField.text, let pwd = passwordField.text,(email.characters.count > 0 && pwd.characters.count > 0){
                 
                 activityIndicator.startAnimating()
-            
+                
                 AuthService.instance.logInExisting(email: email, password: pwd, onComplete: {(errMsg, data) in
                     
                     guard errMsg == nil else{
+                        DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                         self.errorAlert(title: "Error Authenticating", message: errMsg!)
                         return
                     }
                     
                     DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                     self.performSegue(withIdentifier: "goToFeed", sender: nil)
-                
+                    
                 })
-           
+                
             }else{
                 DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                 errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
             }
-        
+            
         }else{
             
             
-
-            if let email = emailField.text, let pwd = passwordField.text, let usrName = userNameField.text,
+            
+            if let email = emailField.text, let pwd = passwordField.text, var usrName = userNameField.text,
                 (email.characters.count > 0 && pwd.characters.count > 0){
+                
+                if usrName == "" || usrName == " "{
+                    usrName = "unknown"
+                }
                 
                 activityIndicator.startAnimating()
                 
                 AuthService.instance.login(email: email, password: pwd, username: usrName, onComplete: { (errMsg, data) in
-                
+                    
                     guard errMsg == nil else{
                         
                         DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
@@ -119,21 +131,21 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                 errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
             }
-
-        
+            
+            
         }
-
+        
     }
-
+    
     //** FB Log In Button **
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
-
+        
         fbLoginButton.isHidden = true
-       
+        
         if result.isCancelled{
-        
+            
             fbLoginButton.isHidden = false
-        
+            
         }else{
             
             let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
@@ -179,13 +191,13 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 self.activityIndicator.stopAnimating()
                 self.performSegue(withIdentifier: "goToFeed", sender: nil)
             }
-        
+            
         }
         
     }
-
+    
     @IBAction func logInExistingPressed(_ sender: Any) {
-
+        
         if logInButton.title(for: .normal) == "Sign Up"{
             userProflieView.alpha = 0.3
             userProflieView.isUserInteractionEnabled = false
@@ -195,9 +207,9 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             logInButton.setTitle("Log In", for: .normal)
             logInSwitch.setTitle("Sign Up", for: .normal)
             logInLabel.text = "Don't have an account?"
-        
+            
         }else if logInButton.title(for: .normal) == "Log In"{
-        
+            
             userProflieView.alpha = 1
             userProflieView.isUserInteractionEnabled = true
             userNameField.alpha = 1
@@ -250,11 +262,49 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         }
     }
     
-  override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
         view.endEditing(true)
         
         super.touchesBegan(touches, with: event)
+        
+    }
+    
+    //shifts the view up from bottom text field to be visible
+    func keyboardWillShow(notification: NSNotification){
+        
+        if passwordField.isFirstResponder{
+            view.frame.origin.y = -(getKeyboardHeight(notification: notification) / 2)
+        }
+    }
+    
+    //shifts view down once done editing bottom text field
+    func keyboardWillHide(notification: NSNotification){
+        
+        if passwordField.isFirstResponder{
+            view.frame.origin.y = 0
+        }
+    }
+    
+    //helper function for keyboardWillShow
+    func getKeyboardHeight(notification: NSNotification) -> CGFloat{
+        let userInfo = notification.userInfo
+        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        return keyboardSize.cgRectValue.height
+    }
+    
+    
+    func subscribeToKeyboardNotifications(){
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        
+    }
+    
+    func unsubscribeToKeyboardNotifications(){
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
         
     }
 }

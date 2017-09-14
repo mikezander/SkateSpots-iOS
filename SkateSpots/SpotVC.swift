@@ -14,7 +14,7 @@ import FirebaseStorage
 import AssetsLibrary
 
 class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,CLLocationManagerDelegate{
-
+    
     var photoURLs = [String]()
     var user: User!
     
@@ -26,7 +26,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var spotNameField: UITextField!
     @IBOutlet weak var descriptionTextView: UITextView!
     @IBOutlet weak var SpotTypeControl: UISegmentedControl!
-
+    
     @IBOutlet weak var ledgeBtn: UIButton!
     @IBOutlet weak var railBtn: UIButton!
     @IBOutlet weak var gapBtn: UIButton!
@@ -43,7 +43,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var addSpotButton: UIButton!
     @IBOutlet weak var topPhotoLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-
+    
     var imagePicker: UIImagePickerController!
     var count = 0
     var imageSelected = false
@@ -56,16 +56,16 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var longitude: CLLocationDegrees?
     var spotType: String = ""
     var bestTimeToSkate: String = ""
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
-
+        
         spotNameField.delegate = self
         spotNameField.layer.cornerRadius = 7.0
         spotNameField.layer.borderWidth = 1.0
-    
+        
         descriptionTextView.delegate = self
         descriptionTextView.text = "Spot Description"
         descriptionTextView.textContainer.maximumNumberOfLines = 6
@@ -79,12 +79,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         imagePicker.delegate = self
         
         showPhotoActionSheet()
-
+        
         addPhotoOne.addGestureRecognizer(setGestureRecognizer())
         addPhotoTwo.addGestureRecognizer(setGestureRecognizer())
         addPhotoThree.addGestureRecognizer(setGestureRecognizer())
         addPhotoFour.addGestureRecognizer(setGestureRecognizer())
-
+        
         gapBtn.titleLabel?.adjustsFontSizeToFitWidth = true
         
         anytimeBtn.isSelected = true
@@ -99,12 +99,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         addSpotButton.layer.cornerRadius = 4.0
         
         topPhotoLabel.isHidden = true
-
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
- 
+        
         
     }
     
@@ -112,11 +112,11 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         bustLabel.text = String(Int(sender.value))
         
         if Int(sender.value) == 0{
-         bustLabel.text = "Low"
+            bustLabel.text = "Low"
         }else if Int(sender.value) == 1{
-          bustLabel.text = "Medium"
+            bustLabel.text = "Medium"
         }else if Int(sender.value) == 2{
-           bustLabel.text = "High"  
+            bustLabel.text = "High"
         }
     }
     
@@ -124,25 +124,25 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         if sender.backgroundColor == UIColor.clear{
             switch sender.tag {
-        case 0,1,2,3,4,5,6:
-            sender.isSelected = true
-            sender.backgroundColor = UIColor.black
-            sender.setTitleColor(FLAT_GREEN, for: .normal)
-            otherBtn.backgroundColor = UIColor.clear
-            otherBtn.setTitleColor(.black, for: .normal)
+            case 0,1,2,3,4,5,6:
+                sender.isSelected = true
+                sender.backgroundColor = UIColor.black
+                sender.setTitleColor(FLAT_GREEN, for: .normal)
+                otherBtn.backgroundColor = UIColor.clear
+                otherBtn.setTitleColor(.black, for: .normal)
                 otherBtn.isSelected = false
-            
-        case 7:
-            sender.isSelected = true
-            sender.backgroundColor = UIColor.black
-            sender.setTitleColor(FLAT_GREEN, for: .normal)
-            disableButtonsForTypeOther(btn: ledgeBtn)
-            disableButtonsForTypeOther(btn: railBtn)
-            disableButtonsForTypeOther(btn: gapBtn)
-            disableButtonsForTypeOther(btn: bumpBtn)
-            disableButtonsForTypeOther(btn: mannyBtn)
-            disableButtonsForTypeOther(btn: bankBtn)
-            disableButtonsForTypeOther(btn: trannyBtn)
+                
+            case 7:
+                sender.isSelected = true
+                sender.backgroundColor = UIColor.black
+                sender.setTitleColor(FLAT_GREEN, for: .normal)
+                disableButtonsForTypeOther(btn: ledgeBtn)
+                disableButtonsForTypeOther(btn: railBtn)
+                disableButtonsForTypeOther(btn: gapBtn)
+                disableButtonsForTypeOther(btn: bumpBtn)
+                disableButtonsForTypeOther(btn: mannyBtn)
+                disableButtonsForTypeOther(btn: bankBtn)
+                disableButtonsForTypeOther(btn: trannyBtn)
             case 8:
                 sender.isSelected = true
                 sender.backgroundColor = UIColor.black
@@ -171,11 +171,11 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 disableButtonsForTypeOther(btn: anytimeBtn)
                 disableButtonsForTypeOther(btn: weekdayBtn)
                 disableButtonsForTypeOther(btn: weekendBtn)
-        default: break
+            default: break
             } //end switch
-       
+            
         }else{
-           
+            
             switch sender.tag {
             case 0,1,2,3,4,5,6:
                 sender.isSelected = false
@@ -230,7 +230,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     func disableButtonsForTypeOther(btn: UIButton){
         btn.backgroundColor = UIColor.clear
         btn.setTitleColor(.black, for: .normal)
-       // btn.isEnabled = false
+        // btn.isEnabled = false
     }
     
     func addImagePressed(sender: UITapGestureRecognizer) {
@@ -238,9 +238,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     @IBAction func longPressDelete(_ sender: UILongPressGestureRecognizer){
-    print("long press pressed")
+        print("long press pressed")
         if sender.state == UIGestureRecognizerState.ended{
-           
+            
             if count == 0{
                 return
             }else if count == 1{
@@ -276,9 +276,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 
                 count -= 1
             }
-        
+            
         }
-
+        
     }
     
     func clearLocationData(){
@@ -320,38 +320,38 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         present(actionSheet, animated: true, completion: nil)
     }
-
+    
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         dismiss(animated: true, completion: nil)
         if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
             
             if (!locationFound) && (latitude == nil) && (longitude == nil){
-
-                if(picker.sourceType == .camera){
                 
-                locationManager = CLLocationManager()
-                locationManager.delegate = self
-                locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
-                locationManager.requestWhenInUseAuthorization()
-                locationManager.startUpdatingLocation()
-
+                if(picker.sourceType == .camera){
+                    
+                    locationManager = CLLocationManager()
+                    locationManager.delegate = self
+                    locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+                    locationManager.requestWhenInUseAuthorization()
+                    locationManager.startUpdatingLocation()
+                    
                 }else{
-            
-                if let imageUrl = info[UIImagePickerControllerReferenceURL] as? NSURL{
-                    let asset = PHAsset.fetchAssets(withALAssetURLs:[imageUrl as URL], options: nil).firstObject as PHAsset?
-
-                    if asset?.location != nil{
-                        let location = asset?.location
+                    
+                    if let imageUrl = info[UIImagePickerControllerReferenceURL] as? NSURL{
+                        let asset = PHAsset.fetchAssets(withALAssetURLs:[imageUrl as URL], options: nil).firstObject as PHAsset?
                         
-                        latitude = location?.coordinate.latitude
-                        longitude = location?.coordinate.longitude
-                        
-                        reverseGeocodeLocation(location: location!)
+                        if asset?.location != nil{
+                            let location = asset?.location
+                            
+                            latitude = location?.coordinate.latitude
+                            longitude = location?.coordinate.longitude
+                            
+                            reverseGeocodeLocation(location: location!)
+                        }
                     }
                 }
             }
-        }
 
             addThumbnailPhoto(count, image)
             addPhotoOne.layer.borderWidth = 1.5
@@ -381,72 +381,72 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     @IBAction func addSpotButtonPressed(_ sender: Any) {
-
-            guard isInternetAvailable() && hasConnected else{
-                errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
-                return
-            }
- 
-            
-            guard let spotName = spotNameField.text, spotName != "" else{
-                errorAlert(title: "Error", message: "You must enter a spot name!")
-                return
-            }
-            
-            guard let defaultImg = addPhotoOne.image, imageSelected == true else{
-                errorAlert(title: "Error", message: "You must upload a spot image!")
-                return
-            }
-            
-            if !locationFound{
-                errorAlert(title: "Location not found!", message: "* Make sure at least one of your photos have been taken at the spot ")
-                return
-            }
-            
-            if SpotTypeControl.selectedSegmentIndex == 0{
-                
-                if !ledgeBtn.isSelected && !railBtn.isSelected && !gapBtn.isSelected && !mannyBtn.isSelected
-                    && !bumpBtn.isSelected && !trannyBtn.isSelected && !bankBtn.isSelected && !otherBtn.isSelected{
-                    
-                    errorAlert(title: "Error", message: "A spot type must be selected!")
-                    return
-                }
-                
-                if ledgeBtn.isSelected { spotType += "Ledges" }
-                if railBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Rail" }
-                if gapBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Stairs/Gap" }
-                if bumpBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bump" }
-                if mannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Manual" }
-                if bankBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bank" }
-                if trannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Tranny" }
-                if otherBtn.isSelected { spotType += "Other" }
-                
-                
-            }else{
-                
-                spotType += "Skatepark"
-            }
-            
-            if anytimeBtn.isSelected{ bestTimeToSkate = "Anytime" }
-            if weekdayBtn.isSelected{ bestTimeToSkate = "Weekday" }
-            if weekendBtn.isSelected{ bestTimeToSkate = "Weekend" }
-            if nightBtn.isSelected{ bestTimeToSkate = "Night" }
-            
-            addPhotosToStorage(image: defaultImg, true)
-            
-            performSegue(withIdentifier: "backToFeedVC", sender: nil)
+        
+        guard isInternetAvailable() && hasConnected else{
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+            return
         }
+        
+        
+        guard let spotName = spotNameField.text, spotName != "" else{
+            errorAlert(title: "Error", message: "You must enter a spot name!")
+            return
+        }
+        
+        guard let defaultImg = addPhotoOne.image, imageSelected == true else{
+            errorAlert(title: "Error", message: "You must upload a spot image!")
+            return
+        }
+        
+        if !locationFound{
+            errorAlert(title: "Location not found!", message: "* Make sure at least one of your photos have been taken at the spot ")
+            return
+        }
+        
+        if SpotTypeControl.selectedSegmentIndex == 0{
+            
+            if !ledgeBtn.isSelected && !railBtn.isSelected && !gapBtn.isSelected && !mannyBtn.isSelected
+                && !bumpBtn.isSelected && !trannyBtn.isSelected && !bankBtn.isSelected && !otherBtn.isSelected{
+                
+                errorAlert(title: "Error", message: "A spot type must be selected!")
+                return
+            }
+            
+            if ledgeBtn.isSelected { spotType += "Ledges" }
+            if railBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Rail" }
+            if gapBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Stairs/Gap" }
+            if bumpBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bump" }
+            if mannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Manual" }
+            if bankBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bank" }
+            if trannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Tranny" }
+            if otherBtn.isSelected { spotType += "Other" }
+            
+            
+        }else{
+            
+            spotType += "Skatepark"
+        }
+        
+        if anytimeBtn.isSelected{ bestTimeToSkate = "Anytime" }
+        if weekdayBtn.isSelected{ bestTimeToSkate = "Weekday" }
+        if weekendBtn.isSelected{ bestTimeToSkate = "Weekend" }
+        if nightBtn.isSelected{ bestTimeToSkate = "Night" }
+        
+        addPhotosToStorage(image: defaultImg, true)
+        
+        performSegue(withIdentifier: "backToFeedVC", sender: nil)
+    }
     
- 
+    
     func addPhotosToStorage(image: UIImage,_ isDefault: Bool){
-
+        
         if let imgData = UIImageJPEGRepresentation(image, 0.2){
             
             let imgUid = NSUUID().uuidString
             let metadata = FIRStorageMetadata()
             metadata.contentType = "image/jpeg"
-           let uploadTask = DataService.instance.REF_SPOT_IMAGES.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
- 
+            let uploadTask = DataService.instance.REF_SPOT_IMAGES.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
+                
                 if error != nil{
                     print("unable to upload image to firebase storage")
                 }else{
@@ -456,34 +456,34 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                         self.photoURLs.append(url)
                         
                         if self.photoURLs.count == self.count{
-                        
+                            
                             self.postToFirebase(imgUrl: self.photoURLs)
                         }
                     }
                 }
                 
             }
-            if isDefault{ 
-            _ = uploadTask.observe(.success) { snapshot in
-               
-                if let imgTwo = self.addPhotoTwo.image, self.imageSelected == true, self.count >= 2{
-                    self.addPhotosToStorage(image: imgTwo, false)
-                }
-                
-                if let imgThree = self.addPhotoThree.image, self.imageSelected == true, self.count >= 3{
-                    self.addPhotosToStorage(image: imgThree, false)
-                }
-                
-                if let imgFour = self.addPhotoFour.image, self.imageSelected == true, self.count == 4{
-                    self.addPhotosToStorage(image: imgFour, false)
-                }
+            if isDefault{
+                _ = uploadTask.observe(.success) { snapshot in
+                    
+                    if let imgTwo = self.addPhotoTwo.image, self.imageSelected == true, self.count >= 2{
+                        self.addPhotosToStorage(image: imgTwo, false)
+                    }
+                    
+                    if let imgThree = self.addPhotoThree.image, self.imageSelected == true, self.count >= 3{
+                        self.addPhotosToStorage(image: imgThree, false)
+                    }
+                    
+                    if let imgFour = self.addPhotoFour.image, self.imageSelected == true, self.count == 4{
+                        self.addPhotosToStorage(image: imgFour, false)
+                    }
                 }
             }
         }
     }
     
     func locationManager(_ manager:CLLocationManager, didUpdateLocations locations:[CLLocation]) {
- 
+        
         locationManager.stopUpdatingLocation()
         
         if latitude == nil && longitude == nil{
@@ -503,78 +503,78 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find user's location: \(error.localizedDescription)")
     }
-
+    
     
     func reverseGeocodeLocation(location: CLLocation){
         
         activityIndicator.startAnimating()
-    
-        let geoCoder = CLGeocoder()
-
         
-            geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
-                
-                guard error == nil else{
-
-                    self.errorAlert(title: "Internet Connetion Error", message: "Bad internet connection while trying to find this photos location. Retry when you are connected")
+        let geoCoder = CLGeocoder()
+        
+        
+        geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
             
-                    self.longitude = nil
-                    self.latitude = nil
-                    
-                    DispatchQueue.main.async{self.activityIndicator.stopAnimating()}
-                    
-                    return
-                }
+            guard error == nil else{
                 
-                // Place details
-                var placeMark: CLPlacemark!
-                placeMark = placemarks?[0]
+                self.errorAlert(title: "Internet Connetion Error", message: "Bad internet connection while trying to find this photos location. Retry when you are connected")
                 
-                // Address dictionary
-                print(placeMark.addressDictionary as Any, terminator: "")
+                self.longitude = nil
+                self.latitude = nil
                 
-                // Location name
-                if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
-                    print(locationName, terminator: "")
-                    // self.locationString += locationName as String
-                    // self.locationString += " "
-                }
-                
-                // Street address
-                if let street = placeMark.addressDictionary!["Thoroughfare"] as? NSString {
-                    print(street, terminator: "")
-                    print("yoo")
-                }
-                
-                // City
-                if let city = placeMark.addressDictionary!["City"] as? NSString {
-                    print(city, terminator: "")
-                    self.locationString += city as String
-                    self.locationString += ","
-                }
-                
-                // State  // can also get Zip code. use "ZIP"
-                if let state = placeMark.addressDictionary!["State"] as? NSString {
-                    print(state, terminator: "")
-                    self.locationString += state as String
-                    self.locationString += "-" //used as deliminator in Spot.swift
-                }
-                
-                // Country
-                if let country = placeMark.addressDictionary!["Country"] as? NSString {
-                    print(country, terminator: "")
-                    self.locationString += country as String
-                }
-                
-                self.locationFound = true
-                self.locationFoundIndex = self.count
-                print("\(String(describing: self.locationFoundIndex))here")
                 DispatchQueue.main.async{self.activityIndicator.stopAnimating()}
-            })
-
-  
+                
+                return
+            }
+            
+            // Place details
+            var placeMark: CLPlacemark!
+            placeMark = placemarks?[0]
+            
+            // Address dictionary
+            print(placeMark.addressDictionary as Any, terminator: "")
+            
+            // Location name
+            if let locationName = placeMark.addressDictionary!["Name"] as? NSString {
+                print(locationName, terminator: "")
+                // self.locationString += locationName as String
+                // self.locationString += " "
+            }
+            
+            // Street address
+            if let street = placeMark.addressDictionary!["Thoroughfare"] as? NSString {
+                print(street, terminator: "")
+                print("yoo")
+            }
+            
+            // City
+            if let city = placeMark.addressDictionary!["City"] as? NSString {
+                print(city, terminator: "")
+                self.locationString += city as String
+                self.locationString += ","
+            }
+            
+            // State  // can also get Zip code. use "ZIP"
+            if let state = placeMark.addressDictionary!["State"] as? NSString {
+                print(state, terminator: "")
+                self.locationString += state as String
+                self.locationString += "-" //used as deliminator in Spot.swift
+            }
+            
+            // Country
+            if let country = placeMark.addressDictionary!["Country"] as? NSString {
+                print(country, terminator: "")
+                self.locationString += country as String
+            }
+            
+            self.locationFound = true
+            self.locationFoundIndex = self.count
+            print("\(String(describing: self.locationFoundIndex))here")
+            DispatchQueue.main.async{self.activityIndicator.stopAnimating()}
+        })
+        
+        
     }
-
+    
     @IBAction func toggleSpotType(_ sender: UISegmentedControl) {
         if sender.selectedSegmentIndex == 1{
             DispatchQueue.main.async {
@@ -592,7 +592,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             }
             
         }else{
-        
+            
             DispatchQueue.main.async {
                 UIView.animate(withDuration: 0.5, animations: {
                     self.ledgeBtn.center.x += self.view.bounds.width
@@ -608,9 +608,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             
         }
     }
-   
+    
     func postToFirebase(imgUrl: [String]){
- 
+        
         var spot: Dictionary<String, AnyObject> = [
             "spotName": spotNameField.text! as AnyObject,
             "imageUrls": imgUrl as AnyObject,
@@ -632,33 +632,33 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             if let username = snapshot.childSnapshot(forPath: "username").value as? String{
                 
                 if let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String{
-                
+                    
                     self.user = User(userName: username, userImageURL: userImageURL, bio: "", link: "", igLink: "")
-
+                    
                     spot["username"] = self.user.userName as AnyObject?
                     spot["userImageURL"] = self.user.userImageURL as AnyObject?
                     
                     firebasePost.setValue(spot)
-
+                    
                 }
             }
         })
-
+        
         let userSpotsDict: Dictionary<String,AnyObject> = [firebasePost.key: true as AnyObject]
         
         DataService.instance.updateDBUser(uid: FIRAuth.auth()!.currentUser!.uid, child: "spots", userData: userSpotsDict)
-
+        
         spotNameField.text = ""
         imageSelected = false
         addPhotoOne.image = UIImage(named: "black_photo_btn")
         locationString = ""
         spotType = ""
-
+        
     }
 }
 
 extension SpotVC: UITextFieldDelegate, UITextViewDelegate{
-
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
@@ -668,7 +668,7 @@ extension SpotVC: UITextFieldDelegate, UITextViewDelegate{
         spotNameField.layer.borderColor = FLAT_GREEN.cgColor
     }
     func textFieldDidEndEditing(_ textField: UITextField) {
-       spotNameField.layer.borderColor = UIColor.black.cgColor
+        spotNameField.layer.borderColor = UIColor.black.cgColor
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
@@ -679,7 +679,7 @@ extension SpotVC: UITextFieldDelegate, UITextViewDelegate{
         }
         return true
     }
- 
+    
     func textViewDidBeginEditing(_ textView: UITextView) {
         if descriptionTextView.textColor == UIColor.lightGray {
             descriptionTextView.text = nil

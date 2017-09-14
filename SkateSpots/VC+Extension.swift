@@ -8,6 +8,7 @@
 
 import UIKit
 import SystemConfiguration
+import Foundation
 
 var hasConnected = false
 let notificationName = Notification.Name("NotificationIdentifier")
@@ -42,23 +43,39 @@ extension UIViewController{
     }
     
     func isConnected(){
-    
+        
         DataService.instance.isConnectedToFirebase(completion: { connected in
             
             if connected{
                 
-               hasConnected = true
-               NotificationCenter.default.post(name: notificationName, object: nil)
-           
+                hasConnected = true
+                NotificationCenter.default.post(name: notificationName, object: nil)
+                
             }else{
                 hasConnected = false
-                //self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
+                
             }
             
             print("\(hasConnected)hasconnected")
-            
         })
-
+        
     }
-
+  
 }
+
+extension String{
+    
+    var isValidEmail : Bool {
+        let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
+        let emailPredicate = NSPredicate(format: "SELF MATCHES %@", emailFormat)
+        return emailPredicate.evaluate(with:self)
+        
+    }
+    
+}
+
+
+
+
+
+
