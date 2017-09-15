@@ -83,7 +83,7 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
         contentView.addSubview(igLink)
         
         contributions = UILabel()
-        contributions.frame = CGRect(x: profilePhoto.frame.origin.x , y: igLink.frame.origin.y + 75, width: 150, height: 20)
+        contributions.frame = CGRect(x: profilePhoto.frame.origin.x , y: igLink.frame.origin.y + 85, width: 150, height: 20)
         contributions.textColor = UIColor.lightGray
         contributions.font = UIFont(name: "Avenir-Black",size: 14)
         contentView.addSubview(contributions)

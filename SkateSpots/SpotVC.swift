@@ -307,7 +307,13 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         if UIApplication.isFirstLaunch() && !hasRan{
             
-             actionSheet = UIAlertController(title: "Photo Source", message: "*Sk8Spots prefers portrait(vertical) spot photos*\nChoose a source", preferredStyle: .actionSheet)
+           
+           
+            
+
+
+            
+             actionSheet = UIAlertController(title: "*Sk8Spots prefers portrait(vertical) spot photos*\n\nPhoto Source", message: "Choose a source", preferredStyle: .actionSheet)
              hasRan = true
         }
 
