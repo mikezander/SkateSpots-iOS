@@ -23,7 +23,6 @@ class DetailPhotoCell: UICollectionViewCell{
 
         spotImage.contentMode = .scaleAspectFit
         
-
         //download images
         if img != nil{
             DispatchQueue.main.async {

@@ -22,8 +22,11 @@ class SpotPhotoCell: UICollectionViewCell{
         //download images
         if img != nil{
             self.spotImage.image = img
-            self.setImageViewContentMode(image: img!)
-            DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+
+            DispatchQueue.main.async {
+                self.setImageViewContentMode(image: img!)
+                self.activityIndicator.stopAnimating()
+            }
             
         }else{
             
@@ -38,13 +41,15 @@ class SpotPhotoCell: UICollectionViewCell{
                 }else{
                     print("Mike: Image downloaded from firebase storge")
                     if let imgData = data {
-                        
-                        
+                          
                         if let img = UIImage(data: imgData){
                             self.spotImage.image = img
-                            self.setImageViewContentMode(image: img)
+                            //
                             FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
-                            DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+                            DispatchQueue.main.async {
+                                self.setImageViewContentMode(image: img)
+                                self.activityIndicator.stopAnimating()
+                            }
                             
                         }
                         
@@ -54,10 +59,11 @@ class SpotPhotoCell: UICollectionViewCell{
             })
         }
         
+        
     }
     
     func setImageViewContentMode(image:UIImage){
-        
+
         if image.size.width > image.size.height{
             self.spotImage.contentMode = .scaleAspectFit
         }else{
