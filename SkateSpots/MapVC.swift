@@ -49,6 +49,7 @@ class MapVC: UIViewController{
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+
         
     }
     
@@ -57,6 +58,7 @@ class MapVC: UIViewController{
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
             self.spots = [] //clears up spot array each time its loaded
+
             
             if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
                 for snap in snapshot{
@@ -177,9 +179,22 @@ extension MapVC: MKMapViewDelegate {
     
     func mapView(_ mapView: MKMapView, annotationView view: MKAnnotationView,
                  calloutAccessoryControlTapped control: UIControl) {
+        
         let spotPin = view.annotation as! SpotPin
-        spot = spotPin.spot
-        performSegue(withIdentifier: "DetailVC", sender: nil)
+        
+        DataService.instance.REF_SPOTS.child(spotPin.spot.spotKey).observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            guard snapshot.exists() else{
+                self.errorAlert(title: "Spot doesn't exist", message: "Spot no longer exists, user must have deleted it")
+                return
+            
+            }
+            
+            self.spot = spotPin.spot
+            self.performSegue(withIdentifier: "DetailVC", sender: nil)
+        })
+  
+        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {

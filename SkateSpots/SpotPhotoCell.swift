@@ -18,17 +18,12 @@ class SpotPhotoCell: UICollectionViewCell{
     
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
-    
+        
         //download images
         if img != nil{
             self.spotImage.image = img
+            self.setImageViewContentMode(image: img!)
             DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
-            
-            if img!.size.width > img!.size.height{
-                self.spotImage.contentMode = .scaleAspectFit
-            }else{
-                self.spotImage.contentMode = .scaleToFill
-            }
             
         }else{
             
@@ -47,14 +42,9 @@ class SpotPhotoCell: UICollectionViewCell{
                         
                         if let img = UIImage(data: imgData){
                             self.spotImage.image = img
+                            self.setImageViewContentMode(image: img)
                             FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
                             DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
-                            
-                            if img.size.width > img.size.height{
-                                self.spotImage.contentMode = .scaleAspectFit
-                            }else{
-                                self.spotImage.contentMode = .scaleToFill
-                            }
                             
                         }
                         
@@ -64,6 +54,15 @@ class SpotPhotoCell: UICollectionViewCell{
             })
         }
         
+    }
+    
+    func setImageViewContentMode(image:UIImage){
+        
+        if image.size.width > image.size.height{
+            self.spotImage.contentMode = .scaleAspectFit
+        }else{
+            self.spotImage.contentMode = .scaleToFill
+        }
     }
     
     func emptyImageView(){

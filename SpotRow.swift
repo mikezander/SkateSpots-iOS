@@ -113,7 +113,6 @@ extension SpotRow : UICollectionViewDataSource {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! SpotPhotoCell
         
-        
         cell.emptyImageView()
         
         if indexPath.row < spot.imageUrls.count{
@@ -126,6 +125,7 @@ extension SpotRow : UICollectionViewDataSource {
             }
             
         }
+        
         
         
         return cell
