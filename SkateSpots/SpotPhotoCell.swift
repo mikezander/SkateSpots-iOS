@@ -58,7 +58,6 @@ class SpotPhotoCell: UICollectionViewCell{
                             
                         }
                         
-                        
                     }
                 }
                 
