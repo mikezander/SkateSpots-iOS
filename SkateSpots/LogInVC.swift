@@ -33,7 +33,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         super.viewDidLoad()
         
         fbLoginButton.frame = CGRect(x:0 ,y:UIScreen.main.bounds.height - 50,width:UIScreen.main.bounds.width,height:50)
-        fbLoginButton.readPermissions = ["public_profile", "email", "user_friends"]
+        fbLoginButton.readPermissions = ["public_profile","email"] // , "user_friends"
         fbLoginButton.delegate = self
         view.addSubview(fbLoginButton)
         
