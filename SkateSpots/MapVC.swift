@@ -194,7 +194,6 @@ extension MapVC: MKMapViewDelegate {
             self.performSegue(withIdentifier: "DetailVC", sender: nil)
         })
   
-        
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
