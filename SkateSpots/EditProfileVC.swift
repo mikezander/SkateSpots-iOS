@@ -185,7 +185,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
         let userEmail = FIRAuth.auth()?.currentUser?.email
         
-            let alertController = UIAlertController(title: "Are you sure you want to log out?", message: "If you signed up with email/password, you must remeber your password for \(userEmail!) to log back in.", preferredStyle: .alert)
+            let alertController = UIAlertController(title: "Are you sure you want to log out?", message: "If you signed up with email/password, you must remember your password for \(userEmail!) to log back in.", preferredStyle: .alert)
 
         
         let deleteAction = UIAlertAction(title: "Log Out", style:.destructive, handler: { (action) in

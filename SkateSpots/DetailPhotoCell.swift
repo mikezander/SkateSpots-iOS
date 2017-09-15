@@ -21,9 +21,8 @@ class DetailPhotoCell: UICollectionViewCell{
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
 
-        //spotImage.contentMode = .scaleAspectFill
-
-        //spotImage.clipsToBounds = true
+        spotImage.contentMode = .scaleAspectFit
+        
 
         //download images
         if img != nil{
@@ -63,7 +62,7 @@ class DetailPhotoCell: UICollectionViewCell{
             })
             
         }
-        
+
         
     }
     
