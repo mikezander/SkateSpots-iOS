@@ -10,8 +10,10 @@ import UIKit
 import SystemConfiguration
 import Foundation
 
+
 var hasConnected = false
 let notificationName = Notification.Name("NotificationIdentifier")
+private var firstLaunch : Bool = false
 
 extension UIViewController{
     
@@ -61,6 +63,20 @@ extension UIViewController{
         
     }
   
+}
+
+extension UIApplication {
+    
+    static func isFirstLaunch() -> Bool {
+        let firstLaunchFlag = "isFirstLaunchFlag"
+        let isFirstLaunch = UserDefaults.standard.string(forKey: firstLaunchFlag) == nil
+        if (isFirstLaunch) {
+            firstLaunch = isFirstLaunch
+            UserDefaults.standard.set("false", forKey: firstLaunchFlag)
+            UserDefaults.standard.synchronize()
+        }
+        return firstLaunch || isFirstLaunch
+    }
 }
 
 extension String{

@@ -56,6 +56,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var longitude: CLLocationDegrees?
     var spotType: String = ""
     var bestTimeToSkate: String = ""
+    var hasRan = false
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -79,7 +80,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         imagePicker.delegate = self
         
         showPhotoActionSheet()
-        
+ 
         addPhotoOne.addGestureRecognizer(setGestureRecognizer())
         addPhotoTwo.addGestureRecognizer(setGestureRecognizer())
         addPhotoThree.addGestureRecognizer(setGestureRecognizer())
@@ -302,8 +303,14 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             return
         }
         
-        let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
+        var actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
+        if UIApplication.isFirstLaunch() && !hasRan{
+            
+             actionSheet = UIAlertController(title: "Photo Source", message: "*Sk8Spots prefers portrait(vertical) spot photos*\nChoose a source", preferredStyle: .actionSheet)
+             hasRan = true
+        }
+
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 self.imagePicker.sourceType = .camera
@@ -359,6 +366,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             topPhotoLabel.isHidden = false
             imageSelected = true
             count += 1
+
             
         }else{
             print("valid image wasn't selected")

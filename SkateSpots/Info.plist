@@ -46,13 +46,13 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Access to photos is required for posting</string>
+	<string>*Access to photos is required for posting</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>In order to use this app we need location access</string>
+	<string>*In order to use this app you must allow location access</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>In order to use this app we need location access</string>
+	<string>*In order to use this app you must allow location access</string>
 	<key>NSPhotoLibraryUsageDescription</key>
-	<string>Access to photos is required for posting</string>
+	<string>*Access to photos is required for posting</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>Billabong.ttf</string>

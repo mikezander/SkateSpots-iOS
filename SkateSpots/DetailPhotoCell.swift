@@ -11,7 +11,6 @@ import FirebaseStorage
 
 class DetailPhotoCell: UICollectionViewCell{
 
-    
     var spotImage = UIImageView()
     
     var activityIndicator = UIActivityIndicatorView()
@@ -20,16 +19,14 @@ class DetailPhotoCell: UICollectionViewCell{
     
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
-
-        spotImage.contentMode = .scaleAspectFit
-        
+   
         //download images
         if img != nil{
             DispatchQueue.main.async {
                 self.spotImage.image = img
+                self.setImageViewContentMode(image: img!)
                 self.activityIndicator.stopAnimating()
             }
-            
             
         }else{
             
@@ -49,6 +46,7 @@ class DetailPhotoCell: UICollectionViewCell{
                             
                             if let img = UIImage(data: imgData){
                                 self.spotImage.image = img
+                                self.setImageViewContentMode(image: img)
                                 FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
                             }
                         }
@@ -63,6 +61,15 @@ class DetailPhotoCell: UICollectionViewCell{
         }
 
         
+    }
+    
+    func setImageViewContentMode(image:UIImage){
+        
+        if image.size.width > image.size.height{
+            self.spotImage.contentMode = .scaleAspectFit
+        }else{
+            self.spotImage.contentMode = .scaleToFill
+        }
     }
     
     
