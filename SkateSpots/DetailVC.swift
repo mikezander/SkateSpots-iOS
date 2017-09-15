@@ -227,6 +227,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         tableView.layer.borderWidth = 1
         tableView.delegate = self
         tableView.dataSource = self
+        tableView.separatorStyle = .none
         containerView.addSubview(tableView)
         
         commentLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
