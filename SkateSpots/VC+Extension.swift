@@ -14,8 +14,11 @@ import Foundation
 var hasConnected = false
 let notificationName = Notification.Name("NotificationIdentifier")
 private var firstLaunch : Bool = false
+var defaults = UserDefaults.standard
+let agreementKey = "AgreementKey"
 
 extension UIViewController{
+    
     
     func errorAlert(title: String, message: String){
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -62,6 +65,7 @@ extension UIViewController{
         })
         
     }
+
   
 }
 

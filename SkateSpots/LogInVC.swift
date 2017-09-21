@@ -32,7 +32,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
 
     override func viewDidLoad() {
         super.viewDidLoad()
- 
+
         fbLoginButton.frame = CGRect(x:0 ,y:UIScreen.main.bounds.height - 50,width:UIScreen.main.bounds.width,height:50)
         fbLoginButton.readPermissions = ["public_profile","email"] // , "user_friends"
         fbLoginButton.delegate = self
@@ -47,6 +47,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        
 
         if UIScreen.main.bounds.height <= 568.0{
             subscribeToKeyboardNotifications()
@@ -55,7 +56,16 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        if UIApplication.isFirstLaunch() && !hasAgreedToTerms{
+        
+        print(defaults.bool(forKey: agreementKey))
+        
+        if defaults.bool(forKey: agreementKey) == false{
+            
+            performSegue(withIdentifier: "Agreement", sender: nil)
+        }
+        
+
+       /* if UIApplication.isFirstLaunch() && !hasAgreedToTerms{
             
             performSegue(withIdentifier: "Agreement", sender: nil)
             
@@ -63,7 +73,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
 
         }else{
             print("Not First")
-        }
+        }*/
     }
 
     

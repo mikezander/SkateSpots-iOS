@@ -11,9 +11,8 @@ import UIKit
 
 class AgreementVC:UIViewController{
 
-
-
     @IBAction func agreePressed(_ sender: Any) {
+        defaults.set(true, forKey: agreementKey)
         dismiss(animated: true, completion: nil)
     }
   
