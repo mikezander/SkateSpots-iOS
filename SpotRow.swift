@@ -98,6 +98,8 @@ extension SpotRow : UICollectionViewDataSource {
         
     }
     
+   
+    
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         pageControl.numberOfPages = spot.imageUrls.count
         return spot.imageUrls.count

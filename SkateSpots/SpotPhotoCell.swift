@@ -19,7 +19,6 @@ class SpotPhotoCell: UICollectionViewCell{
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
         
-        //download images
         if img != nil{
             self.spotImage.image = img
 
@@ -44,7 +43,7 @@ class SpotPhotoCell: UICollectionViewCell{
                           
                         if let img = UIImage(data: imgData){
                             self.spotImage.image = img
-                            //
+                            
                             FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
                             DispatchQueue.main.async {
                                 self.setImageViewContentMode(image: img)

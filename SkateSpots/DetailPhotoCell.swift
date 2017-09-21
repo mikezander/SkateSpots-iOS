@@ -19,6 +19,7 @@ class DetailPhotoCell: UICollectionViewCell{
     
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
+  
    
         //download images
         if img != nil{

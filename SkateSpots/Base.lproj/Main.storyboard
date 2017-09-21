@@ -1565,10 +1565,133 @@
             </objects>
             <point key="canvasLocation" x="-692.75362318840587" y="714.13043478260875"/>
         </scene>
+        <!--AgreementVC-->
+        <scene sceneID="ix2-Kl-8jK">
+            <objects>
+                <viewController storyboardIdentifier="Agreement " id="ad1-j3-zsn" customClass="AgreementVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="zpb-gc-5Jx"/>
+                        <viewControllerLayoutGuide type="bottom" id="B4u-l1-NCd"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="iyb-VJ-2gg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sk8Spots End User License Agreement" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lv4-Tm-IEi">
+                                <rect key="frame" x="45.666666666666657" y="28" width="323.66666666666663" height="25"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="25" id="JhH-Fj-BmE"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="ArialRoundedMTBold" family="Arial Rounded MT Bold" pointSize="17"/>
+                                <color key="textColor" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Scroll to BOTTOM of agreement to Accept:" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DEc-aK-Kc0">
+                                <rect key="frame" x="52.666666666666657" y="60.999999999999993" width="310" height="19.333333333333321"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xys-M3-F6D">
+                                <rect key="frame" x="20" y="99.333333333333314" width="374" height="512.66666666666674"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <mutableString key="text">This End User License Agreement (“Agreement”) is between you and Sk8Spots and governs use of this app made available through the Apple App Store. By installing the Sk8Spots App, you agree to be bound by this Agreement and understand that there is no tolerance for objectionable content. If you do not agree with the terms and conditions of this Agreement, you are not entitled to use the Sk8Spots App.
+
+In order to ensure Sk8Spots provides the best experience possible for everyone, we strongly enforce a no tolerance policy for objectionable content. If you see inappropriate content, please use the “Report as offensive” feature found under each post.
+
+1. Parties
+
+This Agreement is between you and Sk8Spots only, and not Apple, Inc. (“Apple”). Notwithstanding the foregoing, you acknowledge that Apple and its subsidiaries are third party beneficiaries of this Agreement and Apple has the right to enforce this Agreement against you. Sk8Spots, not Apple, is solely responsible for the Sk8Spots App and its content.
+
+2. Privacy
+
+Sk8Spots may collect and use information about your usage of the Sk8Spots App, including certain types of information from and about your device. Sk8Spots may use this information, as long as it is in a form that does not personally identify you, to measure the use and performance of the Sk8Spots App.
+
+3. Limited License
+
+Sk8Spots grants you a limited, non-exclusive, non-transferable, revocable license to use theSk8Spots App for your personal, non-commercial purposes. You may only use the Sk8Spots App on Apple devices that you own or control and as permitted by the App Store Terms of Service.
+
+4. Age Restrictions
+
+By using the Sk8Spots App, you represent and warrant that (a) you are 17 years of age or older and you agree to be bound by this Agreement; (b) if you are under 17 years of age, you have obtained verifiable consent from a parent or legal guardian; and (c) your use of the Sk8Spots App does not violate any applicable law or regulation. Your access to the Sk8Spots App may be terminated without warning if Sk8Spots believes, in its sole discretion, that you are under the age of 17 years and have not obtained verifiable consent from a parent or legal guardian. If you are a parent or legal guardian and you provide your consent to your child’s use of the Sk8Spots App, you agree to be bound by this Agreement in respect to your child’s use of the &lt;Sk8Spots App.
+
+5. Objectionable Content Policy
+
+Content may not be submitted to Sk8Spots, who will moderate all content and ultimately decide whether or not to post a submission to the extent such content includes, is in conjunction with, or alongside any, Objectionable Content. Objectionable Content includes, but is not limited to: (i) sexually explicit materials; (ii) obscene, defamatory, libelous, slanderous, violent and/or unlawful content or profanity; (iii) content that infringes upon the rights of any third party, including copyright, trademark, privacy, publicity or other personal or proprietary right, or that is deceptive or fraudulent; (iv) content that promotes the use or sale of illegal or regulated substances, tobacco products, ammunition and/or firearms; and (v) gambling, including without limitation, any online casino, sports books, bingo or poker.
+
+6. Warranty
+
+Sk8Spots disclaims all warranties about the Sk8Spots App to the fullest extent permitted by law. To the extent any warranty exists under law that cannot be disclaimed, Sk8Spots, not Apple, shall be solely responsible for such warranty.
+
+7. Maintenance and Support
+
+Sk8Spots does provide minimal maintenance or support for it but not to the extent that any maintenance or support is required by applicable law, Sk8Spots, not Apple, shall be obligated to furnish any such maintenance or support.
+
+8. Product Claims
+
+Sk8Spots, not Apple, is responsible for addressing any claims by you relating to the Sk8Spots App or use of it, including, but not limited to: (i) any product liability claim; (ii) any claim that the Sk8Spots App fails to conform to any applicable legal or regulatory requirement; and (iii) any claim arising under consumer protection or similar legislation. Nothing in this Agreement shall be deemed an admission that you may have such claims.
+
+9. Third Party Intellectual Property Claims
+
+Sk8Spots shall not be obligated to indemnify or defend you with respect to any third party claim arising out or relating to the Sk8Spots App. To the extent Sk8Spots is required to provide indemnification by applicable law, Sk8Spots, not Apple, shall be solely responsible for the investigation, defense, settlement and discharge of any claim that the Sk8Spots App or your use of it infringes any third party intellectual property right.</mutableString>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bCg-im-NHn">
+                                <rect key="frame" x="36" y="665" width="100" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="T4p-Oe-doR"/>
+                                    <constraint firstAttribute="width" constant="100" id="nfU-Fw-Kbb"/>
+                                </constraints>
+                                <state key="normal" title="Accept">
+                                    <color key="titleColor" red="0.17016595333990145" green="0.12308021849933111" blue="0.97680455446243286" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="agreePressed:" destination="ad1-j3-zsn" eventType="touchUpInside" id="D6i-i3-nIV"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDu-Cx-vQZ">
+                                <rect key="frame" x="278" y="665" width="100" height="30"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="100" id="0v7-OO-Sf5"/>
+                                    <constraint firstAttribute="height" constant="30" id="WOs-YW-PHz"/>
+                                </constraints>
+                                <state key="normal" title="Decline">
+                                    <color key="titleColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="declinePressed:" destination="ad1-j3-zsn" eventType="touchUpInside" id="gC3-2m-XcZ"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="CDu-Cx-vQZ" firstAttribute="top" secondItem="Xys-M3-F6D" secondAttribute="bottom" constant="53" id="3HU-n6-r9A"/>
+                            <constraint firstItem="Xys-M3-F6D" firstAttribute="trailing" secondItem="iyb-VJ-2gg" secondAttribute="trailingMargin" id="HDw-f7-Pmt"/>
+                            <constraint firstItem="B4u-l1-NCd" firstAttribute="top" secondItem="CDu-Cx-vQZ" secondAttribute="bottom" constant="41" id="LWa-fi-xp7"/>
+                            <constraint firstItem="Xys-M3-F6D" firstAttribute="leading" secondItem="iyb-VJ-2gg" secondAttribute="leadingMargin" id="P3P-LG-X95"/>
+                            <constraint firstItem="Xys-M3-F6D" firstAttribute="top" secondItem="DEc-aK-Kc0" secondAttribute="bottom" constant="19" id="PsL-b5-Bxs"/>
+                            <constraint firstItem="DEc-aK-Kc0" firstAttribute="top" secondItem="lv4-Tm-IEi" secondAttribute="bottom" constant="8" id="Tv6-XR-dB4"/>
+                            <constraint firstItem="lv4-Tm-IEi" firstAttribute="top" secondItem="zpb-gc-5Jx" secondAttribute="bottom" constant="8" id="UJO-CI-0cy"/>
+                            <constraint firstItem="B4u-l1-NCd" firstAttribute="top" secondItem="bCg-im-NHn" secondAttribute="bottom" constant="41" id="fRM-T9-XfC"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="CDu-Cx-vQZ" secondAttribute="trailing" constant="16" id="g67-8O-mwm"/>
+                            <constraint firstItem="DEc-aK-Kc0" firstAttribute="centerX" secondItem="iyb-VJ-2gg" secondAttribute="centerX" id="kCo-KZ-Xmm"/>
+                            <constraint firstItem="bCg-im-NHn" firstAttribute="leading" secondItem="iyb-VJ-2gg" secondAttribute="leadingMargin" constant="16" id="o8P-ng-caR"/>
+                            <constraint firstItem="bCg-im-NHn" firstAttribute="top" secondItem="Xys-M3-F6D" secondAttribute="bottom" constant="53" id="taO-ZB-wV7"/>
+                            <constraint firstItem="lv4-Tm-IEi" firstAttribute="centerX" secondItem="iyb-VJ-2gg" secondAttribute="centerX" id="za5-yo-Uwr"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xER-Ec-diN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2662" y="-862"/>
+        </scene>
         <!--Log InVC-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController storyboardIdentifier="goToFeed" id="BYZ-38-t0r" customClass="LogInVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="LogInVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -1760,6 +1883,7 @@
                         <outlet property="userNameField" destination="jSK-7x-0fx" id="cyK-8e-nto"/>
                         <outlet property="userProflieView" destination="ZTa-41-ERd" id="fdk-AT-GDa"/>
                         <segue destination="c2b-5P-XCM" kind="show" identifier="goToFeed" id="myg-hR-9mM"/>
+                        <segue destination="ad1-j3-zsn" kind="show" identifier="Agreement" id="3qt-Nu-IXS"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -1807,8 +1931,8 @@
         <image name="star" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="wHi-97-VC8"/>
-        <segue reference="qnT-aP-8uy"/>
+        <segue reference="myg-hR-9mM"/>
         <segue reference="ZX4-qG-Pn9"/>
+        <segue reference="wHi-97-VC8"/>
     </inferredMetricsTieBreakers>
 </document>

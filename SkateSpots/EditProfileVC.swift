@@ -9,6 +9,7 @@
 import UIKit
 import FirebaseAuth
 import SwiftKeychainWrapper
+import FBSDKLoginKit
 
 protocol ProfileEditedProtocol {
     func hasProfileBeenEdited(edited: Bool)
@@ -192,7 +193,12 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             
             let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
             print("Mike: ID remover from keychain \(keychainResult)")
+            
             try! FIRAuth.auth()?.signOut()
+            
+            let loginManager = FBSDKLoginManager()
+            loginManager.logOut()
+            
             self.performSegue(withIdentifier: "LoggedOut", sender: nil)
             
         })

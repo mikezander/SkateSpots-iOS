@@ -28,10 +28,11 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     var userProfileURL = ""
     var imageSelected = false
-    
+    var hasAgreedToTerms = false
+
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+ 
         fbLoginButton.frame = CGRect(x:0 ,y:UIScreen.main.bounds.height - 50,width:UIScreen.main.bounds.width,height:50)
         fbLoginButton.readPermissions = ["public_profile","email"] // , "user_friends"
         fbLoginButton.delegate = self
@@ -46,16 +47,32 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
+
         if UIScreen.main.bounds.height <= 568.0{
             subscribeToKeyboardNotifications()
         }
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(true)
+        if UIApplication.isFirstLaunch() && !hasAgreedToTerms{
+            
+            performSegue(withIdentifier: "Agreement", sender: nil)
+            
+            hasAgreedToTerms = true
+
+        }else{
+            print("Not First")
+        }
+    }
+
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(true)
         unsubscribeToKeyboardNotifications()
     }
+    
+    
     
     @IBAction func logInPressed(_ sender: Any) {
         
@@ -64,6 +81,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             return
         }
         
+     
         
         if logInButton.title(for: .normal) == "Log In"{
             if let email = emailField.text, let pwd = passwordField.text,(email.characters.count > 0 && pwd.characters.count > 0){
@@ -136,10 +154,13 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         }
         
     }
-    
+
     //** FB Log In Button **
     func loginButton(_ loginButton: FBSDKLoginButton!, didCompleteWith result: FBSDKLoginManagerLoginResult!, error: Error!) {
         
+        
+        loginButton.publishPermissions = ["email, public_profile"]
+
         fbLoginButton.isHidden = true
         
         if result.isCancelled{
