@@ -10,6 +10,13 @@ import Foundation
 import UIKit
 
 class AgreementVC:UIViewController{
+    @IBOutlet weak var licensedAgreementTextView: UITextView!
+
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        licensedAgreementTextView.setContentOffset(CGPoint.zero, animated: false)
+
+    }
 
     @IBAction func agreePressed(_ sender: Any) {
         defaults.set(true, forKey: agreementKey)

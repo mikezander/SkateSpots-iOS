@@ -1691,6 +1691,9 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                             <constraint firstItem="lv4-Tm-IEi" firstAttribute="centerX" secondItem="iyb-VJ-2gg" secondAttribute="centerX" id="za5-yo-Uwr"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="licensedAgreementTextView" destination="Xys-M3-F6D" id="UYG-Ku-yLJ"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xER-Ec-diN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
