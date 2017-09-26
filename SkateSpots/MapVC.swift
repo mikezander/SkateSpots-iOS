@@ -147,29 +147,30 @@ extension MapVC: MKMapViewDelegate {
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
             
-            FIRStorage.storage().reference(forURL: annotation.imageUrl).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
-                
-                guard error == nil else{
-                    
-                    NotificationCenter.default.addObserver(self, selector: #selector(self.internetConnectionFound(notification:)), name: notificationName, object: nil)
-                    
-                    self.errorAlert(title: "Internet Connection Error", message: "Error uploading spot images, make sure you are connected and try again.")
-                    
-                    return
-                }
-                
-                let image = UIImage(data: data!)
-                let cropRect = CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0)
-                let myImageView = UIImageView(frame: cropRect)
-                myImageView.clipsToBounds = true
-                myImageView.image = image
-                view.leftCalloutAccessoryView = myImageView
-                view.isHighlighted = true
-                
-            })
-            
-            view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         }
+        
+        FIRStorage.storage().reference(forURL: annotation.imageUrl).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
+            
+            guard error == nil else{
+                
+                NotificationCenter.default.addObserver(self, selector: #selector(self.internetConnectionFound(notification:)), name: notificationName, object: nil)
+                
+                self.errorAlert(title: "Internet Connection Error", message: "Error uploading spot images, make sure you are connected and try again.")
+                
+                return
+            }
+            
+            let image = UIImage(data: data!)
+            let cropRect = CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0)
+            let myImageView = UIImageView(frame: cropRect)
+            myImageView.clipsToBounds = true
+            myImageView.image = image
+            view.leftCalloutAccessoryView = myImageView
+            view.isHighlighted = true
+            
+        })
+        
+        view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
         
         view.pinTintColor = annotation.markerTintColor
         
