@@ -116,6 +116,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.register(DetailPhotoCell.self, forCellWithReuseIdentifier: cellId)
         collectionview.showsHorizontalScrollIndicator = false
         collectionview.backgroundColor = UIColor.white
+        collectionview.isPagingEnabled = true
         containerView.addSubview(collectionview)
         
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))

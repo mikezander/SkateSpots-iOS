@@ -127,9 +127,7 @@ extension SpotRow : UICollectionViewDataSource {
             }
             
         }
-        
-        
-        
+
         return cell
     }
     

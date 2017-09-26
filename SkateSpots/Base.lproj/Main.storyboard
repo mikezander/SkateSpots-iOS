@@ -292,7 +292,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sk8Spots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPL-oN-ccj">
-                                        <rect key="frame" x="98" y="27" width="219" height="36"/>
+                                        <rect key="frame" x="98" y="27" width="219" height="34"/>
                                         <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="29"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -398,7 +398,7 @@
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
-                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fvM-i2-JLz">
+                                                <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" pagingEnabled="YES" showsVerticalScrollIndicator="NO" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="fvM-i2-JLz">
                                                     <rect key="frame" x="0.0" y="59" width="414" height="366.66666666666669"/>
                                                     <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="57a-CY-HVd">
@@ -1012,7 +1012,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sk8Spots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lab-EA-rCk">
-                                        <rect key="frame" x="98" y="27" width="219" height="36"/>
+                                        <rect key="frame" x="98" y="27" width="219" height="34"/>
                                         <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="29"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1595,7 +1595,7 @@
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xys-M3-F6D">
                                 <rect key="frame" x="20" y="111" width="374" height="501"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <mutableString key="text">This End User License Agreement (“Agreement”) is between you and Sk8Spots and governs use of this app made available through the Apple App Store. By installing the Sk8Spots App, you agree to be bound by this Agreement and understand that there is no tolerance for objectionable content. If you do not agree with the terms and conditions of this Agreement, you are not entitled to use the Sk8Spots App.
+                                <string key="text">This End User License Agreement (“Agreement”) is between you and Sk8Spots and governs use of this app made available through the Apple App Store. By installing the Sk8Spots App, you agree to be bound by this Agreement and understand that there is no tolerance for objectionable content. If you do not agree with the terms and conditions of this Agreement, you are not entitled to use the Sk8Spots App.
 
 In order to ensure Sk8Spots provides the best experience possible for everyone, we strongly enforce a no tolerance policy for objectionable content. If you see inappropriate content, please use the “Report as offensive” feature found under each post.
 
@@ -1633,7 +1633,7 @@ Sk8Spots, not Apple, is responsible for addressing any claims by you relating to
 
 9. Third Party Intellectual Property Claims
 
-Sk8Spots shall not be obligated to indemnify or defend you with respect to any third party claim arising out or relating to the Sk8Spots App. To the extent Sk8Spots is required to provide indemnification by applicable law, Sk8Spots, not Apple, shall be solely responsible for the investigation, defense, settlement and discharge of any claim that the Sk8Spots App or your use of it infringes any third party intellectual property right.</mutableString>
+Sk8Spots shall not be obligated to indemnify or defend you with respect to any third party claim arising out or relating to the Sk8Spots App. To the extent Sk8Spots is required to provide indemnification by applicable law, Sk8Spots, not Apple, shall be solely responsible for the investigation, defense, settlement and discharge of any claim that the Sk8Spots App or your use of it infringes any third party intellectual property right.</string>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
