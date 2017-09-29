@@ -739,14 +739,17 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DetailPhotoCell
         
+        cell.spotImage.image = nil
         cell.spotImage = image
         cell.addSubview(image)
+        
         
         myActivityIndicator.startAnimating()
         
         cell.activityIndicator = myActivityIndicator
+
         
-        if indexPath.row < spot.imageUrls.count{
+        //if indexPath.row < spot.imageUrls.count{
             
             if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
                 print(indexPath.row)
@@ -757,7 +760,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             }
             
             
-        }
+        //}
 
         return cell
     }

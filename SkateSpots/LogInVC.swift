@@ -63,17 +63,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             
             performSegue(withIdentifier: "Agreement", sender: nil)
         }
-        
 
-       /* if UIApplication.isFirstLaunch() && !hasAgreedToTerms{
-            
-            performSegue(withIdentifier: "Agreement", sender: nil)
-            
-            hasAgreedToTerms = true
-
-        }else{
-            print("Not First")
-        }*/
     }
 
     

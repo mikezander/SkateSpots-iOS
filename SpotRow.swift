@@ -95,7 +95,7 @@ extension SpotRow : UICollectionViewDataSource {
     
     override func prepareForReuse() {
         super.prepareForReuse()
-        
+
     }
     
    
@@ -117,7 +117,7 @@ extension SpotRow : UICollectionViewDataSource {
         
         cell.emptyImageView()
         
-        if indexPath.row < spot.imageUrls.count{
+       // if indexPath.row < spot.imageUrls.count{
             
             if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
                 
@@ -126,7 +126,7 @@ extension SpotRow : UICollectionViewDataSource {
                 cell.configureCell(spot: spot, count: indexPath.row)
             }
             
-        }
+        //}
 
         return cell
     }
