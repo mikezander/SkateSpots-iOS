@@ -128,7 +128,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotNameLbl.text = spot.spotName
         containerView.addSubview(spotNameLbl)
         
-        pageControl = UIPageControl(frame: CGRect(x: -25, y: spotNameLbl.frame.origin.y - 13, width: 50, height: 20)) //13
+        pageControl = UIPageControl(frame: CGRect(x: -25, y: spotNameLbl.frame.origin.y - 13, width: 50, height: 20))
         pageControl.pageIndicatorTintColor = UIColor.lightGray
         pageControl.currentPageIndicatorTintColor = FLAT_GREEN
         containerView.addSubview(pageControl)
@@ -136,14 +136,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
         spotTypeLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         spotTypeLbl.textColor = .black
-        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 144)  //106
+        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 144)
         spotTypeLbl.textAlignment = .center
         spotTypeLbl.text = spot.spotType
         containerView.addSubview(spotTypeLbl)
         
         ratingDisplayView.settings.starSize = 25
         ratingDisplayView.frame =  CGRect(x:0, y:0, width: 250,height: 20)
-        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 124) //86
+        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 124)
         ratingDisplayView.settings.updateOnTouch = false
         ratingDisplayView.settings.fillMode = .precise
         containerView.addSubview(ratingDisplayView)
@@ -151,18 +151,18 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingDisplayLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
         ratingDisplayLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         ratingDisplayLbl.textColor = .black
-        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 104) //66
+        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 104)
         ratingDisplayLbl.textAlignment = .center
         ratingDisplayLbl.alpha = 0.4
         containerView.addSubview(ratingDisplayLbl)
         
-        let descriptionLbl = UILabel(frame: CGRect(x: 10, y: screenHeight - 89, width: screenWidth - 5, height: 20)) //50
+        let descriptionLbl = UILabel(frame: CGRect(x: 10, y: screenHeight - 89, width: screenWidth - 5, height: 20))
         descriptionLbl.font = UIFont(name: "Avenir-Black", size: 14)
         descriptionLbl.textColor = UIColor.lightGray
         descriptionLbl.text = "Description:"
         containerView.addSubview(descriptionLbl)
         
-        descriptionTextView = UITextView(frame: CGRect(x: 5, y: screenHeight - 74, width: screenWidth - 5, height: 100)) //35
+        descriptionTextView = UITextView(frame: CGRect(x: 5, y: screenHeight - 74, width: screenWidth - 5, height: 100))
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         descriptionTextView.isSelectable = false
@@ -189,7 +189,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
        
         let kickOutImage = UIImage(named: kickOutImageName)
         kickOutImageView = UIImageView(image: kickOutImage)
-        kickOutImageView.frame = CGRect(x: screenWidth / 4 - 20, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 25, width: 50, height: 50) //25
+        kickOutImageView.frame = CGRect(x: screenWidth / 4 - 20, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 25, width: 50, height: 50)
         containerView.addSubview(kickOutImageView)
         
         kickOutLabel = UILabel(frame: CGRect(x: kickOutImageView.frame.origin.x - 25, y: kickOutImageView.frame.origin.y + kickOutImageView.frame.height + 5 , width: 100, height: 21))
@@ -201,7 +201,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         let bestTimeImage = UIImage(named:bestTimeImageName)
         bestTimeimageView = UIImageView(image: bestTimeImage)
-        bestTimeimageView.frame = CGRect(x: (screenWidth / 4) * 3 - 25, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 30, width: 50, height: 50)//30
+        bestTimeimageView.frame = CGRect(x: (screenWidth / 4) * 3 - 25, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 30, width: 50, height: 50)
         containerView.addSubview(bestTimeimageView)
         
         bestTimeLabel = UILabel(frame: CGRect(x: bestTimeimageView.frame.origin.x - 42, y: bestTimeimageView.frame.origin.y + bestTimeimageView.frame.height , width: 125, height: 21))
@@ -283,7 +283,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         ratingView.settings.starSize = 30
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
-        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: commentView.frame.origin.y + commentView.frame.height + (screenHeight / 4 - 25)) //10
+        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: commentView.frame.origin.y + commentView.frame.height + (screenHeight / 4 - 25))
         ratingView.settings.fillMode = .precise
         ratingView.settings.updateOnTouch = true
         containerView.addSubview(ratingView)
@@ -341,9 +341,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         favoriteButton = UIButton(frame: CGRect(x: 0, y:  0 , width: 135, height: 30))
         favoriteButton.center = CGPoint(x:screenWidth / 4 ,y: screenHeight - 20)
-        
-        //favoriteButton = UIButton(frame: CGRect(x: 0, y:  0 , width: 135, height: 30))
-        //favoriteButton.center = CGPoint(x:screenWidth / 4 ,y: rateBtn.frame.origin.y + rateBtn.frame.height + 115)
         favoriteButton.setTitle("Favorite", for: .normal)
         favoriteButton.setImage(UIImage(named:"add_fav.png"), for: .normal)
         favoriteButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: -2,bottom: 0,right: 55)
@@ -358,14 +355,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         favoriteButton.layer.masksToBounds = false
         favoriteButton.layer.cornerRadius = 4.0
         favoriteButton.addTarget(self, action:#selector(addSpotToFavorites), for: .touchUpInside)
-        //containerView.addSubview(favoriteButton)
         view.addSubview(favoriteButton)
         
         
         directionsButton = UIButton(frame: CGRect(x:0, y: 0, width: 135, height: 30))
         directionsButton.center = CGPoint(x:(screenWidth / 4) * 3,y: screenHeight - 20)
-        //directionsButton = UIButton(frame: CGRect(x:0, y: 0, width: 135, height: 30))
-        //directionsButton.center = CGPoint(x:(screenWidth / 4) * 3,y: rateBtn.frame.origin.y + rateBtn.frame.height + 115)
         directionsButton.setImage(UIImage(named:"direction_icon.png"), for: .normal)
         directionsButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 25)
         directionsButton.setTitle("Directions", for: .normal)
@@ -379,7 +373,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         directionsButton.layer.masksToBounds = false
         directionsButton.layer.cornerRadius = 4.0
         directionsButton.addTarget(self, action:#selector(getDirections), for: .touchUpInside)
-       // containerView.addSubview(directionsButton)
         view.addSubview(directionsButton)
         
         if isFavorite{
@@ -388,7 +381,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         }
         
         reportButton = UIButton(frame: CGRect(x: screenWidth / 2 - 50,y: scrollView.contentSize.height - 125,width: 100,height:50)) //87
-        //reportButton = UIButton(frame: CGRect(x: screenWidth / 2 - 50,y: scrollView.contentSize.height - 87,width: 100,height:50))
         reportButton.setTitle("Report Spot", for: .normal)
         reportButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         reportButton.setTitleColor(UIColor.blue, for: .normal)
