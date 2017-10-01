@@ -105,9 +105,10 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         view.addSubview(headerLabel)
         
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
         layout.itemSize = CGSize(width: screenWidth, height: screenHeight)
         layout.scrollDirection = .horizontal
+        
         
         collectionview = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionview.collectionViewLayout = layout
@@ -122,12 +123,12 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = .black
-        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 130)
+        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 169) //130
         spotNameLbl.textAlignment = .center
         spotNameLbl.text = spot.spotName
         containerView.addSubview(spotNameLbl)
         
-        pageControl = UIPageControl(frame: CGRect(x: -25, y: spotNameLbl.frame.origin.y - 13, width: 50, height: 20))
+        pageControl = UIPageControl(frame: CGRect(x: -25, y: spotNameLbl.frame.origin.y - 13, width: 50, height: 20)) //13
         pageControl.pageIndicatorTintColor = UIColor.lightGray
         pageControl.currentPageIndicatorTintColor = FLAT_GREEN
         containerView.addSubview(pageControl)
@@ -135,14 +136,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
         spotTypeLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         spotTypeLbl.textColor = .black
-        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 106)
+        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 145)  //106
         spotTypeLbl.textAlignment = .center
         spotTypeLbl.text = spot.spotType
         containerView.addSubview(spotTypeLbl)
         
         ratingDisplayView.settings.starSize = 25
         ratingDisplayView.frame =  CGRect(x:0, y:0, width: 250,height: 20)
-        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 86)
+        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 125) //86
         ratingDisplayView.settings.updateOnTouch = false
         ratingDisplayView.settings.fillMode = .precise
         containerView.addSubview(ratingDisplayView)
@@ -150,18 +151,18 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingDisplayLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
         ratingDisplayLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         ratingDisplayLbl.textColor = .black
-        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 66)
+        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 105) //66
         ratingDisplayLbl.textAlignment = .center
         ratingDisplayLbl.alpha = 0.4
         containerView.addSubview(ratingDisplayLbl)
         
-        let descriptionLbl = UILabel(frame: CGRect(x: 10, y: screenHeight - 50, width: screenWidth - 5, height: 20))
+        let descriptionLbl = UILabel(frame: CGRect(x: 10, y: screenHeight - 89, width: screenWidth - 5, height: 20)) //50
         descriptionLbl.font = UIFont(name: "Avenir-Black", size: 14)
         descriptionLbl.textColor = UIColor.lightGray
         descriptionLbl.text = "Description:"
         containerView.addSubview(descriptionLbl)
         
-        descriptionTextView = UITextView(frame: CGRect(x: 5, y: screenHeight - 35, width: screenWidth - 5, height: 100))
+        descriptionTextView = UITextView(frame: CGRect(x: 5, y: screenHeight - 74, width: screenWidth - 5, height: 100)) //35
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         descriptionTextView.isSelectable = false
@@ -332,8 +333,16 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         loadComments()
         
+        let bottomView = UIView(frame: CGRect(x: 0, y:screenHeight - 40 , width: screenWidth, height: 40))
+        bottomView.layer.borderWidth = 1.0
+        bottomView.backgroundColor = UIColor.white
+        view.addSubview(bottomView)
+        
         favoriteButton = UIButton(frame: CGRect(x: 0, y:  0 , width: 135, height: 30))
-        favoriteButton.center = CGPoint(x:screenWidth / 4 ,y: rateBtn.frame.origin.y + rateBtn.frame.height + 115)
+        favoriteButton.center = CGPoint(x:screenWidth / 4 ,y: screenHeight - 20)
+        
+        //favoriteButton = UIButton(frame: CGRect(x: 0, y:  0 , width: 135, height: 30))
+        //favoriteButton.center = CGPoint(x:screenWidth / 4 ,y: rateBtn.frame.origin.y + rateBtn.frame.height + 115)
         favoriteButton.setTitle("Favorite", for: .normal)
         favoriteButton.setImage(UIImage(named:"add_fav.png"), for: .normal)
         favoriteButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: -2,bottom: 0,right: 55)
@@ -348,10 +357,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         favoriteButton.layer.masksToBounds = false
         favoriteButton.layer.cornerRadius = 4.0
         favoriteButton.addTarget(self, action:#selector(addSpotToFavorites), for: .touchUpInside)
-        containerView.addSubview(favoriteButton)
+        //containerView.addSubview(favoriteButton)
+        view.addSubview(favoriteButton)
+        
         
         directionsButton = UIButton(frame: CGRect(x:0, y: 0, width: 135, height: 30))
-        directionsButton.center = CGPoint(x:(screenWidth / 4) * 3,y: rateBtn.frame.origin.y + rateBtn.frame.height + 115)
+        directionsButton.center = CGPoint(x:(screenWidth / 4) * 3,y: screenHeight - 20)
+        //directionsButton = UIButton(frame: CGRect(x:0, y: 0, width: 135, height: 30))
+        //directionsButton.center = CGPoint(x:(screenWidth / 4) * 3,y: rateBtn.frame.origin.y + rateBtn.frame.height + 115)
         directionsButton.setImage(UIImage(named:"direction_icon.png"), for: .normal)
         directionsButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 25)
         directionsButton.setTitle("Directions", for: .normal)
@@ -365,7 +378,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         directionsButton.layer.masksToBounds = false
         directionsButton.layer.cornerRadius = 4.0
         directionsButton.addTarget(self, action:#selector(getDirections), for: .touchUpInside)
-        containerView.addSubview(directionsButton)
+       // containerView.addSubview(directionsButton)
+        view.addSubview(directionsButton)
         
         if isFavorite{
             favoriteButton.isEnabled = false
