@@ -111,12 +111,16 @@ extension SpotRow : UICollectionViewDataSource {
         pageControl.currentPage = indexPath.row
     }
     
+    func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        cell.prepareForReuse()
+    }
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! SpotPhotoCell
         
         cell.emptyImageView()
-        
+
        // if indexPath.row < spot.imageUrls.count{
             
             if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
@@ -126,7 +130,7 @@ extension SpotRow : UICollectionViewDataSource {
                 cell.configureCell(spot: spot, count: indexPath.row)
             }
             
-        //}
+       // }
 
         return cell
     }

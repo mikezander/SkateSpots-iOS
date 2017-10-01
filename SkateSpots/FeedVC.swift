@@ -95,6 +95,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
     }
     
+
     @IBAction func filterButtonPressed(_ sender: UIButton) {
         
         
@@ -265,6 +266,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         if hasConnected && isInternetAvailable(){ //Double check this
             
+            
+            
             if sender.selectedSegmentIndex == 1{
                 
                 self.manager.delegate = self
@@ -351,6 +354,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         let spot = spots[indexPath.row]
         
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotRowCell") as! SpotRow
+
         
         cell.userName.isUserInteractionEnabled = true
         
