@@ -123,7 +123,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = .black
-        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 169) //130
+        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 168) //130
         spotNameLbl.textAlignment = .center
         spotNameLbl.text = spot.spotName
         containerView.addSubview(spotNameLbl)
@@ -136,14 +136,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
         spotTypeLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         spotTypeLbl.textColor = .black
-        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 145)  //106
+        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 144)  //106
         spotTypeLbl.textAlignment = .center
         spotTypeLbl.text = spot.spotType
         containerView.addSubview(spotTypeLbl)
         
         ratingDisplayView.settings.starSize = 25
         ratingDisplayView.frame =  CGRect(x:0, y:0, width: 250,height: 20)
-        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 125) //86
+        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 124) //86
         ratingDisplayView.settings.updateOnTouch = false
         ratingDisplayView.settings.fillMode = .precise
         containerView.addSubview(ratingDisplayView)
@@ -151,7 +151,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingDisplayLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
         ratingDisplayLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         ratingDisplayLbl.textColor = .black
-        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 105) //66
+        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 104) //66
         ratingDisplayLbl.textAlignment = .center
         ratingDisplayLbl.alpha = 0.4
         containerView.addSubview(ratingDisplayLbl)
@@ -185,10 +185,11 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         layer.path = doYourPath.cgPath
         layer.fillColor = UIColor.lightGray.cgColor
         containerView.layer.addSublayer(layer)
-
+        
+       
         let kickOutImage = UIImage(named: kickOutImageName)
         kickOutImageView = UIImageView(image: kickOutImage)
-        kickOutImageView.frame = CGRect(x: screenWidth / 4 - 20, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 25, width: 50, height: 50)
+        kickOutImageView.frame = CGRect(x: screenWidth / 4 - 20, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 25, width: 50, height: 50) //25
         containerView.addSubview(kickOutImageView)
         
         kickOutLabel = UILabel(frame: CGRect(x: kickOutImageView.frame.origin.x - 25, y: kickOutImageView.frame.origin.y + kickOutImageView.frame.height + 5 , width: 100, height: 21))
@@ -200,7 +201,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         let bestTimeImage = UIImage(named:bestTimeImageName)
         bestTimeimageView = UIImageView(image: bestTimeImage)
-        bestTimeimageView.frame = CGRect(x: (screenWidth / 4) * 3 - 25, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 30, width: 50, height: 50)
+        bestTimeimageView.frame = CGRect(x: (screenWidth / 4) * 3 - 25, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 30, width: 50, height: 50)//30
         containerView.addSubview(bestTimeimageView)
         
         bestTimeLabel = UILabel(frame: CGRect(x: bestTimeimageView.frame.origin.x - 42, y: bestTimeimageView.frame.origin.y + bestTimeimageView.frame.height , width: 125, height: 21))
@@ -272,17 +273,17 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         //Setting scrollview content size
         
         if screenHeight >= 736.0{ // for 6+, 7+
-            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4) + (descriptionTextView.frame.height - 65))
+            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4) + (descriptionTextView.frame.height - 165)) // - 65
         }else if screenHeight <= 568.0{// for 5, 5s, SE and under ** 168 difference to 6+, 7+
-            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 ) + (83 + descriptionTextView.frame.height))
+            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 ) + (descriptionTextView.frame.height - 20)) //+ 83 
             
         }else{ // for 6, 7 and in between largest and smallest iphones ** 69 difference to 6+, 7+
-            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 ) + (descriptionTextView.frame.height - 16))
+            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 ) + (descriptionTextView.frame.height - 116))// - 16
         }
         
         ratingView.settings.starSize = 30
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
-        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: commentView.frame.origin.y + commentView.frame.height + (screenHeight / 4 - 10))
+        ratingView.center = CGPoint(x: screenWidth / 2 + 35, y: commentView.frame.origin.y + commentView.frame.height + (screenHeight / 4 - 25)) //10
         ratingView.settings.fillMode = .precise
         ratingView.settings.updateOnTouch = true
         containerView.addSubview(ratingView)
@@ -386,8 +387,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             favoriteButton.layer.opacity = 0.4
         }
         
-        
-        reportButton = UIButton(frame: CGRect(x: screenWidth / 2 - 50,y: scrollView.contentSize.height - 87,width: 100,height:50))
+        reportButton = UIButton(frame: CGRect(x: screenWidth / 2 - 50,y: scrollView.contentSize.height - 125,width: 100,height:50)) //87
+        //reportButton = UIButton(frame: CGRect(x: screenWidth / 2 - 50,y: scrollView.contentSize.height - 87,width: 100,height:50))
         reportButton.setTitle("Report Spot", for: .normal)
         reportButton.titleLabel?.font = UIFont.boldSystemFont(ofSize: 12)
         reportButton.setTitleColor(UIColor.blue, for: .normal)
