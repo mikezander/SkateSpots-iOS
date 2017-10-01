@@ -61,7 +61,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     let screenSize = UIScreen.main.bounds
     
     var refCurrentSpot: FIRDatabaseReference!
-    
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -79,7 +79,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         scrollView.addSubview(containerView)
         view.addSubview(scrollView)
-        scrollView.contentInset = UIEdgeInsets(top:7, left: 0, bottom: 0, right: 0)//7
+        scrollView.contentInset = UIEdgeInsets(top:7, left: 0, bottom: 0, right: 0)
         
         let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 62))
         customNav.backgroundColor = FLAT_GREEN
@@ -104,13 +104,19 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         headerLabel.font = UIFont(name: "Gurmukhi MN", size: 20)
         view.addSubview(headerLabel)
         
+        let zoomScrollView = UIScrollView(frame: CGRect(x:0, y:0, width: self.view.frame.width, height: self.view.frame.height))
+        zoomScrollView.delegate = self
+        zoomScrollView.minimumZoomScale = 1.0
+        zoomScrollView.maximumZoomScale = 10.0//maximum zoom scale you want
+        zoomScrollView.zoomScale = 1.0
+       // containerView.addSubview(zoomScrollView)
+ 
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
-        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 75, right: 0)
+        layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) //75
         layout.itemSize = CGSize(width: screenWidth, height: screenHeight)
         layout.scrollDirection = .horizontal
-        
-        
-        collectionview = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
+
+        collectionview = UICollectionView(frame: CGRect(x:0, y:5, width: self.view.frame.width, height: self.view.frame.height), collectionViewLayout: layout)
         collectionview.collectionViewLayout = layout
         collectionview.dataSource = self
         collectionview.delegate = self
@@ -118,7 +124,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.showsHorizontalScrollIndicator = false
         collectionview.backgroundColor = UIColor.white
         collectionview.isPagingEnabled = true
+        //zoomScrollView.addSubview(collectionview)
         containerView.addSubview(collectionview)
+        
         
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
@@ -422,7 +430,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
         }
     }
-    
+   
     func loadComments(){
         
         let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
@@ -539,7 +547,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             
             
         }else{
-            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again2")
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
         }
         
     }
@@ -591,7 +599,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             })
             
         }else{
-            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again3")
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
         }
         
     }
@@ -633,7 +641,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     func reportSpotPressed(){
         
-        let alert = UIAlertController(title: "Report \(spot.spotName)", message: "Not a skate spot? Wrong location?    Let us know.", preferredStyle: UIAlertControllerStyle.alert)
+        let alert = UIAlertController(title: "Report \(spot.spotName)", message: "Not a skate spot? Duplicate spot?      Let us know.", preferredStyle: UIAlertControllerStyle.alert)
         alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
         alert.addTextField { (configurationTextField) in
             //configure your textfield here
@@ -742,7 +750,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight - 150))
+        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight - 193))//150
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DetailPhotoCell
         
@@ -771,7 +779,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
 
         return cell
     }
-    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }
