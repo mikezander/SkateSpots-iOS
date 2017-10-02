@@ -104,12 +104,15 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         headerLabel.font = UIFont(name: "Gurmukhi MN", size: 20)
         view.addSubview(headerLabel)
         
-        let zoomScrollView = UIScrollView(frame: CGRect(x:0, y:0, width: self.view.frame.width, height: self.view.frame.height))
+        let zoomScrollView = UIScrollView(frame: CGRect(x:0, y:0, width: screenWidth, height: screenHeight - 188))//
         zoomScrollView.delegate = self
         zoomScrollView.minimumZoomScale = 1.0
         zoomScrollView.maximumZoomScale = 10.0//maximum zoom scale you want
         zoomScrollView.zoomScale = 1.0
-       // containerView.addSubview(zoomScrollView)
+        zoomScrollView.isScrollEnabled = false
+        
+        containerView.addSubview(zoomScrollView)
+        
  
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) //75
@@ -124,8 +127,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.showsHorizontalScrollIndicator = false
         collectionview.backgroundColor = UIColor.white
         collectionview.isPagingEnabled = true
-        //zoomScrollView.addSubview(collectionview)
-        containerView.addSubview(collectionview)
+        zoomScrollView.addSubview(collectionview)
+        //containerView.addSubview(collectionview)
         
         
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
@@ -394,6 +397,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         reportButton.setTitleColor(UIColor.blue, for: .normal)
         reportButton.addTarget(self, action:#selector(reportSpotPressed), for: .touchUpInside)
         containerView.addSubview(reportButton)
+        
+       
     }
     
     override func viewDidLayoutSubviews() {
@@ -429,6 +434,10 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             let lastItem = IndexPath(item: commentsArray.count - 1, section: 0)
             tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
         }
+    }
+    
+    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+        return collectionview
     }
    
     func loadComments(){
@@ -750,7 +759,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
+       
         let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight - 193))//150
+        image.isUserInteractionEnabled = true
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DetailPhotoCell
         
