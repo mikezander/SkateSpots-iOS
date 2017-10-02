@@ -64,7 +64,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sk8Spots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPs-AL-zkG">
-                                        <rect key="frame" x="98" y="27" width="219" height="36"/>
+                                        <rect key="frame" x="98" y="27" width="219" height="34"/>
                                         <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="29"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -295,7 +295,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sk8Spots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPL-oN-ccj">
-                                        <rect key="frame" x="98" y="27" width="219" height="36"/>
+                                        <rect key="frame" x="98" y="27" width="219" height="34"/>
                                         <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="29"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -338,10 +338,10 @@
                                 </constraints>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1Tn-k2-51f">
-                                <rect key="frame" x="326" y="69" width="78" height="30"/>
+                                <rect key="frame" x="319" y="69" width="85" height="30"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="78" id="6xW-Aq-neh"/>
+                                    <constraint firstAttribute="width" constant="85" id="6xW-Aq-neh"/>
                                 </constraints>
                                 <state key="normal" title="Filter Spots">
                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -372,7 +372,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="503"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9FZ-wn-ttt" id="Q15-SB-RDq">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="502.66666666666669"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="503"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh" customClass="CircleView" customModule="Sk8Spots" customModuleProvider="target">
@@ -719,10 +719,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="210" id="FSx-Nv-ahg" customClass="ProfileCell" customModule="Sk8Spots" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="210"/>
+                                        <rect key="frame" x="0.0" y="55" width="414" height="210"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FSx-Nv-ahg" id="bBi-MO-Nas">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KlQ-kC-Ueo">
@@ -1015,7 +1015,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sk8Spots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lab-EA-rCk">
-                                        <rect key="frame" x="98" y="27" width="219" height="36"/>
+                                        <rect key="frame" x="98" y="27" width="219" height="34"/>
                                         <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="29"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>

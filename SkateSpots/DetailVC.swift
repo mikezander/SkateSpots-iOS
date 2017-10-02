@@ -345,13 +345,13 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         loadComments()
         
-        let bottomView = UIView(frame: CGRect(x: 0, y:screenHeight - 40 , width: screenWidth, height: 50))
+        let bottomView = UIView(frame: CGRect(x: 0, y:screenHeight - 42 , width: screenWidth, height: 42))
         bottomView.layer.borderWidth = 1.0
         bottomView.backgroundColor = UIColor.white
         view.addSubview(bottomView)
         
         favoriteButton = UIButton(frame: CGRect(x: 0, y:  0 , width: 135, height: 35))
-        favoriteButton.center = CGPoint(x:screenWidth / 4 ,y: screenHeight - 20)
+        favoriteButton.center = CGPoint(x:screenWidth / 4 ,y: screenHeight - 21)
         favoriteButton.setTitle("Favorite", for: .normal)
         favoriteButton.setImage(UIImage(named:"add_fav.png"), for: .normal)
         favoriteButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: -2,bottom: 0,right: 55)
@@ -370,7 +370,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         
         directionsButton = UIButton(frame: CGRect(x:0, y: 0, width: 135, height: 35))
-        directionsButton.center = CGPoint(x:(screenWidth / 4) * 3,y: screenHeight - 20)
+        directionsButton.center = CGPoint(x:(screenWidth / 4) * 3,y: screenHeight - 21)
         directionsButton.setImage(UIImage(named:"direction_icon.png"), for: .normal)
         directionsButton.imageEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 25)
         directionsButton.setTitle("Directions", for: .normal)
