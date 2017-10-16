@@ -226,7 +226,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     func disableButtonsForTypeOther(btn: UIButton){
         btn.backgroundColor = UIColor.clear
         btn.setTitleColor(.black, for: .normal)
-        // btn.isEnabled = false
     }
     
     func addImagePressed(sender: UITapGestureRecognizer) {
@@ -396,8 +395,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             return
         }
         
-        SVProgressHUD.show()
-        
         guard let spotName = spotNameField.text, spotName != "" else{
             errorAlert(title: "Error", message: "You must enter a spot name!")
             return
@@ -442,8 +439,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         if weekendBtn.isSelected{ bestTimeToSkate = "Weekend" }
         if nightBtn.isSelected{ bestTimeToSkate = "Night" }
         
-        addPhotosToStorage(image: defaultImg, true)
+        SVProgressHUD.setForegroundColor(FLAT_GREEN)
+        SVProgressHUD.show()
         
+        addPhotosToStorage(image: defaultImg, true)
         //performSegue was here in v2.0
     }
     
