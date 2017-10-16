@@ -169,15 +169,15 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             
         }else{
             
-            let credential = FIRFacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
+            let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
             
             activityIndicator.startAnimating()
             
-            FIRAuth.auth()?.signIn(with: credential){(user, error) in
+            Auth.auth().signIn(with: credential){(user, error) in
                 
                 print("\(FBSDKAccessToken.current)token")
                 
-                if let user = FIRAuth.auth()?.currentUser{
+                if let user = Auth.auth().currentUser{
                     
                     let uid = user.uid
                     var name = user.displayName

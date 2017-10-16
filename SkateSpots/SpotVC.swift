@@ -12,6 +12,7 @@ import Photos
 import CoreLocation
 import FirebaseStorage
 import AssetsLibrary
+import SVProgressHUD
 
 class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,CLLocationManagerDelegate{
     
@@ -102,13 +103,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         topPhotoLabel.isHidden = true
         
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
-        
-        
-    }
-    
+
     @IBAction func bustSlider(_ sender: UISlider) {
         bustLabel.text = String(Int(sender.value))
         
@@ -305,12 +300,14 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         var actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
-        if UIApplication.isFirstLaunch() && !hasRan{
- 
-             actionSheet = UIAlertController(title: "*Sk8Spots prefers portrait(vertical) spot photos*\n\nPhoto Source", message: "Choose a source", preferredStyle: .actionSheet)
-             hasRan = true
-        }
+        
+            if UIApplication.isFirstLaunch() && !hasRan{
 
+                    actionSheet = UIAlertController(title: "*Sk8Spots prefers portrait(vertical) spot photos*\n\nPhoto Source", message: "Choose a source", preferredStyle: .actionSheet)
+                    self.hasRan = true
+            }
+        
+        
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
             if UIImagePickerController.isSourceTypeAvailable(.camera) {
                 self.imagePicker.sourceType = .camera
@@ -325,6 +322,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))
         
+        actionSheet.popoverPresentationController?.sourceView = self.view
+        actionSheet.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection()
+        actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+        
         present(actionSheet, animated: true, completion: nil)
     }
     
@@ -338,7 +339,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 if(picker.sourceType == .camera){
                     
                     locationManager = CLLocationManager()
-                    locationManager.delegate = self
+                    self.locationManager.delegate = self
                     locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
                     locationManager.requestWhenInUseAuthorization()
                     locationManager.startUpdatingLocation()
@@ -395,6 +396,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             return
         }
         
+        SVProgressHUD.show()
         
         guard let spotName = spotNameField.text, spotName != "" else{
             errorAlert(title: "Error", message: "You must enter a spot name!")
@@ -442,7 +444,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         addPhotosToStorage(image: defaultImg, true)
         
-        performSegue(withIdentifier: "backToFeedVC", sender: nil)
+        //performSegue was here in v2.0
     }
     
     
@@ -451,12 +453,14 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         if let imgData = UIImageJPEGRepresentation(image, 0.2){
             
             let imgUid = NSUUID().uuidString
-            let metadata = FIRStorageMetadata()
+            print("IMGUID\(imgUid)")
+            let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
-            let uploadTask = DataService.instance.REF_SPOT_IMAGES.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
+            let uploadTask = DataService.instance.REF_SPOT_IMAGES.child(imgUid).putData(imgData, metadata:metadata) {(metadata, error) in
                 
                 if error != nil{
-                    print("unable to upload image to firebase storage")
+                    SVProgressHUD.dismiss()
+                    self.errorAlert(title: "Error uploading image", message: "There was an error uploading you image/s to storage, please try again.")
                 }else{
                     
                     let downloadURL = metadata?.downloadURL()?.absoluteString
@@ -629,13 +633,13 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             "bestTimeToSkate": bestTimeToSkate as AnyObject,
             "latitude" : latitude as AnyObject,
             "longitude" : longitude as AnyObject,
-            "user": FIRAuth.auth()!.currentUser!.uid as AnyObject //may not be safe but works for now
+            "user": Auth.auth().currentUser!.uid as AnyObject //may not be safe but works for now
         ]
         
         let firebasePost = DataService.instance.REF_SPOTS.childByAutoId()
         
-        DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
-            if !snapshot.exists() { print("Username not found! SpotRow.swift");return }
+        DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
+            if !snapshot.exists() { print("Username not found! SpotRow.swift"); SVProgressHUD.dismiss(); return }
             
             if let username = snapshot.childSnapshot(forPath: "username").value as? String{
                 
@@ -654,7 +658,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         let userSpotsDict: Dictionary<String,AnyObject> = [firebasePost.key: true as AnyObject]
         
-        DataService.instance.updateDBUser(uid: FIRAuth.auth()!.currentUser!.uid, child: "spots", userData: userSpotsDict)
+        DataService.instance.updateDBUser(uid: Auth.auth().currentUser!.uid, child: "spots", userData: userSpotsDict)
         
         spotNameField.text = ""
         imageSelected = false
@@ -662,6 +666,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         locationString = ""
         spotType = ""
         
+        SVProgressHUD.dismiss()
+        
+        performSegue(withIdentifier: "backToFeedVC", sender: nil)
+
     }
 }
 

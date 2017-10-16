@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		57FC50BD408C25F2FA754EBE /* Pods_SkateSpots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F138B80A80EA608D62D712B /* Pods_SkateSpots.framework */; };
 		C4128C3A1F0EAF290058628D /* RoundTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C391F0EAF290058628D /* RoundTextField.swift */; };
 		C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C3B1F0EBA690058628D /* RoundedButton.swift */; };
 		C4128C3E1F0EC0270058628D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */; };
@@ -44,12 +43,14 @@
 		C4CE591E1F2A645900180BA5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE591D1F2A645900180BA5 /* User.swift */; };
 		C4E36FD21F1A7F23000ABF4D /* SpotRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */; };
 		C4E36FD61F1ACA44000ABF4D /* SpotPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */; };
+		D5D2D42DF66DB487CDD8D53F /* Pods_Sk8Spots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F0FA3D6072CCA82852D7061 /* Pods_Sk8Spots.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		0638FB33C27D2FF7EC9E4E6A /* Pods-SkateSpots.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkateSpots.release.xcconfig"; path = "Pods/Target Support Files/Pods-SkateSpots/Pods-SkateSpots.release.xcconfig"; sourceTree = "<group>"; };
+		41E3F77AD66D42DA73516180 /* Pods-Sk8Spots.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sk8Spots.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sk8Spots/Pods-Sk8Spots.release.xcconfig"; sourceTree = "<group>"; };
 		4A13BA0450BDBFA9B9E60769 /* Pods-SkateSpots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkateSpots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SkateSpots/Pods-SkateSpots.debug.xcconfig"; sourceTree = "<group>"; };
-		7F138B80A80EA608D62D712B /* Pods_SkateSpots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_SkateSpots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		9F0FA3D6072CCA82852D7061 /* Pods_Sk8Spots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sk8Spots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4128C391F0EAF290058628D /* RoundTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundTextField.swift; sourceTree = "<group>"; };
 		C4128C3B1F0EBA690058628D /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -89,6 +90,7 @@
 		C4CE591D1F2A645900180BA5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotRow.swift; path = ../SpotRow.swift; sourceTree = "<group>"; };
 		C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPhotoCell.swift; sourceTree = "<group>"; };
+		FFF985ECF910147806442005 /* Pods-Sk8Spots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sk8Spots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sk8Spots/Pods-Sk8Spots.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,10 +98,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57FC50BD408C25F2FA754EBE /* Pods_SkateSpots.framework in Frameworks */,
 				C41878851F3F80A100573D3A /* FBSDKCoreKit.framework in Frameworks */,
 				C41878871F3F80A800573D3A /* FBSDKLoginKit.framework in Frameworks */,
 				C41878891F3F822800573D3A /* Bolts.framework in Frameworks */,
+				D5D2D42DF66DB487CDD8D53F /* Pods_Sk8Spots.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,7 +114,7 @@
 				C41878881F3F822800573D3A /* Bolts.framework */,
 				C41878861F3F80A800573D3A /* FBSDKLoginKit.framework */,
 				C41878841F3F80A100573D3A /* FBSDKCoreKit.framework */,
-				7F138B80A80EA608D62D712B /* Pods_SkateSpots.framework */,
+				9F0FA3D6072CCA82852D7061 /* Pods_Sk8Spots.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -122,6 +124,8 @@
 			children = (
 				4A13BA0450BDBFA9B9E60769 /* Pods-SkateSpots.debug.xcconfig */,
 				0638FB33C27D2FF7EC9E4E6A /* Pods-SkateSpots.release.xcconfig */,
+				FFF985ECF910147806442005 /* Pods-Sk8Spots.debug.xcconfig */,
+				41E3F77AD66D42DA73516180 /* Pods-Sk8Spots.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -306,13 +310,28 @@
 			files = (
 			);
 			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-Sk8Spots/Pods-Sk8Spots-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
+				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
+				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SkateSpots/Pods-SkateSpots-frameworks.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sk8Spots/Pods-Sk8Spots-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		86AB6C8DEEDBC3E62F060450 /* [CP] Check Pods Manifest.lock */ = {
@@ -321,13 +340,16 @@
 			files = (
 			);
 			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
 			);
 			name = "[CP] Check Pods Manifest.lock";
 			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Sk8Spots-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n";
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
 		E2D61673B92761ECFA2A8205 /* [CP] Copy Pods Resources */ = {
@@ -342,7 +364,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-SkateSpots/Pods-SkateSpots-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Sk8Spots/Pods-Sk8Spots-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -500,7 +522,7 @@
 		};
 		C4B0C5581F0D7B78004B6923 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 4A13BA0450BDBFA9B9E60769 /* Pods-SkateSpots.debug.xcconfig */;
+			baseConfigurationReference = FFF985ECF910147806442005 /* Pods-Sk8Spots.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -539,7 +561,7 @@
 		};
 		C4B0C5591F0D7B78004B6923 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0638FB33C27D2FF7EC9E4E6A /* Pods-SkateSpots.release.xcconfig */;
+			baseConfigurationReference = 41E3F77AD66D42DA73516180 /* Pods-Sk8Spots.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;

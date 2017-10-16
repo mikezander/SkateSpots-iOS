@@ -18,7 +18,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     var spots = [Spot]()
     var user: User? = nil
     var userKey : String? = nil
-    var userRef:FIRDatabaseReference!
+    var userRef:DatabaseReference!
     var profileView = UIView()
     var status = String()
     var headerViewHeight = CGFloat()
@@ -38,7 +38,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         
         if userKey == nil{
             
-            userRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
+            userRef = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
             allowEdit = true
             
         }else{

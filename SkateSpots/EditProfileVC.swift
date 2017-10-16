@@ -31,7 +31,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     var user: User!
     var spots = [Spot]()
     
-    let currentUserID = FIRAuth.auth()!.currentUser!.uid
+    let currentUserID = Auth.auth().currentUser!.uid
     
     var delegate: ProfileEditedProtocol?
     
@@ -184,7 +184,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     @IBAction func logOutPressed(_ sender: Any) {
         
-        let userEmail = FIRAuth.auth()?.currentUser?.email
+        let userEmail = Auth.auth().currentUser?.email
         
             let alertController = UIAlertController(title: "Are you sure you want to log out?", message: "If you signed up with email/password, you must remember your password for \(userEmail!) to log back in.", preferredStyle: .alert)
 
@@ -194,7 +194,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
             let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
             print("Mike: ID remover from keychain \(keychainResult)")
             
-            try! FIRAuth.auth()?.signOut()
+            try! Auth.auth().signOut()
             
             let loginManager = FBSDKLoginManager()
             loginManager.logOut()

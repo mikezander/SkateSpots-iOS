@@ -16,8 +16,8 @@ import FirebaseDatabase
 import SwiftKeychainWrapper
 import FBSDKLoginKit
 
-let DB_BASE = FIRDatabase.database().reference()
-let STORAGE_BASE = FIRStorage.storage().reference()
+let DB_BASE = Database.database().reference()
+let STORAGE_BASE = Storage.storage().reference()
 
 class DataService{
     private static let _instance = DataService()
@@ -34,38 +34,38 @@ class DataService{
     private var _REF_USERS = DB_BASE.child("users")
     private var _REF_REPORTS =  DB_BASE.child("reports")
     
-    private var _REF_CONNECTION = FIRDatabase.database().reference(withPath: ".info/connected")
+    private var _REF_CONNECTION = Database.database().reference(withPath: ".info/connected")
     
     // Storage Refrences
     private var _REF_SPOT_IMAGES = STORAGE_BASE.child("post-pics")
     private var _REF_USER_IMAGE = STORAGE_BASE.child("user-pics")
     
-    var REF_BASE: FIRDatabaseReference{
+    var REF_BASE: DatabaseReference{
         return _REF_BASE
     }
     
-    var REF_SPOTS: FIRDatabaseReference{
+    var REF_SPOTS: DatabaseReference{
         return _REF_SPOTS
     }
     
-    var REF_USERS: FIRDatabaseReference{
+    var REF_USERS: DatabaseReference{
         return _REF_USERS
     }
     
-    var REF_REPORTS: FIRDatabaseReference{
+    var REF_REPORTS: DatabaseReference{
         return _REF_REPORTS
     }
     
-    var REF_CONNECTION: FIRDatabaseReference{
+    var REF_CONNECTION: DatabaseReference{
         return _REF_CONNECTION
     }
     
     //Storage references
-    var REF_SPOT_IMAGES: FIRStorageReference{
+    var REF_SPOT_IMAGES: StorageReference{
         return _REF_SPOT_IMAGES
     }
     
-    var REF_USER_IMAGE: FIRStorageReference{
+    var REF_USER_IMAGE: StorageReference{
         return _REF_USER_IMAGE
     }
     
@@ -106,8 +106,8 @@ class DataService{
                     let urlPic = dataDic["url"] as? String {
                     //access urlPic here
                     if let imageData = NSData(contentsOf: URL(string: urlPic)!) as Data? {
-                        let profilePicRef = DataService.instance.REF_SPOT_IMAGES.child(uid+"/profile_pic.jpg") //user.uid
-                        _ = profilePicRef.put(imageData, metadata: nil) {
+                        let profilePicRef = DataService.instance.REF_SPOT_IMAGES.child(uid+"/profile_pic.jpg") //user.uid //this is wrong**
+                        _ = profilePicRef.putData(imageData, metadata: nil) {
                             metadata, error in
                             if(error == nil) {
                                 _ = metadata!.downloadURL
@@ -131,10 +131,10 @@ class DataService{
         if let imgData = UIImageJPEGRepresentation(image, 0.2){
             
             let imgUid = NSUUID().uuidString
-            let metadata = FIRStorageMetadata()
+            let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             
-            DataService.instance.REF_USER_IMAGE.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
+            DataService.instance.REF_USER_IMAGE.child(imgUid).putData(imgData, metadata:metadata) {(metadata, error) in
                 
                 if error != nil{
                     print("unable to upload image to firebase storage(\(String(describing: error?.localizedDescription)))")
@@ -159,10 +159,10 @@ class DataService{
         if let imgData = UIImageJPEGRepresentation(image, 0.2){
             
             let imgUid = NSUUID().uuidString
-            let metadata = FIRStorageMetadata()
+            let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             
-            DataService.instance.REF_USER_IMAGE.child(imgUid).put(imgData, metadata:metadata) {(metadata, error) in
+            DataService.instance.REF_USER_IMAGE.child(imgUid).putData(imgData, metadata:metadata) {(metadata, error) in
                 
                 if error != nil{
                     print("unable to upload image to firebase storage(\(String(describing: error?.localizedDescription)))")
@@ -186,7 +186,7 @@ class DataService{
     
     func deleteFromStorage(urlString: String,completion: @escaping (_ error:String?) -> ()){
         
-        let imageRef = FIRStorage.storage().reference(forURL: urlString)
+        let imageRef = Storage.storage().reference(forURL: urlString)
         imageRef.delete { (error) in
             if error == nil{
                 completion(nil)
@@ -219,14 +219,14 @@ class DataService{
     }
     
     
-    func getSpotsFromUser(userRef: FIRDatabaseReference, child: String, completionHandlerForGET: @escaping (_ success: Bool, _ data: [Spot]?, _ _keys:[String],_ error: String?) -> Void){
+    func getSpotsFromUser(userRef: DatabaseReference, child: String, completionHandlerForGET: @escaping (_ success: Bool, _ data: [Spot]?, _ _keys:[String],_ error: String?) -> Void){
         
         var spots = [Spot]()
         var keys = [String]()
         
         userRef.child(child).observe(.value, with:{ (snapshot) in
             
-            if let spotKeyDict = snapshot.children.allObjects as? [FIRDataSnapshot]{
+            if let spotKeyDict = snapshot.children.allObjects as? [DataSnapshot]{
                 for snap in spotKeyDict{
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
                         keys.insert(snap.key, at: 0)
@@ -260,14 +260,14 @@ class DataService{
         
     }
     
-    func retrieveFavoritesAutoIDs(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: [String]?) -> Void){
+    func retrieveFavoritesAutoIDs(userRef: DatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: [String]?) -> Void){
         
         var IDs = [String]()
         
         userRef.child("favorites").observeSingleEvent(of: .value, with: {snapshot in
             
             for childSnap in  snapshot.children.allObjects {
-                let snap = childSnap as! FIRDataSnapshot
+                let snap = childSnap as! DataSnapshot
                 
                 IDs.insert(snap.key, at: 0)
             }
@@ -279,7 +279,7 @@ class DataService{
         
     }
     
-    func getCurrentUserProfileData(userRef: FIRDatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: User?) -> Void){
+    func getCurrentUserProfileData(userRef: DatabaseReference, completionHandlerForGET: @escaping (_ success: Bool, _ data: User?) -> Void){
         
         var user: User?
         
@@ -310,7 +310,7 @@ class DataService{
         
     }
     
-    func refrenceToCurrentUser() -> FIRDatabaseReference{
+    func refrenceToCurrentUser() -> DatabaseReference{
         let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
         let user = REF_USERS.child(uid!)
         return user

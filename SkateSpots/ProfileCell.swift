@@ -34,8 +34,8 @@ class ProfileCell: UITableViewCell{
             
             //cache image
             
-            let ref = FIRStorage.storage().reference(forURL:spot.imageUrls[count])
-            ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
+            let ref = Storage.storage().reference(forURL:spot.imageUrls[count])
+            ref.getData(maxSize: 2 * 1024 * 1024, completion: {(data, error) in
                 if error != nil{
                     DispatchQueue.main.async { self.activityIdicator.stopAnimating() }
                     print("Mike: Unable to download image from firebase storage")

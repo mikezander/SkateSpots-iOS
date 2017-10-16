@@ -93,8 +93,8 @@ class CommentCell: UITableViewCell{
             
             //cache image
             
-            let ref = FIRStorage.storage().reference(forURL:comment.userImageURL)
-            ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
+            let ref = Storage.storage().reference(forURL:comment.userImageURL)
+            ref.getData(maxSize: 2 * 1024 * 1024, completion: {(data, error) in
                 if error != nil{
                     DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                     print("Mike: Unable to download image from firebase storage")

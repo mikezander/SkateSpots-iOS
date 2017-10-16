@@ -60,7 +60,7 @@ class MapVC: UIViewController{
             self.spots = [] //clears up spot array each time its loaded
 
             
-            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
+            if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
                 for snap in snapshot{
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
                         let key = snap.key
@@ -149,7 +149,7 @@ extension MapVC: MKMapViewDelegate {
             
         }
         
-        FIRStorage.storage().reference(forURL: annotation.imageUrl).data(withMaxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
+        Storage.storage().reference(forURL: annotation.imageUrl).getData(maxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
             
             guard error == nil else{
                 

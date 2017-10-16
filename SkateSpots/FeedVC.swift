@@ -65,7 +65,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        if FIRAuth.auth()?.currentUser == nil {
+        if Auth.auth().currentUser == nil {
             isLoggedIn = false
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
@@ -90,15 +90,13 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     @IBAction func signOutFBTest(_ sender: Any) {
         let keychainResult = KeychainWrapper.standard.removeObject(forKey: KEY_UID)
         print("Mike: ID remover from keychain \(keychainResult)")
-        try! FIRAuth.auth()?.signOut()
+        try! Auth.auth().signOut()
         performSegue(withIdentifier: "LogInVC", sender: nil)
         
     }
     
 
     @IBAction func filterButtonPressed(_ sender: UIButton) {
-        
-        
         if isInternetAvailable() && hasConnected{
             
             SVProgressHUD.show()
@@ -220,7 +218,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             
             self.spots = [] //clears up spot array each time its loaded
             
-            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
+            if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
                 for snap in snapshot{
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
                         let key = snap.key
@@ -375,7 +373,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if let spotCell = sender as? SpotPhotoCell,
             let spotDetailPage = segue.destination as? DetailVC {
             let spot = spotCell.spot

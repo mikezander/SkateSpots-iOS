@@ -20,10 +20,10 @@ class AuthService{
     
     func login(email: String, password: String, username: String, onComplete: Completion?){
         
-        FIRAuth.auth()?.createUser(withEmail: email, password: password, completion: { (user, error) in
+        Auth.auth().createUser(withEmail: email, password: password, completion: { (user, error) in
             if error != nil{
                 
-                if let errorCode = FIRAuthErrorCode(rawValue: error!._code){print(errorCode.rawValue)}
+                if let errorCode = AuthErrorCode(rawValue: error!._code){print(errorCode.rawValue)}
                 
                 self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
                 
@@ -33,7 +33,7 @@ class AuthService{
                     DataService.instance.saveFirebaseUser(uid: user!.uid, email: email, username: username)
                     
                     //Sign in
-                    FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
+                    Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in
                         if error != nil{
                             self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
                         } else{
@@ -49,10 +49,10 @@ class AuthService{
     
     func logInExisting(email: String, password: String, onComplete: Completion?){
         
-        FIRAuth.auth()?.signIn(withEmail: email, password: password, completion: { (user, error) in
+        Auth.auth().signIn(withEmail: email, password: password, completion: { (user, error) in
             if error != nil{
                 
-                if let errorCode = FIRAuthErrorCode(rawValue: error!._code){print(errorCode.rawValue)}
+                if let errorCode = AuthErrorCode(rawValue: error!._code){print(errorCode.rawValue)}
                 
                 self.handleFirebaseError(error: error! as NSError, onComplete: onComplete)
             } else{
@@ -65,21 +65,21 @@ class AuthService{
     
     func handleFirebaseError(error: NSError, onComplete: Completion?){
         print(error.debugDescription)
-        if let errorCode = FIRAuthErrorCode(rawValue: error.code){
+        if let errorCode = AuthErrorCode(rawValue: error.code){
             switch errorCode {
-            case .errorCodeInvalidEmail:
+            case .invalidEmail:
                 onComplete?("Invalid email address", nil)
-            case .errorCodeWrongPassword:
+            case .wrongPassword:
                 onComplete?("Invalid password\n\n If you've previously logged in with Facebook, you cannot log in with the same email you use for facebook. Log back in using Facebook or use a different email to create a new account", nil)
-            case .errorCodeEmailAlreadyInUse:   //, .errorCodeAccountExistsWithDifferentCredential
+            case .emailAlreadyInUse:   //, .errorCodeAccountExistsWithDifferentCredential
                 onComplete?("Could not create account email already in use. Please use Log In.", nil)
-            case .errorCodeAccountExistsWithDifferentCredential:
+            case .accountExistsWithDifferentCredential:
                 onComplete?("Could not create account email already in use existing credentials", nil)
-            case .errorCodeWeakPassword:
+            case .weakPassword:
                 onComplete?("Make sure password is 6 characters or more", nil)
-            case .errorCodeNetworkError:
+            case .networkError:
                 onComplete?("Make sure your internet is available", nil)
-            case .errorCodeUserNotFound:
+            case .userNotFound:
                 onComplete?("Invalid email. There are no users found with that email address.", nil)
             default:
                 onComplete?("There was a problem authenticating. Try again.\(error.description)", nil)

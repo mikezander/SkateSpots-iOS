@@ -22,7 +22,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     var commentsArray = [Comment]()
     
-    var ratingRef:FIRDatabaseReference!
+    var ratingRef:DatabaseReference!
     
     var scrollView: UIScrollView!
     var containerView = UIView()
@@ -60,7 +60,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     let screenSize = UIScreen.main.bounds
     
-    var refCurrentSpot: FIRDatabaseReference!
+    var refCurrentSpot: DatabaseReference!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -310,7 +310,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         rateBtn.alpha = 0.3
         containerView.addSubview(rateBtn)
         
-        let ref = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
+        let ref = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
         ratingRef = ref.child("rated").child(spot.spotKey)
         
         handleOneReviewPerSpot(ref: ratingRef)
@@ -448,7 +448,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             self.commentsArray = []
             self.commentCount = 0
             
-            if let snapshot = snapshot.children.allObjects as? [FIRDataSnapshot]{
+            if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
                 
                 for snap in snapshot{
                     
@@ -524,7 +524,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                 
                 postButton.isEnabled = false
                 
-                DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
+                DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
                     if !snapshot.exists() { print("snapshot not found! SpotRow.swift");return }
                     
                     if let username = snapshot.childSnapshot(forPath: "username").value as? String{
@@ -534,7 +534,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
                             self.user = User(userName: username, userImageURL: userImageURL, bio: "", link: "", igLink: "")
                             
                             let comment: Dictionary<String, AnyObject> = [
-                                "userKey": (FIRAuth.auth()?.currentUser?.uid)! as AnyObject,
+                                "userKey": (Auth.auth().currentUser?.uid)! as AnyObject,
                                 "username": self.user.userName as AnyObject,
                                 "userImageURL" : self.user.userImageURL as AnyObject,
                                 "comment": self.commentView.text as AnyObject,
@@ -613,7 +613,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
     }
     
-    func handleOneReviewPerSpot(ref: FIRDatabaseReference){
+    func handleOneReviewPerSpot(ref: DatabaseReference){
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let _ = snapshot.value as? NSNull{
@@ -632,7 +632,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         let favDict = [spot.spotKey:true]
         
-        DataService.instance.updateDBUser(uid: FIRAuth.auth()!.currentUser!.uid, child: "favorites", userData: favDict as Dictionary<String, AnyObject>)
+        DataService.instance.updateDBUser(uid: Auth.auth().currentUser!.uid, child: "favorites", userData: favDict as Dictionary<String, AnyObject>)
         
         favoriteButton.isEnabled = false
         favoriteButton.isOpaque = false

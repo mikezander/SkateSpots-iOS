@@ -129,8 +129,8 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
             
             //cache image
             
-            let ref = FIRStorage.storage().reference(forURL:user.userImageURL)
-            ref.data(withMaxSize: 2 * 1024 * 1024, completion: {(data, error) in
+            let ref = Storage.storage().reference(forURL:user.userImageURL)
+            ref.getData(maxSize: 2 * 1024 * 1024, completion: {(data, error) in
                 if error != nil{
                     print("Mike: Unable to download image from firebase storage")
                 }else{

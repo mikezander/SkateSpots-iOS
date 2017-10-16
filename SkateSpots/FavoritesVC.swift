@@ -20,7 +20,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet weak var spotTableView: UITableView!
     
-    let currentUserRef = DataService.instance.REF_USERS.child(FIRAuth.auth()!.currentUser!.uid)
+    let currentUserRef = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
     
     override func viewDidLoad() {
         super.viewDidLoad()

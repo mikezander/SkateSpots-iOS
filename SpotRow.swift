@@ -50,8 +50,8 @@ class SpotRow: UITableViewCell{
             
         }else{
             //cache image
-            let ref = FIRStorage.storage().reference(forURL:spot.userImageURL)
-            ref.data(withMaxSize: 1 * 1024 * 1024, completion: {(data, error) in
+            let ref = Storage.storage().reference(forURL:spot.userImageURL)
+            ref.getData(maxSize: 1 * 1024 * 1024, completion: {(data, error) in
                 if error != nil{
                     print("Mke: Unable to download image from firebase storage")
                 }else{

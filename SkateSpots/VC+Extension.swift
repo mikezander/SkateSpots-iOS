@@ -28,9 +28,9 @@ extension UIViewController{
     
     func isInternetAvailable() -> Bool
     {
-        var zeroAddress = sockaddr_in()
-        zeroAddress.sin_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
-        zeroAddress.sin_family = sa_family_t(AF_INET)
+        var zeroAddress = sockaddr_in6()
+        zeroAddress.sin6_len = UInt8(MemoryLayout.size(ofValue: zeroAddress))
+        zeroAddress.sin6_family = sa_family_t(AF_INET6)
         
         let defaultRouteReachability = withUnsafePointer(to: &zeroAddress) {
             $0.withMemoryRebound(to: sockaddr.self, capacity: 1) {zeroSockAddress in
@@ -72,15 +72,17 @@ extension UIViewController{
 extension UIApplication {
     
     static func isFirstLaunch() -> Bool {
-        let firstLaunchFlag = "isFirstLaunchFlag"
-        let isFirstLaunch = UserDefaults.standard.string(forKey: firstLaunchFlag) == nil
-        if (isFirstLaunch) {
-            firstLaunch = isFirstLaunch
-            UserDefaults.standard.set("false", forKey: firstLaunchFlag)
-            UserDefaults.standard.synchronize()
-        }
-        return firstLaunch || isFirstLaunch
+
+            let firstLaunchFlag = "isFirstLaunchFlag"
+            let isFirstLaunch = UserDefaults.standard.string(forKey: firstLaunchFlag) == nil
+            if (isFirstLaunch) {
+                firstLaunch = isFirstLaunch
+                UserDefaults.standard.set("false", forKey: firstLaunchFlag)
+                UserDefaults.standard.synchronize()
+            }
+            return firstLaunch || isFirstLaunch
     }
+        
 }
 
 extension String{
