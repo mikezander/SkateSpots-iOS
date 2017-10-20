@@ -304,25 +304,22 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lx3-RU-oc8">
-                                        <rect key="frame" x="8" y="28" width="30" height="30"/>
+                                        <rect key="frame" x="376" y="28" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="JQ2-CR-JPy"/>
                                             <constraint firstAttribute="height" constant="30" id="Rde-fJ-pSO"/>
                                         </constraints>
-                                        <state key="normal" image="star"/>
-                                        <connections>
-                                            <segue destination="5w7-TT-TVF" kind="show" id="4Fx-CZ-UBU"/>
-                                        </connections>
+                                        <state key="normal" image="DMIcon"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="BPL-oN-ccj" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="27" id="Gdc-T6-kg8"/>
-                                    <constraint firstItem="lx3-RU-oc8" firstAttribute="leading" secondItem="wFT-RZ-Rk3" secondAttribute="leading" constant="8" id="Hce-zL-fD2"/>
-                                    <constraint firstItem="lx3-RU-oc8" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="28" id="YAw-Iu-Sde"/>
-                                    <constraint firstAttribute="bottom" secondItem="lx3-RU-oc8" secondAttribute="bottom" constant="6" id="asD-Dn-Sva"/>
                                     <constraint firstAttribute="height" constant="64" id="fSq-rB-1YU"/>
+                                    <constraint firstAttribute="bottom" secondItem="lx3-RU-oc8" secondAttribute="bottom" constant="6" id="fkQ-pd-2nI"/>
                                     <constraint firstAttribute="trailing" secondItem="BPL-oN-ccj" secondAttribute="trailing" constant="97" id="nL0-4S-bef"/>
+                                    <constraint firstAttribute="trailing" secondItem="lx3-RU-oc8" secondAttribute="trailing" constant="8" id="sWp-ue-SYe"/>
+                                    <constraint firstItem="lx3-RU-oc8" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="28" id="z2s-LM-xfg"/>
                                     <constraint firstItem="BPL-oN-ccj" firstAttribute="leading" secondItem="wFT-RZ-Rk3" secondAttribute="leading" constant="98" id="zoT-0T-JYe"/>
                                 </constraints>
                             </view>
@@ -795,15 +792,26 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="s2a-hh-7vw">
+                                        <rect key="frame" x="376" y="29" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="30" id="NPy-YQ-PPN"/>
+                                            <constraint firstAttribute="width" constant="30" id="ryW-nb-eme"/>
+                                        </constraints>
+                                        <state key="normal" image="chatBubble"/>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
                                     <constraint firstItem="eah-ag-yfZ" firstAttribute="leading" secondItem="ozh-zH-h8J" secondAttribute="leading" constant="4" id="35e-20-fuA"/>
                                     <constraint firstItem="NYQ-ob-8xD" firstAttribute="top" secondItem="ozh-zH-h8J" secondAttribute="top" constant="28" id="3qd-bw-dEB"/>
+                                    <constraint firstItem="s2a-hh-7vw" firstAttribute="top" secondItem="ozh-zH-h8J" secondAttribute="top" constant="29" id="CfQ-G0-6sQ"/>
+                                    <constraint firstAttribute="trailing" secondItem="s2a-hh-7vw" secondAttribute="trailing" constant="8" id="FYg-AF-9iW"/>
                                     <constraint firstItem="eah-ag-yfZ" firstAttribute="top" secondItem="ozh-zH-h8J" secondAttribute="top" constant="28" id="Gw4-eh-yL3"/>
                                     <constraint firstItem="NYQ-ob-8xD" firstAttribute="leading" secondItem="i83-Az-Enf" secondAttribute="trailing" constant="59" id="Hjw-Bx-emW"/>
                                     <constraint firstItem="i83-Az-Enf" firstAttribute="top" secondItem="ozh-zH-h8J" secondAttribute="top" constant="29" id="Hvf-Cb-5co"/>
                                     <constraint firstAttribute="bottom" secondItem="eah-ag-yfZ" secondAttribute="bottom" constant="6" id="Vzh-0f-OT7"/>
+                                    <constraint firstAttribute="bottom" secondItem="s2a-hh-7vw" secondAttribute="bottom" constant="5" id="W8i-dG-Jxg"/>
                                     <constraint firstAttribute="trailing" secondItem="NYQ-ob-8xD" secondAttribute="trailing" constant="8" id="kdf-Gg-E5N"/>
                                     <constraint firstItem="i83-Az-Enf" firstAttribute="leading" secondItem="eah-ag-yfZ" secondAttribute="trailing" constant="64" id="pY4-Ll-7yz"/>
                                     <constraint firstAttribute="bottom" secondItem="NYQ-ob-8xD" secondAttribute="bottom" constant="6" id="pc2-hr-OD5"/>
@@ -826,6 +834,7 @@
                     <navigationItem key="navigationItem" id="iVv-Bp-Fq9"/>
                     <connections>
                         <outlet property="backButton" destination="eah-ag-yfZ" id="jZ7-3f-Ybq"/>
+                        <outlet property="directMessageButton" destination="s2a-hh-7vw" id="u7i-gJ-yE9"/>
                         <outlet property="editButton" destination="NYQ-ob-8xD" id="g0w-At-AnF"/>
                         <outlet property="headerLabel" destination="i83-Az-Enf" id="StE-09-3N7"/>
                         <outlet property="spotTableView" destination="dkE-Bw-0m5" id="4eg-hR-XLO"/>
@@ -1937,11 +1946,13 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         </scene>
     </scenes>
     <resources>
+        <image name="DMIcon" width="23" height="23"/>
         <image name="Sk8Spots_logo" width="206" height="47"/>
         <image name="add_profile_pic" width="33" height="33"/>
         <image name="adventure_icon" width="40" height="40"/>
         <image name="back" width="21" height="21"/>
         <image name="black_photo_btn" width="20" height="18"/>
+        <image name="chatBubble" width="26" height="26"/>
         <image name="check" width="21" height="21"/>
         <image name="city_push" width="190" height="190"/>
         <image name="delete" width="21" height="21"/>
@@ -1956,7 +1967,6 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
     <inferredMetricsTieBreakers>
         <segue reference="myg-hR-9mM"/>
         <segue reference="ZX4-qG-Pn9"/>
-        <segue reference="cK3-5p-nZc"/>
-        <segue reference="amF-RC-GHK"/>
+        <segue reference="wHi-97-VC8"/>
     </inferredMetricsTieBreakers>
 </document>

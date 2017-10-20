@@ -30,6 +30,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
     @IBOutlet weak var backButton: UIButton!
+    @IBOutlet weak var directMessageButton: UIButton!
     
     @IBOutlet weak var spotTableView: UITableView!
     
@@ -43,6 +44,8 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             allowEdit = true
             backButton.isEnabled = false
             backButton.isHidden = true
+            directMessageButton.isHidden = true
+            directMessageButton.isEnabled = false
             
         }else{
             
