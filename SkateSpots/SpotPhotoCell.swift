@@ -36,6 +36,7 @@ class SpotPhotoCell: UICollectionViewCell{
                 if error != nil{
                     DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                     print("Mike: Unable to download image from firebase storage")
+                    print(error?.localizedDescription ?? "no errrrrrrorrororr")
                     
                 }else{
                     print("Mike: Image downloaded from firebase storge")

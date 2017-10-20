@@ -29,6 +29,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
+    @IBOutlet weak var backButton: UIButton!
     
     @IBOutlet weak var spotTableView: UITableView!
     
@@ -40,6 +41,8 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             
             userRef = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
             allowEdit = true
+            backButton.isEnabled = false
+            backButton.isHidden = true
             
         }else{
             
@@ -51,15 +54,20 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             allowEdit = false
             headerLabel.isHidden = true
             
+            
+            
         }
-        
+
         addUserData()
+        
+       
         
         appendSpotsArray()
         
         print(spots.count)
         
         spotTableView.register(HeaderCell.self, forCellReuseIdentifier: "headerCell")
+        
         
     }
     

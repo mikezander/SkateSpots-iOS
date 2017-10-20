@@ -20,10 +20,12 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     @IBOutlet weak var spotTableView: UITableView!
     
-    let currentUserRef = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
+    var currentUserRef = DatabaseReference()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        currentUserRef = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
         
         guard hasConnected else {
             errorAlert(title: "Network Connection Error", message: "Make sure you connected and try again")

@@ -37,7 +37,9 @@
                     </tabBar>
                     <connections>
                         <segue destination="3h0-8k-oCu" kind="relationship" relationship="viewControllers" id="kH0-3B-KM1"/>
+                        <segue destination="5w7-TT-TVF" kind="relationship" relationship="viewControllers" id="cK3-5p-nZc"/>
                         <segue destination="6EH-HZ-XWK" kind="relationship" relationship="viewControllers" id="HeP-Hg-sib"/>
+                        <segue destination="TAW-gt-gIw" kind="relationship" relationship="viewControllers" id="jcN-0k-cnA"/>
                         <segue destination="1At-Cb-vgb" kind="relationship" relationship="viewControllers" id="epI-rv-urs"/>
                     </connections>
                 </tabBarController>
@@ -64,7 +66,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sk8Spots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tPs-AL-zkG">
-                                        <rect key="frame" x="98" y="27" width="219" height="34"/>
+                                        <rect key="frame" x="98" y="27" width="219" height="36"/>
                                         <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="29"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -134,7 +136,7 @@
             </objects>
             <point key="canvasLocation" x="36" y="-696"/>
         </scene>
-        <!--FavoritesVC-->
+        <!--Favorites-->
         <scene sceneID="c2h-iZ-MlC">
             <objects>
                 <viewController id="5w7-TT-TVF" customClass="FavoritesVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
@@ -271,6 +273,7 @@
                             <constraint firstItem="fHj-sx-XV6" firstAttribute="top" secondItem="ngX-gl-sts" secondAttribute="bottom" id="frG-0w-yBp"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Favorites" image="star" id="W64-4I-qWs"/>
                     <connections>
                         <outlet property="spotTableView" destination="ngX-gl-sts" id="CEY-eT-5z2"/>
                     </connections>
@@ -295,7 +298,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sk8Spots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="BPL-oN-ccj">
-                                        <rect key="frame" x="98" y="27" width="219" height="34"/>
+                                        <rect key="frame" x="98" y="27" width="219" height="36"/>
                                         <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="29"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -311,27 +314,13 @@
                                             <segue destination="5w7-TT-TVF" kind="show" id="4Fx-CZ-UBU"/>
                                         </connections>
                                     </button>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vHg-Le-BDU">
-                                        <rect key="frame" x="376" y="28" width="30" height="30"/>
-                                        <constraints>
-                                            <constraint firstAttribute="width" constant="30" id="bkg-GT-ynv"/>
-                                            <constraint firstAttribute="height" constant="30" id="uav-Ce-CvW"/>
-                                        </constraints>
-                                        <state key="normal" image="profile_navbar"/>
-                                        <connections>
-                                            <segue destination="TAW-gt-gIw" kind="show" id="TmS-hl-k2a"/>
-                                        </connections>
-                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
-                                    <constraint firstItem="vHg-Le-BDU" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="28" id="64B-RZ-kWv"/>
                                     <constraint firstItem="BPL-oN-ccj" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="27" id="Gdc-T6-kg8"/>
                                     <constraint firstItem="lx3-RU-oc8" firstAttribute="leading" secondItem="wFT-RZ-Rk3" secondAttribute="leading" constant="8" id="Hce-zL-fD2"/>
-                                    <constraint firstAttribute="bottom" secondItem="vHg-Le-BDU" secondAttribute="bottom" constant="6" id="QOX-LR-Q06"/>
                                     <constraint firstItem="lx3-RU-oc8" firstAttribute="top" secondItem="wFT-RZ-Rk3" secondAttribute="top" constant="28" id="YAw-Iu-Sde"/>
                                     <constraint firstAttribute="bottom" secondItem="lx3-RU-oc8" secondAttribute="bottom" constant="6" id="asD-Dn-Sva"/>
-                                    <constraint firstAttribute="trailing" secondItem="vHg-Le-BDU" secondAttribute="trailing" constant="8" id="boK-gZ-O4A"/>
                                     <constraint firstAttribute="height" constant="64" id="fSq-rB-1YU"/>
                                     <constraint firstAttribute="trailing" secondItem="BPL-oN-ccj" secondAttribute="trailing" constant="97" id="nL0-4S-bef"/>
                                     <constraint firstItem="BPL-oN-ccj" firstAttribute="leading" secondItem="wFT-RZ-Rk3" secondAttribute="leading" constant="98" id="zoT-0T-JYe"/>
@@ -372,7 +361,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="503"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9FZ-wn-ttt" id="Q15-SB-RDq">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="503"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="502.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh" customClass="CircleView" customModule="Sk8Spots" customModuleProvider="target">
@@ -702,7 +691,7 @@
             </objects>
             <point key="canvasLocation" x="189.85507246376812" y="-40.760869565217398"/>
         </scene>
-        <!--ProfileVC-->
+        <!--Profile-->
         <scene sceneID="1qB-uk-X8q">
             <objects>
                 <viewController storyboardIdentifier="goToProfile" id="TAW-gt-gIw" customClass="ProfileVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
@@ -719,10 +708,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="210" id="FSx-Nv-ahg" customClass="ProfileCell" customModule="Sk8Spots" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55" width="414" height="210"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="210"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FSx-Nv-ahg" id="bBi-MO-Nas">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KlQ-kC-Ueo">
@@ -833,8 +822,10 @@
                             <constraint firstAttribute="trailing" secondItem="ozh-zH-h8J" secondAttribute="trailing" id="wNU-sC-cnZ"/>
                         </constraints>
                     </view>
+                    <tabBarItem key="tabBarItem" title="Profile" image="profile_navbar" id="PuV-9f-2lg"/>
                     <navigationItem key="navigationItem" id="iVv-Bp-Fq9"/>
                     <connections>
+                        <outlet property="backButton" destination="eah-ag-yfZ" id="jZ7-3f-Ybq"/>
                         <outlet property="editButton" destination="NYQ-ob-8xD" id="g0w-At-AnF"/>
                         <outlet property="headerLabel" destination="i83-Az-Enf" id="StE-09-3N7"/>
                         <outlet property="spotTableView" destination="dkE-Bw-0m5" id="4eg-hR-XLO"/>
@@ -928,7 +919,7 @@
                                 </constraints>
                             </imageView>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="TMK-5Q-oPi">
-                                <rect key="frame" x="197" y="334" width="20" height="20"/>
+                                <rect key="frame" x="197" y="333.66666666666669" width="20" height="20"/>
                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <color key="color" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
@@ -1015,7 +1006,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sk8Spots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lab-EA-rCk">
-                                        <rect key="frame" x="98" y="27" width="219" height="34"/>
+                                        <rect key="frame" x="98" y="27" width="219" height="36"/>
                                         <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="29"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1568,6 +1559,24 @@
             </objects>
             <point key="canvasLocation" x="-692.75362318840587" y="714.13043478260875"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="b8e-rP-c9L">
+            <objects>
+                <viewController id="j7A-wC-yin" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="9fU-Cw-F8l"/>
+                        <viewControllerLayoutGuide type="bottom" id="kom-XA-9SC"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="nxu-WO-13M">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nxc-jq-4fb" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="379" y="760"/>
+        </scene>
         <!--AgreementVC-->
         <scene sceneID="ix2-Kl-8jK">
             <objects>
@@ -1913,7 +1922,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                     </tabBarItem>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fWj-2D-zkp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fWj-2D-zkp">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1945,8 +1954,9 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <image name="star" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZX4-qG-Pn9"/>
-        <segue reference="wHi-97-VC8"/>
         <segue reference="myg-hR-9mM"/>
+        <segue reference="ZX4-qG-Pn9"/>
+        <segue reference="cK3-5p-nZc"/>
+        <segue reference="amF-RC-GHK"/>
     </inferredMetricsTieBreakers>
 </document>
