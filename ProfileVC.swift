@@ -177,7 +177,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         
         dismiss(animated: true, completion: nil)
     }
-    
+ 
     func setGestureRecognizer() -> UITapGestureRecognizer {
         var tapGestureRecognizer = UITapGestureRecognizer()
         tapGestureRecognizer = UITapGestureRecognizer(target: self, action:#selector(spotCicked))

@@ -8,17 +8,27 @@
 
 import Foundation
 import UIKit
+import FirebaseAuth
+import Firebase
 
 class MessagesVC: UIViewController{
+    
+    var messages: [Message]?
+    var users: [User]? = nil
+    var user: User? = nil
+    
 
     @IBOutlet weak var messagesCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
+
+        //messages?.append(message)
  
-        
-        
     }
+    
+    
+
 }
 
 extension MessagesVC: UICollectionViewDelegate, UICollectionViewDataSource{
@@ -30,6 +40,10 @@ extension MessagesVC: UICollectionViewDelegate, UICollectionViewDataSource{
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath)
+        
+       //if let message = messages?[indexPath.item]{
+            
+       // }
         
         return cell
     }

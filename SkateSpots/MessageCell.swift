@@ -12,5 +12,15 @@ import UIKit
 class MessageCell: UICollectionViewCell{
 
     
+    @IBOutlet weak var profileImage: CircleView!
+    @IBOutlet weak var nameLabel: UILabel!
+    @IBOutlet weak var contentLabel: UILabel!
+    
+    func configureCell(profileImage: UIImage, name: String, content: String){
+    
+        self.profileImage.image = profileImage
+        self.nameLabel.text = name
+        self.contentLabel.text = content
+    }
 
 }
