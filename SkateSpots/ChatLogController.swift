@@ -11,6 +11,13 @@ import Firebase
 
 class ChatLogController: UIViewController, UITextFieldDelegate{
     
+    var user: User? = nil
+    var userKey = String()
+    var messages = [Message]()
+    
+    @IBOutlet weak var messageTableView: UITableView!
+
+    
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter message..."
@@ -19,12 +26,19 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         return textField
     }()
 
+    @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        navigationItem.title = "Chat Log Controller"
-        
+
+        messageTableView.delegate = self
+        messageTableView.dataSource = self
+
         setupInputComponents()
+
+        titleLabel.text = user?.userName
+        
+        observeMessage()
+        
         
     }
     
@@ -68,13 +82,41 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         seperatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
         seperatorLineView.heightAnchor.constraint(equalToConstant: 0.75).isActive = true
 
+        
+    }
+    
+    func observeMessage(){
+        let ref = DataService.instance.REF_BASE.child("messages")
+        ref.observe(.childAdded, with: { (snapshot) in
+            
+            
+            if let messageDict = snapshot.value as? [String: Any] {
+                        let message = Message()
+                        message.setValuesForKeys(messageDict)
+                        self.messages.append(message)
+                
+                DispatchQueue.main.async { self.messageTableView.reloadData() }
+                
+                    }
+            
+            
+            
+            print(self.messages.count)
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+    
+    
     }
     
     func handleSend(){
         
         let ref = DataService.instance.REF_BASE.child("messages")
         let childRef = ref.childByAutoId()
-        let values = ["text": inputTextField.text!]
+        let fromId = Auth.auth().currentUser!.uid
+        //let timestamp = NSDate().timeIntervalSince1970
+        let values = ["text": inputTextField.text!, "toId": userKey, "fromId": fromId] //"timestamp": timestamp] as [String: Any]
         childRef.updateChildValues(values)
   
     }
@@ -83,5 +125,25 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         handleSend()
         return true
     }
+ 
 
 }
+
+extension ChatLogController: UITableViewDelegate, UITableViewDataSource{
+    
+ 
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
+        
+        let message = messages[indexPath.row]
+        cell.textLabel?.text = message.text
+        
+        return cell
+    }
+
+}
+

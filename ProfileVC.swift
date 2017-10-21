@@ -26,6 +26,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     var igUsername = ""
     var allowEdit = false
     var keys = [String]()
+    var key = String()
     
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
@@ -50,6 +51,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         }else{
             
             if let key = userKey{
+                self.key = key
                 userRef = DataService.instance.REF_USERS.child(key)
             }
             editButton.isEnabled = false
@@ -168,6 +170,14 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
                 }
                 
             }
+        }else if segue.identifier == "sendMessage"{
+            if let vc = segue.destination as? ChatLogController{
+                if self.user != nil{
+                vc.user = self.user
+                vc.userKey = self.key
+                }
+            }
+        
         }
     }
     

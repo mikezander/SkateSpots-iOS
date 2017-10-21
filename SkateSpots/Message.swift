@@ -8,24 +8,19 @@
 
 import UIKit
 
-class Message{
+class Message: NSObject{
     
-    private var _content: String
-    private var _user: User
-    //var date: NSDate?
+    var fromId: String?
+    var toId: String?
+    var text: String?
+    //var timestamp: TimeInterval?
+
+    /*init(dictionary: [String: AnyObject]){
     
-    var content: String{
-        return _content
-    }
-    
-    var user: User{
-        return _user
-    }
-    
-    init(content: String, user: User){
-        self._content = content
-        self._user = user
-    }
-  
+    fromId = dictionary["fromId"] as? String
+    toId = dictionary["toId"] as? String
+    text = dictionary["text"] as? String
+    timestamp = dictionary["timestamp"] as? TimeInterval
+    }*/
     
 }

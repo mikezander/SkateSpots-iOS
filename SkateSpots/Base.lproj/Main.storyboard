@@ -803,7 +803,7 @@
                                         </constraints>
                                         <state key="normal" image="chatBubble"/>
                                         <connections>
-                                            <segue destination="XIR-BC-VGS" kind="presentation" id="WUj-QZ-Dwl"/>
+                                            <segue destination="XIR-BC-VGS" kind="presentation" identifier="sendMessage" id="WUj-QZ-Dwl"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1710,20 +1710,70 @@
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="XTJ-pg-TgB">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="tie-gL-FIX">
+                                        <rect key="frame" x="50" y="29" width="314" height="28"/>
+                                        <fontDescription key="fontDescription" name="GurmukhiMN" family="Gurmukhi MN" pointSize="20"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="tie-gL-FIX" firstAttribute="top" secondItem="XTJ-pg-TgB" secondAttribute="top" constant="29" id="O7B-KI-Ygz"/>
+                                    <constraint firstItem="tie-gL-FIX" firstAttribute="leading" secondItem="XTJ-pg-TgB" secondAttribute="leading" constant="50" id="POL-2c-5lP"/>
+                                    <constraint firstAttribute="trailing" secondItem="tie-gL-FIX" secondAttribute="trailing" constant="50" id="TcB-iF-Hyz"/>
                                     <constraint firstAttribute="height" constant="64" id="XqX-U6-RUO"/>
+                                    <constraint firstAttribute="bottom" secondItem="tie-gL-FIX" secondAttribute="bottom" constant="7" id="hmo-tJ-FAk"/>
                                 </constraints>
                             </view>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x3t-Oz-tWo">
+                                <rect key="frame" x="0.0" y="64" width="414" height="572"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" textLabel="Lo6-YV-Ao5" detailTextLabel="rKj-jY-7AH" style="IBUITableViewCellStyleValue1" id="gQD-IG-BXL">
+                                        <rect key="frame" x="0.0" y="28" width="414" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gQD-IG-BXL" id="7ov-b3-gtn">
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="43.666666666666664"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Lo6-YV-Ao5">
+                                                    <rect key="frame" x="15" y="11.999999999999998" width="33.333333333333336" height="20.333333333333332"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Detail" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="rKj-jY-7AH">
+                                                    <rect key="frame" x="355" y="11.999999999999998" width="44" height="20.333333333333332"/>
+                                                    <autoresizingMask key="autoresizingMask"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="qId-wK-QWa" firstAttribute="top" secondItem="x3t-Oz-tWo" secondAttribute="bottom" constant="51" id="BEw-dh-9U2"/>
                             <constraint firstAttribute="trailing" secondItem="XTJ-pg-TgB" secondAttribute="trailing" id="G2g-PY-Nvx"/>
+                            <constraint firstItem="x3t-Oz-tWo" firstAttribute="leading" secondItem="s2s-K4-veg" secondAttribute="leading" id="KYz-oO-PCf"/>
+                            <constraint firstAttribute="trailing" secondItem="x3t-Oz-tWo" secondAttribute="trailing" id="TJB-W0-Wqh"/>
+                            <constraint firstItem="x3t-Oz-tWo" firstAttribute="top" secondItem="XTJ-pg-TgB" secondAttribute="bottom" id="lTo-HB-Eo4"/>
                             <constraint firstItem="XTJ-pg-TgB" firstAttribute="leading" secondItem="s2s-K4-veg" secondAttribute="leading" id="nbz-Gk-ht6"/>
                             <constraint firstItem="XTJ-pg-TgB" firstAttribute="top" secondItem="s2s-K4-veg" secondAttribute="top" id="zgP-oS-nDh"/>
                         </constraints>
                     </view>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="messageTableView" destination="x3t-Oz-tWo" id="TOi-0o-Sh4"/>
+                        <outlet property="titleLabel" destination="tie-gL-FIX" id="71X-uX-Qw2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GXr-rL-fGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
