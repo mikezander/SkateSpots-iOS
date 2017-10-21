@@ -13,39 +13,80 @@ import Firebase
 
 class MessagesVC: UIViewController{
     
-    var messages: [Message]?
-    var users: [User]? = nil
-    var user: User? = nil
+    var messages = [Message]()
+
+    @IBOutlet weak var messageTableView: UITableView!
     
 
-    @IBOutlet weak var messagesCollectionView: UICollectionView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
 
+        
+        messageTableView.delegate = self
+        messageTableView.dataSource = self
         //messages?.append(message)
+        
+        observeMessages()
  
     }
     
-    
+    func observeMessages(){
+        let ref = DataService.instance.REF_BASE.child("messages")
+        ref.observe(.childAdded, with: { (snapshot) in
+            
+            
+            if let messageDict = snapshot.value as? [String: Any] {
+                print(messageDict)
+                let message = Message()
+                message.setValuesForKeys(messageDict)
+                self.messages.append(message)
+                
+                
+                DispatchQueue.main.async { self.messageTableView.reloadData() }
+                
+            }
+            
+            
+            
+            print(self.messages.count)
+            
+        }) { (error) in
+            print(error.localizedDescription)
+        }
+        
+        
+    }
 
 }
 
-extension MessagesVC: UICollectionViewDelegate, UICollectionViewDataSource{
-
-    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        return 3
+extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
+    
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return messages.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
         
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "MessageCell", for: indexPath)
+        let message = messages[indexPath.row]
         
-       //if let message = messages?[indexPath.item]{
+        if let toId = message.toId{
+            let ref = DataService.instance.REF_USERS.child(toId).child("profile")
             
-       // }
+            ref.observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if let dictionary = snapshot.value as? [String: AnyObject]{
+                    cell.textLabel?.text = dictionary["username"] as? String
+                }
+                
+            }, withCancel: nil)
+        }
+        
+        cell.detailTextLabel?.text = "YoYo"//message.text
         
         return cell
     }
-
+    
 }

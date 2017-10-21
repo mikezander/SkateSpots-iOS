@@ -30,14 +30,12 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        messageTableView.delegate = self
-        messageTableView.dataSource = self
+ 
 
         setupInputComponents()
 
-        titleLabel.text = user?.userName
         
-        observeMessage()
+        //observeMessage()
         
         
     }
@@ -85,30 +83,7 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         
     }
     
-    func observeMessage(){
-        let ref = DataService.instance.REF_BASE.child("messages")
-        ref.observe(.childAdded, with: { (snapshot) in
-            
-            
-            if let messageDict = snapshot.value as? [String: Any] {
-                        let message = Message()
-                        message.setValuesForKeys(messageDict)
-                        self.messages.append(message)
-                
-                DispatchQueue.main.async { self.messageTableView.reloadData() }
-                
-                    }
-            
-            
-            
-            print(self.messages.count)
-            
-        }) { (error) in
-            print(error.localizedDescription)
-        }
     
-    
-    }
     
     func handleSend(){
         
@@ -129,21 +104,5 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
 
 }
 
-extension ChatLogController: UITableViewDelegate, UITableViewDataSource{
-    
- 
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
-    }
 
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
-        
-        let message = messages[indexPath.row]
-        cell.textLabel?.text = message.text
-        
-        return cell
-    }
-
-}
 
