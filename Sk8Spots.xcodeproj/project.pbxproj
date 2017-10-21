@@ -22,6 +22,8 @@
 		C41D8B351F11431C009C174C /* SpotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B341F11431C009C174C /* SpotVC.swift */; };
 		C4433E6A1F1FB82600B00002 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4433E691F1FB82600B00002 /* MapVC.swift */; };
 		C4433E6C1F1FBC5200B00002 /* SpotPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4433E6B1F1FBC5200B00002 /* SpotPin.swift */; };
+		C456C11D1F9AC28F00C74A56 /* MessagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456C11C1F9AC28F00C74A56 /* MessagesVC.swift */; };
+		C456C1211F9AC59D00C74A56 /* MessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456C1201F9AC59D00C74A56 /* MessageCell.swift */; };
 		C4A42A8F1F73FD290031865C /* AgreementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A42A8E1F73FD290031865C /* AgreementVC.swift */; };
 		C4AD89A81F433C9100D47460 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD89A71F433C9100D47460 /* ProfileVC.swift */; };
 		C4AD89AA1F43700700D47460 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD89A91F43700700D47460 /* ProfileCell.swift */; };
@@ -66,6 +68,8 @@
 		C41D8B341F11431C009C174C /* SpotVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotVC.swift; sourceTree = "<group>"; };
 		C4433E691F1FB82600B00002 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C4433E6B1F1FBC5200B00002 /* SpotPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPin.swift; sourceTree = "<group>"; };
+		C456C11C1F9AC28F00C74A56 /* MessagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesVC.swift; sourceTree = "<group>"; };
+		C456C1201F9AC59D00C74A56 /* MessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCell.swift; sourceTree = "<group>"; };
 		C4A42A8E1F73FD290031865C /* AgreementVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgreementVC.swift; sourceTree = "<group>"; };
 		C4AD89A71F433C9100D47460 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = ../ProfileVC.swift; sourceTree = "<group>"; };
 		C4AD89A91F43700700D47460 /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
@@ -140,6 +144,7 @@
 				C4AD89A91F43700700D47460 /* ProfileCell.swift */,
 				C4AD89AB1F437DD300D47460 /* HeaderCell.swift */,
 				C4AD89B11F48B93200D47460 /* FavoriteCell.swift */,
+				C456C1201F9AC59D00C74A56 /* MessageCell.swift */,
 				C4128C391F0EAF290058628D /* RoundTextField.swift */,
 				C4128C3B1F0EBA690058628D /* RoundedButton.swift */,
 				C4CE591B1F28663500180BA5 /* CircleView.swift */,
@@ -159,6 +164,7 @@
 				C4AD89A71F433C9100D47460 /* ProfileVC.swift */,
 				C4AD89AD1F43BAB900D47460 /* EditProfileVC.swift */,
 				C4AD89AF1F48A47800D47460 /* FavoritesVC.swift */,
+				C456C11C1F9AC28F00C74A56 /* MessagesVC.swift */,
 				C4A42A8E1F73FD290031865C /* AgreementVC.swift */,
 				C41640641F39144800BF244C /* VC+Extension.swift */,
 			);
@@ -385,6 +391,7 @@
 				C4B0C5491F0D7B78004B6923 /* AppDelegate.swift in Sources */,
 				C41D8B2A1F0ED23A009C174C /* AuthService.swift in Sources */,
 				C4CE59191F28314A00180BA5 /* Constants.swift in Sources */,
+				C456C1211F9AC59D00C74A56 /* MessageCell.swift in Sources */,
 				C4433E6C1F1FBC5200B00002 /* SpotPin.swift in Sources */,
 				C41640651F39144800BF244C /* VC+Extension.swift in Sources */,
 				C4E36FD21F1A7F23000ABF4D /* SpotRow.swift in Sources */,
@@ -396,6 +403,7 @@
 				C4AD89B01F48A47800D47460 /* FavoritesVC.swift in Sources */,
 				C4B46CF01F2F9ACE007D3206 /* Comment.swift in Sources */,
 				C4A42A8F1F73FD290031865C /* AgreementVC.swift in Sources */,
+				C456C11D1F9AC28F00C74A56 /* MessagesVC.swift in Sources */,
 				C4CE591E1F2A645900180BA5 /* User.swift in Sources */,
 				C4AD89AE1F43BAB900D47460 /* EditProfileVC.swift in Sources */,
 				C4E36FD61F1ACA44000ABF4D /* SpotPhotoCell.swift in Sources */,

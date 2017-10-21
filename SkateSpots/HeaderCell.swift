@@ -17,7 +17,6 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
     var link: UITextView!
     var igLink: UIButton!
     var contributions: UILabel!
-    var directMessageButton: UIButton!
     var status: UILabel!
     
     var igUsername = ""
@@ -83,15 +82,7 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
         igLink.titleLabel?.font = UIFont(name: "Avenir",size: 15)
         igLink.addTarget(self, action: #selector(instagramLinkPressed), for: .touchUpInside)
         contentView.addSubview(igLink)
-        
-        directMessageButton = UIButton()
-        directMessageButton.frame = CGRect(x: 0, y: bio.frame.origin.y + bio.frame.height + link.frame.height + igLink.frame.height , width: screenSize.width, height: 20)
-        directMessageButton.setTitle("Direct Message", for: .normal)
-        directMessageButton.isUserInteractionEnabled = true
-        directMessageButton.setTitleColor(UIColor.blue, for: .normal)
-        directMessageButton.titleLabel?.font = UIFont(name: "Avenir",size: 15)
-        contentView.addSubview(directMessageButton)
-        
+  
         contributions = UILabel()
         contributions.frame = CGRect(x: profilePhoto.frame.origin.x , y: igLink.frame.origin.y + 85, width: 150, height: 20)
         contributions.textColor = UIColor.lightGray
