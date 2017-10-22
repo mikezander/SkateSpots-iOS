@@ -35,8 +35,6 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         setupInputComponents()
 
         
-        //observeMessage()
-        
         
     }
     
@@ -90,8 +88,9 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         let ref = DataService.instance.REF_BASE.child("messages")
         let childRef = ref.childByAutoId()
         let fromId = Auth.auth().currentUser!.uid
-        //let timestamp = NSDate().timeIntervalSince1970
-        let values = ["text": inputTextField.text!, "toId": userKey, "fromId": fromId] //"timestamp": timestamp] as [String: Any]
+        let timestamp: NSNumber
+        timestamp = Int(NSDate().timeIntervalSince1970) as NSNumber
+        let values = ["text": inputTextField.text!, "toId": userKey, "fromId": fromId, "timestamp": timestamp] as [String: Any]
         childRef.updateChildValues(values)
   
     }

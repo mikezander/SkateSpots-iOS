@@ -19,12 +19,23 @@ class MessageCell: UITableViewCell{
     @IBOutlet weak var nameLabel: UILabel!
   
     @IBOutlet weak var messageLabel: UILabel!
+    @IBOutlet weak var timeLabel: UILabel!
     
     
     func configureCell(message: Message, img: UIImage? = nil, userUrl: String, name: String){
-        
+ 
         nameLabel.text = name
         messageLabel.text = message.text
+        
+        if let seconds = message.timestamp?.doubleValue{
+            let timestampDate = Date(timeIntervalSince1970: seconds)
+            
+            let dateFormatter = DateFormatter()
+            dateFormatter.dateFormat = "hh:mm:ss a"
+            timeLabel.text = dateFormatter.string(from: timestampDate)
+        }
+        
+       
         
         //download images
         if img != nil{

@@ -13,14 +13,6 @@ class Message: NSObject{
     var fromId: String?
     var toId: String?
     var text: String?
-    //var timestamp: TimeInterval?
+    var timestamp: NSNumber?
 
-    /*init(dictionary: [String: AnyObject]){
-    
-    fromId = dictionary["fromId"] as? String
-    toId = dictionary["toId"] as? String
-    text = dictionary["text"] as? String
-    timestamp = dictionary["timestamp"] as? TimeInterval
-    }*/
-    
 }

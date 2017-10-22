@@ -31,6 +31,10 @@ class MessagesVC: UIViewController{
  
     }
     
+    @IBAction func backButtonPressed(_ sender: Any) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     func observeMessages(){
         let ref = DataService.instance.REF_BASE.child("messages")
         ref.observe(.childAdded, with: { (snapshot) in
