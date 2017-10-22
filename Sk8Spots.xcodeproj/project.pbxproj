@@ -10,6 +10,7 @@
 		C4128C3A1F0EAF290058628D /* RoundTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C391F0EAF290058628D /* RoundTextField.swift */; };
 		C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C3B1F0EBA690058628D /* RoundedButton.swift */; };
 		C4128C3E1F0EC0270058628D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */; };
+		C41542171F9CFB05004ADBC3 /* ChatLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41542161F9CFB05004ADBC3 /* ChatLogCell.swift */; };
 		C41640651F39144800BF244C /* VC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41640641F39144800BF244C /* VC+Extension.swift */; };
 		C41878851F3F80A100573D3A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41878841F3F80A100573D3A /* FBSDKCoreKit.framework */; };
 		C41878871F3F80A800573D3A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41878861F3F80A800573D3A /* FBSDKLoginKit.framework */; };
@@ -58,6 +59,7 @@
 		C4128C391F0EAF290058628D /* RoundTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundTextField.swift; sourceTree = "<group>"; };
 		C4128C3B1F0EBA690058628D /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		C41542161F9CFB05004ADBC3 /* ChatLogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogCell.swift; sourceTree = "<group>"; };
 		C41640641F39144800BF244C /* VC+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VC+Extension.swift"; sourceTree = "<group>"; };
 		C41878841F3F80A100573D3A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		C41878861F3F80A800573D3A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -149,6 +151,7 @@
 				C4AD89AB1F437DD300D47460 /* HeaderCell.swift */,
 				C4AD89B11F48B93200D47460 /* FavoriteCell.swift */,
 				C456C1201F9AC59D00C74A56 /* MessageCell.swift */,
+				C41542161F9CFB05004ADBC3 /* ChatLogCell.swift */,
 				C4128C391F0EAF290058628D /* RoundTextField.swift */,
 				C4128C3B1F0EBA690058628D /* RoundedButton.swift */,
 				C4CE591B1F28663500180BA5 /* CircleView.swift */,
@@ -393,6 +396,7 @@
 				C4AD89AC1F437DD300D47460 /* HeaderCell.swift in Sources */,
 				C4433E6A1F1FB82600B00002 /* MapVC.swift in Sources */,
 				C41D8B351F11431C009C174C /* SpotVC.swift in Sources */,
+				C41542171F9CFB05004ADBC3 /* ChatLogCell.swift in Sources */,
 				C4128C3A1F0EAF290058628D /* RoundTextField.swift in Sources */,
 				C4B0C5491F0D7B78004B6923 /* AppDelegate.swift in Sources */,
 				C41D8B2A1F0ED23A009C174C /* AuthService.swift in Sources */,

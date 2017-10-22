@@ -170,9 +170,7 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         let message = messages[indexPath.row]
-        
-        print(message.text, message.toId, message.fromId)
-        
+
         guard let chatPartnerId = message.chatPartnerId() else{
             return
         }
@@ -187,12 +185,11 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
 
             
             self.chatLogUser = User(userKey: chatPartnerId, userData: dictionary)
-
-            
+           
+            // lbta he sets user key
+           
             self.performSegue(withIdentifier: "goToChatLog", sender: nil)
-            //let chatLogVC = ChatLogController()
-            //chatLogVC.user = user
-           // self.present(chatLogVC, animated: true, completion: nil)
+            
             
         
         }, withCancel: nil)

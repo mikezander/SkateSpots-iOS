@@ -1772,23 +1772,52 @@
                                     <constraint firstItem="kuE-JG-yAx" firstAttribute="leading" secondItem="XTJ-pg-TgB" secondAttribute="leading" constant="4" id="sHx-Za-2nd"/>
                                 </constraints>
                             </view>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="NNc-CY-IqX">
+                                <rect key="frame" x="0.0" y="64" width="414" height="572"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="f5A-wG-RyG">
+                                    <size key="itemSize" width="50" height="50"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="ChatLogCell" id="HFh-X0-jOW">
+                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </view>
+                                    </collectionViewCell>
+                                </cells>
+                                <connections>
+                                    <outlet property="dataSource" destination="XIR-BC-VGS" id="lU1-S2-5Sw"/>
+                                    <outlet property="delegate" destination="XIR-BC-VGS" id="F36-jH-kZK"/>
+                                </connections>
+                            </collectionView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="NNc-CY-IqX" firstAttribute="leading" secondItem="s2s-K4-veg" secondAttribute="leading" id="AbW-rn-6qz"/>
                             <constraint firstAttribute="trailing" secondItem="XTJ-pg-TgB" secondAttribute="trailing" id="G2g-PY-Nvx"/>
+                            <constraint firstItem="NNc-CY-IqX" firstAttribute="top" secondItem="XTJ-pg-TgB" secondAttribute="bottom" id="aFd-Lq-hqS"/>
                             <constraint firstItem="XTJ-pg-TgB" firstAttribute="leading" secondItem="s2s-K4-veg" secondAttribute="leading" id="nbz-Gk-ht6"/>
+                            <constraint firstItem="qId-wK-QWa" firstAttribute="top" secondItem="NNc-CY-IqX" secondAttribute="bottom" constant="51" id="ofp-Md-fzF"/>
+                            <constraint firstAttribute="trailing" secondItem="NNc-CY-IqX" secondAttribute="trailing" id="utQ-4Q-faE"/>
                             <constraint firstItem="XTJ-pg-TgB" firstAttribute="top" secondItem="s2s-K4-veg" secondAttribute="top" id="zgP-oS-nDh"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="X8e-P7-nqx"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="chatCollectionView" destination="NNc-CY-IqX" id="Xce-j3-Dyz"/>
                         <outlet property="titleLabel" destination="tie-gL-FIX" id="71X-uX-Qw2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GXr-rL-fGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2161" y="748"/>
+            <point key="canvasLocation" x="2160.8695652173915" y="747.554347826087"/>
         </scene>
         <!--AgreementVC-->
         <scene sceneID="ix2-Kl-8jK">

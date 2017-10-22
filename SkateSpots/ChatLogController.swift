@@ -10,15 +10,14 @@ import UIKit
 import Firebase
 
 class ChatLogController: UIViewController, UITextFieldDelegate{
+
+    @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var chatCollectionView: UICollectionView!
     
-    var user: User? = nil
     var userKey = String()
     var messages = [Message]()
-    
-    @IBOutlet weak var messageTableView: UITableView!
-    @IBOutlet weak var titleLabel: UILabel!
+    var user: User? = nil
 
-    
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter message..."
@@ -26,23 +25,70 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         textField.delegate = self
         return textField
     }()
+    
+    let cellId = "cellId"
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
+        chatCollectionView.register(ChatLogCell.self, forCellWithReuseIdentifier: cellId)
+        
+        chatCollectionView.alwaysBounceVertical = true
+
         print(userKey)
+        
         titleLabel.text = user?.userName
+        
+        observeUsersMessages()
 
         setupInputComponents()
+     
+    }
+    
+    func observeUsersMessages(){
+        
+        guard let uid = Auth.auth().currentUser?.uid else{
+            return
+        }
 
-        
-        
+        let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(uid)
+        userMessagesRef.observe(.childAdded, with: { (snapshot) in
+            
+            let messageId = snapshot.key
+            
+            let messagesRef = DataService.instance.REF_BASE.child("messages").child(messageId)
+            
+            messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                guard let dicitonary = snapshot.value as? [String: AnyObject] else{
+                    return
+                }
+                
+                let message = Message()
+                //potential of crashing if keys don't match!
+                message.setValuesForKeys(dicitonary)
+                
+                if message.chatPartnerId() == self.userKey{
+                
+                    self.messages.append(message)
+                    
+                    DispatchQueue.main.async {
+                        self.chatCollectionView.reloadData()
+                    }
+                    
+                }
+
+                
+            }, withCancel: nil)
+            
+        }, withCancel: nil)
+    
     }
     
     func setupInputComponents(){
 
         let containerView = UIView()
+        containerView.backgroundColor = UIColor.white
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
         view.addSubview(containerView)
@@ -121,9 +167,33 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         handleSend()
         return true
     }
- 
+   
+}
+extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        
+        return CGSize(width: view.frame.width, height: 80)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return messages.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatLogCell
+        
+        let message = messages[indexPath.item]
+        cell.textView.text = message.text
+
+        
+        return cell
+   
+    }
 
 }
+
 
 
 
