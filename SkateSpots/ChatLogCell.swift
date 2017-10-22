@@ -19,14 +19,27 @@ class ChatLogCell: UICollectionViewCell {
         return tv
     }()
     
+    static let blueColor = UIColor(red: 0, green: 137, blue: 249, alpha: 1)
+    
     let bubbleView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.black//(colorLiteralRed: 0, green: 137, blue: 249, alpha: 1)
+        view.backgroundColor = blueColor//(colorLiteralRed: 0, green: 137, blue: 249, alpha: 1)
         view.translatesAutoresizingMaskIntoConstraints = false
         view.layer.cornerRadius = 16
         view.layer.masksToBounds = true
-        
+ 
         return view
+    }()
+    
+    let profileImageView: UIImageView = {
+        let iv = UIImageView()
+        iv.image = UIImage(named: "profiletemp")
+        iv.translatesAutoresizingMaskIntoConstraints = false
+        iv.layer.cornerRadius = 16
+        iv.layer.masksToBounds = true
+        iv.contentMode = .scaleAspectFill
+        
+        return iv
     }()
     
     var bubbleWidthAnchor: NSLayoutConstraint?
@@ -36,7 +49,15 @@ class ChatLogCell: UICollectionViewCell {
         
         addSubview(bubbleView)
         addSubview(textView)
+        addSubview(profileImageView)
         
+        //x,y,w,h
+        profileImageView.leftAnchor.constraint(equalTo: self.leftAnchor, constant: 8).isActive = true
+        profileImageView.bottomAnchor.constraint(equalTo: self.bottomAnchor).isActive = true
+        profileImageView.widthAnchor.constraint(equalToConstant: 32).isActive = true
+        profileImageView.heightAnchor.constraint(equalToConstant: 32).isActive = true
+        
+        //x,y,w,h
         bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         bubbleWidthAnchor =  bubbleView.widthAnchor.constraint(equalToConstant: 200)

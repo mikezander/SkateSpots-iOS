@@ -210,6 +210,8 @@ extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSourc
         let message = messages[indexPath.item]
         cell.textView.text = message.text
         
+        setUpCell(cell: cell, message: message)
+        
         //modify bubleview width
         cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width + 32
 
@@ -217,6 +219,19 @@ extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSourc
         
         return cell
    
+    }
+    
+    private func setUpCell(cell: ChatLogCell, message: Message){
+    
+        if message.fromId == Auth.auth().currentUser?.uid{
+            //outgoing blue
+            cell.bubbleView.backgroundColor = ChatLogCell.blueColor
+        }else{
+            //incoming gray
+            cell.bubbleView.backgroundColor = UIColor.lightGray//UIColor(red: 240, green: 240, blue: 240, alpha: 1)
+            cell.textView.textColor = UIColor.black
+        }
+        
     }
 
 }
