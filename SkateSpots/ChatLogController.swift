@@ -29,8 +29,10 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var titleLabel: UILabel!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print(userKey)
 
- 
+        print(user?.userName ?? "nada")
 
         setupInputComponents()
 
@@ -82,6 +84,11 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
     }
     
     
+    @IBAction func backButoonPressed(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+        
+       // dismiss(animated: true, completion: nil)
+    }
     
     func handleSend(){
         

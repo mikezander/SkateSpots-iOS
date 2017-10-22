@@ -139,15 +139,8 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
         
         let message = messages[indexPath.row]
         
-        let chatPartnerId: String?
-        
-        if message.fromId == Auth.auth().currentUser?.uid{
-            chatPartnerId = message.toId
-        }else{
-            chatPartnerId = message.fromId
-        }
-        
-        if let id = chatPartnerId{
+        if let id = message.chatPartnerId(){
+            
             let ref = DataService.instance.REF_USERS.child(id).child("profile")
             
             ref.observeSingleEvent(of: .value, with: { (snapshot) in
@@ -171,6 +164,38 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
         
   
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        let message = messages[indexPath.row]
+        
+        print(message.text, message.toId, message.fromId)
+        
+        guard let chatPartnerId = message.chatPartnerId() else{
+            return
+        }
+       
+        let ref = DataService.instance.REF_USERS.child(chatPartnerId).child("profile")
+       
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+          
+            guard let dictionary = snapshot.value as? [String: AnyObject] else{
+                return
+            }
+
+            
+            let user = User(userKey: chatPartnerId, userData: dictionary)
+
+            
+            self.performSegue(withIdentifier: "goToChatLog", sender: nil)
+            //let chatLogVC = ChatLogController()
+            //chatLogVC.user = user
+           // self.present(chatLogVC, animated: true, completion: nil)
+            
+        
+        }, withCancel: nil)
+        
     }
     
 }

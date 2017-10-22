@@ -311,7 +311,7 @@
                                         </constraints>
                                         <state key="normal" image="DMIcon"/>
                                         <connections>
-                                            <segue destination="j7A-wC-yin" kind="presentation" id="ext-6P-q4C"/>
+                                            <segue destination="hEd-aZ-c4D" kind="show" id="QBA-pF-TyW"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -361,7 +361,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="503"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9FZ-wn-ttt" id="Q15-SB-RDq">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="503"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="502.66666666666669"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh" customClass="CircleView" customModule="Sk8Spots" customModuleProvider="target">
@@ -708,10 +708,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="210" id="FSx-Nv-ahg" customClass="ProfileCell" customModule="Sk8Spots" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55" width="414" height="210"/>
+                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="210"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FSx-Nv-ahg" id="bBi-MO-Nas">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209.66666666666666"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KlQ-kC-Ueo">
@@ -803,7 +803,7 @@
                                         </constraints>
                                         <state key="normal" image="chatBubble"/>
                                         <connections>
-                                            <segue destination="XIR-BC-VGS" kind="presentation" identifier="sendMessage" id="WUj-QZ-Dwl"/>
+                                            <segue destination="XIR-BC-VGS" kind="show" identifier="sendMessage" id="dCU-vn-cx5"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1583,18 +1583,18 @@
                         <viewControllerLayoutGuide type="bottom" id="kom-XA-9SC"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="nxu-WO-13M">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="72" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="x3t-Oz-tWo">
-                                <rect key="frame" x="0.0" y="64" width="414" height="672"/>
+                                <rect key="frame" x="0.0" y="64" width="414" height="623"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" reuseIdentifier="MessageCell" rowHeight="72" id="gQD-IG-BXL" customClass="MessageCell" customModule="Sk8Spots" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="28" width="414" height="72"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gQD-IG-BXL" id="7ov-b3-gtn">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="72"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="71.666666666666671"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h5l-Pz-Wkh">
@@ -1695,13 +1695,31 @@
                             <constraint firstItem="x3t-Oz-tWo" firstAttribute="leading" secondItem="nxu-WO-13M" secondAttribute="leading" id="qbl-MO-4sN"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="7q4-MU-SBU"/>
                     <connections>
                         <outlet property="messageTableView" destination="x3t-Oz-tWo" id="529-Ee-xzm"/>
+                        <segue destination="XIR-BC-VGS" kind="show" identifier="goToChatLog" id="rzq-O0-TOU"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nxc-jq-4fb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="153.62318840579712" y="689.67391304347836"/>
+            <point key="canvasLocation" x="891" y="748"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="IpN-dv-6a4">
+            <objects>
+                <navigationController navigationBarHidden="YES" id="hEd-aZ-c4D" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ath-O9-OOw">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="j7A-wC-yin" kind="relationship" relationship="rootViewController" id="2qI-ZJ-MNe"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="9f3-Nw-fue" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="165" y="748"/>
         </scene>
         <!--Chat Log Controller-->
         <scene sceneID="zzq-41-mj6">
@@ -1724,14 +1742,34 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kuE-JG-yAx">
+                                        <rect key="frame" x="4" y="28" width="30" height="30"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="30" id="B6s-r3-fpx"/>
+                                            <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="30" id="FHq-MO-8qN"/>
+                                            <constraint firstAttribute="height" constant="30" id="MQ7-C7-sdl"/>
+                                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="30" id="kgP-PJ-gp7"/>
+                                        </constraints>
+                                        <state key="normal" image="back">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backBtnPressed:" destination="TAW-gt-gIw" eventType="touchUpInside" id="zTj-JJ-y6k"/>
+                                            <action selector="backButoonPressed:" destination="XIR-BC-VGS" eventType="touchUpInside" id="s9D-z1-UNw"/>
+                                            <action selector="backButtonPressed:" destination="j7A-wC-yin" eventType="touchUpInside" id="NY7-Ia-8jm"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.49803921568627452" green="0.67843137254901964" blue="0.32156862745098036" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstItem="kuE-JG-yAx" firstAttribute="top" secondItem="XTJ-pg-TgB" secondAttribute="top" constant="28" id="I6s-cH-vbO"/>
                                     <constraint firstItem="tie-gL-FIX" firstAttribute="top" secondItem="XTJ-pg-TgB" secondAttribute="top" constant="29" id="O7B-KI-Ygz"/>
                                     <constraint firstItem="tie-gL-FIX" firstAttribute="leading" secondItem="XTJ-pg-TgB" secondAttribute="leading" constant="50" id="POL-2c-5lP"/>
                                     <constraint firstAttribute="trailing" secondItem="tie-gL-FIX" secondAttribute="trailing" constant="50" id="TcB-iF-Hyz"/>
+                                    <constraint firstAttribute="bottom" secondItem="kuE-JG-yAx" secondAttribute="bottom" constant="6" id="VZh-gU-SCo"/>
                                     <constraint firstAttribute="height" constant="64" id="XqX-U6-RUO"/>
                                     <constraint firstAttribute="bottom" secondItem="tie-gL-FIX" secondAttribute="bottom" constant="7" id="hmo-tJ-FAk"/>
+                                    <constraint firstItem="kuE-JG-yAx" firstAttribute="leading" secondItem="XTJ-pg-TgB" secondAttribute="leading" constant="4" id="sHx-Za-2nd"/>
                                 </constraints>
                             </view>
                         </subviews>
@@ -1742,6 +1780,7 @@
                             <constraint firstItem="XTJ-pg-TgB" firstAttribute="top" secondItem="s2s-K4-veg" secondAttribute="top" id="zgP-oS-nDh"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="X8e-P7-nqx"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="titleLabel" destination="tie-gL-FIX" id="71X-uX-Qw2"/>
@@ -1749,7 +1788,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GXr-rL-fGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1221.7391304347827" y="689.67391304347836"/>
+            <point key="canvasLocation" x="2161" y="748"/>
         </scene>
         <!--AgreementVC-->
         <scene sceneID="ix2-Kl-8jK">
@@ -2096,7 +2135,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                     </tabBarItem>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fWj-2D-zkp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fWj-2D-zkp">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2133,5 +2172,6 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <segue reference="myg-hR-9mM"/>
         <segue reference="ZX4-qG-Pn9"/>
         <segue reference="wHi-97-VC8"/>
+        <segue reference="rzq-O0-TOU"/>
     </inferredMetricsTieBreakers>
 </document>
