@@ -15,6 +15,7 @@ class MessagesVC: UIViewController{
     
     var messages = [Message]()
     var messagesDictionary = [String: Message]()
+    var chatLogUser: User? = nil
 
     @IBOutlet weak var messageTableView: UITableView!
     
@@ -185,7 +186,7 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
             }
 
             
-            let user = User(userKey: chatPartnerId, userData: dictionary)
+            self.chatLogUser = User(userKey: chatPartnerId, userData: dictionary)
 
             
             self.performSegue(withIdentifier: "goToChatLog", sender: nil)
@@ -196,6 +197,16 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
         
         }, withCancel: nil)
         
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? ChatLogController {
+            if self.chatLogUser != nil{
+                vc.user = self.chatLogUser
+                vc.userKey = self.chatLogUser!.userKey
+
+            }
+        }
     }
     
 }

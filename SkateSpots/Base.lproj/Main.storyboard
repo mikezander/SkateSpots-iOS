@@ -1709,7 +1709,7 @@
         <scene sceneID="IpN-dv-6a4">
             <objects>
                 <navigationController navigationBarHidden="YES" id="hEd-aZ-c4D" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ath-O9-OOw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ath-O9-OOw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1724,7 +1724,7 @@
         <!--Chat Log Controller-->
         <scene sceneID="zzq-41-mj6">
             <objects>
-                <viewController id="XIR-BC-VGS" customClass="ChatLogController" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="XIR-BC-VGS" customClass="ChatLogController" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="ie3-Im-A9r"/>
                         <viewControllerLayoutGuide type="bottom" id="qId-wK-QWa"/>
@@ -2135,7 +2135,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                     </tabBarItem>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fWj-2D-zkp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fWj-2D-zkp">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2171,7 +2171,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
     <inferredMetricsTieBreakers>
         <segue reference="myg-hR-9mM"/>
         <segue reference="ZX4-qG-Pn9"/>
+        <segue reference="dCU-vn-cx5"/>
         <segue reference="wHi-97-VC8"/>
-        <segue reference="rzq-O0-TOU"/>
     </inferredMetricsTieBreakers>
 </document>

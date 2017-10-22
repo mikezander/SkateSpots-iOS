@@ -169,9 +169,9 @@
 				C4AD89AD1F43BAB900D47460 /* EditProfileVC.swift */,
 				C4AD89AF1F48A47800D47460 /* FavoritesVC.swift */,
 				C456C11C1F9AC28F00C74A56 /* MessagesVC.swift */,
+				C456C1241F9BDACA00C74A56 /* ChatLogController.swift */,
 				C4A42A8E1F73FD290031865C /* AgreementVC.swift */,
 				C41640641F39144800BF244C /* VC+Extension.swift */,
-				C456C1241F9BDACA00C74A56 /* ChatLogController.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
