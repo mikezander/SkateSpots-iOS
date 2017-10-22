@@ -22,18 +22,64 @@ class MessagesVC: UIViewController{
 
     override func viewDidLoad() {
         super.viewDidLoad()
-
         
+        
+
         messageTableView.delegate = self
         messageTableView.dataSource = self
         //messages?.append(message)
         
-        observeMessages()
+       // observeMessages()
+        observeUserMessages()
+       
+        
  
     }
-    
+
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+    }
+    
+    func observeUserMessages(){
+        guard let uid = Auth.auth().currentUser?.uid else{
+            return
+        }
+        
+        let ref = DataService.instance.REF_BASE.child("user-messages").child(uid)
+        
+        ref.observe(.childAdded, with: { (snapshot) in
+            
+            let messageId = snapshot.key
+            let messagesRef = DataService.instance.REF_BASE.child("messages").child(messageId)
+            
+            messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+                
+                if let messageDict = snapshot.value as? [String: Any] {
+                    print(messageDict)
+                    let message = Message()
+                    message.setValuesForKeys(messageDict)
+                    
+                    
+                    if let toId = message.toId{
+                        // allows for one cell per user..hash
+                        self.messagesDictionary[toId] = message
+                        
+                        self.messages = Array(self.messagesDictionary.values)
+                        self.messages.sort(by: { (message1, message2) -> Bool in
+                            
+                            return message1.timestamp!.intValue > message2.timestamp!.intValue
+                        })
+                    }
+                    
+                    DispatchQueue.main.async { self.messageTableView.reloadData() }
+ 
+                }
+    
+            }, withCancel: nil)
+            
+            
+        }, withCancel: nil)
+        
     }
     
     func observeMessages(){
@@ -45,7 +91,7 @@ class MessagesVC: UIViewController{
                 print(messageDict)
                 let message = Message()
                 message.setValuesForKeys(messageDict)
-                //self.messages.append(message)
+ 
                 
                 if let toId = message.toId{
                     // allows for one cell per user..hash
@@ -74,23 +120,35 @@ class MessagesVC: UIViewController{
         
         
     }
+    
+    
 
 }
 
 extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
-    
-    
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return messages.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
+
+        cell.emptyImageView()
         
         let message = messages[indexPath.row]
         
-        if let toId = message.toId{
-            let ref = DataService.instance.REF_USERS.child(toId).child("profile")
+        let chatPartnerId: String?
+        
+        if message.fromId == Auth.auth().currentUser?.uid{
+            chatPartnerId = message.toId
+        }else{
+            chatPartnerId = message.fromId
+        }
+        
+        if let id = chatPartnerId{
+            let ref = DataService.instance.REF_USERS.child(id).child("profile")
             
             ref.observeSingleEvent(of: .value, with: { (snapshot) in
                 
@@ -105,13 +163,13 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
                         cell.configureCell(message: message, userUrl: profilePicUrl, name: name)
                     }
                     
+                    
                 }
                 
             }, withCancel: nil)
         }
         
-        cell.detailTextLabel?.text = "YoYo"//message.text
-        
+  
         return cell
     }
     

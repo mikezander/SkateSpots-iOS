@@ -39,7 +39,7 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
     }
     
     func setupInputComponents(){
-        
+
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
         
@@ -87,11 +87,27 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         
         let ref = DataService.instance.REF_BASE.child("messages")
         let childRef = ref.childByAutoId()
+        let toId = userKey
         let fromId = Auth.auth().currentUser!.uid
         let timestamp: NSNumber
         timestamp = Int(NSDate().timeIntervalSince1970) as NSNumber
-        let values = ["text": inputTextField.text!, "toId": userKey, "fromId": fromId, "timestamp": timestamp] as [String: Any]
-        childRef.updateChildValues(values)
+        let values = ["text": inputTextField.text!, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String: Any]
+        //childRef.updateChildValues(values)
+        
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil{
+                print(error!.localizedDescription)
+                return
+            }
+            
+            let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(fromId)
+            
+            let messageId = childRef.key
+            userMessagesRef.updateChildValues([messageId: 1])
+            
+            let recipientUserMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(toId)
+            recipientUserMessagesRef.updateChildValues([messageId: 1])
+        }
   
     }
     

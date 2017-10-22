@@ -24,6 +24,7 @@ class MessageCell: UITableViewCell{
     
     func configureCell(message: Message, img: UIImage? = nil, userUrl: String, name: String){
  
+        profileImageView.image = nil
         nameLabel.text = name
         messageLabel.text = message.text
         
@@ -34,16 +35,13 @@ class MessageCell: UITableViewCell{
             dateFormatter.dateFormat = "hh:mm:ss a"
             timeLabel.text = dateFormatter.string(from: timestampDate)
         }
-        
-       
+ 
         
         //download images
         if img != nil{
-            
-            DispatchQueue.main.async {
-                self.profileImageView.image = img
-            }
-            
+
+                    self.profileImageView.image = img
+                
         }else{
             
             //cache image
@@ -55,12 +53,15 @@ class MessageCell: UITableViewCell{
                 }else{
                     print("Mike: Image downloaded from firebase storge")
                     if let imgData = data {
-
-                        if let img = UIImage(data: imgData){
-                            self.profileImageView.image = img
-                            FeedVC.imageCache.setObject(img, forKey: userUrl as NSString)
-                        }
-                        
+        
+                               
+                                if let img = UIImage(data: imgData){
+ 
+                                    self.profileImageView.image = img
+ 
+                                    FeedVC.imageCache.setObject(img, forKey: userUrl as NSString)
+                                }
+    
                     }
                 }
 
@@ -68,6 +69,10 @@ class MessageCell: UITableViewCell{
             
         }
         
+    }
+    
+    func emptyImageView(){
+        profileImageView.image = nil
     }
 
 
