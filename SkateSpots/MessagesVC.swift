@@ -61,9 +61,9 @@ class MessagesVC: UIViewController{
                     message.setValuesForKeys(messageDict)
                     
                     
-                    if let toId = message.toId{
+                    if let chatPartnerId = message.chatPartnerId(){
                         // allows for one cell per user..hash
-                        self.messagesDictionary[toId] = message
+                        self.messagesDictionary[chatPartnerId] = message
                         
                         self.messages = Array(self.messagesDictionary.values)
                         self.messages.sort(by: { (message1, message2) -> Bool in

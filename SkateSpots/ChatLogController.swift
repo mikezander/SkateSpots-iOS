@@ -37,6 +37,8 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        chatCollectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 58, right: 0)
+        chatCollectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
         chatCollectionView.register(ChatLogCell.self, forCellWithReuseIdentifier: cellId)
         
         chatCollectionView.alwaysBounceVertical = true
@@ -158,6 +160,8 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
                 return
             }
             
+            self.inputTextField.text = nil
+            
             let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(fromId)
             
             let messageId = childRef.key
@@ -205,6 +209,10 @@ extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSourc
         
         let message = messages[indexPath.item]
         cell.textView.text = message.text
+        
+        //modify bubleview width
+        cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width + 32
+
 
         
         return cell
