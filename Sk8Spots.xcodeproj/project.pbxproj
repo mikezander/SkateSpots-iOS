@@ -11,6 +11,7 @@
 		C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C3B1F0EBA690058628D /* RoundedButton.swift */; };
 		C4128C3E1F0EC0270058628D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */; };
 		C41542171F9CFB05004ADBC3 /* ChatLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41542161F9CFB05004ADBC3 /* ChatLogCell.swift */; };
+		C415421B1F9D3BD7004ADBC3 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C415421A1F9D3BD7004ADBC3 /* Extension.swift */; };
 		C41640651F39144800BF244C /* VC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41640641F39144800BF244C /* VC+Extension.swift */; };
 		C41878851F3F80A100573D3A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41878841F3F80A100573D3A /* FBSDKCoreKit.framework */; };
 		C41878871F3F80A800573D3A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41878861F3F80A800573D3A /* FBSDKLoginKit.framework */; };
@@ -60,6 +61,7 @@
 		C4128C3B1F0EBA690058628D /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		C41542161F9CFB05004ADBC3 /* ChatLogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogCell.swift; sourceTree = "<group>"; };
+		C415421A1F9D3BD7004ADBC3 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		C41640641F39144800BF244C /* VC+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VC+Extension.swift"; sourceTree = "<group>"; };
 		C41878841F3F80A100573D3A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		C41878861F3F80A800573D3A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
@@ -160,6 +162,14 @@
 			name = View;
 			sourceTree = "<group>";
 		};
+		C41542191F9D3BBF004ADBC3 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				C415421A1F9D3BD7004ADBC3 /* Extension.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
 		C41D8B251F0ECAF5009C174C /* Controller */ = {
 			isa = PBXGroup;
 			children = (
@@ -223,6 +233,7 @@
 			children = (
 				C4CE591A1F28385A00180BA5 /* SkateSpots.entitlements */,
 				C4B0C5481F0D7B78004B6923 /* AppDelegate.swift */,
+				C41542191F9D3BBF004ADBC3 /* Helpers */,
 				C41D8B2F1F0F38C2009C174C /* Model */,
 				C41D8B281F0ED205009C174C /* Services */,
 				C41D8B251F0ECAF5009C174C /* Controller */,
@@ -416,6 +427,7 @@
 				C4A42A8F1F73FD290031865C /* AgreementVC.swift in Sources */,
 				C456C1251F9BDACA00C74A56 /* ChatLogController.swift in Sources */,
 				C456C11D1F9AC28F00C74A56 /* MessagesVC.swift in Sources */,
+				C415421B1F9D3BD7004ADBC3 /* Extension.swift in Sources */,
 				C4CE591E1F2A645900180BA5 /* User.swift in Sources */,
 				C4AD89AE1F43BAB900D47460 /* EditProfileVC.swift in Sources */,
 				C4E36FD61F1ACA44000ABF4D /* SpotPhotoCell.swift in Sources */,

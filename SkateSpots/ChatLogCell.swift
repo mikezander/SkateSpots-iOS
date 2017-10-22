@@ -33,7 +33,6 @@ class ChatLogCell: UICollectionViewCell {
     
     let profileImageView: UIImageView = {
         let iv = UIImageView()
-        iv.image = UIImage(named: "profiletemp")
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
@@ -43,6 +42,8 @@ class ChatLogCell: UICollectionViewCell {
     }()
     
     var bubbleWidthAnchor: NSLayoutConstraint?
+    var bubbleViewRightAnchor: NSLayoutConstraint?
+    var bubbleViewLeftAnchor: NSLayoutConstraint?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -58,7 +59,16 @@ class ChatLogCell: UICollectionViewCell {
         profileImageView.heightAnchor.constraint(equalToConstant: 32).isActive = true
         
         //x,y,w,h
-        bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8).isActive = true
+            
+        bubbleViewRightAnchor = bubbleView.rightAnchor.constraint(equalTo: self.rightAnchor, constant: -8)
+            bubbleViewRightAnchor?.isActive = true
+        
+        bubbleViewLeftAnchor = bubbleView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
+  //      bubbleViewLeftAnchor?.isActive = false
+        
+        
+        
+        
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         bubbleWidthAnchor =  bubbleView.widthAnchor.constraint(equalToConstant: 200)
         bubbleWidthAnchor?.isActive = true

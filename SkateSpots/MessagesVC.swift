@@ -72,8 +72,9 @@ class MessagesVC: UIViewController{
                         })
                     }
                     
-                    DispatchQueue.main.async { self.messageTableView.reloadData() }
- 
+                    self.timer?.invalidate()
+                    self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
+        
                 }
     
             }, withCancel: nil)
@@ -83,47 +84,16 @@ class MessagesVC: UIViewController{
         
     }
     
-    func observeMessages(){
-        let ref = DataService.instance.REF_BASE.child("messages")
-        ref.observe(.childAdded, with: { (snapshot) in
-            
-            
-            if let messageDict = snapshot.value as? [String: Any] {
-                print(messageDict)
-                let message = Message()
-                message.setValuesForKeys(messageDict)
- 
-                
-                if let toId = message.toId{
-                    // allows for one cell per user..hash
-                    self.messagesDictionary[toId] = message
-                    
-                    self.messages = Array(self.messagesDictionary.values)
-                    self.messages.sort(by: { (message1, message2) -> Bool in
-                        
-                        return message1.timestamp!.intValue > message2.timestamp!.intValue
-                    })
-                }
-                
-                
-                
-                DispatchQueue.main.async { self.messageTableView.reloadData() }
-                
-            }
-            
-            
-            
-            print(self.messages.count)
-            
-        }) { (error) in
-            print(error.localizedDescription)
+    var timer: Timer?
+    
+    func handleReloadTable(){
+    
+        DispatchQueue.main.async {
+            print("we reloaded the table")
+            self.messageTableView.reloadData()
         }
-        
-        
     }
-    
-    
-
+   
 }
 
 extension MessagesVC: UITableViewDelegate, UITableViewDataSource{

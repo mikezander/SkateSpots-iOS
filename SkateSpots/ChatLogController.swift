@@ -222,14 +222,29 @@ extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSourc
     }
     
     private func setUpCell(cell: ChatLogCell, message: Message){
+        
+        if let profileImageUrl = self.user?.userImageURL{
+            cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: profileImageUrl)
+        }
+        
+        
     
         if message.fromId == Auth.auth().currentUser?.uid{
             //outgoing blue
             cell.bubbleView.backgroundColor = ChatLogCell.blueColor
+            cell.textView.textColor = .white
+            cell.profileImageView.isHidden = true
+            
+            cell.bubbleViewRightAnchor?.isActive = true
+            cell.bubbleViewLeftAnchor?.isActive = false
         }else{
             //incoming gray
-            cell.bubbleView.backgroundColor = UIColor.lightGray//UIColor(red: 240, green: 240, blue: 240, alpha: 1)
-            cell.textView.textColor = UIColor.black
+            cell.bubbleView.backgroundColor = UIColor.lightGray
+            cell.textView.textColor = .black
+            cell.profileImageView.isHidden = false
+    
+            cell.bubbleViewRightAnchor?.isActive = false
+            cell.bubbleViewLeftAnchor?.isActive = true
         }
         
     }
