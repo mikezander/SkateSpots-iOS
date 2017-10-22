@@ -16,7 +16,13 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
     
     var userKey = String()
     var messages = [Message]()
-    var user: User? = nil
+    //var user: User? = nil
+    
+    var user: User?{
+        didSet{
+            observeUsersMessages()
+        }
+    }
 
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
@@ -39,7 +45,7 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         
         titleLabel.text = user?.userName
         
-        observeUsersMessages()
+        //observeUsersMessages()
 
         setupInputComponents()
      
@@ -170,10 +176,23 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
    
 }
 extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout{
+    
+    private func estimatedFrameForText(text: String) -> CGRect{
+       let size = CGSize(width: 200, height: 1000)
+        let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
+        
+        //modifies message font
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16)], context: nil)
+    }
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        var height: CGFloat = 80
         
-        return CGSize(width: view.frame.width, height: 80)
+        if let text = messages[indexPath.item].text{
+            height = estimatedFrameForText(text: text).height + 20
+        }
+        
+        return CGSize(width: view.frame.width, height: height)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
