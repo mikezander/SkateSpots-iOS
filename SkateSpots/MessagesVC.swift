@@ -14,6 +14,7 @@ import Firebase
 class MessagesVC: UIViewController{
     
     var messages = [Message]()
+    var messagesDictionary = [String: Message]()
 
     @IBOutlet weak var messageTableView: UITableView!
     
@@ -44,7 +45,19 @@ class MessagesVC: UIViewController{
                 print(messageDict)
                 let message = Message()
                 message.setValuesForKeys(messageDict)
-                self.messages.append(message)
+                //self.messages.append(message)
+                
+                if let toId = message.toId{
+                    // allows for one cell per user..hash
+                    self.messagesDictionary[toId] = message
+                    
+                    self.messages = Array(self.messagesDictionary.values)
+                    self.messages.sort(by: { (message1, message2) -> Bool in
+                        
+                        return message1.timestamp!.intValue > message2.timestamp!.intValue
+                    })
+                }
+                
                 
                 
                 DispatchQueue.main.async { self.messageTableView.reloadData() }
