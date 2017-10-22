@@ -68,7 +68,7 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = UITableViewCell(style: .subtitle, reuseIdentifier: "cellId")
+        let cell = tableView.dequeueReusableCell(withIdentifier: "MessageCell", for: indexPath) as! MessageCell
         
         let message = messages[indexPath.row]
         
@@ -78,7 +78,16 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
             ref.observeSingleEvent(of: .value, with: { (snapshot) in
                 
                 if let dictionary = snapshot.value as? [String: AnyObject]{
-                    cell.textLabel?.text = dictionary["username"] as? String
+                    let name = dictionary["username"] as! String
+                    let profilePicUrl = dictionary["userImageURL"] as! String
+                    
+                    if let img = FeedVC.imageCache.object(forKey: profilePicUrl as NSString){
+                        
+                        cell.configureCell(message: message, img: img, userUrl: profilePicUrl, name: name)
+                    }else{
+                        cell.configureCell(message: message, userUrl: profilePicUrl, name: name)
+                    }
+                    
                 }
                 
             }, withCancel: nil)
