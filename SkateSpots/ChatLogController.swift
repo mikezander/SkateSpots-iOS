@@ -141,7 +141,7 @@ class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerCon
                 }
                 
                 if let imageUrl = metadata?.downloadURL()?.absoluteString{
-                    self.sendMessageWithImageUrl(imageUrl: imageUrl)
+                    self.sendMessageWithImageUrl(imageUrl: imageUrl, image: image)
                 }
                 
             })
@@ -150,7 +150,7 @@ class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerCon
 
     }
     
-    private func sendMessageWithImageUrl(imageUrl: String){
+    private func sendMessageWithImageUrl(imageUrl: String, image: UIImage){
         let ref = DataService.instance.REF_BASE.child("messages")
         let childRef = ref.childByAutoId()
         let toId = userKey
@@ -158,7 +158,7 @@ class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         let timestamp: NSNumber
         timestamp = Int(NSDate().timeIntervalSince1970) as NSNumber
         
-        let values = ["imageUrl": imageUrl, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String: Any]
+        let values = ["toId": toId, "fromId": fromId, "timestamp": timestamp, "imageUrl": imageUrl, "imageWidth": image.size.width, "imageHeight": image.size.height] as [String: Any]
 
         
         childRef.updateChildValues(values) { (error, ref) in
@@ -238,8 +238,6 @@ class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(uid).child(userKey)
         
         userMessagesRef.observe(.childAdded, with: { (snapshot) in
-
-            print("11111\(snapshot)")
             
             let messageId = snapshot.key
             
@@ -247,21 +245,12 @@ class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             
             messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
                 
-                print("11111\(snapshot)")
-                
                 guard let dicitonary = snapshot.value as? [String: AnyObject] else{
                     return
                 }
                 
-                let message = Message()
-                
-                //potential of crashing if keys don't match!
-                
-                    message.setValuesForKeys(dicitonary)
-                
-                
-  
-                    self.messages.append(message)
+
+                    self.messages.append(Message(dictionary: dicitonary))
                     
                     DispatchQueue.main.async {
                         self.chatCollectionView.reloadData()
@@ -329,8 +318,17 @@ extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSourc
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         var height: CGFloat = 80
         
-        if let text = messages[indexPath.item].text{
+        let message = messages[indexPath.item]
+        
+        if let text = message.text{
             height = estimatedFrameForText(text: text).height + 20
+        }else if let imageWidth = message.imageWidth?.floatValue, let imageHeight = message.imageHeight?.floatValue{
+            
+            // h1 / w1 = h2 / w2
+            // solve for h1
+            //h1 = h2 / w2 * w1
+            
+            height = CGFloat(imageHeight / imageWidth * 200)
         }
         
         return CGSize(width: view.frame.width, height: height)
@@ -351,6 +349,8 @@ extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSourc
         
         if let text = message.text{
             cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: text).width + 32
+        }else if message.imageUrl != nil{
+            cell.bubbleWidthAnchor?.constant = 200
         }
 
         return cell

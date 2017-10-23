@@ -60,11 +60,9 @@ class MessagesVC: UIViewController{
         
         messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
             
-            if let messageDict = snapshot.value as? [String: Any] {
-                let message = Message()
-                message.setValuesForKeys(messageDict)
-                
-                
+            if let messageDict = snapshot.value as? [String: AnyObject] {
+                let message = Message(dictionary: messageDict)
+
                 if let chatPartnerId = message.chatPartnerId(){
                     // allows for one cell per user..hash
                     self.messagesDictionary[chatPartnerId] = message
