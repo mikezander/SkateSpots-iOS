@@ -46,9 +46,7 @@ class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerCon
         
         observeUsersMessages()
 
-        
-        
-        //setupKeyboardObservers()
+        setupKeyboardObservers()
      
     }
     
@@ -150,36 +148,6 @@ class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerCon
 
     }
     
-    private func sendMessageWithImageUrl(imageUrl: String, image: UIImage){
-        let ref = DataService.instance.REF_BASE.child("messages")
-        let childRef = ref.childByAutoId()
-        let toId = userKey
-        let fromId = Auth.auth().currentUser!.uid
-        let timestamp: NSNumber
-        timestamp = Int(NSDate().timeIntervalSince1970) as NSNumber
-        
-        let values = ["toId": toId, "fromId": fromId, "timestamp": timestamp, "imageUrl": imageUrl, "imageWidth": image.size.width, "imageHeight": image.size.height] as [String: Any]
-
-        
-        childRef.updateChildValues(values) { (error, ref) in
-            if error != nil{
-                print(error!.localizedDescription)
-                return
-            }
-            
-            self.inputTextField.text = nil
-            
-            let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(fromId).child(toId)
-            
-            let messageId = childRef.key
-            userMessagesRef.updateChildValues([messageId: 1])
-            
-            let recipientUserMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(toId).child(fromId)
-            
-            recipientUserMessagesRef.updateChildValues([messageId: 1])
-        }
-    }
-    
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
@@ -196,9 +164,19 @@ class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     }
     
     func setupKeyboardObservers(){
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        /*NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)*/
+    }
+    
+    func handleKeyboardDidShow(){
+        if messages.count > 0{
+            let indexPath = IndexPath(item: messages.count - 1, section: 0)
+            chatCollectionView.scrollToItem(at: indexPath, at: .top, animated: true)
+        }
+  
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -254,6 +232,9 @@ class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerCon
                     
                     DispatchQueue.main.async {
                         self.chatCollectionView.reloadData()
+                        //scroll to the last index
+                        let indexPath = IndexPath(item:self.messages.count - 1, section: 0)
+                        self.chatCollectionView.scrollToItem(at: indexPath, at: .bottom, animated: true)
                     }
    
                 
@@ -269,15 +250,28 @@ class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerCon
     }
     
     func handleSend(){
-        
+        let properties: [String: Any] = ["text": inputTextField.text!]
+        sendMessageWithProperties(properties: properties)
+    }
+    
+    
+    private func sendMessageWithImageUrl(imageUrl: String, image: UIImage){
+        let properties: [String: Any] = ["imageUrl": imageUrl, "imageWidth": image.size.width, "imageHeight": image.size.height]
+        sendMessageWithProperties(properties: properties)
+
+    }
+    
+    private func sendMessageWithProperties(properties: [String: Any]){
         let ref = DataService.instance.REF_BASE.child("messages")
         let childRef = ref.childByAutoId()
         let toId = userKey
         let fromId = Auth.auth().currentUser!.uid
         let timestamp: NSNumber
         timestamp = Int(NSDate().timeIntervalSince1970) as NSNumber
-        let values = ["text": inputTextField.text!, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String: Any]
-        //childRef.updateChildValues(values)
+        
+        var values = ["toId": toId, "fromId": fromId, "timestamp": timestamp] as [String: Any]
+        
+        properties.forEach({values[$0] = $1})
         
         childRef.updateChildValues(values) { (error, ref) in
             if error != nil{
@@ -296,7 +290,6 @@ class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerCon
             
             recipientUserMessagesRef.updateChildValues([messageId: 1])
         }
-  
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

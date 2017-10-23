@@ -42,6 +42,8 @@ class MessagesVC: UIViewController{
         
         ref.observe(.childAdded, with: { (snapshot) in
             
+            print(snapshot)
+            
             let userId = snapshot.key
             DataService.instance.REF_BASE.child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
                 
