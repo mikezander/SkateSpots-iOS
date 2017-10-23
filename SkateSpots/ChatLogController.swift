@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 
-class ChatLogController: UIViewController, UITextFieldDelegate{
+class ChatLogController: UIViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate{
 
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var chatCollectionView: UICollectionView!
@@ -46,8 +46,7 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         
         observeUsersMessages()
 
-
-        //setupInputComponents()
+        
         
         //setupKeyboardObservers()
      
@@ -57,6 +56,19 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         let containerView = UIView()
         containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
         containerView.backgroundColor = .white
+        
+        let uploadImageView = UIImageView()
+        uploadImageView.isUserInteractionEnabled = true
+        uploadImageView.image = UIImage(named: "addImageIcon")
+        uploadImageView.translatesAutoresizingMaskIntoConstraints = false
+        uploadImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleUploadTap)))
+        
+        containerView.addSubview(uploadImageView)
+        //x,y,w,h
+        uploadImageView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
+        uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
+        uploadImageView.widthAnchor.constraint(equalToConstant: 40).isActive = true
+        uploadImageView.heightAnchor.constraint(equalToConstant: 40).isActive = true
 
         
         let sendButton = UIButton(type: .system)
@@ -72,7 +84,7 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         
         containerView.addSubview(self.inputTextField)
         
-        self.inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
+        self.inputTextField.leftAnchor.constraint(equalTo: uploadImageView.rightAnchor, constant: 8).isActive = true
         self.inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
         self.inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
         self.inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
@@ -89,6 +101,88 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         
         return containerView
     }()
+    
+    func handleUploadTap(){
+        let imagePickerController = UIImagePickerController()
+        
+        imagePickerController.allowsEditing = true
+        imagePickerController.delegate = self
+        
+        present(imagePickerController, animated: true, completion: nil)
+    }
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        
+        var selectedImageFromPicker: UIImage?
+        
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage{
+            selectedImageFromPicker = editedImage
+        }else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage{
+            selectedImageFromPicker = originalImage
+        }
+        
+        if let selectedImage = selectedImageFromPicker{
+            uploadToFirebaseStorageUsingImage(selectedImage)
+        }
+        
+        dismiss(animated: true, completion: nil)
+    }
+    
+    private func uploadToFirebaseStorageUsingImage(_ image: UIImage){
+        let imageName = NSUUID().uuidString
+        let ref = Storage.storage().reference().child("message_images").child(imageName)
+        
+        if let uploadData = UIImageJPEGRepresentation(image, 0.2){
+            
+            ref.putData(uploadData, metadata: nil, completion: { (metadata, error) in
+                if error != nil{
+                    print("failed to upload message-image", error!)
+                    return
+                }
+                
+                if let imageUrl = metadata?.downloadURL()?.absoluteString{
+                    self.sendMessageWithImageUrl(imageUrl: imageUrl)
+                }
+                
+            })
+        }
+        
+
+    }
+    
+    private func sendMessageWithImageUrl(imageUrl: String){
+        let ref = DataService.instance.REF_BASE.child("messages")
+        let childRef = ref.childByAutoId()
+        let toId = userKey
+        let fromId = Auth.auth().currentUser!.uid
+        let timestamp: NSNumber
+        timestamp = Int(NSDate().timeIntervalSince1970) as NSNumber
+        
+        let values = ["imageUrl": imageUrl, "toId": toId, "fromId": fromId, "timestamp": timestamp] as [String: Any]
+
+        
+        childRef.updateChildValues(values) { (error, ref) in
+            if error != nil{
+                print(error!.localizedDescription)
+                return
+            }
+            
+            self.inputTextField.text = nil
+            
+            let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(fromId).child(toId)
+            
+            let messageId = childRef.key
+            userMessagesRef.updateChildValues([messageId: 1])
+            
+            let recipientUserMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(toId).child(fromId)
+            
+            recipientUserMessagesRef.updateChildValues([messageId: 1])
+        }
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
     
     override var inputAccessoryView: UIView?{
         get{
@@ -255,13 +349,11 @@ extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSourc
         
         setUpCell(cell: cell, message: message)
         
-        //modify bubleview width
-        cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: message.text!).width + 32
+        if let text = message.text{
+            cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: text).width + 32
+        }
 
-
-        
         return cell
-   
     }
     
     private func setUpCell(cell: ChatLogCell, message: Message){
@@ -286,6 +378,14 @@ extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSourc
     
             cell.bubbleViewRightAnchor?.isActive = false
             cell.bubbleViewLeftAnchor?.isActive = true
+        }
+        
+        if let messageImageUrl = message.imageUrl{
+            cell.messageImageView.loadImageUsingCacheWithUrlString(urlString: messageImageUrl)
+            cell.messageImageView.isHidden = false
+            cell.bubbleView.backgroundColor = .clear
+        }else{
+            cell.messageImageView.isHidden = true
         }
         
     }
