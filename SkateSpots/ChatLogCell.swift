@@ -19,7 +19,7 @@ class ChatLogCell: UICollectionViewCell {
         return tv
     }()
     
-    static let blueColor = UIColor(red: 0, green: 137, blue: 249, alpha: 1)
+    static let blueColor = UIColor(red: 0, green: 0 , blue: 204, alpha: 1)
     
     let bubbleView: UIView = {
         let view = UIView()
@@ -64,11 +64,7 @@ class ChatLogCell: UICollectionViewCell {
             bubbleViewRightAnchor?.isActive = true
         
         bubbleViewLeftAnchor = bubbleView.leftAnchor.constraint(equalTo: profileImageView.rightAnchor, constant: 8)
-  //      bubbleViewLeftAnchor?.isActive = false
-        
-        
-        
-        
+
         bubbleView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
         bubbleWidthAnchor =  bubbleView.widthAnchor.constraint(equalToConstant: 200)
         bubbleWidthAnchor?.isActive = true

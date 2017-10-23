@@ -44,7 +44,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         isConnected()
         
         NotificationCenter.default.addObserver(self, selector: #selector(internetConnectionFound(notification:)), name: notificationName, object: nil)

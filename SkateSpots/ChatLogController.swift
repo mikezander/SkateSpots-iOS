@@ -14,14 +14,11 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var chatCollectionView: UICollectionView!
     
+    var user: User? = nil
     var userKey = String()
     var messages = [Message]()
-
-    var user: User?{
-        didSet{
-            observeUsersMessages()
-        }
-    }
+    
+    var containerViewBottomAnchor: NSLayoutConstraint?
 
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
@@ -37,7 +34,7 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         super.viewDidLoad()
         
         chatCollectionView.contentInset = UIEdgeInsets(top: 8, left: 0, bottom: 8, right: 0)
-       // chatCollectionView.scrollIndicatorInsets = UIEdgeInsets(top: 0, left: 0, bottom: 50, right: 0)
+
         chatCollectionView.register(ChatLogCell.self, forCellWithReuseIdentifier: cellId)
         
         chatCollectionView.alwaysBounceVertical = true
@@ -46,11 +43,13 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
 
         
         titleLabel.text = user?.userName
-
-
-       // setupInputComponents()
         
-       // setupKeyboardObservers()
+        observeUsersMessages()
+
+
+        //setupInputComponents()
+        
+        //setupKeyboardObservers()
      
     }
     
@@ -139,9 +138,14 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
         guard let uid = Auth.auth().currentUser?.uid else{
             return
         }
+        
+        
 
-        let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(uid)
+        let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(uid).child(userKey)
+        
         userMessagesRef.observe(.childAdded, with: { (snapshot) in
+
+            print("11111\(snapshot)")
             
             let messageId = snapshot.key
             
@@ -149,81 +153,33 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
             
             messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
                 
+                print("11111\(snapshot)")
+                
                 guard let dicitonary = snapshot.value as? [String: AnyObject] else{
                     return
                 }
                 
                 let message = Message()
+                
                 //potential of crashing if keys don't match!
-                message.setValuesForKeys(dicitonary)
                 
-                if message.chatPartnerId() == self.userKey{
+                    message.setValuesForKeys(dicitonary)
                 
+                
+  
                     self.messages.append(message)
                     
                     DispatchQueue.main.async {
                         self.chatCollectionView.reloadData()
                     }
-                    
-                }
-
+   
                 
             }, withCancel: nil)
             
         }, withCancel: nil)
     
     }
-    
-    var containerViewBottomAnchor: NSLayoutConstraint?
-    
-    func setupInputComponents(){
 
-        let containerView = UIView()
-        containerView.backgroundColor = UIColor.white
-        containerView.translatesAutoresizingMaskIntoConstraints = false
-        
-        view.addSubview(containerView)
-        
-        containerView.leftAnchor.constraint(equalTo: view.leftAnchor).isActive = true
-        containerViewBottomAnchor = containerView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
-        containerViewBottomAnchor?.isActive = true
-        
-        
-        containerView.widthAnchor.constraint(equalTo: view.widthAnchor).isActive = true
-        containerView.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        
-        let sendButton = UIButton(type: .system)
-        sendButton.setTitle("Send", for: .normal)
-        sendButton.translatesAutoresizingMaskIntoConstraints = false
-        sendButton.addTarget(self, action: #selector(handleSend), for: .touchUpInside)
-        containerView.addSubview(sendButton)
-        
-        sendButton.rightAnchor.constraint(equalTo: containerView.rightAnchor).isActive = true
-        sendButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        sendButton.widthAnchor.constraint(equalToConstant: 50).isActive = true
-        sendButton.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-
-        containerView.addSubview(inputTextField)
-        
-        inputTextField.leftAnchor.constraint(equalTo: containerView.leftAnchor, constant: 8).isActive = true
-        inputTextField.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
-        inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
-        
-        let seperatorLineView = UIView()
-        seperatorLineView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.20)
-        seperatorLineView.translatesAutoresizingMaskIntoConstraints = false
-        containerView.addSubview(seperatorLineView)
-        
-        seperatorLineView.leftAnchor.constraint(equalTo: containerView.leftAnchor).isActive = true
-        seperatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
-        seperatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
-        seperatorLineView.heightAnchor.constraint(equalToConstant: 0.75).isActive = true
-
-        
-    }
-    
-    
     @IBAction func backButoonPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
         //dismiss(animated: true, completion: nil)
@@ -248,12 +204,13 @@ class ChatLogController: UIViewController, UITextFieldDelegate{
             
             self.inputTextField.text = nil
             
-            let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(fromId)
+            let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(fromId).child(toId)
             
             let messageId = childRef.key
             userMessagesRef.updateChildValues([messageId: 1])
             
-            let recipientUserMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(toId)
+            let recipientUserMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(toId).child(fromId)
+            
             recipientUserMessagesRef.updateChildValues([messageId: 1])
         }
   
@@ -312,9 +269,7 @@ extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSourc
         if let profileImageUrl = self.user?.userImageURL{
             cell.profileImageView.loadImageUsingCacheWithUrlString(urlString: profileImageUrl)
         }
-        
-        
-    
+
         if message.fromId == Auth.auth().currentUser?.uid{
             //outgoing blue
             cell.bubbleView.backgroundColor = ChatLogCell.blueColor
@@ -325,7 +280,7 @@ extension ChatLogController: UICollectionViewDelegate, UICollectionViewDataSourc
             cell.bubbleViewLeftAnchor?.isActive = false
         }else{
             //incoming gray
-            cell.bubbleView.backgroundColor = UIColor.lightGray
+            cell.bubbleView.backgroundColor = UIColor(red: 211, green: 211, blue: 211, alpha: 1)
             cell.textView.textColor = .black
             cell.profileImageView.isHidden = false
     

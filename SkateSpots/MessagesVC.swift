@@ -18,22 +18,14 @@ class MessagesVC: UIViewController{
     var chatLogUser: User? = nil
 
     @IBOutlet weak var messageTableView: UITableView!
-    
-
-
+ 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
 
         messageTableView.delegate = self
         messageTableView.dataSource = self
-        //messages?.append(message)
-        
-       // observeMessages()
+ 
         observeUserMessages()
-       
-        
  
     }
 
@@ -50,46 +42,59 @@ class MessagesVC: UIViewController{
         
         ref.observe(.childAdded, with: { (snapshot) in
             
-            let messageId = snapshot.key
-            let messagesRef = DataService.instance.REF_BASE.child("messages").child(messageId)
-            
-            messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            let userId = snapshot.key
+            DataService.instance.REF_BASE.child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
                 
-                if let messageDict = snapshot.value as? [String: Any] {
-                    print(messageDict)
-                    let message = Message()
-                    message.setValuesForKeys(messageDict)
-                    
-                    
-                    if let chatPartnerId = message.chatPartnerId(){
-                        // allows for one cell per user..hash
-                        self.messagesDictionary[chatPartnerId] = message
-                        
-                        self.messages = Array(self.messagesDictionary.values)
-                        self.messages.sort(by: { (message1, message2) -> Bool in
-                            
-                            return message1.timestamp!.intValue > message2.timestamp!.intValue
-                        })
-                    }
-                    
-                    self.timer?.invalidate()
-                    self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
-        
-                }
-    
+                let messageId = snapshot.key
+                
+                self.fetchMessageWithMessageId(messageId: messageId)
+                
             }, withCancel: nil)
-            
-            
+    
         }, withCancel: nil)
         
+    }
+    
+    private func fetchMessageWithMessageId(messageId: String){
+        let messagesRef = DataService.instance.REF_BASE.child("messages").child(messageId)
+        
+        messagesRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let messageDict = snapshot.value as? [String: Any] {
+                print(messageDict)
+                let message = Message()
+                message.setValuesForKeys(messageDict)
+                
+                
+                if let chatPartnerId = message.chatPartnerId(){
+                    // allows for one cell per user..hash
+                    self.messagesDictionary[chatPartnerId] = message
+                    
+                }
+                
+                self.attempReloadOfTable()
+                
+            }
+            
+        }, withCancel: nil)
+    }
+    
+    func attempReloadOfTable(){
+        self.timer?.invalidate()
+        self.timer = Timer.scheduledTimer(timeInterval: 0.1, target: self, selector: #selector(self.handleReloadTable), userInfo: nil, repeats: false)
     }
     
     var timer: Timer?
     
     func handleReloadTable(){
-    
+        
+        self.messages = Array(self.messagesDictionary.values)
+        self.messages.sort(by: { (message1, message2) -> Bool in
+            
+            return message1.timestamp!.intValue > message2.timestamp!.intValue
+        })
+        
         DispatchQueue.main.async {
-            print("we reloaded the table")
             self.messageTableView.reloadData()
         }
     }
