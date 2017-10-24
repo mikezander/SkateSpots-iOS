@@ -803,7 +803,7 @@
                                         </constraints>
                                         <state key="normal" image="chatBubble"/>
                                         <connections>
-                                            <segue destination="XIR-BC-VGS" kind="show" identifier="sendMessage" id="dCU-vn-cx5"/>
+                                            <segue destination="yyi-rg-4XJ" kind="show" identifier="sendMessage" id="vJH-wr-g8F"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1698,7 +1698,7 @@
                     <navigationItem key="navigationItem" id="7q4-MU-SBU"/>
                     <connections>
                         <outlet property="messageTableView" destination="x3t-Oz-tWo" id="529-Ee-xzm"/>
-                        <segue destination="XIR-BC-VGS" kind="show" identifier="goToChatLog" id="rzq-O0-TOU"/>
+                        <segue destination="yyi-rg-4XJ" kind="show" identifier="goToChatLog" id="VRI-Gr-LDk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nxc-jq-4fb" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1709,7 +1709,7 @@
         <scene sceneID="IpN-dv-6a4">
             <objects>
                 <navigationController navigationBarHidden="YES" id="hEd-aZ-c4D" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ath-O9-OOw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ath-O9-OOw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1818,6 +1818,40 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GXr-rL-fGb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2160.8695652173915" y="747.554347826087"/>
+        </scene>
+        <!--Chat LogVC-->
+        <scene sceneID="Weo-hP-BTN">
+            <objects>
+                <collectionViewController id="yyi-rg-4XJ" customClass="ChatLogVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="ovG-cX-Iea">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dYM-dM-Nyq">
+                            <size key="itemSize" width="50" height="50"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="9Va-BA-uQA">
+                                <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                </view>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="yyi-rg-4XJ" id="p6f-9X-fve"/>
+                            <outlet property="delegate" destination="yyi-rg-4XJ" id="9DX-d0-w2q"/>
+                        </connections>
+                    </collectionView>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="B2B-k4-0uO" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3189" y="768"/>
         </scene>
         <!--AgreementVC-->
         <scene sceneID="ix2-Kl-8jK">
@@ -2164,7 +2198,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                     </tabBarItem>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fWj-2D-zkp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fWj-2D-zkp">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2198,9 +2232,9 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <image name="star" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="myg-hR-9mM"/>
         <segue reference="ZX4-qG-Pn9"/>
+        <segue reference="myg-hR-9mM"/>
         <segue reference="wHi-97-VC8"/>
-        <segue reference="rzq-O0-TOU"/>
+        <segue reference="VRI-Gr-LDk"/>
     </inferredMetricsTieBreakers>
 </document>

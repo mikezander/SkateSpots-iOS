@@ -171,7 +171,7 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if let vc = segue.destination as? ChatLogController {
+        if let vc = segue.destination as? ChatLogVC {
             if self.chatLogUser != nil{
                 vc.user = self.chatLogUser
                 vc.userKey = self.chatLogUser!.userKey

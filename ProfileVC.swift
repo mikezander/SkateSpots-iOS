@@ -27,6 +27,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     var allowEdit = false
     var keys = [String]()
     var key = String()
+    var tabBarHeight:CGFloat = 0.0
     
     @IBOutlet weak var headerLabel: UILabel!
     @IBOutlet weak var editButton: UIButton!
@@ -54,6 +55,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
                 self.key = key
                 userRef = DataService.instance.REF_USERS.child(key)
             }
+ 
             editButton.isEnabled = false
             editButton.isHidden = true
             allowEdit = false
@@ -64,9 +66,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         }
 
         addUserData()
-        
-       
-        
+ 
         appendSpotsArray()
         
         print(spots.count)
@@ -95,6 +95,28 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             profileEdited = false
             
         }
+        
+        if userKey != nil{
+            if let tabHeight = tabBarController?.tabBar.frame.height{
+                tabBarController?.tabBar.isHidden = true
+                tabBarHeight = tabHeight
+                tabBarController?.tabBar.frame.size.height = 0
+            }
+        }
+    
+    }
+
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        if userKey != nil{
+            if tabBarHeight != 0.0{
+                tabBarController?.tabBar.isHidden = false
+                tabBarController?.tabBar.frame.size.height = tabBarHeight
+            }
+            
+        }
+        
         
     }
     
@@ -171,7 +193,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
                 
             }
         }else if segue.identifier == "sendMessage"{
-            if let vc = segue.destination as? ChatLogController{
+            if let vc = segue.destination as? ChatLogVC{
                 if self.user != nil{
                 vc.user = self.user
                 vc.userKey = self.key
