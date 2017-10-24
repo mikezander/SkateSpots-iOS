@@ -128,7 +128,9 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         btn1.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
         view.addSubview(btn1)
         
-        nameLabel.frame = CGRect(x: self.view.center.x - 30,y: 26,width:314, height:28)
+        nameLabel.frame = CGRect(x: 0,y: 0,width:(screenWidth / 2) + (screenWidth / 4), height:30)
+        nameLabel.center = CGPoint(x:view.frame.midX ,y: 41)
+        nameLabel.textAlignment = .center
         nameLabel.textColor = UIColor.white
         nameLabel.font = UIFont(name: "Gurmukhi MN", size: 20)
         view.addSubview(nameLabel)

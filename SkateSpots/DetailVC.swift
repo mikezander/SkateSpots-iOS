@@ -98,7 +98,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         view.addSubview(myActivityIndicator)
         
         let headerLabel = UILabel()
-        headerLabel.frame = CGRect(x: screenWidth / 2 - 55,y: 26,width:250, height:28)
+        headerLabel.frame = CGRect(x: 0,y: 0,width:(screenWidth / 2) + (screenWidth / 4), height:30)
+        headerLabel.center = CGPoint(x:view.frame.midX ,y: 41)
+        headerLabel.textAlignment = .center
         headerLabel.text = "Spot Details"
         headerLabel.textColor = UIColor.white
         headerLabel.font = UIFont(name: "Gurmukhi MN", size: 20)
