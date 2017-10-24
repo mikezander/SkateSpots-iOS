@@ -106,16 +106,7 @@ class DataService{
                     let urlPic = dataDic["url"] as? String {
                     //access urlPic here
                     if let imageData = NSData(contentsOf: URL(string: urlPic)!) as Data? {
-                        let profilePicRef = DataService.instance.REF_SPOT_IMAGES.child(uid+"/profile_pic.jpg") //user.uid //this is wrong**
-                        _ = profilePicRef.putData(imageData, metadata: nil) {
-                            metadata, error in
-                            if(error == nil) {
-                                _ = metadata!.downloadURL
-                            }
-                            else {
-                                print("Error in dowloading the image")
-                            }
-                        }
+       
                         let image = UIImage(data: imageData)
                         self.addProfilePicToStorage(image: image!)
                     }
