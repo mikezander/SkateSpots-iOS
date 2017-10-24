@@ -135,7 +135,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                         }
                         
                     }else{
-                        self.userProfileURL = DEFAULT_PROFILE_PIC_URL
+                        self.userProfileURL = DEFAULT_PROFILE_PIC_WORKING//DEFAULT_PROFILE_PIC_URL
                         let ref = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
                         ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
                         

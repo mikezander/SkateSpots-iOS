@@ -18,6 +18,8 @@ class MessagesVC: UIViewController{
     var chatLogUser: User? = nil
 
     @IBOutlet weak var messageTableView: UITableView!
+    @IBOutlet weak var headerImage: CircleView!
+    @IBOutlet weak var headerNameLabel: UILabel!
  
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,12 +40,27 @@ class MessagesVC: UIViewController{
             return
         }
         
+        let userRef = DataService.instance.REF_USERS.child(uid).child("profile")
+        
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            if let usersName = snapshot.childSnapshot(forPath: "username").value as? String{
+                
+                let userProfileUrl = snapshot.childSnapshot(forPath: "userImageURL").value as! String
+
+                self.headerNameLabel.text = usersName
+                
+                self.headerImage.loadImageUsingCacheWithUrlString(urlString: userProfileUrl)
+                
+                
+            }
+
+        })
+        
         let ref = DataService.instance.REF_BASE.child("user-messages").child(uid)
         
         ref.observe(.childAdded, with: { (snapshot) in
-            
-            print(snapshot)
-            
+
             let userId = snapshot.key
             DataService.instance.REF_BASE.child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
                 

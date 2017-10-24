@@ -1674,12 +1674,39 @@
                                             <action selector="backButtonPressed:" destination="j7A-wC-yin" eventType="touchUpInside" id="bvl-RK-VLf"/>
                                         </connections>
                                     </button>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="PNJ-sL-lK3" customClass="CircleView" customModule="Sk8Spots" customModuleProvider="target">
+                                        <rect key="frame" x="164" y="18" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="2dp-zN-UPl"/>
+                                            <constraint firstAttribute="height" constant="40" id="SoK-U1-tfh"/>
+                                        </constraints>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgh-on-x2d">
+                                        <rect key="frame" x="208" y="28" width="186" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="186" id="6Ki-wC-hzn"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="GurmukhiMN" family="Gurmukhi MN" pointSize="15"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                 </subviews>
                                 <color key="backgroundColor" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="Mgh-on-x2d" secondAttribute="trailing" constant="20" id="3pm-xb-3qm"/>
+                                    <constraint firstAttribute="bottom" secondItem="Mgh-on-x2d" secondAttribute="bottom" constant="15" id="4Un-zc-GYS"/>
                                     <constraint firstItem="2XM-yF-uB6" firstAttribute="leading" secondItem="S8h-En-jol" secondAttribute="leading" constant="4" id="81d-dF-n0V"/>
                                     <constraint firstItem="2XM-yF-uB6" firstAttribute="top" secondItem="S8h-En-jol" secondAttribute="top" constant="28" id="ARp-g2-nSe"/>
+                                    <constraint firstItem="PNJ-sL-lK3" firstAttribute="top" secondItem="S8h-En-jol" secondAttribute="top" constant="18" id="Bog-3z-Lip"/>
+                                    <constraint firstAttribute="trailing" secondItem="Mgh-on-x2d" secondAttribute="trailing" constant="20" id="DEq-3J-nP3"/>
                                     <constraint firstAttribute="height" constant="64" id="DW4-oa-ico"/>
+                                    <constraint firstAttribute="bottom" secondItem="PNJ-sL-lK3" secondAttribute="bottom" constant="6" id="Hk3-Ru-bGq"/>
+                                    <constraint firstItem="Mgh-on-x2d" firstAttribute="top" secondItem="S8h-En-jol" secondAttribute="top" constant="28" id="KQ9-Hy-6dq"/>
+                                    <constraint firstAttribute="bottom" secondItem="Mgh-on-x2d" secondAttribute="bottom" constant="15" id="LTQ-Yh-auu"/>
+                                    <constraint firstItem="Mgh-on-x2d" firstAttribute="leading" secondItem="PNJ-sL-lK3" secondAttribute="trailing" constant="4" id="ffz-v9-ctd"/>
+                                    <constraint firstItem="Mgh-on-x2d" firstAttribute="top" secondItem="S8h-En-jol" secondAttribute="top" constant="28" id="g2f-ew-izX"/>
+                                    <constraint firstItem="Mgh-on-x2d" firstAttribute="leading" secondItem="PNJ-sL-lK3" secondAttribute="trailing" constant="4" id="hUd-9h-atH"/>
+                                    <constraint firstItem="Mgh-on-x2d" firstAttribute="leading" secondItem="PNJ-sL-lK3" secondAttribute="trailing" constant="4" id="lLX-tL-R88"/>
                                     <constraint firstAttribute="bottom" secondItem="2XM-yF-uB6" secondAttribute="bottom" constant="6" id="pcY-Fv-cDh"/>
                                 </constraints>
                             </view>
@@ -1697,13 +1724,15 @@
                     </view>
                     <navigationItem key="navigationItem" id="7q4-MU-SBU"/>
                     <connections>
+                        <outlet property="headerImage" destination="PNJ-sL-lK3" id="X35-v3-X7w"/>
+                        <outlet property="headerNameLabel" destination="Mgh-on-x2d" id="qRA-jd-OTT"/>
                         <outlet property="messageTableView" destination="x3t-Oz-tWo" id="529-Ee-xzm"/>
                         <segue destination="yyi-rg-4XJ" kind="show" identifier="goToChatLog" id="VRI-Gr-LDk"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="nxc-jq-4fb" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="891" y="748"/>
+            <point key="canvasLocation" x="889.85507246376824" y="747.554347826087"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="IpN-dv-6a4">
@@ -2129,6 +2158,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <image name="edit_profile" width="16" height="16"/>
         <image name="globe_tab" width="25" height="25"/>
         <image name="home_btn" width="21" height="24"/>
+        <image name="profile-placeholder" width="336" height="336"/>
         <image name="profile_navbar" width="24" height="24"/>
         <image name="refresh" width="21" height="21"/>
         <image name="star" width="24" height="24"/>

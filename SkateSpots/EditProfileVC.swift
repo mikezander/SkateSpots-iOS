@@ -127,7 +127,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                     
                     self.activityIndicator.startAnimating()
                     
-                    if self.user.userImageURL != DEFAULT_PROFILE_PIC_URL{
+                    if self.user.userImageURL != DEFAULT_PROFILE_PIC_URL || self.user.userImageURL != DEFAULT_PROFILE_PIC_WORKING{
                         DataService.instance.deleteFromStorage(urlString: self.user.userImageURL, completion: { error in
                             
                             guard error == nil else{
