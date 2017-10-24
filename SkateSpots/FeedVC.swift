@@ -359,6 +359,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         cell.userName.tag = indexPath.row
         
         cell.userName.addGestureRecognizer(setGestureRecognizer())
+        cell.userImage.addGestureRecognizer(setGestureRecognizer())
+        
         
         if let img = FeedVC.imageCache.object(forKey: spot.userImageURL as NSString){
             
@@ -366,7 +368,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }else{
             cell.configureRow(spot: spot)
         }
-        
+
         cell.delegate = self
         
         return cell

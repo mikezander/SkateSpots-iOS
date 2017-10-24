@@ -43,6 +43,8 @@ class SpotRow: UITableViewCell{
         self.spotName.text = spot.spotName
         self.spotLocation.text = spot.spotLocation
         
+        userImage.isUserInteractionEnabled = true
+        
         //download images
         if img != nil{
             

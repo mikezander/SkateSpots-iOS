@@ -136,43 +136,11 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     func backButtonPressed() {
-        
-        
+
         _ = navigationController?.popViewController(animated: true)
         
         dismiss(animated: true, completion: nil)
-        //navigationController?.popToRootViewController(animated: true)
-        
-        
-        
-        //dismiss(animated: true, completion: nil)
-        
-        
-        
-        
-        /*     let vc = ProfileVC()
-         vc.user = self.user
-         vc.userKey = self.userKey
-         present(vc, animated: true, completion: nil)*/
-        
-        //dismiss(animated: true, completion: nil)
-        
-        
-        // if let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "goToProfile")
-        
-        //let vc = controller.viewControllers.first as? ProfileVC {
-        //  yourViewController.user = user
-        //  present(controller, animated: true, completion: nil) // if presented from ViewController
-        
-        
-        
-        
-        // self.present(controller, animated: true, completion: nil)
-        
-        
-        
-        
-        
+   
     }
     
     func handleUploadTap(){
