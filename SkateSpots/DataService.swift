@@ -144,7 +144,7 @@ class DataService{
                     if let url = downloadURL{
                         
                         //self.userProfileURL = ("\(url)")
-                        let ref = DataService.instance.refrenceToCurrentUser()
+                        let ref = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
                         ref.child("profile").child("userImageURL").setValue(url)
                         
                     }
@@ -173,7 +173,7 @@ class DataService{
                     if let url = downloadURL{
                         
                         //self.userProfileURL = ("\(url)")
-                        let ref = DataService.instance.refrenceToCurrentUser()
+                        let ref = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
                         ref.child("profile").child("userImageURL").setValue(url)
                         completion(url)
                     }
@@ -310,11 +310,11 @@ class DataService{
         
     }
     
-    func refrenceToCurrentUser() -> DatabaseReference{
-        let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
-        let user = REF_USERS.child(uid!)
-        return user
-    }
+    //func refrenceToCurrentUser() -> DatabaseReference{
+     //   let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
+     //   let user = REF_USERS.child(uid!)
+     //   return user
+   // }
     
     
 }

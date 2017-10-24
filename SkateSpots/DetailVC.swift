@@ -702,6 +702,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         vc.userKey = commentsArray[tapGesture.view!.tag].userKey
         print(commentsArray[tapGesture.view!.tag].userKey)
         self.present(vc, animated: true, completion: nil)
+       
         //self.navigationController?.pushViewController(vc, animated:true)
     }
     
@@ -800,6 +801,12 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return commentsArray.count
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
+        vc.userKey = commentsArray[indexPath.row].userKey
+        self.present(vc, animated: true, completion: nil)
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

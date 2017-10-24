@@ -39,7 +39,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         
         collectionView?.backgroundColor = .white
         
-        collectionView?.contentInset = UIEdgeInsets(top: 85, left: 0, bottom: 8, right: 0)
+        collectionView?.contentInset = UIEdgeInsets(top: 80, left: 0, bottom: 8, right: 0)
         
         collectionView?.register(ChatLogCell.self, forCellWithReuseIdentifier: cellId)
         
@@ -436,7 +436,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
             cell.bubbleViewLeftAnchor?.isActive = false
         }else{
             //incoming gray
-            cell.bubbleView.backgroundColor = UIColor(red: 211, green: 211, blue: 211, alpha: 1)
+            cell.bubbleView.backgroundColor = UIColor.lightGray//(red: 211, green: 211, blue: 211, alpha: 1)
             cell.textView.textColor = .black
             cell.profileImageView.isHidden = false
             
