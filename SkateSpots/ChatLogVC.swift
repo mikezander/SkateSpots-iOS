@@ -33,14 +33,19 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         self.navigationController?.isNavigationBarHidden = true
         
         setupCustomNav()
         
         collectionView?.backgroundColor = .white
-        
-        collectionView?.contentInset = UIEdgeInsets(top: 80, left: 0, bottom: 8, right: 0)
-        
+
+        if (navigationController != nil){
+            collectionView?.contentInset = UIEdgeInsets(top: 58, left: 0, bottom: 8, right: 0)
+        }else{
+            collectionView?.contentInset = UIEdgeInsets(top: 78, left: 0, bottom: 8, right: 0)
+        }
+
         collectionView?.register(ChatLogCell.self, forCellWithReuseIdentifier: cellId)
         
         collectionView?.alwaysBounceVertical = true
@@ -436,7 +441,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
             cell.bubbleViewLeftAnchor?.isActive = false
         }else{
             //incoming gray
-            cell.bubbleView.backgroundColor = UIColor.lightGray//(red: 211, green: 211, blue: 211, alpha: 1)
+            cell.bubbleView.backgroundColor = UIColor.groupTableViewBackground
             cell.textView.textColor = .black
             cell.profileImageView.isHidden = false
             
