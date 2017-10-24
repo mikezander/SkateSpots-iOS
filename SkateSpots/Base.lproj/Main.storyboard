@@ -1709,7 +1709,7 @@
         <scene sceneID="IpN-dv-6a4">
             <objects>
                 <navigationController navigationBarHidden="YES" id="hEd-aZ-c4D" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ath-O9-OOw">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ath-O9-OOw">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -1823,7 +1823,7 @@
         <scene sceneID="Weo-hP-BTN">
             <objects>
                 <collectionViewController id="yyi-rg-4XJ" customClass="ChatLogVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="ovG-cX-Iea">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ovG-cX-Iea">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2198,7 +2198,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                     </tabBarItem>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fWj-2D-zkp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fWj-2D-zkp">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2234,7 +2234,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
     <inferredMetricsTieBreakers>
         <segue reference="ZX4-qG-Pn9"/>
         <segue reference="myg-hR-9mM"/>
+        <segue reference="vJH-wr-g8F"/>
         <segue reference="wHi-97-VC8"/>
-        <segue reference="VRI-Gr-LDk"/>
     </inferredMetricsTieBreakers>
 </document>

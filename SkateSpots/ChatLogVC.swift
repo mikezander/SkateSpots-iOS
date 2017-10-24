@@ -39,7 +39,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         
         collectionView?.backgroundColor = .white
         
-        collectionView?.contentInset = UIEdgeInsets(top: 58, left: 0, bottom: 8, right: 0)
+        collectionView?.contentInset = UIEdgeInsets(top: 85, left: 0, bottom: 8, right: 0)
         
         collectionView?.register(ChatLogCell.self, forCellWithReuseIdentifier: cellId)
         
@@ -124,11 +124,8 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         view.addSubview(btn1)
         
         nameLabel.frame = CGRect(x: self.view.center.x - 30,y: 26,width:314, height:28)
-        //nameLabel.center.x = self.view.center.x
-        
-        
         nameLabel.textColor = UIColor.white
-        nameLabel.font = UIFont(name: "Gurmukhi MN", size: 18)
+        nameLabel.font = UIFont(name: "Gurmukhi MN", size: 20)
         view.addSubview(nameLabel)
         
     }
