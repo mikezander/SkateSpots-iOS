@@ -28,6 +28,8 @@ class MessagesVC: UIViewController{
         messageTableView.dataSource = self
  
         observeUserMessages()
+        
+        messageTableView.allowsMultipleSelectionDuringEditing = true
  
     }
 
@@ -70,6 +72,13 @@ class MessagesVC: UIViewController{
                 
             }, withCancel: nil)
     
+        }, withCancel: nil)
+        
+        ref.observe(.childRemoved, with: { (snapshot) in
+
+            self.messagesDictionary.removeValue(forKey: snapshot.key)
+            self.attempReloadOfTable()
+            
         }, withCancel: nil)
         
     }
@@ -156,6 +165,37 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
         
   
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
+        return true
+    }
+    
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+
+        guard let uid = Auth.auth().currentUser?.uid else { return }
+  
+        let message = self.messages[indexPath.row]
+        
+        if let chatPartnerId = message.chatPartnerId(){
+            
+            DataService.instance.REF_BASE.child("user-messages").child(uid).child(chatPartnerId).removeValue(completionBlock: { (error, ref) in
+                
+                if error != nil{
+                    print("Failed to delete message", error!.localizedDescription)
+                    return
+                }
+                
+                self.messagesDictionary.removeValue(forKey: chatPartnerId)
+                self.attempReloadOfTable()
+                //self.messages.remove(at: indexPath.row)
+                //self.messageTableView.deleteRows(at: [indexPath], with: .automatic)
+                
+                
+            })
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
