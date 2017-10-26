@@ -8,6 +8,8 @@
 
 import UIKit
 class ChatLogCell: UICollectionViewCell {
+    
+    var chatLogVC: ChatLogVC?
 
     let textView: UITextView = {
         let tv = UITextView()
@@ -42,15 +44,24 @@ class ChatLogCell: UICollectionViewCell {
         return iv
     }()
     
-    let messageImageView: UIImageView = {
+   lazy var messageImageView: UIImageView = {
         let iv = UIImageView()
         iv.translatesAutoresizingMaskIntoConstraints = false
         iv.layer.cornerRadius = 16
         iv.layer.masksToBounds = true
         iv.contentMode = .scaleAspectFill
+        iv.isUserInteractionEnabled = true
+        iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(handleZoomTap)))
         
         return iv
     }()
+    
+    func handleZoomTap(tapGesture: UITapGestureRecognizer){
+        if let imageView = tapGesture.view as? UIImageView{
+            self.chatLogVC?.performZoomInForStartingImageView(startingImageView: imageView)
+        }
+        
+    }
     
     var bubbleWidthAnchor: NSLayoutConstraint?
     var bubbleViewRightAnchor: NSLayoutConstraint?
@@ -89,10 +100,8 @@ class ChatLogCell: UICollectionViewCell {
         bubbleView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         
         //x,y,w,h
-        //textView.rightAnchor.constraint(equalTo: self.rightAnchor).isActive = true
         textView.leftAnchor.constraint(equalTo: bubbleView.leftAnchor, constant: 8).isActive = true
         textView.topAnchor.constraint(equalTo: self.topAnchor).isActive = true
-        //textView.widthAnchor.constraint(equalToConstant: 200).isActive = true
         textView.rightAnchor.constraint(equalTo: bubbleView.rightAnchor).isActive = true
         textView.heightAnchor.constraint(equalTo: self.heightAnchor).isActive = true
         

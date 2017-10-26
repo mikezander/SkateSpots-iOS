@@ -166,6 +166,7 @@
 			isa = PBXGroup;
 			children = (
 				C415421A1F9D3BD7004ADBC3 /* Extension.swift */,
+				C41640641F39144800BF244C /* VC+Extension.swift */,
 			);
 			name = Helpers;
 			sourceTree = "<group>";
@@ -184,7 +185,6 @@
 				C456C11C1F9AC28F00C74A56 /* MessagesVC.swift */,
 				C48415921F9FBC7A00F4BB20 /* ChatLogVC.swift */,
 				C4A42A8E1F73FD290031865C /* AgreementVC.swift */,
-				C41640641F39144800BF244C /* VC+Extension.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";

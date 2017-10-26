@@ -381,6 +381,8 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatLogCell
         
+        cell.chatLogVC = self
+        
         let message = messages[indexPath.item]
         cell.textView.text = message.text
         
@@ -388,8 +390,10 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         
         if let text = message.text{
             cell.bubbleWidthAnchor?.constant = estimatedFrameForText(text: text).width + 32
+            cell.textView.isHidden = false
         }else if message.imageUrl != nil{
             cell.bubbleWidthAnchor?.constant = 200
+            cell.textView.isHidden = true
         }
         
         return cell
@@ -427,6 +431,34 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
             cell.messageImageView.isHidden = true
         }
         
+    }
+    
+    func performZoomInForStartingImageView(startingImageView: UIImageView){
+        let startingFrame = startingImageView.superview?.convert(startingImageView.frame, to: nil)
+        
+        let zoomingImageView = UIImageView(frame: startingFrame!)
+        zoomingImageView.backgroundColor = .red
+        zoomingImageView.image = startingImageView.image
+        
+        if let keyWindow = UIApplication.shared.keyWindow{
+            keyWindow.addSubview(zoomingImageView)
+            
+            UIView.animate(withDuration: 0.5, delay: 0, options: .curveEaseOut, animations: {
+                
+                // h2 / h1 = h1 / w1
+                // h2 = h1 / w1 * w1
+                
+                let height = startingFrame!.height / startingFrame!.width * keyWindow.frame.width
+                
+                
+                
+                zoomingImageView.frame = CGRect(x: 0, y: 0, width: keyWindow.frame.width, height: height)
+                
+                zoomingImageView.center = keyWindow.center
+                
+            }, completion: nil)
+        }
+ 
     }
     
     
