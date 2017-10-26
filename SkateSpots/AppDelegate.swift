@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
+import FirebaseMessaging
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -24,8 +25,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         defaults.register(defaults: [agreementKey:false])
+        
+        UNService.shared.authorize()
   
         return true
+    }
+    
+    func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+        
+        print("did register for notifications")
+        print(Messaging.messaging().fcmToken ?? "fcmToken not found")
+        
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

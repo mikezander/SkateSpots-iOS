@@ -10,7 +10,9 @@ target 'Sk8Spots' do
   pod 'Firebase/Auth', '4.3.0'
   pod 'Firebase/Database', '4.3.0'
   pod 'Firebase/Storage', '4.3.0'
+  pod 'Firebase/Messaging'
   pod 'Cosmos'
   pod 'SwiftKeychainWrapper'
   pod 'SVProgressHUD'
+  
 end

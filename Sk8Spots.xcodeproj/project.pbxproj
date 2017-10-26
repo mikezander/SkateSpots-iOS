@@ -49,6 +49,7 @@
 		C4CE591E1F2A645900180BA5 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE591D1F2A645900180BA5 /* User.swift */; };
 		C4E36FD21F1A7F23000ABF4D /* SpotRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */; };
 		C4E36FD61F1ACA44000ABF4D /* SpotPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */; };
+		C4F120631FA2599500ADD807 /* UNService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F120621FA2599500ADD807 /* UNService.swift */; };
 		D5D2D42DF66DB487CDD8D53F /* Pods_Sk8Spots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F0FA3D6072CCA82852D7061 /* Pods_Sk8Spots.framework */; };
 /* End PBXBuildFile section */
 
@@ -102,6 +103,7 @@
 		C4CE591D1F2A645900180BA5 /* User.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotRow.swift; path = ../SpotRow.swift; sourceTree = "<group>"; };
 		C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPhotoCell.swift; sourceTree = "<group>"; };
+		C4F120621FA2599500ADD807 /* UNService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNService.swift; sourceTree = "<group>"; };
 		FFF985ECF910147806442005 /* Pods-Sk8Spots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sk8Spots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sk8Spots/Pods-Sk8Spots.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -194,6 +196,7 @@
 			children = (
 				C41D8B291F0ED23A009C174C /* AuthService.swift */,
 				C41D8B2B1F0EE3F8009C174C /* DataService.swift */,
+				C4F120621FA2599500ADD807 /* UNService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -286,6 +289,9 @@
 						DevelopmentTeam = LAB4A2ATCG;
 						ProvisioningStyle = Automatic;
 						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
 							com.apple.Keychain = {
 								enabled = 1;
 							};
@@ -340,6 +346,7 @@
 				"${BUILT_PRODUCTS_DIR}/Cosmos/Cosmos.framework",
 				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
+				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftKeychainWrapper/SwiftKeychainWrapper.framework",
 				"${BUILT_PRODUCTS_DIR}/leveldb-library/leveldb.framework",
@@ -350,6 +357,7 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Cosmos.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SVProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftKeychainWrapper.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/leveldb.framework",
@@ -434,6 +442,7 @@
 				C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */,
 				C4AD89A81F433C9100D47460 /* ProfileVC.swift in Sources */,
 				C4CE59131F241A0F00180BA5 /* DetailVC.swift in Sources */,
+				C4F120631FA2599500ADD807 /* UNService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
