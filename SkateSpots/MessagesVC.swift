@@ -30,7 +30,9 @@ class MessagesVC: UIViewController{
         observeUserMessages()
         
         messageTableView.allowsMultipleSelectionDuringEditing = true
- 
+        
+        UNService.shared.unCenter.removeAllDeliveredNotifications()
+    
     }
 
     @IBAction func backButtonPressed(_ sender: Any) {
