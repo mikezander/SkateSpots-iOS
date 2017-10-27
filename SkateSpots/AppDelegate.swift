@@ -9,7 +9,7 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
-import FirebaseMessaging
+
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -34,8 +34,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
         print("did register for notifications")
-        print(Messaging.messaging().fcmToken ?? "fcmToken not found")
         
+        //FIRMessagingService.shared.subscribe(to: .newMessage)
+        
+        print(Messaging.messaging().fcmToken!)
+        let tokenDict: [String:AnyObject] = ["deviceToken": Messaging.messaging().fcmToken as AnyObject]
+        
+        DataService.instance.updateUserProfile(uid: Auth.auth().currentUser!.uid, child: "profile", userData: tokenDict)
+        
+        
+        
+        //print(Messaging.messaging().fcmToken ?? "fcmToken not found")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

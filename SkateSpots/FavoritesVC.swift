@@ -25,6 +25,13 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+        
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(true)
+        
         currentUserRef = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
         
         guard hasConnected else {
@@ -33,7 +40,6 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         }
         
         loadSpotsArray()
-        
     }
     
     func loadSpotsArray(){

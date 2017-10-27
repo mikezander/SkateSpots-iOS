@@ -15,6 +15,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     var user: User? = nil
     var userKey = String()
     var messages = [Message]()
+    var fromUser = String()
     
     var nameLabel = UILabel()
     
@@ -59,6 +60,8 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         observeUsersMessages()
         
         setupKeyboardObservers()
+        
+        getCurrentUserName()
         
     }
     
@@ -154,6 +157,16 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         present(imagePickerController, animated: true, completion: nil)
     }
     
+    func getCurrentUserName(){
+        let userRef =  DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid).child("profile")
+        userRef.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let fromUser = snapshot.childSnapshot(forPath: "username").value as? String{
+                self.fromUser = fromUser
+            }
+        })
+        
+    }
+    
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
         
         var selectedImageFromPicker: UIImage?
@@ -224,8 +237,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
             collectionView?.scrollToItem(at: indexPath, at: .top, animated: true)
             
         }
-        
-        
+   
     }
     
     override func viewDidDisappear(_ animated: Bool) {
@@ -259,9 +271,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         guard let uid = Auth.auth().currentUser?.uid else{
             return
         }
-        
-        
-        
+
         let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(uid).child(userKey)
         
         userMessagesRef.observe(.childAdded, with: { (snapshot) in
@@ -318,27 +328,39 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         let timestamp: NSNumber
         timestamp = Int(NSDate().timeIntervalSince1970) as NSNumber
         
-        var values = ["toId": toId, "fromId": fromId, "timestamp": timestamp] as [String: Any]
+        let userRef =  DataService.instance.REF_USERS
         
-        properties.forEach({values[$0] = $1})
-        
-        childRef.updateChildValues(values) { (error, ref) in
-            if error != nil{
-                print(error!.localizedDescription)
-                return
+        userRef.child(userKey).child("profile").observeSingleEvent(of: .value, with: { (snapshot) in
+            
+            var values = ["toId": toId, "fromId": fromId, "timestamp": timestamp] as [String: Any]
+            
+            if let deviceToken = snapshot.childSnapshot(forPath: "deviceToken").value as? String{
+                values.updateValue(deviceToken, forKey: "deviceToken")
+                values.updateValue(self.fromUser, forKey: "fromUser")
             }
             
-            self.inputTextField.text = nil
+            properties.forEach({values[$0] = $1})
             
-            let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(fromId).child(toId)
-            
-            let messageId = childRef.key
-            userMessagesRef.updateChildValues([messageId: 1])
-            
-            let recipientUserMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(toId).child(fromId)
-            
-            recipientUserMessagesRef.updateChildValues([messageId: 1])
-        }
+            childRef.updateChildValues(values) { (error, ref) in
+                if error != nil{
+                    print(error!.localizedDescription)
+                    return
+                }
+                
+                self.inputTextField.text = nil
+                
+                let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(fromId).child(toId)
+                
+                let messageId = childRef.key
+                userMessagesRef.updateChildValues([messageId: 1])
+                
+                let recipientUserMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(toId).child(fromId)
+                
+                recipientUserMessagesRef.updateChildValues([messageId: 1])
+            }
+
+        })
+   
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {

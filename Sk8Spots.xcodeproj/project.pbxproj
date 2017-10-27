@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C407154E1FA2712C00733742 /* FIRMessagingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C407154D1FA2712C00733742 /* FIRMessagingService.swift */; };
 		C4128C3A1F0EAF290058628D /* RoundTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C391F0EAF290058628D /* RoundTextField.swift */; };
 		C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C3B1F0EBA690058628D /* RoundedButton.swift */; };
 		C4128C3E1F0EC0270058628D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */; };
@@ -58,6 +59,7 @@
 		41E3F77AD66D42DA73516180 /* Pods-Sk8Spots.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sk8Spots.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sk8Spots/Pods-Sk8Spots.release.xcconfig"; sourceTree = "<group>"; };
 		4A13BA0450BDBFA9B9E60769 /* Pods-SkateSpots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkateSpots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SkateSpots/Pods-SkateSpots.debug.xcconfig"; sourceTree = "<group>"; };
 		9F0FA3D6072CCA82852D7061 /* Pods_Sk8Spots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sk8Spots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C407154D1FA2712C00733742 /* FIRMessagingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRMessagingService.swift; sourceTree = "<group>"; };
 		C4128C391F0EAF290058628D /* RoundTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundTextField.swift; sourceTree = "<group>"; };
 		C4128C3B1F0EBA690058628D /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
 		C4128C3D1F0EC0270058628D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
@@ -197,6 +199,7 @@
 				C41D8B291F0ED23A009C174C /* AuthService.swift */,
 				C41D8B2B1F0EE3F8009C174C /* DataService.swift */,
 				C4F120621FA2599500ADD807 /* UNService.swift */,
+				C407154D1FA2712C00733742 /* FIRMessagingService.swift */,
 			);
 			name = Services;
 			sourceTree = "<group>";
@@ -412,6 +415,7 @@
 				C4B0C54B1F0D7B78004B6923 /* FeedVC.swift in Sources */,
 				C41D8B2C1F0EE3F8009C174C /* DataService.swift in Sources */,
 				C4AD89AA1F43700700D47460 /* ProfileCell.swift in Sources */,
+				C407154E1FA2712C00733742 /* FIRMessagingService.swift in Sources */,
 				C4AD89AC1F437DD300D47460 /* HeaderCell.swift in Sources */,
 				C4433E6A1F1FB82600B00002 /* MapVC.swift in Sources */,
 				C41D8B351F11431C009C174C /* SpotVC.swift in Sources */,

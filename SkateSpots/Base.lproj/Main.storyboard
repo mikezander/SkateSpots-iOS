@@ -361,7 +361,7 @@
                                         <rect key="frame" x="0.0" y="28" width="414" height="503"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="9FZ-wn-ttt" id="Q15-SB-RDq">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="502.66666666666669"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="503"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="wqR-vm-xFh" customClass="CircleView" customModule="Sk8Spots" customModuleProvider="target">
@@ -708,10 +708,10 @@
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="210" id="FSx-Nv-ahg" customClass="ProfileCell" customModule="Sk8Spots" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="55.333333333333336" width="414" height="210"/>
+                                        <rect key="frame" x="0.0" y="55" width="414" height="210"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="FSx-Nv-ahg" id="bBi-MO-Nas">
-                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209.66666666666666"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="414" height="209"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KlQ-kC-Ueo">
@@ -1021,7 +1021,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Sk8Spots" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lab-EA-rCk">
-                                        <rect key="frame" x="98" y="27" width="219" height="36"/>
+                                        <rect key="frame" x="98" y="27" width="219" height="34"/>
                                         <fontDescription key="fontDescription" name="Billabong" family="Billabong" pointSize="29"/>
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
@@ -1738,8 +1738,8 @@
         <scene sceneID="IpN-dv-6a4">
             <objects>
                 <navigationController navigationBarHidden="YES" id="hEd-aZ-c4D" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="Ath-O9-OOw">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="Ath-O9-OOw">
+                        <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -1754,7 +1754,7 @@
         <scene sceneID="Weo-hP-BTN">
             <objects>
                 <collectionViewController id="yyi-rg-4XJ" customClass="ChatLogVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="ovG-cX-Iea">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ovG-cX-Iea">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="687"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -2129,7 +2129,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                     </tabBarItem>
                     <toolbarItems/>
                     <nil key="simulatedTopBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" misplaced="YES" id="fWj-2D-zkp">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="fWj-2D-zkp">
                         <rect key="frame" x="0.0" y="0.0" width="1000" height="1000"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -2165,8 +2165,8 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZX4-qG-Pn9"/>
-        <segue reference="myg-hR-9mM"/>
-        <segue reference="wHi-97-VC8"/>
         <segue reference="VRI-Gr-LDk"/>
+        <segue reference="wHi-97-VC8"/>
+        <segue reference="myg-hR-9mM"/>
     </inferredMetricsTieBreakers>
 </document>
