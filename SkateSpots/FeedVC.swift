@@ -45,6 +45,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     var isLoggedIn = Bool()
     let topItem = IndexPath(item: 0, section: 0)
     var badgeCount = 0
+    var unReadUsers = [String]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -195,34 +196,31 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func setMessageNotificationBadge(){
-        
-        
-        
+ 
         let userRef = DataService.instance.REF_BASE.child("user-messages").child(Auth.auth().currentUser!.uid)
         userRef.observe(.value, with: { (snapshot) in
 
             self.badgeCount = 0
            
-            
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
-                
                 
                 self.messageLabel.badgeString = "\(self.badgeCount)"
                 
                 for snap in snapshot{
+                    let userKey = snap.key
+                    
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
-   
-                        
+
                         for value in spotDict.values{
                         if value.isEqual(0){
-                            self.badgeCount += 1
                             
-                                print("0")
+                            self.badgeCount += 1
+                            self.unReadUsers.append(userKey)
+                           
+        
                             }
                         }
-                       
-                        
-                        
+                     
                     }
                 }
                 
@@ -436,6 +434,12 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "goToMessages"{
+            let navController = segue.destination as! UINavigationController
+            let controller = navController.viewControllers[0] as! MessagesVC
+            controller.unreadUsers = self.unReadUsers   
+        }
+        
         if let spotCell = sender as? SpotPhotoCell,
             let spotDetailPage = segue.destination as? DetailVC {
             let spot = spotCell.spot

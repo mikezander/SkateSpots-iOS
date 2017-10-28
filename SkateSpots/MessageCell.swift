@@ -73,6 +73,6 @@ class MessageCell: UITableViewCell{
     func emptyImageView(){
         profileImageView.image = nil
     }
-
+ 
 
 }

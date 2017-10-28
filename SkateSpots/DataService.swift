@@ -301,11 +301,14 @@ class DataService{
         
     }
     
-    //func refrenceToCurrentUser() -> DatabaseReference{
-     //   let uid = KeychainWrapper.standard.string(forKey: KEY_UID)
-     //   let user = REF_USERS.child(uid!)
-     //   return user
-   // }
+    func isUnRead(chatPartnerId: String) ->Bool{
+        let ref = REF_BASE.child("user-messages").child(Auth.auth().currentUser!.uid).child(chatPartnerId)
+        ref.observe(.value) { (snapshot) in
+            print("12345\(snapshot.value as Any)")
+        }
+        
+        return true
+    }
     
     
 }

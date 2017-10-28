@@ -16,6 +16,7 @@ class MessagesVC: UIViewController{
     var messages = [Message]()
     var messagesDictionary = [String: Message]()
     var chatLogUser: User? = nil
+    var unreadUsers = [String]()
 
     @IBOutlet weak var messageTableView: UITableView!
     @IBOutlet weak var headerImage: CircleView!
@@ -23,6 +24,8 @@ class MessagesVC: UIViewController{
  
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        print("\(unreadUsers)unReadusers")
 
         messageTableView.delegate = self
         messageTableView.dataSource = self
@@ -70,6 +73,7 @@ class MessagesVC: UIViewController{
                 
                 let messageId = snapshot.key
                 
+
                 self.fetchMessageWithMessageId(messageId: messageId)
                 
             }, withCancel: nil)
@@ -141,7 +145,7 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
         cell.emptyImageView()
         
         let message = messages[indexPath.row]
-        
+ 
         if let id = message.chatPartnerId(){
             
             let ref = DataService.instance.REF_USERS.child(id).child("profile")

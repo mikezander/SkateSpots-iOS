@@ -28,7 +28,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         UNService.shared.authorize()
         
-        //UIApplication.shared.applicationIconBadgeNumber = 0
   
         return true
     }
