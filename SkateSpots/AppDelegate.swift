@@ -27,6 +27,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         defaults.register(defaults: [agreementKey:false])
         
         UNService.shared.authorize()
+        
+        //UIApplication.shared.applicationIconBadgeNumber = 0
   
         return true
     }
@@ -37,7 +39,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         //FIRMessagingService.shared.subscribe(to: .newMessage)
         
-        print(Messaging.messaging().fcmToken!)
         let tokenDict: [String:AnyObject] = ["deviceToken": Messaging.messaging().fcmToken as AnyObject]
         
         DataService.instance.updateUserProfile(uid: Auth.auth().currentUser!.uid, child: "profile", userData: tokenDict)

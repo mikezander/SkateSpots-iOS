@@ -38,5 +38,33 @@ class Message: NSObject{
         imageHeight = dictionary["imageHeight"] as? NSNumber
         
     }
+}
 
+extension Date{
+    func timeAgoDisplay() -> String{
+ 
+        let secondsAgo = Int(Date().timeIntervalSince(self))
+        
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        let week = 7 * day
+        
+        let dateFormatter = DateFormatter()
+        
+        if secondsAgo < day{
+            
+            dateFormatter.dateFormat = "hh:mm a"
+            return dateFormatter.string(from: self)
+        
+        }else if secondsAgo < week{
+            
+            dateFormatter.dateFormat = "EEEE"
+            return dateFormatter.string(from: self)
+
+        }
+    
+        dateFormatter.dateFormat = "MM/dd/yyyy"
+        return dateFormatter.string(from: self)
+    }
 }

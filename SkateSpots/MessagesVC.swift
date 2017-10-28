@@ -190,10 +190,7 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
                 
                 self.messagesDictionary.removeValue(forKey: chatPartnerId)
                 self.attempReloadOfTable()
-                //self.messages.remove(at: indexPath.row)
-                //self.messageTableView.deleteRows(at: [indexPath], with: .automatic)
-                
-                
+
             })
         }
         

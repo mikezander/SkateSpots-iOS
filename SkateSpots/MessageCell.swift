@@ -30,10 +30,9 @@ class MessageCell: UITableViewCell{
         
         if let seconds = message.timestamp?.doubleValue{
             let timestampDate = Date(timeIntervalSince1970: seconds)
-            
-            let dateFormatter = DateFormatter()
-            dateFormatter.dateFormat = "hh:mm:ss a"
-            timeLabel.text = dateFormatter.string(from: timestampDate)
+ 
+            timeLabel.text = timestampDate.timeAgoDisplay()
+            timeLabel.textAlignment = .right
         }
  
         

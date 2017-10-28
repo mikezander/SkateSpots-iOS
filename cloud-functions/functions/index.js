@@ -24,7 +24,6 @@ exports.sendNotification = functions.database
 				body: text,
 				sound: 'default'
 
-				
 
 			}
 		}
