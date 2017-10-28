@@ -56,7 +56,7 @@ PODS:
   - GoogleToolboxForMac/NSString+URLArguments (2.1.3)
   - GTMSessionFetcher/Core (1.1.12)
   - leveldb-library (1.18.3)
-  - MIBadgeButton (0.0.7)
+  - MIBadgeButton-Swift (0.5)
   - nanopb (0.3.8):
     - nanopb/decode (= 0.3.8)
     - nanopb/encode (= 0.3.8)
@@ -73,9 +73,19 @@ DEPENDENCIES:
   - Firebase/Database (= 4.3.0)
   - Firebase/Messaging
   - Firebase/Storage (= 4.3.0)
-  - MIBadgeButton
+  - MIBadgeButton-Swift (from `https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git`, branch `master`)
   - SVProgressHUD
   - SwiftKeychainWrapper
+
+EXTERNAL SOURCES:
+  MIBadgeButton-Swift:
+    :branch: master
+    :git: https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git
+
+CHECKOUT OPTIONS:
+  MIBadgeButton-Swift:
+    :commit: 3c2638d2e6e46ec2e6dd978d8ada8863df3df5e6
+    :git: https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git
 
 SPEC CHECKSUMS:
   Cosmos: 4a9f57998a08788a1062c7b8eefbc62d2b590f39
@@ -90,12 +100,12 @@ SPEC CHECKSUMS:
   GoogleToolboxForMac: 2501e2ad72a52eb3dfe7bd9aee7dad11b858bd20
   GTMSessionFetcher: ebaa1f79a5366922c1735f1566901f50beba23b7
   leveldb-library: 10fb39c39e243db4af1828441162405bbcec1404
-  MIBadgeButton: 7c34f180a194d152bb3817c05443eab3a01433cd
+  MIBadgeButton-Swift: 9e57309b00b168d75ca8fecb45bc75124a8ffddf
   nanopb: 5601e6bca2dbf1ed831b519092ec110f66982ca3
   Protobuf: 03eef2ee0b674770735cf79d9c4d3659cf6908e8
   SVProgressHUD: 59b2d3dabacbd051576d21d32293ca7228dc18b0
   SwiftKeychainWrapper: 38952a3636320ae61bad3513cadd870929de7a4a
 
-PODFILE CHECKSUM: 47ff19e80d2ee4b110019c981529c0b502cecd9c
+PODFILE CHECKSUM: 65c27f14b4b67062dfa41d203ec604d2a831a5e7
 
 COCOAPODS: 1.3.1

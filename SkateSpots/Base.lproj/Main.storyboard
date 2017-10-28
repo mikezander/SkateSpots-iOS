@@ -303,7 +303,7 @@
                                         <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lx3-RU-oc8" customClass="MIBadgeButton">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lx3-RU-oc8" customClass="MIBadgeButton" customModule="MIBadgeButton_Swift">
                                         <rect key="frame" x="376" y="28" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="30" id="JQ2-CR-JPy"/>
@@ -681,7 +681,7 @@
                     <connections>
                         <outlet property="filterButton" destination="1Tn-k2-51f" id="Xbv-ME-Tl7"/>
                         <outlet property="menuView" destination="iz6-Ds-cEE" id="G9D-oy-hXU"/>
-                        <outlet property="messagesLabel" destination="lx3-RU-oc8" id="IxY-D7-Jli"/>
+                        <outlet property="messageLabel" destination="lx3-RU-oc8" id="3V1-uI-yHi"/>
                         <outlet property="segmentControl" destination="0KL-mS-DuI" id="f7b-Nh-FIJ"/>
                         <outlet property="spotTableView" destination="j5s-yv-XaC" id="VGm-s0-TKn"/>
                         <outlet property="trailingConstraint" destination="ltb-It-s5F" id="lIh-Rw-lvk"/>

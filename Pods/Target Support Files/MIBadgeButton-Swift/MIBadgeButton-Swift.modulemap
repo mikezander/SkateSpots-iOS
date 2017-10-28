@@ -1,0 +1,6 @@
+framework module MIBadgeButton_Swift {
+  umbrella header "MIBadgeButton-Swift-umbrella.h"
+
+  export *
+  module * { export * }
+}

@@ -10,9 +10,7 @@
 #endif
 #endif
 
-#import "MIBadgeButton.h"
-#import "MIBadgeLabel.h"
 
-FOUNDATION_EXPORT double MIBadgeButtonVersionNumber;
-FOUNDATION_EXPORT const unsigned char MIBadgeButtonVersionString[];
+FOUNDATION_EXPORT double MIBadgeButton_SwiftVersionNumber;
+FOUNDATION_EXPORT const unsigned char MIBadgeButton_SwiftVersionString[];
 

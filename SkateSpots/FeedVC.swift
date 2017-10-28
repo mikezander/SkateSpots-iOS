@@ -16,7 +16,8 @@ import FBSDKCoreKit
 import SwiftKeychainWrapper
 import FBSDKLoginKit
 import SVProgressHUD
-import MIBadgeButton
+import MIBadgeButton_Swift
+
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
     
@@ -27,8 +28,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
-    @IBOutlet weak var messagesLabel: MIBadgeButton!
     
+    @IBOutlet weak var messageLabel: MIBadgeButton!
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     static var profileImageCache: NSCache<NSString, UIImage> = NSCache()
     
@@ -55,25 +56,17 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         menuView.sizeToFit()
-        
-        messagesLabel.hideWhenZero = true
-        
-        
-        messagesLabel.badgeString = ""
 
-        messagesLabel.badgeEdgeInsets = UIEdgeInsets(top: 7, left: 0, bottom: 0, right:
+        messageLabel.badgeEdgeInsets = UIEdgeInsets(top: 7, left: 0, bottom: 0, right:
             39)
-        
-        
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         spotTableView.reloadData()
-        
-        setMessageNotificationBadge()
-        
+ 
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -85,6 +78,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             return
         }else{
             isLoggedIn = true
+            
+            setMessageNotificationBadge()
         }
         
         guard isInternetAvailable() else{
@@ -200,34 +195,55 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func setMessageNotificationBadge(){
+        
+        
+        
         let userRef = DataService.instance.REF_BASE.child("user-messages").child(Auth.auth().currentUser!.uid)
         userRef.observe(.value, with: { (snapshot) in
+
+            self.badgeCount = 0
+           
             
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
+                
+                
+                self.messageLabel.badgeString = "\(self.badgeCount)"
+                
                 for snap in snapshot{
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
-                        let key = snap.key
+   
                         
                         for value in spotDict.values{
-                        
-                            if value.isEqual(1){
-                                print("int")
-                            }else if value.isEqual(true){
-                                print(true)
-                            }else if value.isEqual(false){
-                                print("false")
+                        if value.isEqual(0){
+                            self.badgeCount += 1
+                            
+                                print("0")
                             }
                         }
-                        
+                       
                         
                         
                     }
                 }
+                
+                
+
             }
             
-            
+            if self.badgeCount == 0{
+                self.messageLabel.badgeBackgroundColor = .clear
+                self.messageLabel.badgeTextColor = .clear
+            }else{
+                self.messageLabel.badgeString = "\(self.badgeCount)"
+                self.messageLabel.badgeBackgroundColor = .black
+                self.messageLabel.badgeTextColor = .white
+                
+            }
+ 
             
         })
+        
+
     }
     
     @IBAction func openFilterMenu(_ sender: Any) {

@@ -19,7 +19,7 @@
 			<key>isShown</key>
 			<false/>
 		</dict>
-		<key>MIBadgeButton.xcscheme</key>
+		<key>MIBadgeButton-Swift.xcscheme</key>
 		<dict>
 			<key>isShown</key>
 			<false/>
@@ -57,7 +57,27 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>1BFF4B9E42A41059FD11E02A25C8E25E</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>1D1716BF465093F99930DF7EE55DCDA0</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>266AE1506DAD13D34C0725E909C0C476</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>34E1BEE5B9151B6FF42B51C88D1AF746</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>37B1B07E05DFE6EF040A4C2945AFA317</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -67,22 +87,12 @@
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>54E00B30678EFA150ABFE933E039A6F7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>5B5E1BF771AB86D23507453D6891EDAA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
 		<key>6D5CEDECD3D8DC52EA507E0431BDA8A0</key>
 		<dict>
 			<key>primary</key>
 			<true/>
 		</dict>
-		<key>AD9240522AF4D817FFF803129E4B138A</key>
+		<key>990CB1CF6D7B0ED84B09B918308DB361</key>
 		<dict>
 			<key>primary</key>
 			<true/>
@@ -93,16 +103,6 @@
 			<true/>
 		</dict>
 		<key>E4DD95323C54A78F879DAB0F1508B8E7</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>F138139F5C96E3311FC2A71C0B5589CA</key>
-		<dict>
-			<key>primary</key>
-			<true/>
-		</dict>
-		<key>FA6D806BDD770D262FDB2FB6CB953A76</key>
 		<dict>
 			<key>primary</key>
 			<true/>
