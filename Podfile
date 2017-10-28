@@ -14,5 +14,6 @@ target 'Sk8Spots' do
   pod 'Cosmos'
   pod 'SwiftKeychainWrapper'
   pod 'SVProgressHUD'
+  pod 'MIBadgeButton'
   
 end

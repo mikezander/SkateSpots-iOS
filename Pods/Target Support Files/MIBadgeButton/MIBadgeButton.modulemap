@@ -1,0 +1,6 @@
+framework module MIBadgeButton {
+  umbrella header "MIBadgeButton-umbrella.h"
+
+  export *
+  module * { export * }
+}

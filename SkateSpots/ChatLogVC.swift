@@ -23,6 +23,8 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     
     var containerViewBottomAnchor: NSLayoutConstraint?
     
+    var inController = false
+    
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter message..."
@@ -34,6 +36,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        print("viewDidLoad")
         
         self.navigationController?.isNavigationBarHidden = true
         
@@ -58,10 +61,33 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         nameLabel.text = user?.userName
         
         observeUsersMessages()
-        
+ 
         setupKeyboardObservers()
         
         getCurrentUserName()
+        
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        inController = true
+        
+        
+        guard let uid = Auth.auth().currentUser?.uid else{
+            return
+        }
+        
+        let userRef = DataService.instance.REF_BASE.child("user-messages").child(uid).child(userKey)
+        
+        markUnreadAsRead(userRef: userRef)
+        
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        
+        inController = false
         
     }
     
@@ -147,7 +173,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         dismiss(animated: true, completion: nil)
    
     }
-    
+   
     func handleUploadTap(){
         let imagePickerController = UIImagePickerController()
         
@@ -223,12 +249,6 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     
     func setupKeyboardObservers(){
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
-        
-        /*NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-         
-         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)*/
-        
-        
     }
     
     func handleKeyboardDidShow(notification: NSNotification){
@@ -285,8 +305,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
                 guard let dicitonary = snapshot.value as? [String: AnyObject] else{
                     return
                 }
-                
-                
+
                 self.messages.append(Message(dictionary: dicitonary))
                 
                 DispatchQueue.main.async {
@@ -300,12 +319,36 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
             }, withCancel: nil)
             
         }, withCancel: nil)
+
+    }
+    
+    func markUnreadAsRead(userRef: DatabaseReference){
         
+        userRef.observe(.value, with: { (snapshot) in
+
+            if self.inController{
+            
+                if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
+                    for snap in snapshot{
+                        if let value = snap.value as? Int{
+                            
+                            if value == 0{
+                                
+                                userRef.updateChildValues([snap.key: 1])
+                            }
+                        }
+                        
+                        
+                    }
+                }
+            }
+
+        })
+    
     }
     
     @IBAction func backButoonPressed(_ sender: Any) {
         navigationController?.popViewController(animated: true)
-        //dismiss(animated: true, completion: nil)
     }
     
     func handleSend(){
@@ -352,11 +395,11 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
                 let userMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(fromId).child(toId)
                 
                 let messageId = childRef.key
-                userMessagesRef.updateChildValues([messageId: 1])
+                userMessagesRef.updateChildValues([messageId: -1])//([messageId: 1])
                 
                 let recipientUserMessagesRef = DataService.instance.REF_BASE.child("user-messages").child(toId).child(fromId)
                 
-                recipientUserMessagesRef.updateChildValues([messageId: 1])
+                recipientUserMessagesRef.updateChildValues([messageId: 0])
             }
 
         })

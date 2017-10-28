@@ -16,6 +16,7 @@ import FBSDKCoreKit
 import SwiftKeychainWrapper
 import FBSDKLoginKit
 import SVProgressHUD
+import MIBadgeButton
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
     
@@ -26,6 +27,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     @IBOutlet weak var segmentControl: UISegmentedControl!
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
+    @IBOutlet weak var messagesLabel: MIBadgeButton!
     
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     static var profileImageCache: NSCache<NSString, UIImage> = NSCache()
@@ -41,6 +43,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     var menuShowing = false
     var isLoggedIn = Bool()
     let topItem = IndexPath(item: 0, section: 0)
+    var badgeCount = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -53,12 +56,23 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         menuView.layer.shadowRadius = 6
         menuView.sizeToFit()
         
+        messagesLabel.hideWhenZero = true
+        
+        
+        messagesLabel.badgeString = ""
+
+        messagesLabel.badgeEdgeInsets = UIEdgeInsets(top: 7, left: 0, bottom: 0, right:
+            39)
+        
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
         spotTableView.reloadData()
+        
+        setMessageNotificationBadge()
         
     }
     
@@ -183,6 +197,37 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         self.spots = filtered
         self.filterButton.setTitle(type, for: .normal)
         
+    }
+    
+    func setMessageNotificationBadge(){
+        let userRef = DataService.instance.REF_BASE.child("user-messages").child(Auth.auth().currentUser!.uid)
+        userRef.observe(.value, with: { (snapshot) in
+            
+            if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
+                for snap in snapshot{
+                    if let spotDict = snap.value as? Dictionary<String, AnyObject>{
+                        let key = snap.key
+                        
+                        for value in spotDict.values{
+                        
+                            if value.isEqual(1){
+                                print("int")
+                            }else if value.isEqual(true){
+                                print(true)
+                            }else if value.isEqual(false){
+                                print("false")
+                            }
+                        }
+                        
+                        
+                        
+                    }
+                }
+            }
+            
+            
+            
+        })
     }
     
     @IBAction func openFilterMenu(_ sender: Any) {
