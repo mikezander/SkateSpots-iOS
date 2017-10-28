@@ -20,8 +20,8 @@ exports.sendNotification = functions.database
 
 		let payload = {
 			notification: {
-				title: 'New message from ' + fromUser,
-				body: text,
+				//title: 'New message from ' + fromUser,
+				body: 'New message from ' + fromUser + '\n' + text,
 				sound: 'default'
 
 
