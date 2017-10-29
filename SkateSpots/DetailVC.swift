@@ -79,7 +79,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         scrollView.addSubview(containerView)
         view.addSubview(scrollView)
-        scrollView.contentInset = UIEdgeInsets(top:7, left: 0, bottom: 0, right: 0)
+        scrollView.contentInset = UIEdgeInsets(top:-14, left: 0, bottom: 0, right: 0)
         
         let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 62))
         customNav.backgroundColor = FLAT_GREEN
@@ -121,7 +121,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         layout.itemSize = CGSize(width: screenWidth, height: screenHeight)
         layout.scrollDirection = .horizontal
 
-        collectionview = UICollectionView(frame: CGRect(x:0, y:5, width: self.view.frame.width, height: self.view.frame.height), collectionViewLayout: layout)
+        collectionview = UICollectionView(frame: CGRect(x:0, y:5, width: self.view.frame.width, height: self.view.frame.height - 10), collectionViewLayout: layout)
         collectionview.collectionViewLayout = layout
         collectionview.dataSource = self
         collectionview.delegate = self
@@ -136,7 +136,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = .black
-        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 168) //130
+        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 174) //168
         spotNameLbl.textAlignment = .center
         spotNameLbl.text = spot.spotName
         containerView.addSubview(spotNameLbl)
@@ -148,15 +148,16 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
         spotTypeLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
+        spotTypeLbl.font = spotTypeLbl.font.withSize(13)
         spotTypeLbl.textColor = .black
-        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 144)
+        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 150)
         spotTypeLbl.textAlignment = .center
         spotTypeLbl.text = spot.spotType
         containerView.addSubview(spotTypeLbl)
         
         ratingDisplayView.settings.starSize = 25
         ratingDisplayView.frame =  CGRect(x:0, y:0, width: 250,height: 20)
-        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 124)
+        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 130)
         ratingDisplayView.settings.updateOnTouch = false
         ratingDisplayView.settings.fillMode = .precise
         containerView.addSubview(ratingDisplayView)
@@ -164,7 +165,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingDisplayLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
         ratingDisplayLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         ratingDisplayLbl.textColor = .black
-        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 104)
+        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 110)
         ratingDisplayLbl.textAlignment = .center
         ratingDisplayLbl.alpha = 0.4
         containerView.addSubview(ratingDisplayLbl)
