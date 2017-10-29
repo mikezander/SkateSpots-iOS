@@ -18,7 +18,6 @@ import FBSDKLoginKit
 import SVProgressHUD
 import MIBadgeButton_Swift
 
-
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
     
     typealias DownloadComplete = () -> ()
@@ -45,7 +44,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     var isLoggedIn = Bool()
     let topItem = IndexPath(item: 0, section: 0)
     var badgeCount = 0
-    var unReadUsers = [String]()
+    var unReadUsers = Set<String>()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -62,7 +61,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             39)
 
     }
-    
+ 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
@@ -104,6 +103,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         performSegue(withIdentifier: "LogInVC", sender: nil)
         
     }
+    
+    
     
 
     @IBAction func filterButtonPressed(_ sender: UIButton) {
@@ -201,7 +202,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         userRef.observe(.value, with: { (snapshot) in
 
             self.badgeCount = 0
-           
+            self.unReadUsers.removeAll()
+            
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
                 
                 self.messageLabel.badgeString = "\(self.badgeCount)"
@@ -213,19 +215,16 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
                         for value in spotDict.values{
                         if value.isEqual(0){
-                            
+                            print(self.badgeCount)
                             self.badgeCount += 1
-                            self.unReadUsers.append(userKey)
-                           
-        
+                            self.unReadUsers.insert(userKey)
+                            
                             }
                         }
                      
                     }
                 }
                 
-                
-
             }
             
             if self.badgeCount == 0{
@@ -237,8 +236,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 self.messageLabel.badgeTextColor = .white
                 
             }
- 
             
+            MessagesVC.shared.unreadUsers = self.unReadUsers
         })
         
 
@@ -435,9 +434,12 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "goToMessages"{
-            let navController = segue.destination as! UINavigationController
-            let controller = navController.viewControllers[0] as! MessagesVC
-            controller.unreadUsers = self.unReadUsers   
+           // let navController = segue.destination as! UINavigationController
+            //let controller = navController.viewControllers[0] as! MessagesVC
+            
+            //controller.delegate = self
+            //controller.delegate?.hasProfileBeenEdited(unreadUserMessages: unReadUsers)
+            //controller.unreadUsers = self.unReadUsers
         }
         
         if let spotCell = sender as? SpotPhotoCell,

@@ -1658,6 +1658,7 @@
                                             <outlet property="nameLabel" destination="h5l-Pz-Wkh" id="ZAG-2Z-MOj"/>
                                             <outlet property="profileImageView" destination="MFJ-ek-7iw" id="Orp-ed-T0F"/>
                                             <outlet property="timeLabel" destination="DNB-IJ-ZH8" id="7gc-5R-BpE"/>
+                                            <outlet property="unreadFlag" destination="GJ0-vH-37f" id="6Ya-M3-BPS"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>

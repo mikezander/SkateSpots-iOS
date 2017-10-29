@@ -20,6 +20,7 @@ class MessageCell: UITableViewCell{
   
     @IBOutlet weak var messageLabel: UILabel!
     @IBOutlet weak var timeLabel: UILabel!
+    @IBOutlet weak var unreadFlag: UIImageView!
     
     
     func configureCell(message: Message, img: UIImage? = nil, userUrl: String, name: String){
