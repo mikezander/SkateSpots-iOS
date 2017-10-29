@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseStorage
 import SVProgressHUD
+import SDWebImage
 
 class SpotPhotoCell: UICollectionViewCell{
     
@@ -19,7 +20,17 @@ class SpotPhotoCell: UICollectionViewCell{
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
         
-        if img != nil{
+        spotImage.sd_setImage(with: URL(string: spot.imageUrls[count])) { (image, error, chacheType, url) in
+
+            if let img = image{
+                DispatchQueue.main.async { self.setImageViewContentMode(image: img) }
+            }
+            
+            DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+           
+        }
+
+       /* if img != nil{
             self.spotImage.image = img
 
             DispatchQueue.main.async {
@@ -57,7 +68,7 @@ class SpotPhotoCell: UICollectionViewCell{
                 }
                 
             })
-        }
+        }*/
         
         
     }

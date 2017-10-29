@@ -42,9 +42,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     
     override func viewDidLoad() {
         super.viewDidLoad()
- 
-        print("viewDidLoad")
-        
+
         self.navigationController?.isNavigationBarHidden = true
         
         setupCustomNav()
@@ -362,6 +360,12 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     func handleSend(){
+        
+        guard isInternetAvailable() && hasConnected else{
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+            return
+        }
+        
         let properties: [String: Any] = ["text": inputTextField.text!]
         sendMessageWithProperties(properties: properties)
     }

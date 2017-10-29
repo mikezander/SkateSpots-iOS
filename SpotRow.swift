@@ -47,32 +47,8 @@ class SpotRow: UITableViewCell{
         
         userImage.isUserInteractionEnabled = true
         
-        //download images
-        if img != nil{
-            
-            self.userImage.image = img
-            
-        }else{
-            //cache image
-            let ref = Storage.storage().reference(forURL:spot.userImageURL)
-            ref.getData(maxSize: 1 * 1024 * 1024, completion: {(data, error) in
-                if error != nil{
-                    print("Mke: Unable to download image from firebase storage")
-                }else{
-                    print("Mike: Image downloaded from firebase storge")
-                    if let imgData = data {
-                        
-                        if let img = UIImage(data: imgData){
-                            self.userImage.image = img
-                            FeedVC.imageCache.setObject(img, forKey: spot.userImageURL as NSString)
-                        }
-                        
-                        
-                    }
-                }
-            })
-        }
-        
+        self.userImage.sd_setImage(with: URL(string: spot.userImageURL), placeholderImage: nil)
+       
         if spot.distance != nil{
             spotDistance.isHidden = false
             miLabel.isHidden = false
@@ -86,9 +62,7 @@ class SpotRow: UITableViewCell{
             miLabel.isHidden = true
         }
     }
-    
-    
-    
+
     @IBAction func directionsButtonPressed(_ sender: Any) {
         delegate?.didTapDirectionsButton(spot: spot)
     }
@@ -125,13 +99,14 @@ extension SpotRow : UICollectionViewDataSource {
         
         cell.emptyImageView()
 
+        cell.configureCell(spot: spot, count: indexPath.row)
             
-            if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
+            /*if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
                 
                 cell.configureCell(spot: spot, img: img, count: indexPath.row)
             }else{
                 cell.configureCell(spot: spot, count: indexPath.row)
-            }
+            }*/
 
         return cell
     }

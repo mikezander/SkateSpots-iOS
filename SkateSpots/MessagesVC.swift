@@ -243,6 +243,11 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        guard isInternetAvailable() && hasConnected else{
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+            return
+        }
+        
         let message = messages[indexPath.row]
 
         guard let chatPartnerId = message.chatPartnerId() else{
@@ -259,14 +264,12 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
 
             self.chatLogUser = User(userKey: chatPartnerId, userData: dictionary)
 
-            
             self.readMesageDictionary[chatPartnerId] = true
            
             self.messageTableView.reloadData()
             
             self.performSegue(withIdentifier: "goToChatLog", sender: nil)
   
-        
         }, withCancel: nil)
         
     }

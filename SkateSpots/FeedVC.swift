@@ -419,13 +419,14 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         cell.userName.addGestureRecognizer(setGestureRecognizer())
         cell.userImage.addGestureRecognizer(setGestureRecognizer())
         
+        cell.configureRow(spot: spot)
         
-        if let img = FeedVC.imageCache.object(forKey: spot.userImageURL as NSString){
+       /* if let img = FeedVC.imageCache.object(forKey: spot.userImageURL as NSString){
             
             cell.configureRow(spot: spot, img: img)
         }else{
             cell.configureRow(spot: spot)
-        }
+        }*/
 
         cell.delegate = self
         

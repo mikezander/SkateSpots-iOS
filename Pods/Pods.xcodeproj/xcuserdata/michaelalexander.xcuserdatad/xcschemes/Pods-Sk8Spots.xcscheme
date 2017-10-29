@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "1BFF4B9E42A41059FD11E02A25C8E25E"
+               BlueprintIdentifier = "65860D590AD892DCA878EBA20B0C7D7E"
                BuildableName = "Pods_Sk8Spots.framework"
                BlueprintName = "Pods-Sk8Spots"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,6 +26,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -36,6 +37,7 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
+      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -45,7 +47,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "1BFF4B9E42A41059FD11E02A25C8E25E"
+            BlueprintIdentifier = "65860D590AD892DCA878EBA20B0C7D7E"
             BuildableName = "Pods_Sk8Spots.framework"
             BlueprintName = "Pods-Sk8Spots"
             ReferencedContainer = "container:Pods.xcodeproj">
