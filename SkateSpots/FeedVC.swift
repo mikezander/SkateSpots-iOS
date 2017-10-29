@@ -57,8 +57,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         menuView.layer.shadowRadius = 6
         menuView.sizeToFit()
 
-        messageLabel.badgeEdgeInsets = UIEdgeInsets(top: 7, left: 0, bottom: 0, right:
-            39)
+        messageLabel.badgeEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right:
+            36)
 
     }
  

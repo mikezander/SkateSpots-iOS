@@ -33,7 +33,7 @@ class MessagesVC: UIViewController{
         messageTableView.delegate = self
         messageTableView.dataSource = self
  
-        
+         observeUserMessages()
         
         messageTableView.allowsMultipleSelectionDuringEditing = true
         
@@ -47,7 +47,9 @@ class MessagesVC: UIViewController{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        observeUserMessages()
+        
+       
+        
     }
     
     func observeUserMessages(){
@@ -203,8 +205,7 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
             if let chatPartnerId = message.chatPartnerId(){
                 cell.unreadFlag.isHidden = readMesageDictionary[chatPartnerId]!
             }
-  
-            
+
              //isUnreadFlagHidden(id: id)
         }
         
@@ -239,8 +240,7 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
 
             })
         }
-        
-        
+     
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
@@ -259,14 +259,15 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
                 return
             }
 
-            
             self.chatLogUser = User(userKey: chatPartnerId, userData: dictionary)
+
+            
+            self.readMesageDictionary[chatPartnerId] = true
            
-            // lbta he sets user key
-           
+            self.messageTableView.reloadData()
+            
             self.performSegue(withIdentifier: "goToChatLog", sender: nil)
-            
-            
+  
         
         }, withCancel: nil)
         
