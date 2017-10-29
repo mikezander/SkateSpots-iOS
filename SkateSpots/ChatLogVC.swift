@@ -10,6 +10,10 @@ import UIKit
 import FirebaseStorage
 import Firebase
 
+protocol MessageReadProtocol {
+    func hasMessageBeenRead(chatPartnerId: String, edited: Bool)
+}
+
 class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegateFlowLayout{
     
     var user: User? = nil
@@ -25,6 +29,9 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     
     var inController = false
     
+    var delegate: MessageReadProtocol?
+
+    
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter message..."
@@ -35,7 +42,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+ 
         print("viewDidLoad")
         
         self.navigationController?.isNavigationBarHidden = true
@@ -72,8 +79,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         super.viewDidAppear(animated)
         
         inController = true
-        
-        
+
         guard let uid = Auth.auth().currentUser?.uid else{
             return
         }
@@ -86,8 +92,10 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        
+
         inController = false
+        
+        delegate?.hasMessageBeenRead(chatPartnerId: userKey, edited: true)
         
     }
     
@@ -168,6 +176,8 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     
     func backButtonPressed() {
 
+        
+        
         _ = navigationController?.popViewController(animated: true)
         
         dismiss(animated: true, completion: nil)

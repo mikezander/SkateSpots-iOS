@@ -130,9 +130,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         collectionview.backgroundColor = UIColor.white
         collectionview.isPagingEnabled = true
         zoomScrollView.addSubview(collectionview)
-        //containerView.addSubview(collectionview)
-        
-        
+ 
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = .black

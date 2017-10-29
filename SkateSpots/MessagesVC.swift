@@ -11,7 +11,7 @@ import UIKit
 import FirebaseAuth
 import Firebase
 
-class MessagesVC: UIViewController{
+class MessagesVC: UIViewController, MessageReadProtocol{
     
     static let shared = MessagesVC()
     
@@ -33,25 +33,24 @@ class MessagesVC: UIViewController{
         messageTableView.delegate = self
         messageTableView.dataSource = self
  
-         observeUserMessages()
+        observeUserMessages()
         
         messageTableView.allowsMultipleSelectionDuringEditing = true
         
         UNService.shared.unCenter.removeAllDeliveredNotifications()
     }
+    
+    func hasMessageBeenRead(chatPartnerId: String, edited: Bool){
+        
+        self.readMesageDictionary[chatPartnerId] = edited
+    }
+    
+    
 
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        
-        
-       
-        
-    }
-    
+ 
     func observeUserMessages(){
         guard let uid = Auth.auth().currentUser?.uid else{
             return
@@ -77,18 +76,18 @@ class MessagesVC: UIViewController{
         let ref = DataService.instance.REF_BASE.child("user-messages").child(uid)
         
         ref.observe(.childAdded, with: { (snapshot) in
-
+            
             let userId = snapshot.key
             DataService.instance.REF_BASE.child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
                 
                 let messageId = snapshot.key
-
+                
                 let readFlag = snapshot.value as! Int
-
+                
                 self.fetchMessageWithMessageId(messageId: messageId, readFlag: readFlag)
                 
             }, withCancel: nil)
-    
+            
         }, withCancel: nil)
         
         ref.observe(.childRemoved, with: { (snapshot) in
@@ -98,7 +97,7 @@ class MessagesVC: UIViewController{
         }, withCancel: nil)
         
     }
-    
+
     private func fetchMessageWithMessageId(messageId: String, readFlag: Int){
         let messagesRef = DataService.instance.REF_BASE.child("messages").child(messageId)
         
@@ -206,7 +205,6 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
                 cell.unreadFlag.isHidden = readMesageDictionary[chatPartnerId]!
             }
 
-             //isUnreadFlagHidden(id: id)
         }
         
   
@@ -278,7 +276,7 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
             if self.chatLogUser != nil{
                 vc.user = self.chatLogUser
                 vc.userKey = self.chatLogUser!.userKey
-
+                vc.delegate = self
             }
         }
     }

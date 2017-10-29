@@ -38,6 +38,8 @@ class SpotRow: UITableViewCell{
     
     func configureRow(spot: Spot, img: UIImage? = nil){
         
+        self.userImage.image = nil
+        
         self.spot = spot
         self.userName.text = spot.username
         self.spotName.text = spot.spotName
@@ -123,7 +125,6 @@ extension SpotRow : UICollectionViewDataSource {
         
         cell.emptyImageView()
 
-       // if indexPath.row < spot.imageUrls.count{
             
             if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
                 
@@ -131,8 +132,6 @@ extension SpotRow : UICollectionViewDataSource {
             }else{
                 cell.configureCell(spot: spot, count: indexPath.row)
             }
-            
-       // }
 
         return cell
     }
