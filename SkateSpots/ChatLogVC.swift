@@ -270,7 +270,6 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
-        
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -360,7 +359,6 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     func handleSend(){
-        
         guard isInternetAvailable() && hasConnected else{
             errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
             return

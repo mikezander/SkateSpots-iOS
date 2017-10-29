@@ -207,7 +207,6 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
 
         }
         
-  
         return cell
     }
     
