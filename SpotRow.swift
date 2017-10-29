@@ -47,6 +47,7 @@ class SpotRow: UITableViewCell{
         
         userImage.isUserInteractionEnabled = true
         
+       
         self.userImage.sd_setImage(with: URL(string: spot.userImageURL), placeholderImage: nil)
        
         if spot.distance != nil{

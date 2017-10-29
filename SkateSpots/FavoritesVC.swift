@@ -115,13 +115,8 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         
         cell.emptyImageView()
         
-        if let img = FeedVC.imageCache.object(forKey: NSString(string: spot.imageUrls[0])){
-            
-            cell.configureFavoriteCell(spot: spot,img: img)
-        }else{
-            cell.configureFavoriteCell(spot:spot)
-        }
-        
+        cell.configureFavoriteCell(spot:spot)
+
         return cell
     }
     

@@ -119,38 +119,9 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
     }
     
     
-    func configureProfilePic(user: User, img: UIImage? = nil){
-        
-        //download images
-        if img != nil{
-            
-            self.profilePhoto.image = img
-            
-        }else{
-            
-            //cache image
-            
-            let ref = Storage.storage().reference(forURL:user.userImageURL)
-            ref.getData(maxSize: 2 * 1024 * 1024, completion: {(data, error) in
-                if error != nil{
-                    print("Mike: Unable to download image from firebase storage")
-                }else{
-                    print("Mike: Image downloaded from firebase storge")
-                    if let imgData = data {
-                        
-                        
-                        if let img = UIImage(data: imgData){
-                            self.profilePhoto.image = img
-                            FeedVC.imageCache.setObject(img, forKey: user.userImageURL as NSString)
-                        }
-                        
-                        
-                    }
-                }
-                
-            })
-        }
-        
+    func configureProfilePic(userImage: String){
+        self.profilePhoto.sd_setImage(with: URL(string: userImage), placeholderImage: nil)
+    
     }
     
 }

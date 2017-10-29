@@ -18,44 +18,20 @@ class ProfileCell: UITableViewCell{
     @IBOutlet weak var spotLocationLabel: UILabel!
     
     @IBOutlet weak var activityIdicator: UIActivityIndicatorView!
-    func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
+    
+    func configureCell(spot: Spot){
         self.spotNameLabel.text = spot.spotName
         self.spotLocationLabel.text = spot.spotLocation
         
-        //download images
-        if img != nil{
-            
-            DispatchQueue.main.async {
-                self.spotImage.image = img
-                self.activityIdicator.stopAnimating()
-            }
-            
-        }else{
-            
-            //cache image
-            
-            let ref = Storage.storage().reference(forURL:spot.imageUrls[count])
-            ref.getData(maxSize: 2 * 1024 * 1024, completion: {(data, error) in
-                if error != nil{
-                    DispatchQueue.main.async { self.activityIdicator.stopAnimating() }
-                    print("Mike: Unable to download image from firebase storage")
-                }else{
-                    print("Mike: Image downloaded from firebase storge")
-                    if let imgData = data {
-                        
-                        
-                        if let img = UIImage(data: imgData){
-                            self.spotImage.image = img
-                            FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[count] as NSString)
-                        }
-                        
-                    }
-                }
-                DispatchQueue.main.async{self.activityIdicator.stopAnimating()}
-            })
-            
-        }
+        //self.spotImage.loadImageUsingCacheWithUrlString(urlString: spot.imageUrls[0])
+
+        self.spotImage.sd_setImage(with: URL(string: spot.imageUrls[0]),placeholderImage: nil)
         
+        
+        
+        DispatchQueue.main.async{self.activityIdicator.stopAnimating()}
+       
+       
     }
     
 }

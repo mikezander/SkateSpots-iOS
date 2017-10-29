@@ -37,35 +37,8 @@ class FavoriteCell: UITableViewCell{
         spotTypeLabel.text = spot.spotType
         detailLabel.text = spot.spotLocation
         
-        //download images
-        if img != nil{
-            
-            self.spotPhoto.image = img
-            
-        }else{
-            
-            //cache image
-            
-            let ref = Storage.storage().reference(forURL:spot.imageUrls[0])
-            ref.getData(maxSize: 2 * 1024 * 1024, completion: {(data, error) in
-                if error != nil{
-                    print("Mike: Unable to download image from firebase storage")
-                }else{
-                    print("Mike: Image downloaded from firebase storge")
-                    if let imgData = data {
-                        
-                        
-                        if let img = UIImage(data: imgData){
-                            self.spotPhoto.image = img
-                            FeedVC.imageCache.setObject(img, forKey: spot.imageUrls[0] as NSString)
-                        }
-                        
-                        
-                    }
-                }
-                
-            })
-        }
+        self.spotPhoto.sd_setImage(with: URL(string: spot.imageUrls[0]), placeholderImage: nil)
+
         
     }
     func emptyImageView(){

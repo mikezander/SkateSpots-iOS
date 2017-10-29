@@ -299,13 +299,8 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         
         if let userImage = user?.userImageURL{
             
-            if let img = FeedVC.imageCache.object(forKey: NSString(string: userImage)){
-                
-                headerCell.configureProfilePic(user: user!,img: img)
-            }else{
-                headerCell.configureProfilePic(user:user!)
-            }
-            
+            headerCell.configureProfilePic(userImage: userImage)
+
         }
         
         
@@ -321,12 +316,9 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        
-        
+  
         if editingStyle == .delete{
-            
-            
-            
+    
             let alertController = UIAlertController(title: "Warning", message: "Are you sure you want to delete \(spots[indexPath.row].spotName)?", preferredStyle: .alert)
             
             let deleteAction = UIAlertAction(title: "Delete Spot", style: .destructive, handler: { (action) in
@@ -374,12 +366,8 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         
         cell.activityIdicator.startAnimating()
         
-        if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[0] as NSString){
-            
-            cell.configureCell(spot: spot, img: img, count: 0)
-        }else{
-            cell.configureCell(spot: spot, count: 0)
-        }
+        cell.configureCell(spot: spot)
+
         
         cell.spotImage.isUserInteractionEnabled = true
         
