@@ -195,6 +195,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         }else if segue.identifier == "sendMessage"{
             if let vc = segue.destination as? ChatLogVC{
                 if self.user != nil{
+                vc.hidesBottomBarWhenPushed = true
                 vc.user = self.user
                 vc.userKey = self.key
                 }
@@ -283,9 +284,8 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
                 headerCell.igLink.center.y = headerCell.link.frame.origin.y + headerCell.link.frame.height + 2
             }
             
-            if user?.igLink == ""{
-                headerCell.igLink.isHidden = true
-            }else{
+            if user?.igLink != ""{
+                headerCell.igLink.isHidden = false
                 headerCell.igUsername = igLinkText
                 headerCell.igLink.setTitle(igLinkText, for: .normal)
                 headerCell.igLink.sizeToFit()

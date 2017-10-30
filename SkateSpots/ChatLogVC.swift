@@ -31,7 +31,6 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     
     var delegate: MessageReadProtocol?
 
-    
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter message..."
@@ -96,7 +95,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         delegate?.hasMessageBeenRead(chatPartnerId: userKey, edited: true)
         
     }
-    
+
     lazy var inputContainerView: UIView = {
         let containerView = UIView()
         containerView.frame = CGRect(x: 0, y: 0, width: self.view.frame.width, height: 50)
@@ -134,6 +133,17 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         self.inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
         self.inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
         
+        if UIScreen.main.bounds.height == 812.0{
+ 
+            containerView.frame.size.height += 10
+            uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -5).isActive = true
+            sendButton.topAnchor.constraint(equalTo: containerView.topAnchor
+                , constant: -5).isActive = true
+            self.inputTextField.topAnchor.constraint(equalTo: containerView.topAnchor
+                , constant: -5).isActive = true
+            
+        }
+     
         let seperatorLineView = UIView()
         seperatorLineView.backgroundColor = UIColor.lightGray.withAlphaComponent(0.20)
         seperatorLineView.translatesAutoresizingMaskIntoConstraints = false
@@ -143,15 +153,15 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         seperatorLineView.topAnchor.constraint(equalTo: containerView.topAnchor).isActive = true
         seperatorLineView.widthAnchor.constraint(equalTo: containerView.widthAnchor).isActive = true
         seperatorLineView.heightAnchor.constraint(equalToConstant: 0.75).isActive = true
-        
-        
-        
+
         return containerView
     }()
     
     func setupCustomNav(){
+ 
         let screenWidth = UIScreen.main.bounds.width
         let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 64))
+        
         
         customNav.backgroundColor = FLAT_GREEN
         self.view.addSubview(customNav)
@@ -169,6 +179,12 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         nameLabel.textColor = UIColor.white
         nameLabel.font = UIFont(name: "Gurmukhi MN", size: 20)
         view.addSubview(nameLabel)
+        
+        if UIScreen.main.bounds.height == 812.0{
+            customNav.frame.size.height += 20
+            btn1.frame.origin.y = 50
+            nameLabel.frame.origin.y = 50
+        }
         
     }
     
@@ -246,9 +262,10 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     
     override var inputAccessoryView: UIView?{
         get{
-            
-            return inputContainerView
+                return inputContainerView
         }
+       
+        
     }
     
     override var canBecomeFirstResponder: Bool{

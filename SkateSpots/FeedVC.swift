@@ -46,12 +46,28 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     var badgeCount = 0
     var unReadUsers = Set<String>()
     
+    var heightOffset:CGFloat = 140
+    
+    var screenSize = CGRect()
+    var screenHeight = CGFloat()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
 
         isConnected()
         
         NotificationCenter.default.addObserver(self, selector: #selector(internetConnectionFound(notification:)), name: notificationName, object: nil)
+        
+        screenSize = UIScreen.main.bounds
+        screenHeight = screenSize.height
+        
+        print(screenHeight)
+        if screenHeight == 812.0{
+            UIApplication.shared.statusBarView?.backgroundColor = FLAT_GREEN
+            heightOffset += 60
+        }
+ 
+        
         
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
@@ -379,10 +395,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        let screenSize = UIScreen.main.bounds
-        let screenHeight = screenSize.height
-        let heightOffset:CGFloat = 140
-        return (screenHeight - heightOffset)
+
+            return (screenHeight - heightOffset)
+   
     }
     
     func setGestureRecognizer() -> UITapGestureRecognizer {

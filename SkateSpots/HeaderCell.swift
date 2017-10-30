@@ -74,6 +74,7 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
         igLink = UIButton()
         igLink.frame = CGRect(x: 0, y: link.frame.origin.y + link.frame.height + 7, width: screenSize.width, height: 20)
         igLink.isUserInteractionEnabled = true
+        igLink.isHidden = true
         igLink.setImage(UIImage(named:"IGLogo"), for: .normal)
         igLink.imageEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 20)
         igLink.titleEdgeInsets = UIEdgeInsets(top: 0,left: 0,bottom: 0,right: 0)

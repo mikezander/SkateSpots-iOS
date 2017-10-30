@@ -20,13 +20,14 @@ class DetailPhotoCell: UICollectionViewCell{
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
         
+        
         spotImage.sd_setImage(with: URL(string: spot.imageUrls[count])) { (image, error, chacheType, url) in
             
             if let img = image{
-                DispatchQueue.main.async { self.setImageViewContentMode(image: img) }
+                self.setImageViewContentMode(image: img)
             }
             
-            DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+           self.activityIndicator.stopAnimating()
             
         }
   

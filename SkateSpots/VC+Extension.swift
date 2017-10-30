@@ -82,6 +82,10 @@ extension UIApplication {
             }
             return firstLaunch || isFirstLaunch
     }
+    
+    var statusBarView: UIView? {
+        return value(forKey: "statusBar") as? UIView
+    }
         
 }
 
