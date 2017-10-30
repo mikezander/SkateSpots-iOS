@@ -391,6 +391,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         if isFavorite{
             favoriteButton.isEnabled = false
             favoriteButton.layer.opacity = 0.4
+            containerView.frame.size.height -= view.safeAreaInsets.bottom
         }
         
         reportButton = UIButton(frame: CGRect(x: screenWidth / 2 - 50,y: scrollView.contentSize.height - 125,width: 100,height:50)) //87
@@ -399,6 +400,20 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         reportButton.setTitleColor(UIColor.blue, for: .normal)
         reportButton.addTarget(self, action:#selector(reportSpotPressed), for: .touchUpInside)
         containerView.addSubview(reportButton)
+        
+        if screenHeight == 812.0{ // iPhone X configuration
+            customNav.frame.size.height += 20
+            customNav.backgroundColor = .clear
+            btn1.frame.origin.y = 50
+            btn1.backgroundColor = .black
+            btn1.layer.opacity = 0.4
+            headerLabel.isHidden = true
+           
+            bottomView.frame =  CGRect(x: 0, y:screenHeight - 62 , width: screenWidth, height: 62)
+            favoriteButton.frame.origin.y -= 15
+            directionsButton.frame.origin.y -= 15
+            scrollView.contentInset = UIEdgeInsets(top: -60, left: 0, bottom: 0, right: 0)
+        }
         
        
     }

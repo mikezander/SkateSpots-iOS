@@ -63,7 +63,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         print(screenHeight)
         if screenHeight == 812.0{
-            UIApplication.shared.statusBarView?.backgroundColor = FLAT_GREEN
+            
+            UIApplication.shared.statusBarView?.backgroundColor = #colorLiteral(red: 0.5650888681, green: 0.7229202986, blue: 0.394353807, alpha: 1)
             heightOffset += 60
         }
  
