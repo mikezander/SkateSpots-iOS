@@ -117,7 +117,6 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             
         }
         
-        
     }
     
     func hasProfileBeenEdited(edited: Bool){
@@ -195,7 +194,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         }else if segue.identifier == "sendMessage"{
             if let vc = segue.destination as? ChatLogVC{
                 if self.user != nil{
-                vc.hidesBottomBarWhenPushed = true
+                //vc.hidesBottomBarWhenPushed = true
                 vc.user = self.user
                 vc.userKey = self.key
                 }
@@ -206,6 +205,8 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     
     
     @IBAction func backBtnPressed(_ sender: Any) {
+        
+        
         _ = navigationController?.popViewController(animated: true)
         
         dismiss(animated: true, completion: nil)
@@ -219,7 +220,6 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     }
     
     func spotCicked(tapGesture:UITapGestureRecognizer){
-        
         let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToDetail") as! DetailVC
         vc.spot = spots[tapGesture.view!.tag]
         self.present(vc, animated: true, completion: nil)

@@ -61,14 +61,13 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         screenSize = UIScreen.main.bounds
         screenHeight = screenSize.height
         
-        print(screenHeight)
+
         if screenHeight == 812.0{
-            
             UIApplication.shared.statusBarView?.backgroundColor = #colorLiteral(red: 0.5650888681, green: 0.7229202986, blue: 0.394353807, alpha: 1)
             heightOffset += 60
         }
  
-        
+        spotTableView.showsVerticalScrollIndicator = false
         
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
@@ -81,9 +80,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
  
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
-        
         spotTableView.reloadData()
- 
+
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -120,9 +118,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         performSegue(withIdentifier: "LogInVC", sender: nil)
         
     }
-    
-    
-    
 
     @IBAction func filterButtonPressed(_ sender: UIButton) {
         if isInternetAvailable() && hasConnected{
@@ -436,29 +431,13 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         cell.userImage.addGestureRecognizer(setGestureRecognizer())
         
         cell.configureRow(spot: spot)
-        
-       /* if let img = FeedVC.imageCache.object(forKey: spot.userImageURL as NSString){
-            
-            cell.configureRow(spot: spot, img: img)
-        }else{
-            cell.configureRow(spot: spot)
-        }*/
-
+      
         cell.delegate = self
         
         return cell
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "goToMessages"{
-           // let navController = segue.destination as! UINavigationController
-            //let controller = navController.viewControllers[0] as! MessagesVC
-            
-            //controller.delegate = self
-            //controller.delegate?.hasProfileBeenEdited(unreadUserMessages: unReadUsers)
-            //controller.unreadUsers = self.unReadUsers
-        }
-        
         if let spotCell = sender as? SpotPhotoCell,
             let spotDetailPage = segue.destination as? DetailVC {
             let spot = spotCell.spot

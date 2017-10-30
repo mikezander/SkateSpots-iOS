@@ -437,7 +437,7 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="SRS-kU-hX6">
-                                                    <rect key="frame" x="333" y="14" width="30" height="30"/>
+                                                    <rect key="frame" x="341" y="14" width="30" height="30"/>
                                                     <constraints>
                                                         <constraint firstAttribute="height" constant="30" id="A7N-Mr-gcF"/>
                                                         <constraint firstAttribute="width" constant="30" id="UDo-xD-jUN"/>
@@ -479,7 +479,7 @@
                                                 <constraint firstItem="fvM-i2-JLz" firstAttribute="centerX" secondItem="qke-fg-tf4" secondAttribute="centerX" id="rGy-xr-X7c"/>
                                                 <constraint firstItem="XUb-An-8cx" firstAttribute="leading" secondItem="Q15-SB-RDq" secondAttribute="leadingMargin" constant="5" id="sID-FA-H9O"/>
                                                 <constraint firstItem="ls1-jZ-Xa3" firstAttribute="top" secondItem="fvM-i2-JLz" secondAttribute="bottom" constant="9" id="te2-Nd-G3O"/>
-                                                <constraint firstAttribute="trailingMargin" secondItem="SRS-kU-hX6" secondAttribute="trailing" constant="4" id="wYQ-1O-9VF"/>
+                                                <constraint firstAttribute="trailingMargin" secondItem="SRS-kU-hX6" secondAttribute="trailing" constant="-4" id="wYQ-1O-9VF"/>
                                                 <constraint firstItem="fvM-i2-JLz" firstAttribute="top" secondItem="6jl-8r-mSA" secondAttribute="bottom" constant="13" id="z7h-oY-gMZ"/>
                                             </constraints>
                                         </tableViewCellContentView>

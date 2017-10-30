@@ -30,12 +30,17 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     var inController = false
     
     var delegate: MessageReadProtocol?
+    
+    var tabBarHeight = CGFloat()
 
     lazy var inputTextField: UITextField = {
         let textField = UITextField()
         textField.placeholder = "Enter message..."
         textField.translatesAutoresizingMaskIntoConstraints = false
         textField.delegate = self
+        textField.autocorrectionType = .no
+        textField.spellCheckingType = .no
+        
         return textField
     }()
     
@@ -72,6 +77,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         
     }
     
+
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -87,12 +93,26 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+       
+        if let tabHeight = tabBarController?.tabBar.frame.height{
+            tabBarController?.tabBar.frame.size.height = 0
+            tabBarController?.tabBar.isHidden = true
+            tabBarHeight = tabHeight
+        }
+        
+    }
+    
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         inController = false
         
         delegate?.hasMessageBeenRead(chatPartnerId: userKey, edited: true)
+        
+        if tabBarController?.tabBar.frame.height == 0{
+            tabBarController?.tabBar.frame.size.height = tabBarHeight
+        }
         
     }
 
@@ -163,7 +183,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 64))
         
         
-        customNav.backgroundColor = FLAT_GREEN
+        customNav.backgroundColor = #colorLiteral(red: 0.5650888681, green: 0.7229202986, blue: 0.394353807, alpha: 1)
         self.view.addSubview(customNav)
         
         let btn1 = UIButton()
@@ -436,8 +456,11 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        handleSend()
-        return true
+        //handleSend()
+        if textField.resignFirstResponder(){
+            return true
+        }
+        return false
     }
     
     private func estimatedFrameForText(text: String) -> CGRect{
