@@ -68,9 +68,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         addUserData()
  
         appendSpotsArray()
-        
-        print(spots.count)
-        
+ 
         spotTableView.register(HeaderCell.self, forCellReuseIdentifier: "headerCell")
         
         
@@ -145,7 +143,6 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         })
         
     }
-    
     
     func appendSpotsArray(){
         

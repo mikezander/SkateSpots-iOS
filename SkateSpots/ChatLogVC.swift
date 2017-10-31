@@ -47,17 +47,12 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationController?.isNavigationBarHidden = true
-        
         setupCustomNav()
         
         collectionView?.backgroundColor = .white
 
-        if (navigationController != nil){
-            collectionView?.contentInset = UIEdgeInsets(top: 58, left: 0, bottom: 8, right: 0)
-        }else{
-            collectionView?.contentInset = UIEdgeInsets(top: 78, left: 0, bottom: 8, right: 0)
-        }
+        collectionView?.contentInset = UIEdgeInsets(top: 58, left: 0, bottom: 8, right: 0)
+
 
         collectionView?.register(ChatLogCell.self, forCellWithReuseIdentifier: cellId)
         
@@ -74,7 +69,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         setupKeyboardObservers()
         
         getCurrentUserName()
-        
+
     }
     
 
@@ -90,30 +85,15 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         let userRef = DataService.instance.REF_BASE.child("user-messages").child(uid).child(userKey)
         
         markUnreadAsRead(userRef: userRef)
-        
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-       
-        if let tabHeight = tabBarController?.tabBar.frame.height{
-            tabBarController?.tabBar.frame.size.height = 0
-            tabBarController?.tabBar.isHidden = true
-            tabBarHeight = tabHeight
-        }
-        
-    }
-    
+
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
 
         inController = false
         
         delegate?.hasMessageBeenRead(chatPartnerId: userKey, edited: true)
-        
-        if tabBarController?.tabBar.frame.height == 0{
-            tabBarController?.tabBar.frame.size.height = tabBarHeight
-        }
-        
+
     }
 
     lazy var inputContainerView: UIView = {
@@ -154,7 +134,6 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         self.inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
         
         if UIScreen.main.bounds.height == 812.0{
- 
             containerView.frame.size.height += 10
             uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -5).isActive = true
             sendButton.topAnchor.constraint(equalTo: containerView.topAnchor
@@ -204,14 +183,14 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
             customNav.frame.size.height += 20
             btn1.frame.origin.y = 50
             nameLabel.frame.origin.y = 50
+            collectionView?.contentInset = UIEdgeInsets(top: 48, left: 0, bottom: 0, right: 0)
+    
         }
         
     }
     
     func backButtonPressed() {
 
-        
-        
         _ = navigationController?.popViewController(animated: true)
         
         dismiss(animated: true, completion: nil)
@@ -284,8 +263,6 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         get{
                 return inputContainerView
         }
-       
-        
     }
     
     override var canBecomeFirstResponder: Bool{
@@ -357,6 +334,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
                     //scroll to the last index
                     let indexPath = IndexPath(item:self.messages.count - 1, section: 0)
                     self.collectionView?.scrollToItem(at: indexPath, at: .bottom, animated: true)
+                    print("dwon shift")
                 }
                 
                 
@@ -493,7 +471,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return messages.count
     }
-    
+ 
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! ChatLogCell

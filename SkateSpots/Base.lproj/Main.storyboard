@@ -776,7 +776,7 @@
                                         </constraints>
                                         <state key="normal" image="chatBubble"/>
                                         <connections>
-                                            <segue destination="yyi-rg-4XJ" kind="show" identifier="sendMessage" id="vJH-wr-g8F"/>
+                                            <segue destination="yyi-rg-4XJ" kind="presentation" identifier="sendMessage" id="vJH-wr-g8F"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -1725,8 +1725,8 @@
         <scene sceneID="Weo-hP-BTN">
             <objects>
                 <collectionViewController id="yyi-rg-4XJ" customClass="ChatLogVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="ovG-cX-Iea">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ovG-cX-Iea">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dYM-dM-Nyq">
@@ -2130,7 +2130,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZX4-qG-Pn9"/>
-        <segue reference="VRI-Gr-LDk"/>
+        <segue reference="vJH-wr-g8F"/>
         <segue reference="wHi-97-VC8"/>
         <segue reference="qnT-aP-8uy"/>
     </inferredMetricsTieBreakers>
