@@ -28,24 +28,33 @@ class MessagesVC: UIViewController, MessageReadProtocol{
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        print("\(unreadUsers)unReadusers")
-
         messageTableView.delegate = self
         messageTableView.dataSource = self
- 
+
         observeUserMessages()
         
         messageTableView.allowsMultipleSelectionDuringEditing = true
         
         UNService.shared.unCenter.removeAllDeliveredNotifications()
+        
+        if messages.count == 0{
+            self.messageTableView.backgroundView = emptyDataLabel()
+        }
+  
     }
     
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if messages.count == 0{
+            messageTableView.backgroundView = emptyDataLabel()
+        }
+    }
+
     func hasMessageBeenRead(chatPartnerId: String, edited: Bool){
         
         self.readMesageDictionary[chatPartnerId] = edited
     }
-    
-    
 
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
@@ -76,10 +85,12 @@ class MessagesVC: UIViewController, MessageReadProtocol{
         let ref = DataService.instance.REF_BASE.child("user-messages").child(uid)
         
         ref.observe(.childAdded, with: { (snapshot) in
-            
+           
             let userId = snapshot.key
             DataService.instance.REF_BASE.child("user-messages").child(uid).child(userId).observe(.childAdded, with: { (snapshot) in
                 
+                self.messageTableView.backgroundView?.isHidden = true
+
                 let messageId = snapshot.key
                 
                 let readFlag = snapshot.value as! Int
@@ -92,6 +103,8 @@ class MessagesVC: UIViewController, MessageReadProtocol{
         
         ref.observe(.childRemoved, with: { (snapshot) in
             self.messagesDictionary.removeValue(forKey: snapshot.key)
+            if self.messagesDictionary.count == 0 {  self.messageTableView.backgroundView = self.emptyDataLabel()}
+            
             self.attempReloadOfTable()
             
         }, withCancel: nil)
@@ -117,14 +130,13 @@ class MessagesVC: UIViewController, MessageReadProtocol{
                     }
 
                 }
-                
+
                 self.attempReloadOfTable()
                 
             }
             
         }, withCancel: nil)
-        
-       
+ 
     }
     
     func attempReloadOfTable(){
@@ -135,14 +147,16 @@ class MessagesVC: UIViewController, MessageReadProtocol{
     var timer: Timer?
     
     func handleReloadTable(){
-        
-        print(readMesageDictionary)
+
         self.messages = Array(self.messagesDictionary.values)
+ 
         self.messages.sort(by: { (message1, message2) -> Bool in
             
             return message1.timestamp!.intValue > message2.timestamp!.intValue
         })
         
+       
+       
         DispatchQueue.main.async {
             self.messageTableView.reloadData()
         }
@@ -158,8 +172,28 @@ class MessagesVC: UIViewController, MessageReadProtocol{
         }
         
         return true
-
-       
+    
+    }
+    
+    func emptyDataLabel()->UIView{
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+ 
+        let emptyView = UIView(frame: CGRect(x: 0, y:0 , width:screenWidth , height: screenHeight))
+        
+        let emptyLabel = UILabel(frame: CGRect(x: (screenWidth / 2) - 100, y: (screenHeight / 2) - 120 ,width: 200 ,height: 200))
+        emptyLabel.text = "Your inbox is empty"
+        emptyLabel.alpha = 0.4
+        emptyLabel.textAlignment = NSTextAlignment.center
+        emptyView.addSubview(emptyLabel)
+        
+        let emptyImage = UIImage(named: "inbox")
+        let emptyImageView = UIImageView(image: emptyImage)
+        emptyImageView.frame = CGRect(x: emptyLabel.frame.origin.x + 50, y: emptyLabel.frame.origin.y - 20, width: 100, height: 100)
+        emptyImageView.alpha = 0.4
+        
+        emptyView.addSubview(emptyImageView)
+        return emptyView
     }
  
    
@@ -168,36 +202,7 @@ class MessagesVC: UIViewController, MessageReadProtocol{
 extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if messagesDictionary.count == 0 {
-            let screenWidth = UIScreen.main.bounds.width
-            let screenHeight = UIScreen.main.bounds.height
-            
-            
-            let emptyView = UIView(frame: CGRect(x: 0, y:0 , width:screenWidth , height: screenHeight))
-            
-            let emptyLabel = UILabel(frame: CGRect(x: (screenWidth / 2) - (screenWidth / 4), y: (screenHeight / 2) - 120 ,width: 200 ,height: 200))
-            emptyLabel.text = "Your inbox is empty"
-            emptyLabel.alpha = 0.4
-            emptyLabel.textAlignment = NSTextAlignment.center
-            emptyView.addSubview(emptyLabel)
-            
-            let emptyImage = UIImage(named: "inbox")
-            let emptyImageView = UIImageView(image: emptyImage)
-            emptyImageView.frame = CGRect(x: emptyLabel.frame.origin.x + 50, y: emptyLabel.frame.origin.y - 20, width: 100, height: 100)
-            emptyImageView.alpha = 0.4
-            
-            emptyView.addSubview(emptyImageView)
-            
-            self.messageTableView.backgroundView = emptyView
-            self.messageTableView.separatorStyle = UITableViewCellSeparatorStyle.none
-            return 0
-            
-        }else{
-            messageTableView.backgroundView?.isHidden = true
             return messages.count
-        }
-        
-        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {

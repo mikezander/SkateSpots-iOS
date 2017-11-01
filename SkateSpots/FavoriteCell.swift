@@ -12,8 +12,6 @@ import FirebaseStorage
 
 class FavoriteCell: UITableViewCell{
     
-    
-    
     @IBOutlet weak var spotPhoto: UIImageView!
     @IBOutlet weak var titleLabel: UILabel! //spotName
     @IBOutlet weak var spotTypeLabel: UILabel!

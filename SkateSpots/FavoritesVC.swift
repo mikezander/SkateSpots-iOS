@@ -5,7 +5,6 @@
 //  Created by Michael Alexander on 8/19/17.
 //  Copyright © 2017 Michael Alexander. All rights reserved.
 //
-
 import Foundation
 import UIKit
 import FirebaseAuth
@@ -35,8 +34,9 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             errorAlert(title: "Network Connection Error", message: "Make sure you connected and try again")
             return
         }
-        
+
         loadSpotsArray()
+       
     }
     
     func loadSpotsArray(){
@@ -48,6 +48,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
                 self.uniqueIDs = keys
                 
             }
+  
             DispatchQueue.main.async {
                 self.spotTableView.reloadData()
                 
@@ -64,6 +65,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         dismiss(animated: true, completion: nil)
         
     }
+
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if spots.count == 0 {

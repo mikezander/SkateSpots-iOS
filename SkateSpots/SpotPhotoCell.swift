@@ -14,23 +14,24 @@ class SpotPhotoCell: UICollectionViewCell{
     
     @IBOutlet weak var spotImage: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
+
     var spot: Spot!
     
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
+        
+        self.spotImage.contentMode = .scaleToFill
 
-        
-        
             self.spotImage.sd_setImage(with: URL(string: spot.imageUrls[count])) { (image, error, chacheType, url) in
 
-            if let img = image{
-               self.setImageViewContentMode(image: img)
-            }
+                if let img = image{
+                    self.setImageViewContentMode(image: img)
+                }
             
            self.activityIndicator.stopAnimating()
            
         }
+        
 
        /* if img != nil{
             self.spotImage.image = img
@@ -78,9 +79,8 @@ class SpotPhotoCell: UICollectionViewCell{
     func setImageViewContentMode(image:UIImage){
 
         if image.size.width > image.size.height{
-            self.spotImage.contentMode = .scaleAspectFit
-        }else{
-            self.spotImage.contentMode = .scaleToFill
+            print("fit")
+         self.spotImage.contentMode = .scaleAspectFit
         }
     }
     
