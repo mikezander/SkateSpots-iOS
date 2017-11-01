@@ -36,38 +36,7 @@ class MessageCell: UITableViewCell{
             timeLabel.textAlignment = .right
         }
  
-        
-        //download images
-        if img != nil{
-
-                    self.profileImageView.image = img
-                
-        }else{
-            
-            //cache image
-            
-            let ref = Storage.storage().reference(forURL:userUrl)
-            ref.getData(maxSize: 2 * 1024 * 1024, completion: {(data, error) in
-                if error != nil{
-                    print("Mike: Unable to download image from firebase storage")
-                }else{
-                    print("Mike: Image downloaded from firebase storge")
-                    if let imgData = data {
-        
-                               
-                                if let img = UIImage(data: imgData){
- 
-                                    self.profileImageView.image = img
- 
-                                    FeedVC.imageCache.setObject(img, forKey: userUrl as NSString)
-                                }
-    
-                    }
-                }
-
-            })
-            
-        }
+        self.profileImageView.sd_setImage(with: URL(string: userUrl), placeholderImage: nil)
         
     }
     

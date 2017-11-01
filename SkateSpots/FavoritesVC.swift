@@ -24,9 +24,6 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -50,17 +47,13 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
                 self.spots = data!
                 self.uniqueIDs = keys
                 
-                print(self.spots.count)
-                
             }
             DispatchQueue.main.async {
                 self.spotTableView.reloadData()
                 
             }
             
-            
         })
-        
         
     }
     
@@ -72,9 +65,9 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         
     }
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
+
         if spots.count == 0 {
-            let emptyLabel = UILabel(frame: CGRect(x:0, y:0,width: UIScreen.main.bounds.width,height:UIScreen.main.bounds.height))
+            let emptyLabel = UILabel(frame: CGRect(x: 0, y: 0 ,width: 200 ,height: 200))
             emptyLabel.text = "Add spots to favorites!"
             emptyLabel.alpha = 0.4
             emptyLabel.textAlignment = NSTextAlignment.center

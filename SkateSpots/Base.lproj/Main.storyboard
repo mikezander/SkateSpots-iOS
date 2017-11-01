@@ -1590,10 +1590,10 @@
                                                     <nil key="highlightedColor"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="sphere" translatesAutoresizingMaskIntoConstraints="NO" id="GJ0-vH-37f">
-                                                    <rect key="frame" x="353" y="38" width="12" height="12"/>
+                                                    <rect key="frame" x="355" y="40" width="10" height="10"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="12" id="1gw-wb-38Q"/>
-                                                        <constraint firstAttribute="width" constant="12" id="A8m-1j-ota"/>
+                                                        <constraint firstAttribute="height" constant="10" id="1gw-wb-38Q"/>
+                                                        <constraint firstAttribute="width" constant="10" id="A8m-1j-ota"/>
                                                     </constraints>
                                                 </imageView>
                                             </subviews>
@@ -1645,14 +1645,14 @@
                                             <action selector="backButtonPressed:" destination="j7A-wC-yin" eventType="touchUpInside" id="bvl-RK-VLf"/>
                                         </connections>
                                     </button>
-                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="profile-placeholder" translatesAutoresizingMaskIntoConstraints="NO" id="PNJ-sL-lK3" customClass="CircleView" customModule="Sk8Spots" customModuleProvider="target">
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="PNJ-sL-lK3" customClass="CircleView" customModule="Sk8Spots" customModuleProvider="target">
                                         <rect key="frame" x="125" y="18" width="40" height="40"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="40" id="2dp-zN-UPl"/>
                                             <constraint firstAttribute="height" constant="40" id="SoK-U1-tfh"/>
                                         </constraints>
                                     </imageView>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgh-on-x2d">
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mgh-on-x2d">
                                         <rect key="frame" x="169" y="28" width="186" height="21"/>
                                         <constraints>
                                             <constraint firstAttribute="width" constant="186" id="6Ki-wC-hzn"/>
@@ -1725,8 +1725,8 @@
         <scene sceneID="Weo-hP-BTN">
             <objects>
                 <collectionViewController id="yyi-rg-4XJ" customClass="ChatLogVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
-                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ovG-cX-Iea">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" dataMode="prototypes" id="ovG-cX-Iea">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="729"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dYM-dM-Nyq">
@@ -2122,7 +2122,6 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <image name="edit_profile" width="16" height="16"/>
         <image name="globe_tab" width="25" height="25"/>
         <image name="home_btn" width="21" height="24"/>
-        <image name="profile-placeholder" width="336" height="336"/>
         <image name="profile_navbar" width="24" height="24"/>
         <image name="refresh" width="21" height="21"/>
         <image name="sphere" width="50" height="50"/>
@@ -2130,7 +2129,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZX4-qG-Pn9"/>
-        <segue reference="vJH-wr-g8F"/>
+        <segue reference="VRI-Gr-LDk"/>
         <segue reference="wHi-97-VC8"/>
         <segue reference="qnT-aP-8uy"/>
     </inferredMetricsTieBreakers>

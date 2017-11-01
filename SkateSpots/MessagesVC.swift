@@ -168,7 +168,36 @@ class MessagesVC: UIViewController, MessageReadProtocol{
 extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        if messagesDictionary.count == 0 {
+            let screenWidth = UIScreen.main.bounds.width
+            let screenHeight = UIScreen.main.bounds.height
+            
+            
+            let emptyView = UIView(frame: CGRect(x: 0, y:0 , width:screenWidth , height: screenHeight))
+            
+            let emptyLabel = UILabel(frame: CGRect(x: (screenWidth / 2) - (screenWidth / 4), y: (screenHeight / 2) - 120 ,width: 200 ,height: 200))
+            emptyLabel.text = "Your inbox is empty"
+            emptyLabel.alpha = 0.4
+            emptyLabel.textAlignment = NSTextAlignment.center
+            emptyView.addSubview(emptyLabel)
+            
+            let emptyImage = UIImage(named: "inbox")
+            let emptyImageView = UIImageView(image: emptyImage)
+            emptyImageView.frame = CGRect(x: emptyLabel.frame.origin.x + 50, y: emptyLabel.frame.origin.y - 20, width: 100, height: 100)
+            emptyImageView.alpha = 0.4
+            
+            emptyView.addSubview(emptyImageView)
+            
+            self.messageTableView.backgroundView = emptyView
+            self.messageTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+            return 0
+            
+        }else{
+            messageTableView.backgroundView?.isHidden = true
+            return messages.count
+        }
+        
+        
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -189,14 +218,8 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
                     let name = dictionary["username"] as! String
                     let profilePicUrl = dictionary["userImageURL"] as! String
                     
-                    if let img = FeedVC.imageCache.object(forKey: profilePicUrl as NSString){
-                        
-                        cell.configureCell(message: message, img: img, userUrl: profilePicUrl, name: name)
-                    }else{
-                        cell.configureCell(message: message, userUrl: profilePicUrl, name: name)
-                    }
-                    
-                    
+                    cell.configureCell(message: message, userUrl: profilePicUrl, name: name)
+   
                 }
                 
             }, withCancel: nil)
@@ -209,6 +232,8 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
         
         return cell
     }
+    
+    
     
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
