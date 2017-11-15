@@ -15,7 +15,9 @@ class SearchVC: UIViewController {
     var users = [User]()
     var filteredUsers = [User]()
     let searchController = UISearchController(searchResultsController: nil)
-    
+    var selectedUser: User?
+    var currentUserKey = String()
+ 
     @IBOutlet weak var userTableView: UITableView!
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,11 +26,15 @@ class SearchVC: UIViewController {
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
         userTableView.tableHeaderView = searchController.searchBar
-        
+
+        currentUserKey = Auth.auth().currentUser!.uid
         retrieveUsers()
         
     }
     
+    @IBAction func backBtnPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     func retrieveUsers() {
         let usersRef = DataService.instance.REF_USERS
         
@@ -38,7 +44,9 @@ class SearchVC: UIViewController {
                     let key = snap.key
                     if let userDict = snap.childSnapshot(forPath: "profile").value as? Dictionary<String, AnyObject> {
                         let user = User(userKey: key, userData: userDict)
-                        self.users.append(user)
+                        if user.userKey != self.currentUserKey {
+                            self.users.append(user)
+                        }
                     }
                 }
                 
@@ -50,15 +58,31 @@ class SearchVC: UIViewController {
         })
             
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let profileVC = segue.destination as? ProfileVC {
+            if Auth.auth().currentUser!.uid == self.selectedUser!.userKey {
+                profileVC.userKey = nil
+            } else {
+                profileVC.userKey = self.selectedUser!.userKey
+            }
+            
+            
+        }
+    }
 }
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return filteredUsers.count
+        if filteredUsers.count > 0{
+            return filteredUsers.count
+        } else {
+            return 0
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 60.0
+        return 65.0
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -74,7 +98,9 @@ extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let user = filteredUsers[indexPath.row]
+        searchController.isActive = false
+        self.selectedUser = filteredUsers[indexPath.row]
+        performSegue(withIdentifier: "segueToProfileVC", sender: self)
     }
 }
 
@@ -88,4 +114,5 @@ extension SearchVC: UISearchResultsUpdating{
             userTableView.reloadData()
         }
     }
+    
 }

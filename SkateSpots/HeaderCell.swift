@@ -121,7 +121,7 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
     
     
     func configureProfilePic(userImage: String){
-        self.profilePhoto.sd_setImage(with: URL(string: userImage), placeholderImage: nil)
+        self.profilePhoto.sd_setImage(with: URL(string: userImage), placeholderImage: UIImage(named: "profile-placeholder"))
     
     }
     

@@ -19,7 +19,7 @@ class SearchCell: UITableViewCell {
         
         self.userNameLbl.text = user.userName
         
-        self.profilePicImageView.sd_setImage(with: URL(string: user.userImageURL), placeholderImage: nil)
+        self.profilePicImageView.sd_setImage(with: URL(string: user.userImageURL), placeholderImage: UIImage(named: "profile-placeholder"))
         
     }
 }
