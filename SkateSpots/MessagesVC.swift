@@ -76,8 +76,7 @@ class MessagesVC: UIViewController, MessageReadProtocol{
                 self.headerNameLabel.text = usersName
                 
                 self.headerImage.loadImageUsingCacheWithUrlString(urlString: userProfileUrl)
-                
-                
+   
             }
 
         })

@@ -19,13 +19,20 @@ class SearchVC: UIViewController {
     var currentUserKey = String()
  
     @IBOutlet weak var userTableView: UITableView!
+    
+    @IBOutlet weak var searchView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false
         searchController.dimsBackgroundDuringPresentation = false
-        userTableView.tableHeaderView = searchController.searchBar
+        searchController.searchBar.barStyle = .blackTranslucent
+        searchView.addSubview(searchController.searchBar)
+        
+       // userTableView.tableHeaderView = searchController.searchBar
+       
+        userTableView.separatorStyle = .none
 
         currentUserKey = Auth.auth().currentUser!.uid
         retrieveUsers()
@@ -74,7 +81,7 @@ class SearchVC: UIViewController {
 extension SearchVC: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if filteredUsers.count > 0{
+        if filteredUsers.count > 0 {
             return filteredUsers.count
         } else {
             return 0
@@ -111,8 +118,9 @@ extension SearchVC: UISearchResultsUpdating{
             filteredUsers = users.filter { filteredUser in
                 return filteredUser.userName.lowercased().contains(searchText.lowercased())
             }
-            userTableView.reloadData()
+           // userTableView.reloadData()
         }
-    }
+    userTableView.reloadData()
     
+    }
 }
