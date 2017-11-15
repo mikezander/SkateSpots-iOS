@@ -103,13 +103,7 @@ class MessagesVC: UIViewController, MessageReadProtocol{
         
         ref.observe(.childRemoved, with: { (snapshot) in
             self.messagesDictionary.removeValue(forKey: snapshot.key)
-            
-            if self.messagesDictionary.count == 0 {
-                self.messageTableView.backgroundView = self.emptyDataLabel()
-            } else {
-                self.messageTableView.backgroundView = nil
-            }
-            
+
             self.attempReloadOfTable()
             
         }, withCancel: nil)
@@ -163,6 +157,12 @@ class MessagesVC: UIViewController, MessageReadProtocol{
        
        
         DispatchQueue.main.async {
+            if self.messagesDictionary.count == 0 {
+                self.messageTableView.backgroundView = self.emptyDataLabel()
+            } else {
+                self.messageTableView.backgroundView = nil
+            }
+            
             self.messageTableView.reloadData()
         }
     }

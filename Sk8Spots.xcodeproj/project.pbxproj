@@ -51,6 +51,8 @@
 		C4E36FD21F1A7F23000ABF4D /* SpotRow.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */; };
 		C4E36FD61F1ACA44000ABF4D /* SpotPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */; };
 		C4F120631FA2599500ADD807 /* UNService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F120621FA2599500ADD807 /* UNService.swift */; };
+		C4FBD20D1FBCB96500425D1E /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FBD20C1FBCB96500425D1E /* SearchVC.swift */; };
+		C4FBD20F1FBCBFC000425D1E /* SearchCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4FBD20E1FBCBFC000425D1E /* SearchCell.swift */; };
 		D5D2D42DF66DB487CDD8D53F /* Pods_Sk8Spots.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9F0FA3D6072CCA82852D7061 /* Pods_Sk8Spots.framework */; };
 /* End PBXBuildFile section */
 
@@ -106,6 +108,8 @@
 		C4E36FD11F1A7F23000ABF4D /* SpotRow.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SpotRow.swift; path = ../SpotRow.swift; sourceTree = "<group>"; };
 		C4E36FD51F1ACA44000ABF4D /* SpotPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPhotoCell.swift; sourceTree = "<group>"; };
 		C4F120621FA2599500ADD807 /* UNService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UNService.swift; sourceTree = "<group>"; };
+		C4FBD20C1FBCB96500425D1E /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		C4FBD20E1FBCBFC000425D1E /* SearchCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchCell.swift; sourceTree = "<group>"; };
 		FFF985ECF910147806442005 /* Pods-Sk8Spots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sk8Spots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Sk8Spots/Pods-Sk8Spots.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -158,6 +162,7 @@
 				C4AD89B11F48B93200D47460 /* FavoriteCell.swift */,
 				C456C1201F9AC59D00C74A56 /* MessageCell.swift */,
 				C41542161F9CFB05004ADBC3 /* ChatLogCell.swift */,
+				C4FBD20E1FBCBFC000425D1E /* SearchCell.swift */,
 				C4128C391F0EAF290058628D /* RoundTextField.swift */,
 				C4128C3B1F0EBA690058628D /* RoundedButton.swift */,
 				C4CE591B1F28663500180BA5 /* CircleView.swift */,
@@ -189,6 +194,7 @@
 				C456C11C1F9AC28F00C74A56 /* MessagesVC.swift */,
 				C48415921F9FBC7A00F4BB20 /* ChatLogVC.swift */,
 				C4A42A8E1F73FD290031865C /* AgreementVC.swift */,
+				C4FBD20C1FBCB96500425D1E /* SearchVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -419,6 +425,7 @@
 				C4B0C54B1F0D7B78004B6923 /* FeedVC.swift in Sources */,
 				C41D8B2C1F0EE3F8009C174C /* DataService.swift in Sources */,
 				C4AD89AA1F43700700D47460 /* ProfileCell.swift in Sources */,
+				C4FBD20D1FBCB96500425D1E /* SearchVC.swift in Sources */,
 				C407154E1FA2712C00733742 /* FIRMessagingService.swift in Sources */,
 				C4AD89AC1F437DD300D47460 /* HeaderCell.swift in Sources */,
 				C4433E6A1F1FB82600B00002 /* MapVC.swift in Sources */,
@@ -437,6 +444,7 @@
 				C4AD89B21F48B93200D47460 /* FavoriteCell.swift in Sources */,
 				C4CE591C1F28663500180BA5 /* CircleView.swift in Sources */,
 				C41D8B311F0F38E0009C174C /* Spot.swift in Sources */,
+				C4FBD20F1FBCBFC000425D1E /* SearchCell.swift in Sources */,
 				C4CE59151F24497800180BA5 /* DetailPhotoCell.swift in Sources */,
 				C456C1231F9B02D500C74A56 /* Message.swift in Sources */,
 				C4AD89B01F48A47800D47460 /* FavoritesVC.swift in Sources */,
