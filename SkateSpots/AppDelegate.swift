@@ -25,10 +25,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
         
         defaults.register(defaults: [agreementKey:false])
-        
-        UNService.shared.authorize()
-        
-  
+
         return true
     }
     

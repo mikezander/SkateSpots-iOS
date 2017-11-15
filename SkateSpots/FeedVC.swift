@@ -41,6 +41,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     var firstRun = true
     var firstSort = true
     var menuShowing = false
+    var hasRan = false
     var isLoggedIn = Bool()
     let topItem = IndexPath(item: 0, section: 0)
     var badgeCount = 0
@@ -92,8 +93,14 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
         }else{
-            isLoggedIn = true
             
+            if UIApplication.isFirstLaunch() && !hasRan{
+                UNService.shared.authorize()
+                hasRan = true
+                checkForCorrectProfileImage()
+            }
+            
+            isLoggedIn = true
             setMessageNotificationBadge()
         }
         
@@ -117,6 +124,17 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         try! Auth.auth().signOut()
         performSegue(withIdentifier: "LogInVC", sender: nil)
         
+    }
+    
+    func checkForCorrectProfileImage(){
+        let ref = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid).child("profile")
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let url = snapshot.childSnapshot(forPath: "userImageURL").value as? String {
+                if url == DEFAULT_PROFILE_PIC_URL{
+                    ref.updateChildValues(["userImageURL": DEFAULT_PROFILE_PIC_WORKING])
+                }
+            }
+        })
     }
 
     @IBAction func filterButtonPressed(_ sender: UIButton) {

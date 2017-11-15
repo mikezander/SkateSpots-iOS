@@ -81,7 +81,7 @@ class MessagesVC: UIViewController, MessageReadProtocol{
             }
 
         })
-        
+
         let ref = DataService.instance.REF_BASE.child("user-messages").child(uid)
         
         ref.observe(.childAdded, with: { (snapshot) in
@@ -103,7 +103,12 @@ class MessagesVC: UIViewController, MessageReadProtocol{
         
         ref.observe(.childRemoved, with: { (snapshot) in
             self.messagesDictionary.removeValue(forKey: snapshot.key)
-            if self.messagesDictionary.count == 0 {  self.messageTableView.backgroundView = self.emptyDataLabel()}
+            
+            if self.messagesDictionary.count == 0 {
+                self.messageTableView.backgroundView = self.emptyDataLabel()
+            } else {
+                self.messageTableView.backgroundView = nil
+            }
             
             self.attempReloadOfTable()
             

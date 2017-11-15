@@ -72,7 +72,6 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
 
     }
     
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         
@@ -203,6 +202,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         imagePickerController.allowsEditing = true
         imagePickerController.delegate = self
         
+        inputAccessoryView?.isHidden = true
         present(imagePickerController, animated: true, completion: nil)
     }
     
@@ -230,6 +230,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
             uploadToFirebaseStorageUsingImage(selectedImage)
         }
         
+        inputAccessoryView?.isHidden = false
         dismiss(animated: true, completion: nil)
     }
     
@@ -256,6 +257,8 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        
+        inputAccessoryView?.isHidden = false
         dismiss(animated: true, completion: nil)
     }
     
