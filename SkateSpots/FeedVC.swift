@@ -130,8 +130,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         let ref = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid).child("profile")
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
             if let url = snapshot.childSnapshot(forPath: "userImageURL").value as? String {
-                if url == DEFAULT_PROFILE_PIC_URL{
-                    ref.updateChildValues(["userImageURL": DEFAULT_PROFILE_PIC_WORKING])
+                if url == DEFAULT_PROFILE_PIC_URL || url == DEFAULT_PROFILE_PIC_WORKING {
+                    ref.updateChildValues(["userImageURL": DEFAULT_NEW])
                 }
             }
         })
@@ -409,9 +409,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-
             return (screenHeight - heightOffset)
-   
     }
     
     func setGestureRecognizer() -> UITapGestureRecognizer {

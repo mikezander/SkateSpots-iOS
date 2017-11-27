@@ -14,6 +14,7 @@
 		C41542171F9CFB05004ADBC3 /* ChatLogCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41542161F9CFB05004ADBC3 /* ChatLogCell.swift */; };
 		C415421B1F9D3BD7004ADBC3 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C415421A1F9D3BD7004ADBC3 /* Extension.swift */; };
 		C41640651F39144800BF244C /* VC+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41640641F39144800BF244C /* VC+Extension.swift */; };
+		C417D7BA1FCBDEEB001600F1 /* RoundedShadowView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C417D7B91FCBDEEB001600F1 /* RoundedShadowView.swift */; };
 		C41878851F3F80A100573D3A /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41878841F3F80A100573D3A /* FBSDKCoreKit.framework */; };
 		C41878871F3F80A800573D3A /* FBSDKLoginKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41878861F3F80A800573D3A /* FBSDKLoginKit.framework */; };
 		C41878891F3F822800573D3A /* Bolts.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C41878881F3F822800573D3A /* Bolts.framework */; };
@@ -68,6 +69,7 @@
 		C41542161F9CFB05004ADBC3 /* ChatLogCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ChatLogCell.swift; sourceTree = "<group>"; };
 		C415421A1F9D3BD7004ADBC3 /* Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
 		C41640641F39144800BF244C /* VC+Extension.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "VC+Extension.swift"; sourceTree = "<group>"; };
+		C417D7B91FCBDEEB001600F1 /* RoundedShadowView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowView.swift; sourceTree = "<group>"; };
 		C41878841F3F80A100573D3A /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		C41878861F3F80A800573D3A /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		C41878881F3F822800573D3A /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Bolts.framework; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 				C4128C3B1F0EBA690058628D /* RoundedButton.swift */,
 				C4CE591B1F28663500180BA5 /* CircleView.swift */,
 				C419DD251F3B84B400D8CC06 /* Billabong.ttf */,
+				C417D7B91FCBDEEB001600F1 /* RoundedShadowView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -459,6 +462,7 @@
 				C4AD89A81F433C9100D47460 /* ProfileVC.swift in Sources */,
 				C4CE59131F241A0F00180BA5 /* DetailVC.swift in Sources */,
 				C4F120631FA2599500ADD807 /* UNService.swift in Sources */,
+				C417D7BA1FCBDEEB001600F1 /* RoundedShadowView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

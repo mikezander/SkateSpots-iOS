@@ -59,9 +59,5 @@ class Comment{
         self._comment = commentData["comment"] as! String
         
     }
-    
-    
-    
-
 
 }

@@ -25,9 +25,7 @@ class UNService: NSObject {
             }
             
             guard granted else{ return }
-            
-            
-            
+ 
             DispatchQueue.main.async {
                 
                 self.configure()

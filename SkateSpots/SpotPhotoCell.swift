@@ -31,7 +31,6 @@ class SpotPhotoCell: UICollectionViewCell{
            self.activityIndicator.stopAnimating()
            
         }
-        
 
        /* if img != nil{
             self.spotImage.image = img
@@ -72,8 +71,7 @@ class SpotPhotoCell: UICollectionViewCell{
                 
             })
         }*/
-        
-        
+    
     }
     
     func setImageViewContentMode(image:UIImage){

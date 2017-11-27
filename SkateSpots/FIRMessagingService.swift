@@ -21,8 +21,6 @@ class FIRMessagingService {
     
     func subscribe(to topic: SubscriptionTopic){
         messaging.subscribe(toTopic: topic.rawValue)
-        
     }
-    
-    
+   
 }

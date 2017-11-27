@@ -57,8 +57,6 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        print(defaults.bool(forKey: agreementKey))
-        
         if defaults.bool(forKey: agreementKey) == false{
             
             performSegue(withIdentifier: "Agreement", sender: nil)
@@ -174,9 +172,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             activityIndicator.startAnimating()
             
             Auth.auth().signIn(with: credential){(user, error) in
-                
-                print("\(FBSDKAccessToken.current)token")
-                
+
                 if let user = Auth.auth().currentUser{
                     
                     let uid = user.uid
@@ -188,13 +184,12 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                         
                         var token = name?.components(separatedBy: delimiter)
                         name = "\(token![0]) " + String(token![1].characters.prefix(1))
-                        
                     }
                     
                     let userRef = DataService.instance.REF_USERS.child(user.uid)
                     userRef.observeSingleEvent(of: .value, with: {snapshot in
                         
-                        if ( snapshot.value is NSNull ) {
+                        if (snapshot.value is NSNull) {
                             print("fb user hasnt logged in before") //didnt find it, ok to proceed
                             
                             DataService.instance.saveFirebaseUser(uid: uid, email: email!, username: name!)
@@ -204,11 +199,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                             print("fb user loggen in before")//found it, stop!
                         }
                     })
-                    
-                    print("User logged in to firebase using facebook")
-                    
+
                 }
-                
                 self.activityIndicator.stopAnimating()
                 self.performSegue(withIdentifier: "goToFeed", sender: nil)
             }
