@@ -20,10 +20,9 @@ let DB_BASE = Database.database().reference()
 let STORAGE_BASE = Storage.storage().reference()
 
 class DataService{
+    
     private static let _instance = DataService()
-    
-    
-    
+
     static var instance: DataService{
         return _instance
     }

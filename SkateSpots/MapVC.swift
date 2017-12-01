@@ -11,6 +11,7 @@ import MapKit
 import Firebase
 import Contacts
 import FirebaseStorage
+import SDWebImage
 
 class MapVC: UIViewController{
     
@@ -149,29 +150,13 @@ extension MapVC: MKMapViewDelegate {
             
         }
         
-        Storage.storage().reference(forURL: annotation.imageUrl).getData(maxSize: 25 * 1024 * 1024, completion: { (data, error) -> Void in
-            
-            guard error == nil else{
-                
-                NotificationCenter.default.addObserver(self, selector: #selector(self.internetConnectionFound(notification:)), name: notificationName, object: nil)
-                
-                self.errorAlert(title: "Internet Connection Error", message: "Error uploading spot images, make sure you are connected and try again.")
-                
-                return
-            }
-            
-            let image = UIImage(data: data!)
-            let cropRect = CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0)
-            let myImageView = UIImageView(frame: cropRect)
-            myImageView.clipsToBounds = true
-            myImageView.image = image
-            view.leftCalloutAccessoryView = myImageView
-            view.isHighlighted = true
-            
-        })
-        
+        let cropRect = CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0)
+        let myImageView = UIImageView(frame: cropRect)
+        myImageView.clipsToBounds = true
+        myImageView.sd_setImage(with: URL(string: annotation.imageUrl),placeholderImage: nil)
+        view.leftCalloutAccessoryView = myImageView
+        view.isHighlighted = true
         view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
-        
         view.pinTintColor = annotation.markerTintColor
         
         return view

@@ -103,6 +103,11 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         topPhotoLabel.isHidden = true
         
     }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+ 
+    }
 
     @IBAction func bustSlider(_ sender: UISlider) {
         bustLabel.text = String(Int(sender.value))
@@ -297,6 +302,22 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             return
         }
         
+        let photos = PHPhotoLibrary.authorizationStatus()
+        
+        if photos == .notDetermined {
+            
+            PHPhotoLibrary.requestAuthorization({status in
+                if status == .authorized{
+                    
+                } else if status == .denied{
+                    self.errorAlert(title: "Photo permissions were denied", message: "This is a location based app and photo permsissions are required. Please reinstall the app and accept permissions.")
+                }
+            })
+        }
+        
+        
+        
+        
         var actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
         
@@ -324,8 +345,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         actionSheet.popoverPresentationController?.sourceView = self.view
         actionSheet.popoverPresentationController?.permittedArrowDirections = UIPopoverArrowDirection()
         actionSheet.popoverPresentationController?.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
-        
-        present(actionSheet, animated: true, completion: nil)
+
+         self.present(actionSheet, animated: true, completion: nil)
     }
     
     
