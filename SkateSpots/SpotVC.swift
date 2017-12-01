@@ -301,23 +301,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
             return
         }
-        
-        let photos = PHPhotoLibrary.authorizationStatus()
-        
-        if photos == .notDetermined {
-            
-            PHPhotoLibrary.requestAuthorization({status in
-                if status == .authorized{
-                    
-                } else if status == .denied{
-                    self.errorAlert(title: "Photo permissions were denied", message: "This is a location based app and photo permsissions are required. Please reinstall the app and accept permissions.")
-                }
-            })
-        }
-        
-        
-        
-        
+
         var actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
         
@@ -336,6 +320,16 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Photo Library", style: .default, handler: { (action:UIAlertAction) in
+            let photos = PHPhotoLibrary.authorizationStatus()
+            
+            if photos == .notDetermined {
+                
+                PHPhotoLibrary.requestAuthorization({status in
+                    if status == .authorized{ } else { }
+                })
+            }
+            
+            
             self.imagePicker.sourceType = .photoLibrary
             self.present(self.imagePicker, animated: true, completion: nil)
         }))
@@ -365,7 +359,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                     locationManager.startUpdatingLocation()
                     
                 }else{
-                    
+
                     if let imageUrl = info[UIImagePickerControllerReferenceURL] as? NSURL{
                         let asset = PHAsset.fetchAssets(withALAssetURLs:[imageUrl as URL], options: nil).firstObject as PHAsset?
                         
