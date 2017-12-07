@@ -17,6 +17,7 @@ import SwiftKeychainWrapper
 import FBSDKLoginKit
 import SVProgressHUD
 import MIBadgeButton_Swift
+import SDWebImage
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
     
@@ -462,13 +463,14 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 }
 extension FeedVC: SpotRowDelegate{
-    
+
     func didTapDirectionsButton(spot: Spot) {
         let coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
         mapItem.name = spot.spotName
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
     }
+
 }
 
 
