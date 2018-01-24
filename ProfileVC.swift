@@ -336,10 +336,8 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
                     tableView.deleteRows(at: [indexPath], with: .fade)
                     self.spotTableView.reloadData()
                 }
-                
-                
-                
             })
+            
             alertController.addAction(deleteAction)
             
             let cancelAction = UIAlertAction(title: "Cancel", style: .default, handler: nil)

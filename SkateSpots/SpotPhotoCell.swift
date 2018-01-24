@@ -75,7 +75,7 @@ class SpotPhotoCell: UICollectionViewCell{
     }
     
     func setImageViewContentMode(image:UIImage){
-
+        
         if image.size.width > image.size.height{
             print("fit")
          self.spotImage.contentMode = .scaleAspectFit
@@ -85,6 +85,10 @@ class SpotPhotoCell: UICollectionViewCell{
     func emptyImageView(){
         self.spotImage.image = nil
         activityIndicator.startAnimating()
+    }
+    
+    func imageContentMode() -> Int {
+        return spotImage.contentMode.rawValue
     }
     
 }

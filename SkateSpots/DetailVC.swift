@@ -868,9 +868,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
         
         print(height)
         return height
-        
     }
-    
     
 }
 extension DetailVC: UITextViewDelegate{
