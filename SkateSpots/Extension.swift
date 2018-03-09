@@ -10,10 +10,9 @@ import UIKit
 
 let imageCache: NSCache<NSString, UIImage> = NSCache()
 
-extension UIImageView{
+extension UIImageView {
 
     func loadImageUsingCacheWithUrlString(urlString: String){
-        
         self.image = nil
         
         if let cachedImage = imageCache.object(forKey: urlString as NSString){
@@ -29,15 +28,13 @@ extension UIImageView{
             }
             
             DispatchQueue.main.async {
-                
                 if let downloadedImage = UIImage(data: data!){
                     imageCache.setObject(downloadedImage, forKey: urlString as NSString)
                     self.image = UIImage(data: data!)
                 }
-                
             }
         
-            }.resume()
+        }.resume()
         
     }
 }

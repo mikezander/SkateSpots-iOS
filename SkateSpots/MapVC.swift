@@ -39,7 +39,7 @@ class MapVC: UIViewController{
             mapView.delegate = self
         }else{
             
-            NotificationCenter.default.addObserver(self, selector: #selector(self.internetConnectionFound(notification:)), name: notificationName, object: nil)
+            NotificationCenter.default.addObserver(self, selector: #selector(self.internetConnectionFound(notification:)), name: internetConnectionNotification, object: nil)
             
             errorAlert(title: "Internet Connection Error", message: "Make sure you are connected and try again")
             return
@@ -47,20 +47,13 @@ class MapVC: UIViewController{
         
         
     }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(true)
 
-        
-    }
-    
     func loadAnnotationData(){
         
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
             self.spots = [] //clears up spot array each time its loaded
 
-            
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
                 for snap in snapshot{
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
@@ -69,24 +62,19 @@ class MapVC: UIViewController{
                         let spotPin = SpotPin(spot: spot)
                         
                         self.spotPins.append(spotPin)
-                        
                     }
                 }
-                
             }
-            
             self.mapView.addAnnotations(self.spotPins)
         })
     }
     
     func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate,
-                                                                  regionRadius, regionRadius)
+        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
     func getUsersLocation(){
-        
         manager.delegate = self
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         manager.requestWhenInUseAuthorization()
@@ -94,23 +82,18 @@ class MapVC: UIViewController{
     }
     
     @IBAction func refreshLocationPressed(_ sender: Any) {
-        
         getUsersLocation()
-        
     }
     
     @objc func internetConnectionFound(notification: NSNotification){
-        print("connection made")
-        
         spotPins = []
         loadAnnotationData()
         mapView.delegate = self
-        NotificationCenter.default.removeObserver(self, name: notificationName, object: nil)
+        NotificationCenter.default.removeObserver(self, name: internetConnectionNotification, object: nil)
     }
     
 }
 extension MapVC: CLLocationManagerDelegate{
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0]
         
@@ -154,6 +137,7 @@ extension MapVC: MKMapViewDelegate {
         let myImageView = UIImageView(frame: cropRect)
         myImageView.clipsToBounds = true
         myImageView.sd_setImage(with: URL(string: annotation.imageUrl),placeholderImage: nil)
+        
         view.leftCalloutAccessoryView = myImageView
         view.isHighlighted = true
         view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
@@ -183,14 +167,11 @@ extension MapVC: MKMapViewDelegate {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
-        
         if segue.identifier == "DetailVC"{
             
             let vc = segue.destination as! DetailVC
             vc.spot = spot
         }
-        
     }
     
 }

@@ -27,7 +27,6 @@ class SpotRow: UITableViewCell{
     
     var delegate: SpotRowDelegate?
     
-    //var spot: Spot!
     var spot: Spot!{
         didSet{
             spotCollectionView.reloadData()
@@ -46,7 +45,6 @@ class SpotRow: UITableViewCell{
         
         userImage.isUserInteractionEnabled = true
         
-       
         self.userImage.sd_setImage(with: URL(string: spot.userImageURL), placeholderImage: UIImage(named: "profile-placeholder"))
        
         if spot.distance != nil{
@@ -71,14 +69,11 @@ class SpotRow: UITableViewCell{
 
 extension SpotRow : UICollectionViewDataSource {
     
-    
     override func prepareForReuse() {
         super.prepareForReuse()
 
     }
-    
-   
-    
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         pageControl.numberOfPages = spot.imageUrls.count
         return spot.imageUrls.count
@@ -111,6 +106,7 @@ extension SpotRow : UICollectionViewDataSource {
 
         return cell
     }
+
     
 }
 
@@ -120,15 +116,20 @@ extension SpotRow : UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         collectionView.setContentOffset(CGPoint.zero, animated: false)
         
+       // return CGSize(width: collectionView.frame.width, height: collectionView.frame.height)
+
         let screenSize = UIScreen.main.bounds
         let screenHeight = screenSize.height
         let screenWidth = screenSize.width
-        
-        let heightOffset:CGFloat = 225
 
-        return CGSize(width: screenWidth , height: screenHeight - heightOffset)
+        let heightOffset:CGFloat = 225
+        let contentHeight = screenHeight - heightOffset
+
+        return CGSize(width: screenWidth, height: contentHeight)
     }
     
+    
+
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0
     }

@@ -57,13 +57,10 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         super.viewDidLoad()
 
         isConnected()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(internetConnectionFound(notification:)), name: notificationName, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(internetConnectionFound(notification:)), name: internetConnectionNotification, object: nil)
         
         screenSize = UIScreen.main.bounds
         screenHeight = screenSize.height
-        
-
         if screenHeight == 812.0{
             UIApplication.shared.statusBarView?.backgroundColor = #colorLiteral(red: 0.5650888681, green: 0.7229202986, blue: 0.394353807, alpha: 1)
             heightOffset += 60
@@ -116,7 +113,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         loadSpotsbyRecentlyUploaded()
         print("connection made!")
-        NotificationCenter.default.removeObserver(self, name: notificationName, object: nil)
+        NotificationCenter.default.removeObserver(self, name: internetConnectionNotification, object: nil)
     }
     
     @IBAction func signOutFBTest(_ sender: Any) {
@@ -154,66 +151,29 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             
             self.menuShowing = !self.menuShowing
             
-            if self.segmentControl.selectedSegmentIndex == 0{
+            if self.segmentControl.selectedSegmentIndex == 0 {
                 self.spots = self.allSpotsR
             }else{
                 self.spots = self.allSpotsD
             }
             
-            switch(sender.tag){
-                
-            case 0 :
-                if self.segmentControl.selectedSegmentIndex == 0{
-                    self.spots = self.allSpotsR
-                }else{
-                    self.spots = self.allSpotsD
+            if let spotType = sender.titleLabel?.text {
+                if spotType == "All" {
+                    spots = segmentControl.selectedSegmentIndex == 0 ? allSpotsR : allSpotsD
+                } else {
+                    filterSpotsBy(type: spotType)
                 }
-                self.filterButton.setTitle("Filter Spots", for: .normal)
-                
-                break
-            case 1:
-                self.filterSpotsBy(type: "Skatepark")
-                break
-            case 2:
-                self.filterSpotsBy(type: "Ledges")
-                break
-            case 3:
-                self.filterSpotsBy(type: "Rail")
-                break
-            case 4:
-                self.filterSpotsBy(type: "Stairs/Gap")
-                break
-            case 5:
-                self.filterSpotsBy(type: "Bump")
-                break
-            case 6:
-                self.filterSpotsBy(type: "Manual")
-                break
-            case 7:
-                self.filterSpotsBy(type: "Bank")
-                break
-            case 8:
-                self.filterSpotsBy(type: "Tranny")
-                break
-            case 9:
-                self.filterSpotsBy(type: "Other")
-                break
-                
-            default:
-                break
-                
             }
-            
+
             SVProgressHUD.dismiss()
             
             self.spotTableView.reloadData()
             
-            if self.spotTableView.numberOfRows(inSection: 0) > 0{
+            if self.spotTableView.numberOfRows(inSection: 0) > 0 {
                 self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
             }
             
-        }else{
-            
+        } else {
             self.errorAlert(title: "Internet Connection Error", message: "Make sure you have a connection and try again")
         }
         
@@ -221,57 +181,48 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     func filterSpotsBy(type:String){
         let lowercaseType = type.lowercased()
-        let filtered = self.spots.filter({return $0.sortBySpotType(type: lowercaseType) == true})
+        let filtered = self.spots.filter({ return $0.sortBySpotType(type: lowercaseType) == true })
         self.spots = filtered
         self.filterButton.setTitle(type, for: .normal)
         
     }
     
     func setMessageNotificationBadge(){
- 
         let userRef = DataService.instance.REF_BASE.child("user-messages").child(Auth.auth().currentUser!.uid)
         userRef.observe(.value, with: { (snapshot) in
 
             self.badgeCount = 0
             self.unReadUsers.removeAll()
             
-            if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
+            if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 
                 self.messageLabel.badgeString = "\(self.badgeCount)"
                 
-                for snap in snapshot{
+                for snap in snapshot {
                     let userKey = snap.key
                     
-                    if let spotDict = snap.value as? Dictionary<String, AnyObject>{
-
+                    if let spotDict = snap.value as? Dictionary<String, AnyObject> {
                         for value in spotDict.values{
-                        if value.isEqual(0){
-                            print(self.badgeCount)
+                        if value.isEqual(0) {
                             self.badgeCount += 1
                             self.unReadUsers.insert(userKey)
-                            
                             }
                         }
-                     
                     }
                 }
-                
             }
             
-            if self.badgeCount == 0{
+            if self.badgeCount == 0 { 
                 self.messageLabel.badgeBackgroundColor = .clear
                 self.messageLabel.badgeTextColor = .clear
-            }else{
+            } else {
                 self.messageLabel.badgeString = "\(self.badgeCount)"
                 self.messageLabel.badgeBackgroundColor = .black
                 self.messageLabel.badgeTextColor = .white
                 
             }
-            
             MessagesVC.shared.unreadUsers = self.unReadUsers
         })
-        
-
     }
     
     @IBAction func openFilterMenu(_ sender: Any) {
@@ -351,10 +302,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     @IBAction func toggle(_ sender: UISegmentedControl) {
         
-        if hasConnected && isInternetAvailable(){ //Double check this
-            
-            
-            
+        if hasConnected && isInternetAvailable(){
+
             if sender.selectedSegmentIndex == 1{
                 
                 self.manager.delegate = self
@@ -387,11 +336,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        
         manager.stopUpdatingLocation()
         
         if let location = locations.first {
-            print("Found MY location: \(location)")
             myLocation = location
         }
         
@@ -403,7 +350,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             }
         }
     }
-    
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find MY location: \(error.localizedDescription)")
@@ -421,7 +367,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func lblClick(tapGesture:UITapGestureRecognizer){
-        
         let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
         vc.userKey = spots[tapGesture.view!.tag].user
         self.navigationController?.pushViewController(vc, animated:true)
@@ -434,21 +379,14 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let spot = spots[indexPath.row]
-        
         let cell = tableView.dequeueReusableCell(withIdentifier: "SpotRowCell") as! SpotRow
 
-        
         cell.userName.isUserInteractionEnabled = true
-        
         cell.userName.tag = indexPath.row
-        
         cell.userName.addGestureRecognizer(setGestureRecognizer())
         cell.userImage.addGestureRecognizer(setGestureRecognizer())
-        
         cell.configureRow(spot: spot)
-      
         cell.delegate = self
         
         return cell
@@ -463,14 +401,12 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 }
 extension FeedVC: SpotRowDelegate{
-
     func didTapDirectionsButton(spot: Spot) {
         let coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
         mapItem.name = spot.spotName
         mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
     }
-
 }
 
 

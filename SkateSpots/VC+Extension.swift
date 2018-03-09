@@ -12,7 +12,7 @@ import Foundation
 
 
 var hasConnected = false
-let notificationName = Notification.Name("NotificationIdentifier")
+let internetConnectionNotification = Notification.Name("NotificationIdentifier")
 private var firstLaunch : Bool = false
 var defaults = UserDefaults.standard
 let agreementKey = "AgreementKey"
@@ -50,18 +50,13 @@ extension UIViewController{
     func isConnected(){
         
         DataService.instance.isConnectedToFirebase(completion: { connected in
-            
-            if connected{
-                
+            if connected {
                 hasConnected = true
-                NotificationCenter.default.post(name: notificationName, object: nil)
-                
-            }else{
+                NotificationCenter.default.post(name: internetConnectionNotification, object: nil)
+            } else {
                 hasConnected = false
                 
             }
-            
-            print("\(hasConnected)hasconnected")
         })
         
     }

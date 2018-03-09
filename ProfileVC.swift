@@ -118,7 +118,6 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     }
     
     func hasProfileBeenEdited(edited: Bool){
-        
         self.profileEdited = edited
     }
     
