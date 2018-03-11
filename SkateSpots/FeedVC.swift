@@ -58,13 +58,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
 
         isConnected()
         NotificationCenter.default.addObserver(self, selector: #selector(internetConnectionFound(notification:)), name: internetConnectionNotification, object: nil)
-        
-        screenSize = UIScreen.main.bounds
-        screenHeight = screenSize.height
-        if screenHeight == 812.0{
-            UIApplication.shared.statusBarView?.backgroundColor = #colorLiteral(red: 0.5650888681, green: 0.7229202986, blue: 0.394353807, alpha: 1)
-            heightOffset += 60
-        }
+
+        configureForIphoneX()
  
         spotTableView.showsVerticalScrollIndicator = false
         
@@ -85,14 +80,15 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
-        
         if Auth.auth().currentUser == nil {
+           
             isLoggedIn = false
             performSegue(withIdentifier: "LogInVC", sender: nil)
             return
+       
         }else{
             
-            if UIApplication.isFirstLaunch() && !hasRan{
+            if UIApplication.isFirstLaunch() && !hasRan {
                 UNService.shared.authorize()
                 hasRan = true
                 checkForCorrectProfileImage()
@@ -110,10 +106,17 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func internetConnectionFound(notification: NSNotification){
-        
         loadSpotsbyRecentlyUploaded()
-        print("connection made!")
         NotificationCenter.default.removeObserver(self, name: internetConnectionNotification, object: nil)
+    }
+    
+    func configureForIphoneX() {
+        screenSize = UIScreen.main.bounds
+        screenHeight = screenSize.height
+        if screenHeight == 812.0 {
+            UIApplication.shared.statusBarView?.backgroundColor = #colorLiteral(red: 0.5650888681, green: 0.7229202986, blue: 0.394353807, alpha: 1)
+            heightOffset += 60
+        }
     }
     
     @IBAction func signOutFBTest(_ sender: Any) {
@@ -219,7 +222,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 self.messageLabel.badgeString = "\(self.badgeCount)"
                 self.messageLabel.badgeBackgroundColor = .black
                 self.messageLabel.badgeTextColor = .white
-                
             }
             MessagesVC.shared.unreadUsers = self.unReadUsers
         })
@@ -227,7 +229,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     @IBAction func openFilterMenu(_ sender: Any) {
         
-        if menuShowing{
+        if menuShowing {
             trailingConstraint.constant = -160
             self.spotTableView.isUserInteractionEnabled = true
             
@@ -236,7 +238,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                             self.spotTableView.layer.opacity = 1.0
                             self.view.layoutIfNeeded()
             })
-        }else{
+        } else {
             trailingConstraint.constant = 0
             self.spotTableView.isUserInteractionEnabled = false
             
@@ -302,16 +304,16 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     @IBAction func toggle(_ sender: UISegmentedControl) {
         
-        if hasConnected && isInternetAvailable(){
+        if hasConnected && isInternetAvailable() {
 
-            if sender.selectedSegmentIndex == 1{
+            if sender.selectedSegmentIndex == 1 {
                 
                 self.manager.delegate = self
                 self.manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
                 self.manager.requestWhenInUseAuthorization()
                 self.manager.startUpdatingLocation()
                 
-            }else{
+            } else {
                 
                 self.loadSpotsbyRecentlyUploaded()
                 self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
@@ -319,7 +321,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 
             }
             
-        }else{
+        } else {
             self.errorAlert(title: "Internet Connection Error", message: "Make sure you have a connection and try again")
         }
         
@@ -366,7 +368,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         return tapGestureRecognizer
     }
     
-    func lblClick(tapGesture:UITapGestureRecognizer){
+    func lblClick(tapGesture:UITapGestureRecognizer) {
         let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
         vc.userKey = spots[tapGesture.view!.tag].user
         self.navigationController?.pushViewController(vc, animated:true)
@@ -400,7 +402,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         }
     }
 }
-extension FeedVC: SpotRowDelegate{
+extension FeedVC: SpotRowDelegate {
     func didTapDirectionsButton(spot: Spot) {
         let coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
         let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))

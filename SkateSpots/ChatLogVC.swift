@@ -48,28 +48,11 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         super.viewDidLoad()
 
         setupCustomNav()
-        
-        collectionView?.backgroundColor = .white
-
-        collectionView?.contentInset = UIEdgeInsets(top: 58, left: 0, bottom: 8, right: 0)
-
-
-        collectionView?.register(ChatLogCell.self, forCellWithReuseIdentifier: cellId)
-        
-        collectionView?.alwaysBounceVertical = true
-        
-        collectionView?.keyboardDismissMode = .interactive
-        
-        collectionView?.alwaysBounceVertical = true
-        
+        setupCollectionView()
         nameLabel.text = user?.userName
-        
         observeUsersMessages()
- 
         setupKeyboardObservers()
-        
         getCurrentUserName()
-
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -93,6 +76,15 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         
         delegate?.hasMessageBeenRead(chatPartnerId: userKey, edited: true)
 
+    }
+    
+    func setupCollectionView() {
+        collectionView?.backgroundColor = .white
+        collectionView?.contentInset = UIEdgeInsets(top: 58, left: 0, bottom: 8, right: 0)
+        collectionView?.register(ChatLogCell.self, forCellWithReuseIdentifier: cellId)
+        collectionView?.alwaysBounceVertical = true
+        collectionView?.keyboardDismissMode = .interactive
+        collectionView?.alwaysBounceVertical = true
     }
 
     lazy var inputContainerView: UIView = {

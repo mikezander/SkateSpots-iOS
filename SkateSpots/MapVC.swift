@@ -37,6 +37,7 @@ class MapVC: UIViewController{
         if isInternetAvailable() && hasConnected{
             
             mapView.delegate = self
+       
         }else{
             
             NotificationCenter.default.addObserver(self, selector: #selector(self.internetConnectionFound(notification:)), name: internetConnectionNotification, object: nil)
@@ -60,12 +61,15 @@ class MapVC: UIViewController{
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
                         let spotPin = SpotPin(spot: spot)
-                        
+
                         self.spotPins.append(spotPin)
                     }
                 }
             }
-            self.mapView.addAnnotations(self.spotPins)
+            
+            DispatchQueue.main.async {
+                self.mapView.addAnnotations(self.spotPins)
+            }
         })
     }
     
@@ -112,6 +116,32 @@ extension MapVC: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Failed to find MY location: \(error.localizedDescription)")
     }
+    
+    func resizeImage(image: UIImage, targetSize: CGSize) -> UIImage {
+        let size = image.size
+        
+        let widthRatio  = targetSize.width  / size.width
+        let heightRatio = targetSize.height / size.height
+        
+        // Figure out what our orientation is, and use that to form the rectangle
+        var newSize: CGSize
+        if(widthRatio > heightRatio) {
+            newSize = CGSize(width: size.width * heightRatio, height: size.height * heightRatio)
+        } else {
+            newSize = CGSize(width: size.width * widthRatio,  height: size.height * widthRatio)
+        }
+        
+        // This is the rect that we've calculated out and this is what is actually used below
+        let rect = CGRect(x: 0, y: 0, width: newSize.width, height: newSize.height)
+        
+        // Actually do the resizing to the rect using the ImageContext stuff
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        image.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
 }
 
 extension MapVC: MKMapViewDelegate {
@@ -130,14 +160,14 @@ extension MapVC: MKMapViewDelegate {
             view = MKPinAnnotationView(annotation: annotation, reuseIdentifier: identifier)
             view.canShowCallout = true
             view.calloutOffset = CGPoint(x: -5, y: 5)
-            
         }
         
         let cropRect = CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0)
+        
         let myImageView = UIImageView(frame: cropRect)
         myImageView.clipsToBounds = true
-        myImageView.sd_setImage(with: URL(string: annotation.imageUrl),placeholderImage: nil)
-        
+        myImageView.loadImageUsingCacheWithUrlString(urlString: annotation.imageUrl)//.sd_setImage(with: URL(string: annotation.imageUrl),placeholderImage: nil)
+
         view.leftCalloutAccessoryView = myImageView
         view.isHighlighted = true
         view.rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
@@ -175,5 +205,6 @@ extension MapVC: MKMapViewDelegate {
     }
     
 }
+
 
 

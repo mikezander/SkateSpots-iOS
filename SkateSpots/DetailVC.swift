@@ -695,12 +695,10 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     func backButtonPressed() {
         _ = navigationController?.popViewController(animated: true)
-        
         dismiss(animated: true, completion: nil)
     }
     
-    func adjustUITextViewHeight(arg : UITextView)
-    {
+    func adjustUITextViewHeight(arg : UITextView) {
         arg.translatesAutoresizingMaskIntoConstraints = true
         arg.sizeToFit()
         arg.isScrollEnabled = false
@@ -726,7 +724,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     //shifts the view up from bottom text field to be visible
     func keyboardWillShow(notification: NSNotification){
-        
         if commentView.isFirstResponder{
             view.frame.origin.y = -getKeyboardHeight(notification: notification)
         }
@@ -734,7 +731,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     //shifts view down once done editing bottom text field
     func keyboardWillHide(notification: NSNotification){
-        
         if commentView.isFirstResponder{
             view.frame.origin.y = 0
         }
@@ -750,16 +746,12 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     func subscribeToKeyboardNotifications(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
     }
     
     func unsubscribeToKeyboardNotifications(){
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{

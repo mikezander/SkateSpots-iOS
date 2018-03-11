@@ -84,7 +84,7 @@ extension UIApplication {
         
 }
 
-extension String{
+extension String {
     
     var isValidEmail : Bool {
         let emailFormat = "[A-Z0-9a-z._%+-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,64}"
@@ -114,10 +114,3 @@ extension UIColor {
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
     }
 }
-
-
-
-
-
-
-

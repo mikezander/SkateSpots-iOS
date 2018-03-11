@@ -95,7 +95,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 var spotsDict = [String:AnyObject]()
                 var photoDict = [String:AnyObject]()
                 
-                if self.userNameTextField.text != "" && self.userNameTextField.text != self.user.userName{
+                if self.userNameTextField.text != "" && self.userNameTextField.text != self.user.userName {
                     
                     userDict.updateValue(self.userNameTextField.text as AnyObject, forKey: "username")
                     spotsDict.updateValue(self.userNameTextField.text as AnyObject, forKey: "username")
@@ -103,17 +103,17 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                     self.hasBeenEdited = true
                 }
                 
-                if self.bioTextField.text != self.user.bio{
+                if self.bioTextField.text != self.user.bio {
                     userDict.updateValue(self.bioTextField.text as AnyObject, forKey: "bio")
                     self.hasBeenEdited = true
                 }
                 
-                if self.linkTextField.text != self.user.link{
+                if self.linkTextField.text != self.user.link {
                     userDict.updateValue(self.linkTextField.text as AnyObject, forKey: "link")
                     self.hasBeenEdited = true
                 }
                 
-                if self.igLinkTextfield.text != self.user.igLink{
+                if self.igLinkTextfield.text != self.user.igLink {
                     userDict.updateValue(self.igLinkTextfield.text as AnyObject, forKey: "igLink")
                     self.hasBeenEdited = true
                     
@@ -136,9 +136,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                             }
                             
                         })
-                        
-                        
-                        
+  
                     }
                     
                     if let userImg = self.profileImage.image{
@@ -161,24 +159,19 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                         
                     }
    
-                }else{
+                } else {
                     
                     self.delegate?.hasProfileBeenEdited(edited: self.hasBeenEdited)
                     
                     _ = self.navigationController?.popViewController(animated: true)
-                    
                     self.dismiss(animated: true, completion: nil)
-                    
                 }
-                
-                
-            }else{
+  
+            } else {
                 self.errorAlert(title: "Network Connection Error", message: "Make sure you have a connection and try again")
             }
             
-        })
-        
-        
+        })   
     }
     
     
@@ -186,7 +179,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
         let userEmail = Auth.auth().currentUser?.email
         
-            let alertController = UIAlertController(title: "Are you sure you want to log out?", message: "If you signed up with email/password, you must remember your password for \(userEmail!) to log back in.", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Are you sure you want to log out?", message: "If you signed up with email/password, you must remember your password for \(userEmail!) to log back in.", preferredStyle: .alert)
 
         
         let deleteAction = UIAlertAction(title: "Log Out", style:.destructive, handler: { (action) in
@@ -211,13 +204,10 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         
     }
     
-    func addDictToSpot(dict: [String:AnyObject]){
-        
-        for spot in spots{
-            
+    func addDictToSpot(dict: [String:AnyObject]) {
+        for spot in spots {
             DataService.instance.updateSpot(uid: spot.spotKey, userData: dict)
         }
-        
     }
     
     func setGestureRecognizer() -> UITapGestureRecognizer {
@@ -228,9 +218,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     }
     
     func showPhotoActionSheet(){
-        
-        
-        
         guard hasConnected else {
             errorAlert(title: "Network Connection Error", message: "Make sure you connected and try again")
             return
@@ -266,7 +253,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     //shifts the view up from bottom text field to be visible
     func keyboardWillShow(notification: NSNotification){
-        
         if bioTextField.isFirstResponder || linkTextField.isFirstResponder || igLinkTextfield.isFirstResponder{
             view.frame.origin.y = -(getKeyboardHeight(notification: notification) / 2)
         }
@@ -274,7 +260,6 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     //shifts view down once done editing bottom text field
     func keyboardWillHide(notification: NSNotification){
-        
         if bioTextField.isFirstResponder || linkTextField.isFirstResponder || igLinkTextfield.isFirstResponder{
             view.frame.origin.y = 0
         }
@@ -290,18 +275,13 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     
     func subscribeToKeyboardNotifications(){
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
     }
     
     func unsubscribeToKeyboardNotifications(){
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
-        
     }
-    
 }
 
 extension EditProfileVC: UITextFieldDelegate, UITextViewDelegate{
@@ -310,7 +290,6 @@ extension EditProfileVC: UITextFieldDelegate, UITextViewDelegate{
         textField.resignFirstResponder()
         return true
     }
-    
 }
 
 
