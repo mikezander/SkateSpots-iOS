@@ -11,7 +11,7 @@ import MapKit
 import Contacts
 import FirebaseStorage
 
-class SpotPin: NSObject, MKAnnotation{
+class SpotPin: NSObject, MKAnnotation {
 
     let spot: Spot
     let title: String?
@@ -31,13 +31,13 @@ class SpotPin: NSObject, MKAnnotation{
     var subtitle: String? {
         return locationName
     }
-    
+
     var markerTintColor: UIColor  {
         switch locationName {
         case "Skatepark":
-            return .red
+            return .black
         default:
-            return .green
+            return FLAT_GREEN
         }
     }
 

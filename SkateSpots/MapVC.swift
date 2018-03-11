@@ -13,14 +13,13 @@ import Contacts
 import FirebaseStorage
 import SDWebImage
 
-class MapVC: UIViewController{
+class MapVC: UIViewController {
     
     var spot: Spot?
     var spotPins = [SpotPin]()
     var spots = [Spot]()
     var manager = CLLocationManager()
     var myLocation = CLLocation()
-    let imageManager = SDWebImageManager.shared()
     
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
@@ -30,8 +29,12 @@ class MapVC: UIViewController{
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
+        mapView.delegate = self
+        
         getUsersLocation()
+        
+        mapView.delegate = self
         
         loadAnnotationData()
         
@@ -46,8 +49,7 @@ class MapVC: UIViewController{
             errorAlert(title: "Internet Connection Error", message: "Make sure you are connected and try again")
             return
         }
-        
-        
+   
     }
 
     func loadAnnotationData(){
@@ -62,7 +64,6 @@ class MapVC: UIViewController{
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
                         let spotPin = SpotPin(spot: spot)
-
                         self.spotPins.append(spotPin)
                     }
                 }
@@ -135,7 +136,7 @@ extension MapVC: MKMapViewDelegate {
         
         let identifier = "pin"
         var view: MKPinAnnotationView
-        
+
         if let dequeuedView = mapView.dequeueReusableAnnotationView(withIdentifier: identifier) as? MKPinAnnotationView {
             dequeuedView.annotation = annotation
             view = dequeuedView
@@ -146,7 +147,6 @@ extension MapVC: MKMapViewDelegate {
         }
         
         let cropRect = CGRect(x: 0.0, y: 0.0, width: 50.0, height: 50.0)
-        
         let myImageView = UIImageView(frame: cropRect)
         myImageView.clipsToBounds = true
         

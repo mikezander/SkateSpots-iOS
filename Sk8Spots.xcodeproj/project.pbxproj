@@ -44,6 +44,7 @@
 		C4B0C5531F0D7B78004B6923 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C4B0C5511F0D7B78004B6923 /* LaunchScreen.storyboard */; };
 		C4B46CEE1F2F948A007D3206 /* CommentCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B46CED1F2F948A007D3206 /* CommentCell.swift */; };
 		C4B46CF01F2F9ACE007D3206 /* Comment.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B46CEF1F2F9ACE007D3206 /* Comment.swift */; };
+		C4BF1E522055B70A000A7B0D /* RoundedShadowUIView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4BF1E512055B70A000A7B0D /* RoundedShadowUIView.swift */; };
 		C4CE59131F241A0F00180BA5 /* DetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE59121F241A0F00180BA5 /* DetailVC.swift */; };
 		C4CE59151F24497800180BA5 /* DetailPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE59141F24497800180BA5 /* DetailPhotoCell.swift */; };
 		C4CE59191F28314A00180BA5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4CE59181F28314A00180BA5 /* Constants.swift */; };
@@ -101,6 +102,7 @@
 		C4B0C5541F0D7B78004B6923 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C4B46CED1F2F948A007D3206 /* CommentCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCell.swift; sourceTree = "<group>"; };
 		C4B46CEF1F2F9ACE007D3206 /* Comment.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Comment.swift; sourceTree = "<group>"; };
+		C4BF1E512055B70A000A7B0D /* RoundedShadowUIView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoundedShadowUIView.swift; sourceTree = "<group>"; };
 		C4CE59121F241A0F00180BA5 /* DetailVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailVC.swift; sourceTree = "<group>"; };
 		C4CE59141F24497800180BA5 /* DetailPhotoCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailPhotoCell.swift; sourceTree = "<group>"; };
 		C4CE59181F28314A00180BA5 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
@@ -170,6 +172,7 @@
 				C4CE591B1F28663500180BA5 /* CircleView.swift */,
 				C419DD251F3B84B400D8CC06 /* Billabong.ttf */,
 				C417D7B91FCBDEEB001600F1 /* RoundedShadowView.swift */,
+				C4BF1E512055B70A000A7B0D /* RoundedShadowUIView.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -444,6 +447,7 @@
 				C4E36FD21F1A7F23000ABF4D /* SpotRow.swift in Sources */,
 				C48415931F9FBC7A00F4BB20 /* ChatLogVC.swift in Sources */,
 				C41D8B271F0ECB12009C174C /* LogInVC.swift in Sources */,
+				C4BF1E522055B70A000A7B0D /* RoundedShadowUIView.swift in Sources */,
 				C4AD89B21F48B93200D47460 /* FavoriteCell.swift in Sources */,
 				C4CE591C1F28663500180BA5 /* CircleView.swift in Sources */,
 				C41D8B311F0F38E0009C174C /* Spot.swift in Sources */,
