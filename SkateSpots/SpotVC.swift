@@ -63,6 +63,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         super.viewDidLoad()
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
+        addSpotButton.layer.cornerRadius = 10.0
         
         spotNameField.delegate = self
         spotNameField.layer.cornerRadius = 7.0
@@ -123,7 +124,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     @IBAction func SpotTypePressed(_ sender: UIButton) {
         
-        if sender.backgroundColor == UIColor.clear{
+        if sender.backgroundColor == UIColor.clear {
             switch sender.tag {
             case 0,1,2,3,4,5,6:
                 sender.isSelected = true

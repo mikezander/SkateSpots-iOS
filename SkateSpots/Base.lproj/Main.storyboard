@@ -1145,7 +1145,7 @@
                                 <rect key="frame" x="0.0" y="64" width="414" height="823"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Lqp-l6-5Pe">
-                                        <rect key="frame" x="0.0" y="0.0" width="414" height="857"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="414" height="820"/>
                                         <subviews>
                                             <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="2" translatesAutoresizingMaskIntoConstraints="NO" id="tx4-EL-Etk">
                                                 <rect key="frame" x="143" y="558.5" width="129" height="31"/>
@@ -1314,13 +1314,13 @@
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences" autocorrectionType="no" spellCheckingType="no"/>
                                             </textView>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V4h-OR-re2">
-                                                <rect key="frame" x="170" y="777" width="75" height="30"/>
+                                                <rect key="frame" x="157.5" y="740" width="100" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="width" constant="75" id="4iv-Vi-aUz"/>
+                                                    <constraint firstAttribute="width" constant="100" id="4iv-Vi-aUz"/>
                                                 </constraints>
                                                 <color key="tintColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                                <state key="normal" title="Add Spot"/>
+                                                <state key="normal" title="ADD SPOT"/>
                                                 <connections>
                                                     <action selector="addSpotButtonPressed:" destination="6EH-HZ-XWK" eventType="touchUpInside" id="sRJ-8E-Fmc"/>
                                                 </connections>
@@ -1425,7 +1425,7 @@
                                             <constraint firstItem="Hml-DF-Hzk" firstAttribute="top" secondItem="tx4-EL-Etk" secondAttribute="bottom" constant="-6" id="5Xd-sV-I6a"/>
                                             <constraint firstAttribute="trailing" secondItem="XTg-OB-r0y" secondAttribute="trailing" constant="25" id="6Zt-aV-yGU"/>
                                             <constraint firstAttribute="trailing" secondItem="0LK-r3-mkB" secondAttribute="trailing" constant="25" id="7Bc-MF-POB"/>
-                                            <constraint firstItem="V4h-OR-re2" firstAttribute="top" secondItem="YqJ-mp-qAY" secondAttribute="bottom" constant="87" id="7WJ-no-weY"/>
+                                            <constraint firstItem="V4h-OR-re2" firstAttribute="top" secondItem="YqJ-mp-qAY" secondAttribute="bottom" constant="50" id="7WJ-no-weY"/>
                                             <constraint firstItem="eBr-NS-j3K" firstAttribute="top" secondItem="XTg-OB-r0y" secondAttribute="bottom" constant="20" id="8om-hc-O9a"/>
                                             <constraint firstAttribute="trailing" secondItem="4fq-yo-Xde" secondAttribute="trailing" constant="25" id="9Hg-Ef-731"/>
                                             <constraint firstItem="V4h-OR-re2" firstAttribute="centerX" secondItem="Lqp-l6-5Pe" secondAttribute="centerX" id="BPE-Xj-arE"/>
