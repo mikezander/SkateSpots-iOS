@@ -212,9 +212,9 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         
         var selectedImageFromPicker: UIImage?
         
-        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage{
+        if let editedImage = info["UIImagePickerControllerEditedImage"] as? UIImage {
             selectedImageFromPicker = editedImage
-        }else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage{
+        }else if let originalImage = info["UIImagePickerControllerOriginalImage"] as? UIImage {
             selectedImageFromPicker = originalImage
         }
         
@@ -269,7 +269,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     func handleKeyboardDidShow(notification: NSNotification){
-        if messages.count > 0{
+        if messages.count > 0 {
             let indexPath = IndexPath(item: messages.count - 1, section: 0)
             collectionView?.scrollToItem(at: indexPath, at: .top, animated: true)
             
@@ -508,12 +508,14 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
             cell.bubbleView.backgroundColor = UIColor.groupTableViewBackground
             cell.textView.textColor = .black
             cell.profileImageView.isHidden = false
+            cell.profileImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(profilePicTapped)))
+            cell.profileImageView.isUserInteractionEnabled = true
             
             cell.bubbleViewRightAnchor?.isActive = false
             cell.bubbleViewLeftAnchor?.isActive = true
         }
         
-        if let messageImageUrl = message.imageUrl{
+        if let messageImageUrl = message.imageUrl {
             cell.messageImageView.loadImageUsingCacheWithUrlString(urlString: messageImageUrl)
             cell.messageImageView.isHidden = false
             cell.bubbleView.backgroundColor = .clear
@@ -568,6 +570,12 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
            
         }
  
+    }
+    
+    func profilePicTapped() {
+        let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
+        vc.userKey = userKey
+        self.navigationController?.pushViewController(vc, animated:true)
     }
     
     func handleZoomOut(tapGesture: UITapGestureRecognizer){

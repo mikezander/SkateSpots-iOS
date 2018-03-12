@@ -62,7 +62,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         configureForIphoneX()
  
         spotTableView.showsVerticalScrollIndicator = false
-        
+
         menuView.layer.shadowOpacity = 1
         menuView.layer.shadowRadius = 6
         menuView.sizeToFit()

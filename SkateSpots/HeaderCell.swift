@@ -36,7 +36,6 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
         profilePhoto.layer.borderColor = FLAT_GREEN.cgColor
         profilePhoto.layer.cornerRadius = profilePhoto.frame.height / 2
         profilePhoto.clipsToBounds = true
-
         contentView.addSubview(profilePhoto)
 
         userName = UILabel()
@@ -44,7 +43,6 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
         userName.textAlignment = .center
         userName.textColor = UIColor.black
         userName.font = UIFont(name: "Avenir-Bold",size: 18)
-        
         contentView.addSubview(userName)
         
         bio = UITextView()
@@ -68,9 +66,7 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
         link.backgroundColor = UIColor.groupTableViewBackground
         link.font = UIFont(name: "Avenir",size: 14)
         contentView.addSubview(link)
-        
-        
-        
+
         igLink = UIButton()
         igLink.frame = CGRect(x: 0, y: link.frame.origin.y + link.frame.height + 7, width: screenSize.width, height: 20)
         igLink.isUserInteractionEnabled = true
@@ -89,7 +85,6 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
         contributions.textColor = UIColor.lightGray
         contributions.font = UIFont(name: "Avenir-Black",size: 14)
         contentView.addSubview(contributions)
-        
     }
     
     
