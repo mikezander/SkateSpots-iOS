@@ -23,17 +23,10 @@ class ProfileCell: UITableViewCell{
         self.spotNameLabel.text = spot.spotName
         self.spotLocationLabel.text = spot.spotLocation
         
-        //self.spotImage.loadImageUsingCacheWithUrlString(urlString: spot.imageUrls[0])
-        
         spotImage.kf.setImage(with: URL(string: spot.imageUrls[0]))
 
-        //self.spotImage.sd_setImage(with: URL(string: spot.imageUrls[0]),placeholderImage: nil)
-        
-        
-        
         DispatchQueue.main.async{self.activityIdicator.stopAnimating()}
-       
-       
+
     }
     
 }

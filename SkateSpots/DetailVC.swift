@@ -659,10 +659,16 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     }
     
     func getDirections(){
-        let coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
-        let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
-        mapItem.name = spot.spotName
-        mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+
+        if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
+            UIApplication.shared.open(URL(string:
+                "comgooglemaps://?saddr=&daddr=\(Float(spot.latitude)),\(Float(spot.longitude))&directionsmode=driving")!, options: [:], completionHandler: { (completed) in  })
+        } else {
+            let coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
+            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+            mapItem.name = spot.spotName
+            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+        }
     }
     
     func reportSpotPressed(){
