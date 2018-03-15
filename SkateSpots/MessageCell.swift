@@ -31,7 +31,7 @@ class MessageCell: UITableViewCell{
             timeLabel.textAlignment = .right
         }
  
-        self.profileImageView.sd_setImage(with: URL(string: userUrl), placeholderImage: nil)
+        self.profileImageView.sd_setImage(with: URL(string: userUrl), placeholderImage: UIImage(named: "profile-placeholder"))
         
     }
     

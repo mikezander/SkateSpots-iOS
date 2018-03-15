@@ -12,6 +12,8 @@ import Firebase
 import Contacts
 import FirebaseStorage
 import SDWebImage
+import SVProgressHUD
+import Kingfisher
 
 class MapVC: UIViewController {
     
@@ -29,13 +31,9 @@ class MapVC: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        mapView.delegate = self
-        
+
         getUsersLocation()
-        
-        mapView.delegate = self
-        
+
         loadAnnotationData()
         
         if isInternetAvailable() && hasConnected{
@@ -150,8 +148,8 @@ extension MapVC: MKMapViewDelegate {
         let myImageView = UIImageView(frame: cropRect)
         myImageView.clipsToBounds = true
         
-        myImageView.sd_setImage(with: URL(string: annotation.imageUrl), placeholderImage: nil, options: [.scaleDownLargeImages]) { (image, error, cacheType, url) in
-            myImageView.image = self.scale(image, to: CGSize(width: 50.0, height: 50.0))
+        myImageView.kf.setImage(with: URL(string: annotation.imageUrl), placeholder: nil, options: [.scaleFactor(50.0)], progressBlock: nil) { (image, error, cacheType, url) in
+            
         }
 
         view.leftCalloutAccessoryView = myImageView

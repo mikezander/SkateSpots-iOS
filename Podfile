@@ -15,7 +15,8 @@ target 'Sk8Spots' do
   pod 'SwiftKeychainWrapper'
   pod 'SVProgressHUD'
   pod "MIBadgeButton-Swift", :git => 'https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git', :branch => 'master'
-  pod 'SDWebImage', '~> 4.1.2'
+  pod 'SDWebImage'
+  pod 'Kingfisher'
 
   
 end

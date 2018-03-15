@@ -37,7 +37,7 @@ class MessagesVC: UIViewController, MessageReadProtocol{
         
         UNService.shared.unCenter.removeAllDeliveredNotifications()
         
-        if messages.count == 0{
+        if messages.count == 0 {
             self.messageTableView.backgroundView = emptyDataLabel()
         }
   

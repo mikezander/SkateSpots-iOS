@@ -20,16 +20,22 @@ class DetailPhotoCell: UICollectionViewCell{
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
         self.spot = spot
         
-        
-        spotImage.sd_setImage(with: URL(string: spot.imageUrls[count])) { (image, error, chacheType, url) in
-            
-            if let img = image{
+        spotImage.kf.setImage(with: URL(string: spot.imageUrls[count]), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cacheType, url) in
+            if let img = image {
                 self.setImageViewContentMode(image: img)
             }
-            
-           self.activityIndicator.stopAnimating()
-            
+            self.activityIndicator.stopAnimating()
         }
+        
+//        spotImage.sd_setImage(with: URL(string: spot.imageUrls[count])) { (image, error, chacheType, url) in
+//
+//            if let img = image{
+//                self.setImageViewContentMode(image: img)
+//            }
+//
+//           self.activityIndicator.stopAnimating()
+//
+//        }
   
     }
     

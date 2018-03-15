@@ -9,6 +9,7 @@ import UIKit
 import FirebaseStorage
 import SVProgressHUD
 import SDWebImage
+import Kingfisher
 
 class SpotPhotoCell: UICollectionViewCell{
     
@@ -21,16 +22,23 @@ class SpotPhotoCell: UICollectionViewCell{
         self.spot = spot
         
         self.spotImage.contentMode = .scaleToFill
-
-            self.spotImage.sd_setImage(with: URL(string: spot.imageUrls[count])) { (image, error, chacheType, url) in
-
-                if let img = image{
-                    self.setImageViewContentMode(image: img)
-                }
-            
-           self.activityIndicator.stopAnimating()
-           
+        
+        spotImage.kf.setImage(with: URL(string: spot.imageUrls[count]), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cacheType, url) in
+            if let img = image {
+                self.setImageViewContentMode(image: img)
+            }
+                self.activityIndicator.stopAnimating()
         }
+        
+
+//        self.spotImage.sd_setImage(with: URL(string: spot.imageUrls[count])) { (image, error, cacheType, url) in
+//
+//            if let img = image {
+//                self.setImageViewContentMode(image: img)
+//            }
+//
+//            self.activityIndicator.stopAnimating()
+//        }
 
        /* if img != nil{
             self.spotImage.image = img
@@ -75,10 +83,8 @@ class SpotPhotoCell: UICollectionViewCell{
     }
     
     func setImageViewContentMode(image:UIImage){
-        
-        if image.size.width > image.size.height{
-            print("fit")
-         self.spotImage.contentMode = .scaleAspectFit
+        if image.size.width > image.size.height {
+            self.spotImage.contentMode = .scaleAspectFit
         }
     }
     
@@ -90,6 +96,7 @@ class SpotPhotoCell: UICollectionViewCell{
     func imageContentMode() -> Int {
         return spotImage.contentMode.rawValue
     }
-    
+
 }
+
 
