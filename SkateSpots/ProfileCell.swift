@@ -24,8 +24,10 @@ class ProfileCell: UITableViewCell{
         self.spotLocationLabel.text = spot.spotLocation
         
         //self.spotImage.loadImageUsingCacheWithUrlString(urlString: spot.imageUrls[0])
+        
+        spotImage.kf.setImage(with: URL(string: spot.imageUrls[0]))
 
-        self.spotImage.sd_setImage(with: URL(string: spot.imageUrls[0]),placeholderImage: nil)
+        //self.spotImage.sd_setImage(with: URL(string: spot.imageUrls[0]),placeholderImage: nil)
         
         
         
