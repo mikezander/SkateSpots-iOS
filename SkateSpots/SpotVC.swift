@@ -582,10 +582,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             self.locationImageView.jitter()
         }
         
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.errorAlert(title: "Your location was not found!", message: "Make sure you have allowed location for Sk8Spots. Go to settings, then scroll down to Sk8Spots and allow location access.")
+        if error.localizedDescription == "The operation couldn’t be completed. (kCLErrorDomain error 1.)" {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                self.errorAlert(title: "Your location was not found!", message: "Make sure you have allowed location for Sk8Spots. Go to settings, then scroll down to Sk8Spots and allow location access.")
+            }
         }
-   
+
     }
     
     

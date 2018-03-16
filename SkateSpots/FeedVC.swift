@@ -372,7 +372,11 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Failed to find MY location: \(error.localizedDescription)")
+        if error.localizedDescription == "The operation couldn’t be completed. (kCLErrorDomain error 1.)" {
+            DispatchQueue.main.asyncAfter(deadline: .now() + 0.7) {
+                self.errorAlert(title: "Your location was not found!", message: "Make sure you have allowed location for Sk8Spots. Go to settings, then scroll down to Sk8Spots and allow location access.")
+            }
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {

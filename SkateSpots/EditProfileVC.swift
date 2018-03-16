@@ -139,7 +139,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
   
                     }
                     
-                    if let userImg = self.profileImage.image{
+                    if let userImg = self.profileImage.image {
                         
                         DataService.instance.addProfilePicToStorageWithCompletion(image: userImg){ url in
                             
