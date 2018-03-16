@@ -14,6 +14,15 @@ import FirebaseStorage
 import AssetsLibrary
 import SVProgressHUD
 import AVFoundation
+import AudioToolbox
+
+class LocationLabel: UILabel, Jitterable {
+    
+}
+
+class LocationImageView: UIImageView, Jitterable {
+    
+}
 
 class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,CLLocationManagerDelegate{
     
@@ -45,8 +54,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var addSpotButton: UIButton!
     @IBOutlet weak var topPhotoLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var locationLabel: UILabel!
-    @IBOutlet weak var locationImageView: UIImageView!
+    @IBOutlet weak var locationLabel: LocationLabel!
+    @IBOutlet weak var locationImageView: LocationImageView!
    
     var imagePicker: UIImagePickerController!
     var count = 0
@@ -61,6 +70,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     var spotType: String = ""
     var bestTimeToSkate: String = ""
     var hasRan = false
+    var generator: UIImpactFeedbackGenerator? = nil
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -106,6 +116,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         topPhotoLabel.isHidden = true
         
+        generator = UIImpactFeedbackGenerator(style: .light)
+   
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -286,8 +298,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func clearLocationData() {
+        
+        locationImageView.jitter()
+        locationLabel.jitter()
         locationLabel.text = "Location not found"
         locationImageView.image = UIImage(named: "x")!
+        AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
         locationFound = false
         latitude = nil
         longitude = nil
@@ -369,13 +385,37 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                     if let imageUrl = info[UIImagePickerControllerReferenceURL] as? NSURL{
                         let asset = PHAsset.fetchAssets(withALAssetURLs:[imageUrl as URL], options: nil).firstObject as PHAsset?
                         
-                        if asset?.location != nil{
-                            let location = asset?.location
+                        let imageManager = PHImageManager.default()
+                        
+                        imageManager.requestImageData(for: asset! , options: nil, resultHandler:{
+                            (data, responseString, imageOriet, info) -> Void in
+                            let imageData: NSData = data! as NSData
+                            if let imageSource = CGImageSourceCreateWithData(imageData, nil) {
+                                let imageProperties2 = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil)! as NSDictionary
+                                print("imageProperties2: ", imageProperties2)
+                            }
                             
+                        })
+                        
+                        if asset?.location != nil {
+                            let location = asset?.location
+
                             latitude = location?.coordinate.latitude
                             longitude = location?.coordinate.longitude
-                            
                             reverseGeocodeLocation(location: location!)
+
+                        } else {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                                self.locationLabel.alpha = 1.0
+                                self.locationImageView.alpha = 1.0
+                                self.locationLabel.text = "Location not found"
+                                self.locationImageView.image = UIImage(named: "x")!
+                                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                                self.locationLabel.jitter()
+                                self.locationImageView.jitter()
+                            }
+                        
+                            
                         }
                     }
                 }
@@ -385,12 +425,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             addPhotoOne.layer.borderWidth = 1.5
             addPhotoOne.layer.borderColor = FLAT_GREEN.cgColor
             topPhotoLabel.isHidden = false
-            locationLabel.alpha = 1.0
-            locationImageView.alpha = 1.0
             imageSelected = true
             count += 1
-
-            
+ 
         }else{
             print("valid image wasn't selected")
         }
@@ -520,7 +557,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         locationManager.stopUpdatingLocation()
         
-        if latitude == nil && longitude == nil{
+        if latitude == nil && longitude == nil {
             
             if let location = locations.first{
                 print("1")
@@ -535,7 +572,20 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Failed to find user's location: \(error.localizedDescription)")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.locationLabel.alpha = 1.0
+            self.locationImageView.alpha = 1.0
+            self.locationLabel.text = "Location not found"
+            self.locationImageView.image = UIImage(named: "x")!
+            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+            self.locationLabel.jitter()
+            self.locationImageView.jitter()
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+            self.errorAlert(title: "Your location was not found!", message: "Make sure you have allowed location for Sk8Spots. Go to settings, then scroll down to Sk8Spots and allow location access.")
+        }
+   
     }
     
     
@@ -544,8 +594,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         activityIndicator.startAnimating()
         
         let geoCoder = CLGeocoder()
-        
-        
+
         geoCoder.reverseGeocodeLocation(location, completionHandler: { (placemarks, error) -> Void in
             
             guard error == nil else{
@@ -604,18 +653,21 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             self.locationFoundIndex = self.count
             DispatchQueue.main.async{
                 self.activityIndicator.stopAnimating()
-                UIView.animate(withDuration: 0.25, animations: {
+               
+                UIView.animate(withDuration: 0.3, delay: 0, options: .curveEaseIn, animations: {
+                    self.locationLabel.alpha = 1.0
+                    self.locationImageView.alpha = 1.0
                     self.locationLabel.text = "Location found"
                     self.locationImageView.image = UIImage(named: "green_check")
                     self.view.layoutIfNeeded()
-                })
+                }, completion: nil)
+
                 let systemSoundID: SystemSoundID = 1114
                 AudioServicesPlaySystemSound (systemSoundID)
             }
 
         })
-        
-        
+  
     }
     
     @IBAction func toggleSpotType(_ sender: UISegmentedControl) {

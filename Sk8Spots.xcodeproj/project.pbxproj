@@ -24,6 +24,7 @@
 		C41D8B2C1F0EE3F8009C174C /* DataService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B2B1F0EE3F8009C174C /* DataService.swift */; };
 		C41D8B311F0F38E0009C174C /* Spot.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B301F0F38E0009C174C /* Spot.swift */; };
 		C41D8B351F11431C009C174C /* SpotVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C41D8B341F11431C009C174C /* SpotVC.swift */; };
+		C43325E8205B689E0030B465 /* Jitterable.swift in Sources */ = {isa = PBXBuildFile; fileRef = C43325E7205B689E0030B465 /* Jitterable.swift */; };
 		C4433E6A1F1FB82600B00002 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4433E691F1FB82600B00002 /* MapVC.swift */; };
 		C4433E6C1F1FBC5200B00002 /* SpotPin.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4433E6B1F1FBC5200B00002 /* SpotPin.swift */; };
 		C456C11D1F9AC28F00C74A56 /* MessagesVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C456C11C1F9AC28F00C74A56 /* MessagesVC.swift */; };
@@ -80,6 +81,7 @@
 		C41D8B2B1F0EE3F8009C174C /* DataService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataService.swift; sourceTree = "<group>"; };
 		C41D8B301F0F38E0009C174C /* Spot.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Spot.swift; sourceTree = "<group>"; };
 		C41D8B341F11431C009C174C /* SpotVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotVC.swift; sourceTree = "<group>"; };
+		C43325E7205B689E0030B465 /* Jitterable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Jitterable.swift; sourceTree = "<group>"; };
 		C4433E691F1FB82600B00002 /* MapVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
 		C4433E6B1F1FBC5200B00002 /* SpotPin.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpotPin.swift; sourceTree = "<group>"; };
 		C456C11C1F9AC28F00C74A56 /* MessagesVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessagesVC.swift; sourceTree = "<group>"; };
@@ -173,6 +175,7 @@
 				C419DD251F3B84B400D8CC06 /* Billabong.ttf */,
 				C417D7B91FCBDEEB001600F1 /* RoundedShadowView.swift */,
 				C4BF1E512055B70A000A7B0D /* RoundedShadowUIView.swift */,
+				C43325E7205B689E0030B465 /* Jitterable.swift */,
 			);
 			name = View;
 			sourceTree = "<group>";
@@ -433,6 +436,7 @@
 			files = (
 				C4B46CEE1F2F948A007D3206 /* CommentCell.swift in Sources */,
 				C4B0C54B1F0D7B78004B6923 /* FeedVC.swift in Sources */,
+				C43325E8205B689E0030B465 /* Jitterable.swift in Sources */,
 				C41D8B2C1F0EE3F8009C174C /* DataService.swift in Sources */,
 				C4AD89AA1F43700700D47460 /* ProfileCell.swift in Sources */,
 				C4FBD20D1FBCB96500425D1E /* SearchVC.swift in Sources */,

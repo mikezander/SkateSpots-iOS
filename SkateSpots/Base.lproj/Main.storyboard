@@ -1458,8 +1458,8 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="MEx-w6-YTp">
-                                                <rect key="frame" x="179.5" y="141" width="56" height="20"/>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="MEx-w6-YTp">
+                                                <rect key="frame" x="178.5" y="141" width="58" height="20"/>
                                                 <subviews>
                                                     <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hEf-P7-BsM">
                                                         <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
@@ -1469,7 +1469,7 @@
                                                         </constraints>
                                                     </imageView>
                                                     <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c83-XK-L8g">
-                                                        <rect key="frame" x="22" y="0.0" width="34" height="20"/>
+                                                        <rect key="frame" x="24" y="0.0" width="34" height="20"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
                                                         <nil key="textColor"/>
                                                         <nil key="highlightedColor"/>
@@ -1918,7 +1918,7 @@
             <objects>
                 <collectionViewController id="yyi-rg-4XJ" customClass="ChatLogVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" id="ovG-cX-Iea">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="dYM-dM-Nyq">
@@ -2323,7 +2323,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="ZX4-qG-Pn9"/>
-        <segue reference="vJH-wr-g8F"/>
+        <segue reference="VRI-Gr-LDk"/>
         <segue reference="FaM-Fd-r9u"/>
         <segue reference="wHi-97-VC8"/>
         <segue reference="qnT-aP-8uy"/>

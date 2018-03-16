@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>24.0</string>
+	<string>27.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -26,13 +26,14 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>24</string>
+	<string>27</string>
 	<key>FacebookAppID</key>
 	<string>2040349459532833</string>
 	<key>FacebookDisplayName</key>
 	<string>Sk8Spots</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
+		<string>comgooglemaps</string>
 		<string>fbapi</string>
 		<string>fb-messenger-api</string>
 		<string>fbauth2</string>
