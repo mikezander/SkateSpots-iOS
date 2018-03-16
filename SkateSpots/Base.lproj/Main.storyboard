@@ -1458,6 +1458,24 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="MEx-w6-YTp">
+                                                <rect key="frame" x="179.5" y="141" width="56" height="20"/>
+                                                <subviews>
+                                                    <imageView userInteractionEnabled="NO" alpha="0.0" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="hEf-P7-BsM">
+                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="20" id="X85-sm-3ku"/>
+                                                            <constraint firstAttribute="height" constant="20" id="vk2-wV-ISG"/>
+                                                        </constraints>
+                                                    </imageView>
+                                                    <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="c83-XK-L8g">
+                                                        <rect key="frame" x="22" y="0.0" width="34" height="20"/>
+                                                        <fontDescription key="fontDescription" name="Avenir-Book" family="Avenir" pointSize="14"/>
+                                                        <nil key="textColor"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
+                                                </subviews>
+                                            </stackView>
                                         </subviews>
                                         <color key="backgroundColor" red="0.70196078431372544" green="0.70196078431372544" blue="0.70196078431372544" alpha="1" colorSpace="calibratedRGB"/>
                                         <constraints>
@@ -1482,6 +1500,7 @@
                                             <constraint firstAttribute="trailing" secondItem="YqJ-mp-qAY" secondAttribute="trailing" constant="25" id="TNz-Zi-5Cb"/>
                                             <constraint firstItem="tx4-EL-Etk" firstAttribute="top" secondItem="gwZ-OK-n9Q" secondAttribute="bottom" constant="7.6699999999999999" id="V8c-bE-4T6"/>
                                             <constraint firstItem="4fq-yo-Xde" firstAttribute="leading" secondItem="Lqp-l6-5Pe" secondAttribute="leading" constant="25" id="Zb9-Yj-gpv"/>
+                                            <constraint firstItem="MEx-w6-YTp" firstAttribute="centerX" secondItem="Lqp-l6-5Pe" secondAttribute="centerX" id="Zrc-6H-6lX"/>
                                             <constraint firstItem="gwZ-OK-n9Q" firstAttribute="top" secondItem="4fq-yo-Xde" secondAttribute="bottom" constant="20" id="dPO-YZ-jxJ"/>
                                             <constraint firstAttribute="trailing" secondItem="eBr-NS-j3K" secondAttribute="trailing" constant="25" id="eL6-sg-Df5"/>
                                             <constraint firstAttribute="trailing" secondItem="gwZ-OK-n9Q" secondAttribute="trailing" constant="25" id="hnm-z8-L78"/>
@@ -1610,6 +1629,7 @@
                                     <constraint firstItem="lQO-HN-r9T" firstAttribute="width" secondItem="D9E-bZ-hQh" secondAttribute="width" id="8Uo-f5-Bwl"/>
                                     <constraint firstItem="D9E-bZ-hQh" firstAttribute="top" secondItem="lQO-HN-r9T" secondAttribute="bottom" constant="8" id="Bro-ic-iIb"/>
                                     <constraint firstItem="Lqp-l6-5Pe" firstAttribute="top" secondItem="ZYo-q7-tlP" secondAttribute="top" id="FoY-4o-Lav"/>
+                                    <constraint firstItem="vBz-5U-EMW" firstAttribute="top" secondItem="MEx-w6-YTp" secondAttribute="bottom" constant="12.5" id="JWx-TS-3oy"/>
                                     <constraint firstItem="D9E-bZ-hQh" firstAttribute="top" secondItem="ZYo-q7-tlP" secondAttribute="top" constant="40" id="Jke-5n-4kE"/>
                                     <constraint firstItem="Lqp-l6-5Pe" firstAttribute="width" secondItem="ZYo-q7-tlP" secondAttribute="width" id="RQG-2e-wx4"/>
                                     <constraint firstItem="lQO-HN-r9T" firstAttribute="top" secondItem="ZYo-q7-tlP" secondAttribute="top" constant="11" id="VZo-QV-9fU"/>
@@ -1680,6 +1700,8 @@
                         <outlet property="descriptionTextView" destination="0LK-r3-mkB" id="f7P-iS-HPT"/>
                         <outlet property="gapBtn" destination="eWe-i7-lnr" id="eVc-bD-6Mg"/>
                         <outlet property="ledgeBtn" destination="FlJ-mA-Ze7" id="rB0-Fi-EZi"/>
+                        <outlet property="locationImageView" destination="hEf-P7-BsM" id="H5c-rr-tFJ"/>
+                        <outlet property="locationLabel" destination="c83-XK-L8g" id="5G0-zh-eJl"/>
                         <outlet property="mannyBtn" destination="P7U-xf-9yP" id="aFK-WS-wQR"/>
                         <outlet property="nightBtn" destination="fuC-oO-aAj" id="wjk-MI-nZ2"/>
                         <outlet property="otherBtn" destination="O3q-2u-3QV" id="Lfi-Ng-PmP"/>
@@ -1714,7 +1736,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="-692.75362318840587" y="714.13043478260875"/>
+            <point key="canvasLocation" x="-692.79999999999995" y="713.3433283358321"/>
         </scene>
         <!--MessagesVC-->
         <scene sceneID="b8e-rP-c9L">

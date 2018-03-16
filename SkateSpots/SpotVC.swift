@@ -13,6 +13,7 @@ import CoreLocation
 import FirebaseStorage
 import AssetsLibrary
 import SVProgressHUD
+import AVFoundation
 
 class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate,CLLocationManagerDelegate{
     
@@ -44,7 +45,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var addSpotButton: UIButton!
     @IBOutlet weak var topPhotoLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var locationImageView: UIImageView!
+   
     var imagePicker: UIImagePickerController!
     var count = 0
     var imageSelected = false
@@ -244,7 +247,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             
             if count == 0{
                 return
-            }else if count == 1{
+            }else if count == 1 {
                 addPhotoOne.image = UIImage(named: "black_photo_btn")
                 
                 if locationFoundIndex == 1{
@@ -252,10 +255,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 }
                 imageSelected = false
                 count -= 1
-            }else if count == 2{
+            }else if count == 2 {
                 addPhotoTwo.image = UIImage(named: "black_photo_btn")
                 
-                if locationFoundIndex == 2{
+                if locationFoundIndex == 2 {
                     clearLocationData()
                 }
                 
@@ -263,15 +266,15 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             }else if count == 3{
                 addPhotoThree.image = UIImage(named: "black_photo_btn")
                 
-                if locationFoundIndex == 3{
+                if locationFoundIndex == 3 {
                     clearLocationData()
                 }
                 
                 count -= 1
-            }else if count == 4{
+            } else if count == 4 {
                 addPhotoFour.image = UIImage(named: "black_photo_btn")
                 
-                if locationFoundIndex == 4{
+                if locationFoundIndex == 4 {
                     clearLocationData()
                 }
                 
@@ -282,7 +285,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
     }
     
-    func clearLocationData(){
+    func clearLocationData() {
+        locationLabel.text = "Location not found"
+        locationImageView.image = UIImage(named: "x")!
         locationFound = false
         latitude = nil
         longitude = nil
@@ -380,6 +385,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             addPhotoOne.layer.borderWidth = 1.5
             addPhotoOne.layer.borderColor = FLAT_GREEN.cgColor
             topPhotoLabel.isHidden = false
+            locationLabel.alpha = 1.0
+            locationImageView.alpha = 1.0
             imageSelected = true
             count += 1
 
@@ -595,8 +602,17 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             
             self.locationFound = true
             self.locationFoundIndex = self.count
-            print("\(String(describing: self.locationFoundIndex))here")
-            DispatchQueue.main.async{self.activityIndicator.stopAnimating()}
+            DispatchQueue.main.async{
+                self.activityIndicator.stopAnimating()
+                UIView.animate(withDuration: 0.25, animations: {
+                    self.locationLabel.text = "Location found"
+                    self.locationImageView.image = UIImage(named: "green_check")
+                    self.view.layoutIfNeeded()
+                })
+                let systemSoundID: SystemSoundID = 1114
+                AudioServicesPlaySystemSound (systemSoundID)
+            }
+
         })
         
         

@@ -33,11 +33,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     @IBOutlet weak var messageLabel: MIBadgeButton!
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     static var profileImageCache: NSCache<NSString, UIImage> = NSCache()
-    
-    @IBOutlet weak var launchPlaceholderImage: UIImageView!
-    
-    
-    
+
     var spots = [Spot]()
     var allSpotsR = [Spot]()
     var allSpotsD = [Spot]()
@@ -70,7 +66,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         revealingSplashView.backgroundImageView?.addSubview(blackLayerView)
         view.addSubview(revealingSplashView)
         revealingSplashView.animationType = .popAndZoomOut
-        //revealingSplashView.backgroundImageView?.image =
         
 
         isConnected()
