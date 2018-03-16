@@ -65,15 +65,42 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         dismiss(animated: true, completion: nil)
         
     }
+    
+    func emptyFavoritesLabel()->UIView{
+        let screenWidth = UIScreen.main.bounds.width
+        let screenHeight = UIScreen.main.bounds.height
+        
+        let emptyView = UIView(frame: CGRect(x: 0, y:0 , width:screenWidth , height: screenHeight))
+        
+        let emptyLabel = UILabel(frame: CGRect(x: (screenWidth / 2) - 100, y: (screenHeight / 2) - 120 ,width: 200 ,height: 200))
+        emptyLabel.text = "Add spots to favorties!"
+        emptyLabel.alpha = 0.4
+        emptyLabel.textAlignment = NSTextAlignment.center
+        emptyView.addSubview(emptyLabel)
+        
+        let emptyImage = UIImage(named: "add_fav_empty")
+        let emptyImageView = UIImageView(image: emptyImage)
+        emptyImageView.frame = CGRect(x: view.center.x - 40, y: emptyLabel.frame.origin.y - 20, width: 80, height: 80)
+        emptyImageView.alpha = 0.4
+
+        emptyView.addSubview(emptyImageView)
+        return emptyView
+    }
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
         if spots.count == 0 {
-            let emptyLabel = UILabel(frame: CGRect(x: 0, y: 0 ,width: 200 ,height: 200))
-            emptyLabel.text = "Add spots to favorites!"
-            emptyLabel.alpha = 0.4
-            emptyLabel.textAlignment = NSTextAlignment.center
-            self.spotTableView.backgroundView = emptyLabel
+//            let emptyLabel = UILabel(frame: CGRect(x: 0, y: 0 ,width: 200 ,height: 200))
+//            emptyLabel.text = "Add spots to favorites!"
+//            emptyLabel.alpha = 0.4
+//            emptyLabel.textAlignment = NSTextAlignment.center
+//
+//            let emptyImage = UIImage(named: "inbox")
+//            let emptyImageView = UIImageView(image: emptyImage)
+//            emptyImageView.frame = CGRect(x: emptyLabel.frame.origin.x + 50, y: emptyLabel.frame.origin.y - 20, width: 100, height: 100)
+//            emptyImageView.alpha = 0.4
+            
+            self.spotTableView.backgroundView = self.emptyFavoritesLabel()
             self.spotTableView.separatorStyle = UITableViewCellSeparatorStyle.none
             return 0
             
