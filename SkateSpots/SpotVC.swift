@@ -385,18 +385,18 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                     if let imageUrl = info[UIImagePickerControllerReferenceURL] as? NSURL{
                         let asset = PHAsset.fetchAssets(withALAssetURLs:[imageUrl as URL], options: nil).firstObject as PHAsset?
                         
-                        let imageManager = PHImageManager.default()
-                        
-                        imageManager.requestImageData(for: asset! , options: nil, resultHandler:{
-                            (data, responseString, imageOriet, info) -> Void in
-                            let imageData: NSData = data! as NSData
-                            if let imageSource = CGImageSourceCreateWithData(imageData, nil) {
-                                let imageProperties2 = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil)! as NSDictionary
-                                print("imageProperties2: ", imageProperties2)
-                            }
-                            
-                        })
-                        
+//                        let imageManager = PHImageManager.default()
+//
+//                        imageManager.requestImageData(for: asset! , options: nil, resultHandler:{
+//                            (data, responseString, imageOriet, info) -> Void in
+//                            let imageData: NSData = data! as NSData
+//                            if let imageSource = CGImageSourceCreateWithData(imageData, nil) {
+//                                let imageProperties2 = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil)! as NSDictionary
+//                                print("imageProperties2: ", imageProperties2)
+//                            }
+//
+//                        })
+//
                         if asset?.location != nil {
                             let location = asset?.location
 

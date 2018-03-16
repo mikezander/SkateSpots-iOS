@@ -55,18 +55,22 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     var screenHeight = CGFloat()
     var initialLoad = true
     
-    let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "launch_screen_icon")!, iconInitialSize: CGSize(width: 120, height: 120), backgroundColor: .black)
+    let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "launch_screen_icon")!, iconInitialSize: CGSize(width: 120, height: 120), backgroundImage: UIImage(named: "city_push")!)//backgroundColor: .black)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        let blackLayerView = UIView(frame: self.view.frame)
-//        blackLayerView.backgroundColor = .black
-//        blackLayerView.alpha = 0.6
-//        revealingSplashView.backgroundImageView?.addSubview(blackLayerView)
-        
+        let blackLayerView = UIView(frame: self.view.frame)
+        blackLayerView.backgroundColor = .black
+        blackLayerView.alpha = 0.6
+        revealingSplashView.backgroundImageView?.addSubview(blackLayerView)
+    
         view.addSubview(revealingSplashView)
         revealingSplashView.animationType = .popAndZoomOut
+        
+        UIView.animate(withDuration: 2.5) {
+            blackLayerView.alpha = 1.0
+        }
         
 
         isConnected()

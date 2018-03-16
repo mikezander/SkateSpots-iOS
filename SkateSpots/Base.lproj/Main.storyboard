@@ -616,7 +616,7 @@
                                                         <constraint firstAttribute="height" constant="30" id="A7N-Mr-gcF"/>
                                                         <constraint firstAttribute="width" constant="30" id="UDo-xD-jUN"/>
                                                     </constraints>
-                                                    <state key="normal" title="Button" image="adventure_icon"/>
+                                                    <state key="normal" title="Button" image="direction_icon"/>
                                                     <connections>
                                                         <action selector="directionsButtonPressed:" destination="9FZ-wn-ttt" eventType="touchUpInside" id="rMf-Zb-hMQ"/>
                                                     </connections>
@@ -2303,7 +2303,6 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <image name="DMIcon" width="26" height="26"/>
         <image name="Sk8Spots_logo" width="206" height="47"/>
         <image name="add_profile_pic" width="33" height="33"/>
-        <image name="adventure_icon" width="40" height="40"/>
         <image name="back" width="23" height="23"/>
         <image name="black_photo_btn" width="20" height="18"/>
         <image name="cameraIcon" width="30" height="30"/>
@@ -2311,6 +2310,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <image name="check" width="23" height="23"/>
         <image name="city_push" width="190" height="190"/>
         <image name="delete" width="23" height="23"/>
+        <image name="direction_icon" width="40" height="40"/>
         <image name="edit" width="23" height="23"/>
         <image name="edit_profile" width="16" height="16"/>
         <image name="globe_tab" width="25" height="25"/>
@@ -2322,10 +2322,10 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <image name="star" width="28" height="28"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZX4-qG-Pn9"/>
+        <segue reference="aTI-2D-YLZ"/>
         <segue reference="VRI-Gr-LDk"/>
         <segue reference="FaM-Fd-r9u"/>
-        <segue reference="amF-RC-GHK"/>
+        <segue reference="wHi-97-VC8"/>
         <segue reference="qnT-aP-8uy"/>
     </inferredMetricsTieBreakers>
 </document>
