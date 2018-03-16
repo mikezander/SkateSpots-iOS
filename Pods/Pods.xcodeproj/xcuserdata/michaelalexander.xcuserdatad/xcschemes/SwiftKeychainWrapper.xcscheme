@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'B55CF2A05071953057A2CD14E57C7F36'
-               BlueprintName = 'SwiftKeychainWrapper'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SwiftKeychainWrapper.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "6073B73C3F889ACEE876042EC4231A73"
+               BlueprintName = "SwiftKeychainWrapper"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "SwiftKeychainWrapper.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

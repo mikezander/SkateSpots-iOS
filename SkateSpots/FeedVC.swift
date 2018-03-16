@@ -18,6 +18,7 @@ import FBSDKLoginKit
 import SVProgressHUD
 import MIBadgeButton_Swift
 import SDWebImage
+import RevealingSplashView
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
     
@@ -32,6 +33,10 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     @IBOutlet weak var messageLabel: MIBadgeButton!
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     static var profileImageCache: NSCache<NSString, UIImage> = NSCache()
+    
+    @IBOutlet weak var launchPlaceholderImage: UIImageView!
+    
+    
     
     var spots = [Spot]()
     var allSpotsR = [Spot]()
@@ -52,9 +57,21 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     
     var screenSize = CGRect()
     var screenHeight = CGFloat()
+    var initialLoad = true
     
+    let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "launch_screen_icon")!, iconInitialSize: CGSize(width: 120, height: 120) , backgroundImage: UIImage(named: "city_push")!)
+
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        let blackLayerView = UIView(frame: self.view.frame)
+        blackLayerView.backgroundColor = .black
+        blackLayerView.alpha = 0.6
+        revealingSplashView.backgroundImageView?.addSubview(blackLayerView)
+        view.addSubview(revealingSplashView)
+        revealingSplashView.animationType = .popAndZoomOut
+        //revealingSplashView.backgroundImageView?.image =
+        
 
         isConnected()
         NotificationCenter.default.addObserver(self, selector: #selector(internetConnectionFound(notification:)), name: internetConnectionNotification, object: nil)
@@ -106,10 +123,11 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func internetConnectionFound(notification: NSNotification){
+        revealingSplashView.startAnimation()
         loadSpotsbyRecentlyUploaded()
         NotificationCenter.default.removeObserver(self, name: internetConnectionNotification, object: nil)
     }
-    
+
     func configureForIphoneX() {
         screenSize = UIScreen.main.bounds
         screenHeight = screenSize.height
@@ -254,7 +272,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     func loadSpotsbyRecentlyUploaded(){
         
         
-        if isLoggedIn{ SVProgressHUD.show() }
+        if isLoggedIn && !initialLoad{ SVProgressHUD.show() }
+        
+        initialLoad = false
         
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
@@ -272,6 +292,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             }
             DispatchQueue.main.async {
                 SVProgressHUD.dismiss()
+                self.revealingSplashView.finishHeartBeatAnimation()
                 self.spotTableView.reloadData()
             }
             self.allSpotsR = self.spots

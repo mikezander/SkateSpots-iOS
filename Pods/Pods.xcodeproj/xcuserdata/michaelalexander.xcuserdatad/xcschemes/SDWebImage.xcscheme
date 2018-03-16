@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0700"
+   LastUpgradeVersion = "0930"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -13,11 +13,11 @@
             buildForProfiling = "YES"
             buildForArchiving = "YES">
             <BuildableReference
-               BuildableIdentifier = 'primary'
-               BlueprintIdentifier = 'B4B00204A19967DD30D31BEA1974CDCC'
-               BlueprintName = 'SDWebImage'
-               ReferencedContainer = 'container:Pods.xcodeproj'
-               BuildableName = 'SDWebImage.framework'>
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "50942AF0C7E8CACE825EC4A89D0D4F62"
+               BlueprintName = "SDWebImage"
+               ReferencedContainer = "container:Pods.xcodeproj"
+               BuildableName = "SDWebImage.framework">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
