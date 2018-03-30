@@ -46,24 +46,19 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             if error == nil{
                 self.spots = data!
                 self.uniqueIDs = keys
-                
             }
-  
+
             DispatchQueue.main.async {
                 self.spotTableView.reloadData()
-                
             }
-            
         })
         
     }
-    
+
     @IBAction func backButtonPressed(_ sender: Any) {
         
         _ = navigationController?.popViewController(animated: true)
-        
         dismiss(animated: true, completion: nil)
-        
     }
     
     func emptyFavoritesLabel()->UIView{
@@ -72,8 +67,8 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         
         let emptyView = UIView(frame: CGRect(x: 0, y:0 , width:screenWidth , height: screenHeight))
         
-        let emptyLabel = UILabel(frame: CGRect(x: (screenWidth / 2) - 100, y: (screenHeight / 2) - 120 ,width: 200 ,height: 200))
-        emptyLabel.text = "Add spots to favorties!"
+        let emptyLabel = UILabel(frame: CGRect(x: (screenWidth / 2) - 100, y: (screenHeight / 2) - 120, width: 200, height: 200))
+        emptyLabel.text = "Add spots to favorites"
         emptyLabel.alpha = 0.4
         emptyLabel.textAlignment = NSTextAlignment.center
         emptyView.addSubview(emptyLabel)
@@ -104,7 +99,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             self.spotTableView.separatorStyle = UITableViewCellSeparatorStyle.none
             return 0
             
-        }else{
+        } else {
             spotTableView.backgroundView?.isHidden = true
             return spots.count
         }
@@ -143,7 +138,6 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         if let spotCell = sender as? FavoriteCell,
             let spotDetailPage = segue.destination as? DetailVC {
             let spot = spotCell.spot
@@ -151,8 +145,18 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
             spotDetailPage.isFavorite = true
         }
     }
-    
-    
 }
+
+extension Array where Element: Equatable {
+    func removingDuplicates() -> Array {
+        return reduce(into: []) { result, element in
+            if !result.contains(element) {
+                result.append(element)
+            }
+        }
+    }
+}
+
+
 
 

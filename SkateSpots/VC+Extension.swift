@@ -92,7 +92,6 @@ extension String {
         return emailPredicate.evaluate(with:self)
         
     }
-    
 }
 
 extension UIColor {
@@ -112,5 +111,12 @@ extension UIColor {
             (a, r, g, b) = (255, 0, 0, 0)
         }
         self.init(red: CGFloat(r) / 255, green: CGFloat(g) / 255, blue: CGFloat(b) / 255, alpha: CGFloat(a) / 255)
+    }
+}
+
+extension Sequence where Iterator.Element: Hashable {
+    func unique() -> [Iterator.Element] {
+        var alreadyAdded = Set<Iterator.Element>()
+        return self.filter { alreadyAdded.insert($0).inserted }
     }
 }

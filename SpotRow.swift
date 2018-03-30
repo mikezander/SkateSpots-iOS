@@ -14,7 +14,7 @@ protocol SpotRowDelegate{
     func didTapDirectionsButton(spot: Spot)
 }
 
-class SpotRow: UITableViewCell{
+class SpotRow: UITableViewCell {
     
     @IBOutlet weak var spotCollectionView: UICollectionView!
     @IBOutlet weak var userImage: CircleView!

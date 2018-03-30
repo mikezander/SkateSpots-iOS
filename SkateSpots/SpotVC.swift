@@ -752,10 +752,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         spotType = ""
         
         SVProgressHUD.dismiss()
-        
-        performSegue(withIdentifier: "backToFeedVC", sender: nil)
 
+        performSegue(withIdentifier: "backToFeedVC", sender: nil)
     }
+
 }
 
 extension SpotVC: UITextFieldDelegate, UITextViewDelegate{

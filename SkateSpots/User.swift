@@ -18,7 +18,6 @@ class User{
     private var _link: String
     private var _igLink: String
     
-
     var userKey: String{
         return _userKey
     }

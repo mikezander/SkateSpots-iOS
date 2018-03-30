@@ -89,7 +89,6 @@ class HeaderCell: UITableViewCell, UITextViewDelegate{
     
     
     func returnHeight()->CGFloat{
-        
         return contributions.frame.origin.y
     }
     

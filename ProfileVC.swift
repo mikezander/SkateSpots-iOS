@@ -39,9 +39,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        if userKey == nil{
-            
+        if userKey == nil {
             userRef = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
             allowEdit = true
             backButton.isEnabled = false
@@ -49,20 +47,16 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             directMessageButton.isHidden = true
             directMessageButton.isEnabled = false
             
-        }else{
+        } else {
             
-            if let key = userKey{
+            if let key = userKey {
                 self.key = key
                 userRef = DataService.instance.REF_USERS.child(key)
             }
- 
             editButton.isEnabled = false
             editButton.isHidden = true
             allowEdit = false
             headerLabel.isHidden = true
-            
-            
-            
         }
 
         addUserData()
@@ -232,11 +226,9 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         return 295.0
     }
-    
-    
+
     func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         let headerView:UIView =  UIView()
-        
         headerView.frame = CGRect(x: 0, y: 0,  width: UIScreen.main.bounds.width, height: UIScreen.main.bounds.height)
         
         let headerCell = tableView.dequeueReusableCell(withIdentifier: "headerCell") as! HeaderCell
@@ -259,7 +251,6 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
             }else{
                 headerCell.link.center.y = headerCell.bio.frame.origin.y + headerCell.bio.frame.height - 5
             }
-            
             
             var link = UITextView() //work around for bug
             link = headerCell.link
@@ -298,8 +289,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
             headerCell.configureProfilePic(userImage: userImage)
 
         }
-        
-        
+
         headerViewHeight = headerCell.returnHeight()
         headerView.addSubview(headerCell)
         return headerView
@@ -343,9 +333,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
             alertController.addAction(cancelAction)
             
             present(alertController, animated: true, completion: nil)
-            
         }
-        
     }
     
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -355,14 +343,13 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let spot = spots[indexPath.row]
-        
+
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! ProfileCell
         
         cell.activityIdicator.startAnimating()
         
         cell.configureCell(spot: spot)
 
-        
         cell.spotImage.isUserInteractionEnabled = true
         
         cell.spotImage.tag = indexPath.row

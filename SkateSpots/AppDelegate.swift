@@ -9,8 +9,10 @@
 import UIKit
 import Firebase
 import FBSDKLoginKit
+import UserNotifications
+import FirebaseMessaging
 
-
+let unCenter = UNUserNotificationCenter.current()
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -19,10 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+
         FirebaseApp.configure()
-        
+                
         FBSDKApplicationDelegate.sharedInstance().application(application, didFinishLaunchingWithOptions: launchOptions)
+        
+        UNService.shared.authorize()
         
         defaults.register(defaults: [agreementKey:false])
 
@@ -32,16 +36,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
         
         print("did register for notifications")
-        
+
         //FIRMessagingService.shared.subscribe(to: .newMessage)
-        
-        let tokenDict: [String:AnyObject] = ["deviceToken": Messaging.messaging().fcmToken as AnyObject]
-        
+
+        guard let fcmToken = Messaging.messaging().fcmToken else { print("no token"); return }
+
+        let tokenDict: [String:AnyObject] = ["deviceToken": fcmToken as AnyObject]
+
         DataService.instance.updateUserProfile(uid: Auth.auth().currentUser!.uid, child: "profile", userData: tokenDict)
-        
-        
-        
-        //print(Messaging.messaging().fcmToken ?? "fcmToken not found")
     }
 
     func applicationWillResignActive(_ application: UIApplication) {
@@ -73,6 +75,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return handled
     }
 
-
 }
+
+
 

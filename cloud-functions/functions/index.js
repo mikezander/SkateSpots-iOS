@@ -23,8 +23,6 @@ exports.sendNotification = functions.database
 				//title: 'New message from ' + fromUser,
 				body: 'New message from ' + fromUser + '\n' + text,
 				sound: 'default'
-
-
 			}
 		}
 		console.log(payload)

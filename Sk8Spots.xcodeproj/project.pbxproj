@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		C4035B68206DEDC600C7E2BE /* MapBoxVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4035B67206DEDC600C7E2BE /* MapBoxVC.swift */; };
 		C407154E1FA2712C00733742 /* FIRMessagingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = C407154D1FA2712C00733742 /* FIRMessagingService.swift */; };
 		C4128C3A1F0EAF290058628D /* RoundTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C391F0EAF290058628D /* RoundTextField.swift */; };
 		C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4128C3B1F0EBA690058628D /* RoundedButton.swift */; };
@@ -64,6 +65,7 @@
 		41E3F77AD66D42DA73516180 /* Pods-Sk8Spots.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Sk8Spots.release.xcconfig"; path = "Pods/Target Support Files/Pods-Sk8Spots/Pods-Sk8Spots.release.xcconfig"; sourceTree = "<group>"; };
 		4A13BA0450BDBFA9B9E60769 /* Pods-SkateSpots.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-SkateSpots.debug.xcconfig"; path = "Pods/Target Support Files/Pods-SkateSpots/Pods-SkateSpots.debug.xcconfig"; sourceTree = "<group>"; };
 		9F0FA3D6072CCA82852D7061 /* Pods_Sk8Spots.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Sk8Spots.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		C4035B67206DEDC600C7E2BE /* MapBoxVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapBoxVC.swift; sourceTree = "<group>"; };
 		C407154D1FA2712C00733742 /* FIRMessagingService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FIRMessagingService.swift; sourceTree = "<group>"; };
 		C4128C391F0EAF290058628D /* RoundTextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundTextField.swift; sourceTree = "<group>"; };
 		C4128C3B1F0EBA690058628D /* RoundedButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RoundedButton.swift; sourceTree = "<group>"; };
@@ -204,6 +206,7 @@
 				C48415921F9FBC7A00F4BB20 /* ChatLogVC.swift */,
 				C4A42A8E1F73FD290031865C /* AgreementVC.swift */,
 				C4FBD20C1FBCB96500425D1E /* SearchVC.swift */,
+				C4035B67206DEDC600C7E2BE /* MapBoxVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -366,6 +369,8 @@
 				"${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework",
 				"${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework",
 				"${BUILT_PRODUCTS_DIR}/MIBadgeButton-Swift/MIBadgeButton_Swift.framework",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework",
+				"${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM",
 				"${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework",
 				"${BUILT_PRODUCTS_DIR}/RevealingSplashView/RevealingSplashView.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
@@ -381,6 +386,8 @@
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleToolboxForMac.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Kingfisher.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MIBadgeButton_Swift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Mapbox.framework",
+				"${DWARF_DSYM_FOLDER_PATH}/Mapbox.framework.dSYM",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Protobuf.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RevealingSplashView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
@@ -471,6 +478,7 @@
 				C4AD89AE1F43BAB900D47460 /* EditProfileVC.swift in Sources */,
 				C4E36FD61F1ACA44000ABF4D /* SpotPhotoCell.swift in Sources */,
 				C4128C3C1F0EBA690058628D /* RoundedButton.swift in Sources */,
+				C4035B68206DEDC600C7E2BE /* MapBoxVC.swift in Sources */,
 				C4AD89A81F433C9100D47460 /* ProfileVC.swift in Sources */,
 				C4CE59131F241A0F00180BA5 /* DetailVC.swift in Sources */,
 				C4F120631FA2599500ADD807 /* UNService.swift in Sources */,
@@ -601,6 +609,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SkateSpots/SkateSpots.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LAB4A2ATCG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -640,6 +649,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_ENTITLEMENTS = SkateSpots/SkateSpots.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = LAB4A2ATCG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

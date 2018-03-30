@@ -54,24 +54,14 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     var screenSize = CGRect()
     var screenHeight = CGFloat()
     var initialLoad = true
+    var activityItems = [Any]()
     
-    let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "launch_screen_icon")!, iconInitialSize: CGSize(width: 120, height: 120), backgroundImage: UIImage(named: "city_push")!)//backgroundColor: .black)
+    let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "launch_screen_icon")!, iconInitialSize: CGSize(width: 120, height: 120), backgroundImage: UIImage(named: "city_push")!)
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        let blackLayerView = UIView(frame: self.view.frame)
-        blackLayerView.backgroundColor = .black
-        blackLayerView.alpha = 0.6
-        revealingSplashView.backgroundImageView?.addSubview(blackLayerView)
-    
-        view.addSubview(revealingSplashView)
-        revealingSplashView.animationType = .popAndZoomOut
-        
-        UIView.animate(withDuration: 2.5) {
-            blackLayerView.alpha = 1.0
-        }
-        
+
+        setupSplashView()
 
         isConnected()
         NotificationCenter.default.addObserver(self, selector: #selector(internetConnectionFound(notification:)), name: internetConnectionNotification, object: nil)
@@ -123,10 +113,23 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func internetConnectionFound(notification: NSNotification){
-        print("hererereer")
         revealingSplashView.startAnimation()
         loadSpotsbyRecentlyUploaded()
         NotificationCenter.default.removeObserver(self, name: internetConnectionNotification, object: nil)
+    }
+
+    func setupSplashView() {
+        let blackLayerView = UIView(frame: self.view.frame)
+        blackLayerView.backgroundColor = .black
+        blackLayerView.alpha = 0.6
+        revealingSplashView.backgroundImageView?.addSubview(blackLayerView)
+        
+        view.addSubview(revealingSplashView)
+        revealingSplashView.animationType = .popAndZoomOut
+        
+        UIView.animate(withDuration: 2.5) {
+            blackLayerView.alpha = 1.0
+        }
     }
 
     func configureForIphoneX() {
@@ -274,8 +277,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         
         if isLoggedIn && !initialLoad{ SVProgressHUD.show() }
-        
-        initialLoad = false
+
+        //if initialLoad {
         
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
             
@@ -283,6 +286,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
                 for snap in snapshot{
+                    
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
@@ -298,14 +302,20 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             }
             self.allSpotsR = self.spots
         })
+        
+//        } else {
+//            self.spots = allSpotsR
+//            SVProgressHUD.dismiss()
+//
+//        }
+
         self.filterButton.setTitle("Filter Spots", for: .normal)
         
+        initialLoad = false
     }
     
     func sortSpotsByDistance(completed: @escaping DownloadComplete){
-        
-        SVProgressHUD.show()
-        
+
         self.spots = self.allSpotsR
         
         self.spots.sort(by: { $0.distance(to: self.myLocation) < $1.distance(to: self.myLocation) })
@@ -314,9 +324,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
             let distanceInMeters = self.myLocation.distance(from: spot.location)
             let milesAway = distanceInMeters / 1609
             spot.distance = milesAway
-            
+
             spot.removeCountry(spotLocation: spot.spotLocation)
-            
+
         }
         completed()
         self.allSpotsD = self.spots
@@ -429,8 +439,28 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
 }
 extension FeedVC: SpotRowDelegate {
+    
+
     func didTapDirectionsButton(spot: Spot) {
-        
+//
+//        let data = try! Data(contentsOf: URL(string: spot.imageUrls[0])!)
+//        let image = UIImage(data: data)
+//
+//        let appStoreUrl = "https://itunes.apple.com/us/app/sk8spots-skateboard-spots/id1281370899?mt=8"
+//        let activityMessage = "Download Sk8Spots now!"
+//
+//        if let jpgImage = UIImageJPEGRepresentation(image!, 0.8) {
+//
+//              activityItems = [appStoreUrl, jpgImage]
+//
+//            let vc = UIActivityViewController(activityItems: activityItems, applicationActivities: [])
+//            vc.delegate = self
+//
+//            vc.popoverPresentationController?.sourceView = self.view
+//            present(vc, animated: true, completion: nil)
+//
+//        }
+
         if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
             UIApplication.shared.open(URL(string:
                 "comgooglemaps://?saddr=&daddr=\(Float(spot.latitude)),\(Float(spot.longitude))&directionsmode=driving")!, options: [:], completionHandler: { (completed) in  })
@@ -439,9 +469,11 @@ extension FeedVC: SpotRowDelegate {
             let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
             mapItem.name = spot.spotName
             mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
-        }  
+        }
     }
+  
 }
+
 
 
 

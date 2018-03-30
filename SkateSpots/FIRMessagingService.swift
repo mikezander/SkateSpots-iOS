@@ -9,7 +9,7 @@
 import Foundation
 import FirebaseMessaging
 
-enum SubscriptionTopic: String{
+enum SubscriptionTopic: String {
     case newMessage = "newMessage"
 }
 
@@ -24,3 +24,4 @@ class FIRMessagingService {
     }
    
 }
+

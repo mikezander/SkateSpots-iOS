@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>27.0</string>
+	<string>30.0</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -26,7 +26,7 @@
 		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>27</string>
+	<string>30</string>
 	<key>FacebookAppID</key>
 	<string>2040349459532833</string>
 	<key>FacebookDisplayName</key>
@@ -49,9 +49,9 @@
 	<key>NSCameraUsageDescription</key>
 	<string>*Access to photos is required for posting</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>*In order to use this app you must allow location access</string>
+	<string>*In order to get use this app you must allow location access</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>*In order to use this app you must allow location access</string>
+	<string>*In order to obtain the spots location you must allow location access</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>*Access to photos is required for posting</string>
 	<key>UIAppFonts</key>
@@ -77,5 +77,9 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoibWlrZXphbmRlciIsImEiOiJjamZkZnRzMm8yOWdqMnlvYjUxYXZkYWsyIn0.2Lmft2lm8Z4Il_DoT5j6jQ</string>
 </dict>
 </plist>
