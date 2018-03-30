@@ -179,14 +179,78 @@
                                     <userDefinedRuntimeAttribute type="string" keyPath="styleURL__" value="mapbox://styles/mapbox/streets-v10"/>
                                 </userDefinedRuntimeAttributes>
                             </view>
+                            <button opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JvB-is-6MK">
+                                <rect key="frame" x="286" y="98" width="85" height="30"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="85" id="vT8-eW-QGr"/>
+                                </constraints>
+                                <state key="normal" title="Filter Spots">
+                                    <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                </state>
+                                <connections>
+                                    <action selector="changeMapStyleButtonPressed:" destination="2LA-WE-tqc" eventType="touchUpInside" id="2Jl-uS-8Pz"/>
+                                    <action selector="openFilterMenu:" destination="S87-nh-BjV" eventType="touchUpInside" id="e6b-gt-nWF"/>
+                                </connections>
+                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="j7l-r0-npy" userLabel="MenuView">
+                                <rect key="frame" x="385" y="102" width="150" height="414"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X5V-vo-AJJ">
+                                        <rect key="frame" x="5" y="12" width="140" height="30"/>
+                                        <state key="normal" title="Light">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="fSK-XE-B7k"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="1" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="MZF-5S-LEc">
+                                        <rect key="frame" x="5" y="52" width="140" height="30"/>
+                                        <state key="normal" title="Dark">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="PEj-Hl-idN"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" tag="2" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iVY-uW-brU">
+                                        <rect key="frame" x="5" y="92" width="140" height="30"/>
+                                        <state key="normal" title="Ledges">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="filterButtonPressed:" destination="S87-nh-BjV" eventType="touchUpInside" id="zi6-d7-REu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="iVY-uW-brU" secondAttribute="trailing" constant="5" id="Q0o-tc-ao5"/>
+                                    <constraint firstAttribute="trailing" secondItem="X5V-vo-AJJ" secondAttribute="trailing" constant="5" id="QGD-fb-YCQ"/>
+                                    <constraint firstItem="MZF-5S-LEc" firstAttribute="top" secondItem="X5V-vo-AJJ" secondAttribute="bottom" constant="10" id="QgH-md-ImH"/>
+                                    <constraint firstItem="iVY-uW-brU" firstAttribute="top" secondItem="MZF-5S-LEc" secondAttribute="bottom" constant="10" id="Qmu-Uk-xc5"/>
+                                    <constraint firstItem="iVY-uW-brU" firstAttribute="leading" secondItem="j7l-r0-npy" secondAttribute="leading" constant="5" id="VWS-gq-eH3"/>
+                                    <constraint firstItem="X5V-vo-AJJ" firstAttribute="top" secondItem="j7l-r0-npy" secondAttribute="top" constant="12" id="dCe-j5-U6O"/>
+                                    <constraint firstItem="X5V-vo-AJJ" firstAttribute="leading" secondItem="j7l-r0-npy" secondAttribute="leading" constant="5" id="m4v-eB-wtx"/>
+                                    <constraint firstAttribute="bottom" secondItem="iVY-uW-brU" secondAttribute="bottom" constant="12" id="rP6-J6-CYo"/>
+                                    <constraint firstItem="MZF-5S-LEc" firstAttribute="leading" secondItem="j7l-r0-npy" secondAttribute="leading" constant="5" id="sg8-GV-2ww"/>
+                                    <constraint firstAttribute="trailing" secondItem="MZF-5S-LEc" secondAttribute="trailing" constant="5" id="vWD-Hh-UzH"/>
+                                    <constraint firstAttribute="width" constant="95" id="yzH-H4-LSK"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="KGF-tQ-lII" firstAttribute="bottom" secondItem="bAW-1o-CwT" secondAttribute="bottom" id="4TU-r6-9Dv"/>
                             <constraint firstItem="KGF-tQ-lII" firstAttribute="trailing" secondItem="l7w-Sw-UIG" secondAttribute="trailing" id="4m2-GF-6p4"/>
                             <constraint firstItem="l7w-Sw-UIG" firstAttribute="top" secondItem="b9r-5l-jpk" secondAttribute="top" id="7JZ-wU-Oog"/>
+                            <constraint firstItem="JvB-is-6MK" firstAttribute="top" secondItem="l7w-Sw-UIG" secondAttribute="bottom" constant="8" id="G3P-tY-xX6"/>
                             <constraint firstItem="bAW-1o-CwT" firstAttribute="trailing" secondItem="KGF-tQ-lII" secondAttribute="trailing" id="W2P-Vy-RWz"/>
                             <constraint firstItem="bAW-1o-CwT" firstAttribute="top" secondItem="l7w-Sw-UIG" secondAttribute="bottom" id="a0O-8D-Fs0"/>
+                            <constraint firstItem="j7l-r0-npy" firstAttribute="top" secondItem="JvB-is-6MK" secondAttribute="bottom" constant="5" id="iBO-xc-wDI"/>
+                            <constraint firstAttribute="trailing" secondItem="j7l-r0-npy" secondAttribute="trailing" constant="-160" id="rn0-Lc-Mca"/>
+                            <constraint firstItem="KGF-tQ-lII" firstAttribute="trailing" secondItem="JvB-is-6MK" secondAttribute="trailing" constant="8" id="tBr-gC-331"/>
                             <constraint firstItem="l7w-Sw-UIG" firstAttribute="leading" secondItem="KGF-tQ-lII" secondAttribute="leading" id="vVb-RS-aFS"/>
                             <constraint firstItem="bAW-1o-CwT" firstAttribute="leading" secondItem="KGF-tQ-lII" secondAttribute="leading" id="vf5-xP-oym"/>
                         </constraints>
@@ -195,6 +259,7 @@
                     <tabBarItem key="tabBarItem" title="Item" id="6IR-zD-Pjk"/>
                     <connections>
                         <outlet property="mapView" destination="bAW-1o-CwT" id="we4-gN-vKX"/>
+                        <outlet property="menuTrailingConstraint" destination="rn0-Lc-Mca" id="NfC-ve-Ha8"/>
                         <segue destination="swM-zT-Qto" kind="show" identifier="detail" id="bbS-gr-tdV"/>
                     </connections>
                 </viewController>

@@ -9,25 +9,56 @@
 import UIKit
 import Mapbox
 import Firebase
+import Kingfisher
+
+class MyCustomPointAnnotation: MGLPointAnnotation {
+    var willUseImage: Bool = false
+}
 
 class MapBoxVC: UIViewController, MGLMapViewDelegate {
     
     @IBOutlet weak var mapView: MGLMapView!
-    var spotAnnotations = [MGLPointAnnotation]()
+    var spotAnnotations = [MyCustomPointAnnotation]()
     var spots = [Spot]()
     var spot: Spot?
     var manager = CLLocationManager()
+    var menuShowing = false
     var usersLocation = CLLocationCoordinate2D()
     
+    @IBOutlet weak var menuTrailingConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         
         mapView.styleURL = MGLStyle.lightStyleURL()
-        mapView.tintColor = .black
+        mapView.tintColor = .white
         getUsersLocation()
 
         loadAnnotationData()
-        
+        self.mapView.delegate = self
+    }
+    
+    
+    @IBAction func changeMapStyleButtonPressed(_ sender: Any) {
+        if menuShowing {
+            menuTrailingConstraint.constant = -160
+            mapView.isUserInteractionEnabled = true
+            
+            UIView.animate(withDuration: 0.5, delay:0, usingSpringWithDamping: 1, initialSpringVelocity:1,
+                           options: .curveEaseOut,animations: {
+                            self.mapView.layer.opacity = 1.0
+                            self.view.layoutIfNeeded()
+            })
+        } else {
+            menuTrailingConstraint.constant = 0
+            mapView.isUserInteractionEnabled = false
+            
+            UIView.animate(withDuration: 0.5, delay:0, usingSpringWithDamping: 1, initialSpringVelocity:1,
+                           options: .curveEaseIn,animations: {
+                            self.mapView.layer.opacity = 0.5
+                            self.view.layoutIfNeeded()
+            })
+        }
+        menuShowing = !menuShowing
         
         
     }
@@ -44,10 +75,13 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
                         self.spots.append(spot)
-                        let annotation = MGLPointAnnotation()
+                        let annotation = MyCustomPointAnnotation()
                         annotation.coordinate = CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude)
                         annotation.title = spot.spotName
                         annotation.subtitle = spot.spotType
+                        annotation.willUseImage = true
+                        
+                        
                         self.spotAnnotations.append(annotation)
                     }
                 }
@@ -55,7 +89,7 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
             
             DispatchQueue.main.async {
                 self.mapView.addAnnotations(self.spotAnnotations)
-                self.mapView.delegate = self
+                
             }
         })
     }
@@ -101,13 +135,15 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
     }
     
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        // This example is only concerned with point annotations.
-        guard annotation is MGLPointAnnotation else {
-            return nil
+        
+        if let castAnnotation = annotation as? MyCustomPointAnnotation {
+            if (castAnnotation.willUseImage) {
+                return nil;
+            }
         }
         
-        // Use the point annotation’s longitude value (as a string) as the reuse identifier for its view.
-        let reuseIdentifier = "\(annotation.coordinate.longitude)"
+        // Assign a reuse identifier to be used by both of the annotation views, taking advantage of their similarities.
+        let reuseIdentifier = "reusableDotView"
         
         // For better performance, always try to reuse existing annotations.
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
@@ -115,17 +151,36 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
         // If there’s no reusable annotation view available, initialize a new one.
         if annotationView == nil {
             annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
-            annotationView!.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-            
-            // Set the annotation view’s background color to a value determined by its longitude.
-            let hue = CGFloat(annotation.coordinate.longitude) / 100
-            annotationView!.backgroundColor = UIColor(hue: hue, saturation: 0.5, brightness: 1, alpha: 1)
+            annotationView?.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+            annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
+            annotationView?.layer.borderWidth = 4.0
+            annotationView?.layer.borderColor = UIColor.white.cgColor
+            annotationView!.backgroundColor = UIColor(red:0.03, green:0.80, blue:0.69, alpha:1.0)
         }
         
         return annotationView
     }
-
     
+    // This delegate method is where you tell the map to load an image for a specific annotation based on the willUseImage property of the custom subclass.
+    func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
+        
+        if let castAnnotation = annotation as? MyCustomPointAnnotation {
+            if (!castAnnotation.willUseImage) {
+                return nil;
+            }
+        }
+        
+        // For better performance, always try to reuse existing annotations.
+        var annotationImage = mapView.dequeueReusableAnnotationImage(withIdentifier: "green_anno")
+        
+        // If there is no reusable annotation image available, initialize a new one.
+        if(annotationImage == nil) {
+            annotationImage = MGLAnnotationImage(image: UIImage(named: "green_anno")!, reuseIdentifier: "green_anno")
+        }
+        
+        return annotationImage
+    }
+
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detail" {
             let vc = segue.destination as! DetailVC
