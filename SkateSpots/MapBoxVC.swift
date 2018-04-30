@@ -10,6 +10,7 @@ import UIKit
 import Mapbox
 import Firebase
 import Kingfisher
+import SVProgressHUD
 
 class MyCustomPointAnnotation: MGLPointAnnotation {
     var willUseImage: Bool = false
@@ -24,17 +25,24 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
     var manager = CLLocationManager()
     var menuShowing = false
     var usersLocation = CLLocationCoordinate2D()
+    var mapTypeStyle = "Light"
+    let defaults = UserDefaults.standard
     
     @IBOutlet weak var menuTrailingConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        mapView.styleURL = MGLStyle.lightStyleURL()
-        mapView.tintColor = .white
+        if let style = defaults.string(forKey: "MapStyle"){
+            mapTypeStyle = style
+        }
+        loadMapViewStyle(style: mapTypeStyle)
+
         getUsersLocation()
 
         loadAnnotationData()
-        self.mapView.delegate = self
+        
+        
+        mapView.delegate = self
     }
     
     
@@ -59,8 +67,48 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
             })
         }
         menuShowing = !menuShowing
+    }
+    
+    @IBAction func filterButtonPressed(_ sender: UIButton) {
+        if isInternetAvailable() && hasConnected {
+            
+            SVProgressHUD.show()
+            
+            menuTrailingConstraint.constant = -160
+            mapView.isUserInteractionEnabled = true
+            
+            UIView.animate(withDuration: 0.5, delay:0, usingSpringWithDamping: 1, initialSpringVelocity:1,
+                           options: .curveEaseOut,animations: {
+                            self.mapView.layer.opacity = 1.0
+                            self.view.layoutIfNeeded()
+            })
+            
+            self.menuShowing = !self.menuShowing
+
+            guard let style = sender.titleLabel?.text else { return }
+            mapTypeStyle = style
+            loadMapViewStyle(style: mapTypeStyle)
+            
+            SVProgressHUD.dismiss()
+        } else {
+            self.errorAlert(title: "Internet Connection Error", message: "Make sure you have a connection and try again")
+        }
         
+    }
+    
+    func loadMapViewStyle(style: String) {
+        if style == "Light" {
+            mapView.styleURL = MGLStyle.lightStyleURL()
+            mapView.tintColor = .black
+        } else if style == "Dark" {
+            mapView.styleURL = MGLStyle.darkStyleURL()
+            mapView.tintColor = .lightGray
+        } else if style == "Satellite" {
+            mapView.styleURL = MGLStyle.satelliteStyleURL()
+            mapView.tintColor = .blue
+        }
         
+        defaults.set(style, forKey: "MapStyle")
     }
     
     func loadAnnotationData(){
@@ -80,7 +128,6 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
                         annotation.title = spot.spotName
                         annotation.subtitle = spot.spotType
                         annotation.willUseImage = true
-                        
                         
                         self.spotAnnotations.append(annotation)
                     }
@@ -135,7 +182,7 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
     }
     
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-        
+
         if let castAnnotation = annotation as? MyCustomPointAnnotation {
             if (castAnnotation.willUseImage) {
                 return nil;
@@ -144,19 +191,19 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
         
         // Assign a reuse identifier to be used by both of the annotation views, taking advantage of their similarities.
         let reuseIdentifier = "reusableDotView"
-        
+
         // For better performance, always try to reuse existing annotations.
         var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseIdentifier)
         
         // If there’s no reusable annotation view available, initialize a new one.
-        if annotationView == nil {
-            annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
-            annotationView?.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
-            annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
-            annotationView?.layer.borderWidth = 4.0
-            annotationView?.layer.borderColor = UIColor.white.cgColor
-            annotationView!.backgroundColor = UIColor(red:0.03, green:0.80, blue:0.69, alpha:1.0)
-        }
+//        if annotationView == nil {
+//            annotationView = MGLAnnotationView(reuseIdentifier: reuseIdentifier)
+//            annotationView?.frame = CGRect(x: 0, y: 0, width: 40, height: 40)
+//            annotationView?.layer.cornerRadius = (annotationView?.frame.size.width)! / 2
+//            annotationView?.layer.borderWidth = 4.0
+//            annotationView?.layer.borderColor = UIColor.white.cgColor
+//            annotationView!.backgroundColor = UIColor(red:0.03, green:0.80, blue:0.69, alpha:1.0)
+//        }
         
         return annotationView
     }
