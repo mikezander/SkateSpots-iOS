@@ -14,10 +14,10 @@
             buildForArchiving = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "4FDC533A4360A68ABDCE852F04B30927"
+               BlueprintIdentifier = "64A5B0D84D8579CF3E24DF2C12D99B08"
+               BuildableName = "Cosmos.framework"
                BlueprintName = "Cosmos"
-               ReferencedContainer = "container:Pods.xcodeproj"
-               BuildableName = "Cosmos.framework">
+               ReferencedContainer = "container:Pods.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>

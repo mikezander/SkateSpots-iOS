@@ -20,6 +20,6 @@ target 'Sk8Spots' do
   pod 'Kingfisher'
   pod 'RevealingSplashView'
   pod 'Mapbox-iOS-SDK', '~> 3.7'
-
+  pod 'GeoFire’
 
 end

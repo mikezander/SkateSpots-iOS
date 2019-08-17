@@ -14,7 +14,7 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "34E1BEE5B9151B6FF42B51C88D1AF746"
+               BlueprintIdentifier = "85AC5652DF408DE6F86AC1743332276A"
                BuildableName = "MIBadgeButton_Swift.framework"
                BlueprintName = "MIBadgeButton-Swift"
                ReferencedContainer = "container:Pods.xcodeproj">
@@ -26,7 +26,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
       </Testables>
@@ -37,7 +36,6 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      language = ""
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       ignoresPersistentStateOnLaunch = "NO"
@@ -47,7 +45,7 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "34E1BEE5B9151B6FF42B51C88D1AF746"
+            BlueprintIdentifier = "85AC5652DF408DE6F86AC1743332276A"
             BuildableName = "MIBadgeButton_Swift.framework"
             BlueprintName = "MIBadgeButton-Swift"
             ReferencedContainer = "container:Pods.xcodeproj">
