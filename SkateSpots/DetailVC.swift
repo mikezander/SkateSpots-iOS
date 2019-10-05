@@ -92,7 +92,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         btn1.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
         view.addSubview(btn1)
         
-        myActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+        myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
         myActivityIndicator.frame = CGRect(x:screenWidth - 35 , y:25, width: 30,height: 30)
         myActivityIndicator.hidesWhenStopped = true
         view.addSubview(myActivityIndicator)
@@ -255,7 +255,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         commentLbl.font = commentLbl.font.withSize(15)
         containerView.addSubview(commentLbl)
         
-        commentActivityIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.white)
+        commentActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
         commentActivityIndicator.frame = CGRect(x:0 , y: 0, width: 30,height: 30)
         commentActivityIndicator.center = CGPoint(x: screenWidth - 20 , y: tableView.frame.origin.y - 20)
         commentActivityIndicator.hidesWhenStopped = true
@@ -324,7 +324,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
             self.ratingView.text = "(\(displayRating))"
             self.ratingView.settings.filledBorderColor = UIColor.black
         }
-        
+
         refCurrentSpot.observeSingleEvent(of: .value, with: { (snapshot) in
             if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
                 let ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
@@ -401,7 +401,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         reportButton.addTarget(self, action:#selector(reportSpotPressed), for: .touchUpInside)
         containerView.addSubview(reportButton)
         
-        if screenHeight == 812.0{ // iPhone X configuration
+        if screenHeight >= 812.0 { // iPhone X configuration
             customNav.frame.size.height += 20
             customNav.backgroundColor = .clear
             btn1.frame.origin.y = 50
@@ -519,7 +519,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
     }
     
-    func commentPressedHandler(){
+    @objc func commentPressedHandler(){
         commentPressed { (success) in
             guard success == true else {
                 self.errorAlert(title: "Post comment failed", message: "Post comment failed. Check your internet conenction and try again")
@@ -578,7 +578,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
     }
     
-    func rateSpotPressed(){
+    @objc func rateSpotPressed(){
         
         if isInternetAvailable() && hasConnected{
             
@@ -645,7 +645,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         })
     }
     
-    func addSpotToFavorites(){
+    @objc func addSpotToFavorites(){
         
         let favDict = [spot.spotKey:true]
         
@@ -658,7 +658,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
     }
     
-    func getDirections(){
+    @objc func getDirections(){
 
         if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
             UIApplication.shared.open(URL(string:
@@ -671,16 +671,16 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         }
     }
     
-    func reportSpotPressed(){
+    @objc func reportSpotPressed(){
         
-        let alert = UIAlertController(title: "Report \(spot.spotName)", message: "Not a skate spot? Duplicate spot?      Let us know.", preferredStyle: UIAlertControllerStyle.alert)
-        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil))
+        let alert = UIAlertController(title: "Report \(spot.spotName)", message: "Not a skate spot? Duplicate spot?      Let us know.", preferredStyle: UIAlertController.Style.alert)
+        alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
         alert.addTextField { (configurationTextField) in
             //configure your textfield here
             print(configurationTextField)
             
         }
-        alert.addAction(UIAlertAction(title: "Send", style: UIAlertActionStyle.default, handler:{ (UIAlertAction)in
+        alert.addAction(UIAlertAction(title: "Send", style: UIAlertAction.Style.default, handler:{ (UIAlertAction)in
             if let textField = alert.textFields?.first {
                 
                 let reportDict: Dictionary<String, AnyObject> = [
@@ -699,7 +699,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     }
     
     
-    func backButtonPressed() {
+    @objc func backButtonPressed() {
         _ = navigationController?.popViewController(animated: true)
         dismiss(animated: true, completion: nil)
     }
@@ -718,7 +718,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         return tapGestureRecognizer
     }
     
-    func lblClick(tapGesture:UITapGestureRecognizer){
+    @objc func lblClick(tapGesture:UITapGestureRecognizer){
         let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
         vc.userKey = commentsArray[tapGesture.view!.tag].userKey
         print(commentsArray[tapGesture.view!.tag].userKey)
@@ -729,14 +729,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     
     //shifts the view up from bottom text field to be visible
-    func keyboardWillShow(notification: NSNotification){
+    @objc func keyboardWillShow(notification: NSNotification){
         if commentView.isFirstResponder{
             view.frame.origin.y = -getKeyboardHeight(notification: notification)
         }
     }
     
     //shifts view down once done editing bottom text field
-    func keyboardWillHide(notification: NSNotification){
+    @objc func keyboardWillHide(notification: NSNotification){
         if commentView.isFirstResponder{
             view.frame.origin.y = 0
         }
@@ -745,19 +745,19 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     //helper function for keyboardWillShow
     func getKeyboardHeight(notification: NSNotification) -> CGFloat{
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
     
     
     func subscribeToKeyboardNotifications(){
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIWindow.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIWindow.keyboardWillHideNotification, object: nil)
     }
     
     func unsubscribeToKeyboardNotifications(){
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillHideNotification, object: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -847,7 +847,7 @@ extension DetailVC: UITableViewDelegate, UITableViewDataSource{
         let height:CGFloat
         
         let temp = commentsArray[indexPath.row].comment
-        let tempCount = temp.characters.count
+        let tempCount = temp.count
         print(tempCount)
         
         if tempCount >= 60 && tempCount <= 80{
