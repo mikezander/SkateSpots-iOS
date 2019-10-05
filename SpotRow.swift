@@ -41,6 +41,7 @@ class SpotRow: UITableViewCell {
         self.spot = spot
         self.userName.text = spot.username
         self.spotName.text = spot.spotName
+        self.spotName.adjustsFontSizeToFitWidth = true
         self.spotLocation.text = spot.spotLocation
         
         userImage.isUserInteractionEnabled = true
