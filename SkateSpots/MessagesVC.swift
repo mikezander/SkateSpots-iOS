@@ -144,7 +144,7 @@ class MessagesVC: UIViewController, MessageReadProtocol{
     
     var timer: Timer?
     
-    func handleReloadTable(){
+    @objc func handleReloadTable(){
 
         self.messages = Array(self.messagesDictionary.values)
  
@@ -249,7 +249,7 @@ extension MessagesVC: UITableViewDelegate, UITableViewDataSource{
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
 
         guard let uid = Auth.auth().currentUser?.uid else { return }
   
