@@ -82,7 +82,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
      
         
         if logInButton.title(for: .normal) == "Log In"{
-            if let email = emailField.text, let pwd = passwordField.text,(email.characters.count > 0 && pwd.characters.count > 0){
+            if let email = emailField.text, let pwd = passwordField.text,(email.count > 0 && pwd.count > 0){
                 
                 activityIndicator.startAnimating()
                 
@@ -109,7 +109,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             
             
             if let email = emailField.text, let pwd = passwordField.text, var usrName = userNameField.text,
-                (email.characters.count > 0 && pwd.characters.count > 0){
+                (email.count > 0 && pwd.count > 0){
                 
                 if usrName == "" || usrName == " "{
                     usrName = "unknown"
@@ -183,7 +183,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                     if (name?.contains(delimiter))!{
                         
                         var token = name?.components(separatedBy: delimiter)
-                        name = "\(token![0]) " + String(token![1].characters.prefix(1))
+                        name = "\(token![0]) " + String(token![1].prefix(1))
                     }
                     
                     let userRef = DataService.instance.REF_USERS.child(user.uid)
@@ -247,7 +247,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         return tapGestureRecognizer
     }
     
-    func showPhotoActionSheet(){
+    @objc func showPhotoActionSheet(){
         let actionSheet = UIAlertController(title: "Photo Source", message: "Choose a source", preferredStyle: .actionSheet)
         
         actionSheet.addAction(UIAlertAction(title: "Camera", style: .default, handler: { (action:UIAlertAction) in
@@ -267,13 +267,14 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         present(actionSheet, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
-            userProflieView.image = image
-            imageSelected = true
-        }
+        guard let selectedImage = info[.editedImage] as? UIImage else { return }
+        userProflieView.image = selectedImage
+        imageSelected = true
     }
+    
+   // func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {}
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
@@ -284,15 +285,14 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     }
     
     //shifts the view up from bottom text field to be visible
-    func keyboardWillShow(notification: NSNotification){
-        
+    @objc func keyboardWillShow(notification: NSNotification){
         if passwordField.isFirstResponder{
             view.frame.origin.y = -(getKeyboardHeight(notification: notification) / 2)
         }
     }
     
     //shifts view down once done editing bottom text field
-    func keyboardWillHide(notification: NSNotification){
+    @objc func keyboardWillHide(notification: NSNotification){
         
         if passwordField.isFirstResponder{
             view.frame.origin.y = 0
@@ -302,22 +302,21 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     //helper function for keyboardWillShow
     func getKeyboardHeight(notification: NSNotification) -> CGFloat{
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
     
     
     func subscribeToKeyboardNotifications(){
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIWindow.keyboardWillShowNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIWindow.keyboardWillHideNotification, object: nil)
         
     }
     
     func unsubscribeToKeyboardNotifications(){
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillHideNotification, object: nil)
         
     }
 }
