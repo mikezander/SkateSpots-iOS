@@ -19,6 +19,8 @@ import SVProgressHUD
 import MIBadgeButton_Swift
 import SDWebImage
 import RevealingSplashView
+import Foundation
+import GeoFire
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLocationManagerDelegate{
     
@@ -61,7 +63,10 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        setupSplashView()
+        if UserDefaults.standard.bool(forKey: "launch") == true {
+            setupSplashView()
+            UserDefaults.standard.set(false, forKey: "launch")
+        }
 
         isConnected()
         NotificationCenter.default.addObserver(self, selector: #selector(internetConnectionFound(notification:)), name: internetConnectionNotification, object: nil)
@@ -82,7 +87,24 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         spotTableView.reloadData()
-
+        
+//        DataService.instance.REF_USERS.observe(.value, with: {(snapshot) in
+//            var users = [User]()
+//            if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
+//                for snap in snapshot{
+//
+//
+//
+//                    if let spotDict = snap.value as? Dictionary<String, AnyObject>{
+//                        let key = snap.key
+//                        let user = User(userKey: key, userData: spotDict)
+//                        users.append(user)
+//                    }
+//                }
+//                print(users.count, "here")
+//            }
+//        })
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -107,12 +129,13 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         guard isInternetAvailable() else{
             spotTableView.backgroundView = setUpPlaceholderForNoInternet()
-            errorAlert(title: "Internet Connection Error", message: "Make sure you are connected and try again//")
+            errorAlert(title: "Internet Connection Error", message: "Make sure you are connected and try again.")
             return
         }
     }
     
-    func internetConnectionFound(notification: NSNotification){
+    @objc func internetConnectionFound(notification: NSNotification){
+
         revealingSplashView.startAnimation()
         loadSpotsbyRecentlyUploaded()
         NotificationCenter.default.removeObserver(self, name: internetConnectionNotification, object: nil)
@@ -135,7 +158,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     func configureForIphoneX() {
         screenSize = UIScreen.main.bounds
         screenHeight = screenSize.height
-        if screenHeight == 812.0 {
+        if screenHeight >= 812.0 {
             UIApplication.shared.statusBarView?.backgroundColor = #colorLiteral(red: 0.5650888681, green: 0.7229202986, blue: 0.394353807, alpha: 1)
             heightOffset += 60
         }
@@ -215,7 +238,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     func setMessageNotificationBadge(){
         let userRef = DataService.instance.REF_BASE.child("user-messages").child(Auth.auth().currentUser!.uid)
         userRef.observe(.value, with: { (snapshot) in
-
+            
             self.badgeCount = 0
             self.unReadUsers.removeAll()
             
@@ -278,19 +301,43 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         
         if isLoggedIn && !initialLoad{ SVProgressHUD.show() }
 
-        //if initialLoad {
+        
+
+//        DataService.instance.REF_SPOTS.queryOrderedByKey().queryLimited(toLast: 25).observe(.value, with: {(snapshot) in
+//
+//            self.spots = []
+//
+//            if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
+//                _ = snapshot.map { self.spots.insert(Spot(spotKey: $0.key, spotData: $0.value as? [String: Any] ?? [:]), at: 0) }
+//            }
+//
+//            DispatchQueue.main.async {
+//                SVProgressHUD.dismiss()
+//                self.revealingSplashView.finishHeartBeatAnimation()
+//                self.spotTableView.reloadData()
+//            }
+//            self.allSpotsR = self.spots
+//        })
+
         
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
-            
+
+           
             self.spots = [] //clears up spot array each time its loaded
             
+//            let geofireRef = DataService.instance.REF_BASE.child("spot_location")
+//            let geoFire = GeoFire(firebaseRef: geofireRef)
+
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
-                for snap in snapshot{
-                    
+                for snap in snapshot {
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
                         self.spots.insert(spot, at: 0)
+                        
+//                        if self.spots.count == 1 {
+//                        geoFire.setLocation(CLLocation(latitude: spot.latitude, longitude: spot.longitude), forKey: snap.key)
+//                        }
                         
                     }
                 }
@@ -301,13 +348,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
                 self.spotTableView.reloadData()
             }
             self.allSpotsR = self.spots
+
         })
-        
-//        } else {
-//            self.spots = allSpotsR
-//            SVProgressHUD.dismiss()
-//
-//        }
 
         self.filterButton.setTitle("Filter Spots", for: .normal)
         
@@ -315,11 +357,52 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     }
     
     func sortSpotsByDistance(completed: @escaping DownloadComplete){
-
+        
+//        let geofireRef = DataService.instance.REF_BASE.child("spot_location")
+//        let geoFire = GeoFire(firebaseRef: geofireRef)
+//
+//        let lat =  CLLocationDegrees(exactly: 40.934853)
+//        let long = CLLocationDegrees(exactly: -73.859434)
+//
+//        //let center = CLLocation(latitude: lat!, longitude: long!)
+//
+//        let region = MKCoordinateRegionMakeWithDistance(
+//            CLLocationCoordinate2DMake(lat!, long!), 5000, 5000)
+//
+//
+//        let circleQuery = geoFire.query(with: region)//.query(at: center, withRadius: 3)
+//
+//
+////        _ = circleQuery.observe(.keyEntered, with: { (key: String!, location: CLLocation!) in
+////            print("Key '\(String(describing: key))' entered the search area and is at location '\(String(describing: location))'")
+//
+//        _ = circleQuery.observeReady {
+//
+//        }
+//
+//            DataService.instance.REF_SPOTS.child(key).observeSingleEvent(of: .value, with: { (snapshot) in
+//
+//                let snap = snapshot.value as! [String: Any]
+//                print(snap["spotName"], "here123")
+//
+////                if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
+////                    for snap in snapshot{
+////                        if let spotDict = snap.value as? [String: Any]{
+////                            let key = snap.key
+////                            let spot = Spot(spotKey: key, spotData: spotDict)
+////                            print(spot.spotName)
+////                        }
+////                    }
+////                }
+//
+//            })
+//
+//       // })
+        
         self.spots = self.allSpotsR
-        
+
         self.spots.sort(by: { $0.distance(to: self.myLocation) < $1.distance(to: self.myLocation) })
-        
+
         for spot in self.spots{
             let distanceInMeters = self.myLocation.distance(from: spot.location)
             let milesAway = distanceInMeters / 1609
@@ -404,7 +487,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
         return tapGestureRecognizer
     }
     
-    func lblClick(tapGesture:UITapGestureRecognizer) {
+    @objc func lblClick(tapGesture:UITapGestureRecognizer) {
         let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
         vc.userKey = spots[tapGesture.view!.tag].user
         self.navigationController?.pushViewController(vc, animated:true)
