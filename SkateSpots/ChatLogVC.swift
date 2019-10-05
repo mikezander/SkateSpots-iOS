@@ -14,7 +14,7 @@ protocol MessageReadProtocol {
     func hasMessageBeenRead(chatPartnerId: String, edited: Bool)
 }
 
-class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegateFlowLayout{
+class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
     
     var user: User? = nil
     var userKey = String()
@@ -33,15 +33,30 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     
     var tabBarHeight = CGFloat()
 
-    lazy var inputTextField: UITextField = {
-        let textField = UITextField()
-        textField.placeholder = "Enter message..."
-        textField.translatesAutoresizingMaskIntoConstraints = false
-        textField.delegate = self
-        textField.autocorrectionType = .no
-        textField.spellCheckingType = .no
-        
-        return textField
+//    lazy var inputTextField: UITextField = {
+//        let textField = UITextField()
+//        textField.placeholder = "Enter message..."
+//        textField.translatesAutoresizingMaskIntoConstraints = false
+//        textField.delegate = self
+//        textField.autocorrectionType = .no
+//        textField.spellCheckingType = .no
+//
+//
+//        return textField
+//    }()
+    
+    lazy var inputTextField: UITextView = {
+        let textView = UITextView()
+        textView.text = "Enter message..."
+        textView.textColor = UIColor.lightGray
+        //textField.placeholder = "Enter message..."
+        textView.font = UIFont.systemFont(ofSize: 16)
+        textView.translatesAutoresizingMaskIntoConstraints = false
+        textView.delegate = self
+        textView.autocorrectionType = .no
+        textView.spellCheckingType = .no
+
+        return textView
     }()
     
     override func viewDidLoad() {
@@ -124,14 +139,24 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         self.inputTextField.rightAnchor.constraint(equalTo: sendButton.leftAnchor).isActive = true
         self.inputTextField.heightAnchor.constraint(equalTo: containerView.heightAnchor).isActive = true
         
-        if UIScreen.main.bounds.height == 812.0{
-            containerView.frame.size.height += 10
-            uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -5).isActive = true
-            sendButton.topAnchor.constraint(equalTo: containerView.topAnchor
-                , constant: -5).isActive = true
-            self.inputTextField.topAnchor.constraint(equalTo: containerView.topAnchor
-                , constant: -5).isActive = true
+        if UIScreen.main.bounds.height >= 812.0{
             
+            let bottomConstant = self.view.safeAreaInsets.bottom
+
+            containerView.frame.size.height += bottomConstant
+            uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -10).isActive = true
+            sendButton.topAnchor.constraint(equalTo: containerView.topAnchor
+                , constant: -10).isActive = true
+            self.inputTextField.topAnchor.constraint(equalTo: containerView.topAnchor
+                , constant: -10).isActive = true
+            
+//            containerView.frame.size.height += 10
+//            uploadImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor, constant: -5).isActive = true
+//            sendButton.topAnchor.constraint(equalTo: containerView.topAnchor
+//                , constant: -5).isActive = true
+//            self.inputTextField.topAnchor.constraint(equalTo: containerView.topAnchor
+//                , constant: -5).isActive = true
+
         }
      
         let seperatorLineView = UIView()
@@ -170,7 +195,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         nameLabel.font = UIFont(name: "Gurmukhi MN", size: 20)
         view.addSubview(nameLabel)
         
-        if UIScreen.main.bounds.height == 812.0{
+        if UIScreen.main.bounds.height >= 812.0{
             customNav.frame.size.height += 20
             btn1.frame.origin.y = 50
             nameLabel.frame.origin.y = 50
@@ -180,7 +205,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         
     }
     
-    func backButtonPressed() {
+    @objc func backButtonPressed() {
 
         _ = navigationController?.popViewController(animated: true)
         
@@ -188,7 +213,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
    
     }
    
-    func handleUploadTap(){
+    @objc func handleUploadTap(){
         let imagePickerController = UIImagePickerController()
         
         imagePickerController.allowsEditing = true
@@ -229,9 +254,8 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     private func uploadToFirebaseStorageUsingImage(_ image: UIImage){
         let imageName = NSUUID().uuidString
         let ref = Storage.storage().reference().child("message_images").child(imageName)
-        
-        if let uploadData = UIImageJPEGRepresentation(image, 0.2){
-            
+
+        if let uploadData = image.jpegData(compressionQuality: 0.2) {
             ref.putData(uploadData, metadata: nil, completion: { (metadata, error) in
                 if error != nil{
                     print("failed to upload message-image", error!)
@@ -265,10 +289,10 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     func setupKeyboardObservers(){
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: NSNotification.Name.UIKeyboardDidShow, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardDidShow), name: UIWindow.keyboardWillShowNotification, object: nil)
     }
     
-    func handleKeyboardDidShow(notification: NSNotification){
+    @objc func handleKeyboardDidShow(notification: NSNotification){
         if messages.count > 0 {
             let indexPath = IndexPath(item: messages.count - 1, section: 0)
             collectionView?.scrollToItem(at: indexPath, at: .top, animated: true)
@@ -283,8 +307,8 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     func handleKeyboardWillShow(notification: Notification){
-        let keyboardFrame = notification.userInfo?[UIKeyboardFrameEndUserInfoKey] as? CGRect
-        let keybordDuration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double
+        let keyboardFrame = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect
+        let keybordDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
         
         containerViewBottomAnchor?.constant = -keyboardFrame!.height
         UIView.animate(withDuration: keybordDuration!) {
@@ -294,7 +318,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
     }
     
     func handleKeyboardWillHide(notification: Notification){
-        let keybordDuration = notification.userInfo?[UIKeyboardAnimationDurationUserInfoKey] as? Double
+        let keybordDuration = notification.userInfo?[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double
         
         containerViewBottomAnchor?.constant = 0
         UIView.animate(withDuration: keybordDuration!) {
@@ -329,7 +353,6 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
                     //scroll to the last index
                     let indexPath = IndexPath(item:self.messages.count - 1, section: 0)
                     self.collectionView?.scrollToItem(at: indexPath, at: .bottom, animated: true)
-                    print("dwon shift")
                 }
                 
                 
@@ -368,7 +391,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         navigationController?.popViewController(animated: true)
     }
     
-    func handleSend(){
+    @objc func handleSend(){
         guard isInternetAvailable() && hasConnected else{
             errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
             return
@@ -428,12 +451,35 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
    
     }
     
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        //handleSend()
-        if textField.resignFirstResponder(){
-            return true
+//    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+//        //handleSend()
+//        if textField.resignFirstResponder(){
+//            return true
+//        }
+//        return false
+//    }
+
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if textView.textColor == UIColor.lightGray {
+            textView.text = nil
+            textView.textColor = UIColor.black
         }
-        return false
+    }
+    
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if textView.text.isEmpty {
+            textView.text = "Enter message..."
+            textView.textColor = UIColor.lightGray
+        }
+    }
+    
+    func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
+        if(text == "\n") {
+            textView.resignFirstResponder()
+            return false
+        }
+        return true
     }
     
     private func estimatedFrameForText(text: String) -> CGRect{
@@ -441,7 +487,7 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
         let options = NSStringDrawingOptions.usesFontLeading.union(.usesLineFragmentOrigin)
         
         //modifies message font
-        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16)], context: nil)
+        return NSString(string: text).boundingRect(with: size, options: options, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16)], context: nil)
     }
     
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -572,13 +618,13 @@ class ChatLogVC: UICollectionViewController, UITextFieldDelegate, UIImagePickerC
  
     }
     
-    func profilePicTapped() {
+    @objc func profilePicTapped() {
         let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
         vc.userKey = userKey
         self.navigationController?.pushViewController(vc, animated:true)
     }
     
-    func handleZoomOut(tapGesture: UITapGestureRecognizer){
+    @objc func handleZoomOut(tapGesture: UITapGestureRecognizer){
         
         if let zoomOutImageView = tapGesture.view{
             
