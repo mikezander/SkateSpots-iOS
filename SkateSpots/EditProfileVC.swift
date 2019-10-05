@@ -217,7 +217,7 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         return tapGestureRecognizer
     }
     
-    func showPhotoActionSheet(){
+    @objc func showPhotoActionSheet(){
         guard hasConnected else {
             errorAlert(title: "Network Connection Error", message: "Make sure you connected and try again")
             return
@@ -242,24 +242,22 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         present(actionSheet, animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
-            profileImage.image = image
-            imageSelected = true
-        }
+        guard let selectedImage = info[.editedImage] as? UIImage else { return }
+        profileImage.image = selectedImage
+        imageSelected = true
     }
-    
-    
+
     //shifts the view up from bottom text field to be visible
-    func keyboardWillShow(notification: NSNotification){
+    @objc func keyboardWillShow(notification: NSNotification){
         if bioTextField.isFirstResponder || linkTextField.isFirstResponder || igLinkTextfield.isFirstResponder{
             view.frame.origin.y = -(getKeyboardHeight(notification: notification) / 2)
         }
     }
     
     //shifts view down once done editing bottom text field
-    func keyboardWillHide(notification: NSNotification){
+    @objc func keyboardWillHide(notification: NSNotification){
         if bioTextField.isFirstResponder || linkTextField.isFirstResponder || igLinkTextfield.isFirstResponder{
             view.frame.origin.y = 0
         }
@@ -268,19 +266,19 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     //helper function for keyboardWillShow
     func getKeyboardHeight(notification: NSNotification) -> CGFloat{
         let userInfo = notification.userInfo
-        let keyboardSize = userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue
+        let keyboardSize = userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
         return keyboardSize.cgRectValue.height
     }
     
     
     func subscribeToKeyboardNotifications(){
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIWindow.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIWindow.keyboardWillHideNotification, object: nil)
     }
     
     func unsubscribeToKeyboardNotifications(){
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillHideNotification, object: nil)
     }
 }
 
