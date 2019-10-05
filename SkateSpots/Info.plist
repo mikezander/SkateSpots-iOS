@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>30.0</string>
+	<string>3.6</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -31,6 +31,8 @@
 	<string>2040349459532833</string>
 	<key>FacebookDisplayName</key>
 	<string>Sk8Spots</string>
+	<key>FirebaseAppDelegateProxyEnabled</key>
+	<false/>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>comgooglemaps</string>
@@ -41,6 +43,8 @@
 	</array>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>MGLMapboxAccessToken</key>
+	<string>pk.eyJ1IjoibWlrZXphbmRlciIsImEiOiJjamZkZnRzMm8yOWdqMnlvYjUxYXZkYWsyIn0.2Lmft2lm8Z4Il_DoT5j6jQ</string>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
@@ -77,9 +81,5 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
-	<key>MGLMapboxAccessToken</key>
-	<string>pk.eyJ1IjoibWlrZXphbmRlciIsImEiOiJjamZkZnRzMm8yOWdqMnlvYjUxYXZkYWsyIn0.2Lmft2lm8Z4Il_DoT5j6jQ</string>
 </dict>
 </plist>
