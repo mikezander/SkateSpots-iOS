@@ -14,7 +14,7 @@ import FirebaseStorage
 import AssetsLibrary
 import SVProgressHUD
 import AVFoundation
-import AudioToolbox
+//import AudioToolbox
 
 class LocationLabel: UILabel, Jitterable {
     
@@ -76,7 +76,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         super.viewDidLoad()
         
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
-        addSpotButton.layer.cornerRadius = 10.0
+        addSpotButton.layer.cornerRadius = 12.0
         
         spotNameField.delegate = self
         spotNameField.layer.cornerRadius = 7.0
@@ -249,13 +249,13 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         btn.setTitleColor(.black, for: .normal)
     }
     
-    func addImagePressed(sender: UITapGestureRecognizer) {
+    @objc func addImagePressed(sender: UITapGestureRecognizer) {
         showPhotoActionSheet()
     }
     
     @IBAction func longPressDelete(_ sender: UILongPressGestureRecognizer){
         print("long press pressed")
-        if sender.state == UIGestureRecognizerState.ended{
+        if sender.state == UIGestureRecognizer.State.ended {
             
             if count == 0{
                 return
@@ -364,11 +364,18 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
 
          self.present(actionSheet, animated: true, completion: nil)
     }
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        dismiss(animated: true, completion: nil)
+//        guard let selectedImage = info[.editedImage] as? UIImage else { return }
+//        userProflieView.image = selectedImage
+//        imageSelected = true
+//    }
     
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
-        if let image = info[UIImagePickerControllerOriginalImage] as? UIImage{
+        if let image = info[.editedImage] as? UIImage{
             
             if (!locationFound) && (latitude == nil) && (longitude == nil){
                 
@@ -382,7 +389,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                     
                 }else{
 
-                    if let imageUrl = info[UIImagePickerControllerReferenceURL] as? NSURL{
+                    if let imageUrl = info[.editedImage] as? NSURL{
                         let asset = PHAsset.fetchAssets(withALAssetURLs:[imageUrl as URL], options: nil).firstObject as PHAsset?
                         
 //                        let imageManager = PHImageManager.default()
@@ -509,15 +516,14 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     func addPhotosToStorage(image: UIImage,_ isDefault: Bool){
         
-        if let imgData = UIImageJPEGRepresentation(image, 0.2){
-            
+        if let imgData = image.jpegData(compressionQuality: 0.2) {
             let imgUid = NSUUID().uuidString
             print("IMGUID\(imgUid)")
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             let uploadTask = DataService.instance.REF_SPOT_IMAGES.child(imgUid).putData(imgData, metadata:metadata) {(metadata, error) in
                 
-                if error != nil{
+                if error != nil {
                     SVProgressHUD.dismiss()
                     self.errorAlert(title: "Error uploading image", message: "There was an error uploading you image/s to storage, please try again.")
                 }else{
@@ -534,7 +540,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                 }
                 
             }
-            if isDefault{
+            if isDefault {
                 _ = uploadTask.observe(.success) { snapshot in
                     
                     if let imgTwo = self.addPhotoTwo.image, self.imageSelected == true, self.count >= 2{
