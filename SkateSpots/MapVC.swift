@@ -63,10 +63,14 @@ class MapVC: UIViewController {
                         let spot = Spot(spotKey: key, spotData: spotDict)
                         let spotPin = SpotPin(spot: spot)
                         self.spotPins.append(spotPin)
+                        self.spotPins.append(spotPin)
+                        self.spotPins.append(spotPin)
+                        self.spotPins.append(spotPin)
+                        self.spotPins.append(spotPin)
                     }
                 }
             }
-            
+                        
             DispatchQueue.main.async {
                 self.mapView.addAnnotations(self.spotPins)
             }
@@ -74,7 +78,7 @@ class MapVC: UIViewController {
     }
     
     func centerMapOnLocation(location: CLLocation) {
-        let coordinateRegion = MKCoordinateRegionMakeWithDistance(location.coordinate, regionRadius, regionRadius)
+        let coordinateRegion = MKCoordinateRegion(center: location.coordinate, latitudinalMeters: regionRadius, longitudinalMeters: regionRadius)
         mapView.setRegion(coordinateRegion, animated: true)
     }
     
@@ -101,9 +105,9 @@ extension MapVC: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0]
         
-        let span: MKCoordinateSpan = MKCoordinateSpanMake(0.1, 0.1)
+        let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.1, longitudeDelta: 0.1)
         let userLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
-        let region: MKCoordinateRegion = MKCoordinateRegionMake(userLocation, span)
+        let region: MKCoordinateRegion = MKCoordinateRegion(center: userLocation, span: span)
         
         mapView.setRegion(region, animated: true)
         
@@ -189,6 +193,66 @@ extension MapVC: MKMapViewDelegate {
     }
     
 }
+
+//extension MapVC: UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
+//    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+////        let properties = selectedPropertyStatus == .NotLive ? mapProperties : liveProperties
+////        if mapView.alpha == 1.0 {
+////            if properties.count > 0 {
+////                mapPropertiesContainer.alpha = 1.0
+////            } else {
+////                mapPropertiesContainer.alpha = 0.0
+////                if let userLocation = userLocation {
+////                    let region = MKCoordinateRegion(center: userLocation, span: MKCoordinateSpan(latitudeDelta: 0.05, longitudeDelta: 0.05))
+////                    mapView.region = region
+////                }
+////            }
+////        }
+//        return spots.count
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+//        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MapCollectionViewCell
+////
+////        let properties = selectedPropertyStatus == .NotLive ? mapProperties : liveProperties
+////
+////        if properties.count > 0 {
+////            cell.configureCell(property: properties[indexPath.row])
+////        }
+//
+//        return cell
+//    }
+//
+////    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+////        if scrollView == mapCollectionView {
+////            if let cellRect = mapCollectionView.layoutAttributesForItem(at: lastSeenPath)?.frame {
+////                let isCellCompletelyVisible = mapCollectionView.bounds.contains(cellRect)
+////                if !isCellCompletelyVisible {
+////                    mapCollectionView.scrollToItem(at: lastSeenPath, at: .left, animated: true)
+////                }
+////            }
+////        }
+////    }
+//
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//        //centerMapOnSelectedProperty(indexPath: indexPath)
+//    }
+//
+//    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+//        return CGSize(width: view.frame.width, height: 100)
+//    }
+////
+////    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+////        let property = mapProperties[indexPath.row]
+////        let tabController = self.tabBarController as! TenantMainTabBarViewController
+////        let nc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "property_nc") as! UINavigationController
+////        let vc = nc.viewControllers.first as! PropertyDetailsViewController
+////        vc.property = property
+////        nc.modalPresentationStyle = .custom
+////        nc.transitioningDelegate = tabController
+////        tabController.present(nc, animated: true, completion: nil)
+////    }
+//}
 
 
 
