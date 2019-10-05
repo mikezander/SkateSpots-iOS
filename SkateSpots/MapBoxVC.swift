@@ -19,12 +19,12 @@ class MyCustomPointAnnotation: MGLPointAnnotation {
 }
 
 extension MGLAnnotationView {
-    
+
     /// Override the layer factory for this class to return a custom CALayer class
     override open class var layerClass: AnyClass {
         return ZPositionableLayer.self
     }
-    
+
     /// convenience accessor for setting zPosition
     var stickyZPosition: CGFloat {
         get {
@@ -37,7 +37,7 @@ extension MGLAnnotationView {
     
     /// force the pin to the front of the z-ordering in the map view
     func bringViewToFront() {
-        superview?.bringSubview(toFront: self)
+        superview?.bringSubviewToFront(self)
         stickyZPosition = CGFloat(1.0)
     }
     
@@ -85,13 +85,14 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
     var manager = CLLocationManager()
     var menuShowing = false
     var usersLocation = CLLocationCoordinate2D()
-    var mapTypeStyle = "Light"
+    var mapTypeStyle = "Dark"
     let defaults = UserDefaults.standard
     var lastSeenPath = IndexPath(row: 0, section: 0)
     var isPinSelected = false
     var selectedSpot: MGLAnnotation? = nil
     var lastSelectedAnnotation: MGLAnnotation? = nil
     @IBOutlet weak var collectionViewContainer: UIView!
+    @IBOutlet weak var menuView: UIView!
     
    
     @IBOutlet weak var menuTrailingConstraint: NSLayoutConstraint!
@@ -110,7 +111,20 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
         mapView.delegate = self
         
         collectionViewContainer.layer.borderWidth = 1.0
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 0.3) {
+            self.centerOnUsersLocation()
+        }
+        
+        menuView.layer.shadowOpacity = 1
+        menuView.layer.shadowRadius = 6
+        menuView.sizeToFit()
+        
+//        if UIScreen.main.bounds.height >= 812.0{
+//            
+//        }
     }
+
     
     
     @IBAction func changeMapStyleButtonPressed(_ sender: Any) {
@@ -136,6 +150,10 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
         menuShowing = !menuShowing
     }
     
+
+    @IBAction func redirectUsersLocationPressed(_ sender: Any) {
+        centerOnUsersLocation()
+    }
     @IBAction func filterButtonPressed(_ sender: UIButton) {
         if isInternetAvailable() && hasConnected {
             
@@ -175,7 +193,7 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
             collectionViewContainer.layer.borderColor = UIColor.white.cgColor
             collectionViewContainer.backgroundColor = .black
 
-        } else if style == "Satellite" {
+        } else if style == "Classic" {
             mapView.styleURL = MGLStyle.outdoorsStyleURL()
             mapView.tintColor = .blue
             collectionViewContainer.layer.borderColor = UIColor.darkGray.cgColor
@@ -212,8 +230,10 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
             DispatchQueue.main.async {
                 self.mapView.addAnnotations(self.spotAnnotations)
                 self.collectionView.reloadData()
+
             }
         })
+
     }
     
     func getUsersLocation(){
@@ -221,6 +241,13 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
         manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         manager.requestWhenInUseAuthorization()
         manager.startUpdatingLocation()
+    }
+    
+    func centerOnUsersLocation() {
+        getUsersLocation()
+        
+        let center = CLLocationCoordinate2D(latitude: CLLocationDegrees(self.usersLocation.latitude), longitude: CLLocationDegrees(self.usersLocation.longitude))
+        self.mapView.setCenter(center, animated: true)
     }
 
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
@@ -233,32 +260,32 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
 
     }
     
-//    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
-//
-//        var annotationView: MGLAnnotationView? = nil
-//        
-//        if let castAnnotation = annotation as? MyCustomPointAnnotation {
-//            annotationView?.annotation = castAnnotation
-//            annotationView?.setViewToDefaultZOrder()
-//            
-//            if castAnnotation.willUseImage == false {
-//                annotationView?.bringViewToFront()
-//                mapView.layoutIfNeeded()
-//                return annotationView
-//            } else {
-//                annotationView?.layer.zPosition = 0.0
-//                return annotationView
-//            }
-//        }
-//
-//        if let view = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") {
-//            annotationView = view
-//        } else {
-//            annotationView = MGLAnnotationView(annotation: annotation, reuseIdentifier: "pin")
-//        }
-//        
-//        return annotationView
-//    }
+    func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
+
+        var annotationView: MGLAnnotationView? = nil
+        
+        if let castAnnotation = annotation as? MyCustomPointAnnotation {
+            annotationView?.annotation = castAnnotation
+            annotationView?.setViewToDefaultZOrder()
+
+            if castAnnotation.willUseImage == false {
+                annotationView?.bringViewToFront()
+                mapView.layoutIfNeeded()
+                return annotationView
+            } else {
+                annotationView?.layer.zPosition = 0.0
+                return annotationView
+            }
+        }
+
+        if let view = mapView.dequeueReusableAnnotationView(withIdentifier: "pin") {
+            annotationView = view
+        } else {
+            annotationView = MGLAnnotationView(annotation: annotation, reuseIdentifier: "pin")
+        }
+        
+        return annotationView
+    }
 
     func mapView(_ mapView: MGLMapView, imageFor annotation: MGLAnnotation) -> MGLAnnotationImage? {
         if let castAnnotation = annotation as? MyCustomPointAnnotation {
@@ -296,7 +323,6 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
                 
                 let center = CLLocationCoordinate2D(latitude: CLLocationDegrees(spot.latitude), longitude: CLLocationDegrees(spot.longitude))
                 self.mapView.setCenter(center, animated: true)
-                
 
             } else {
                 self.isPinSelected = false
@@ -312,12 +338,14 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
             }
             if self.selectedSpot != nil {
                 let pin = self.selectedSpot as! MyCustomPointAnnotation
+                
                 self.mapView.removeAnnotation(pin)
                 pin.willUseImage = false
                 self.mapView.addAnnotation(pin)
             }
             self.lastSeenPath = indexPath
             self.lastSelectedAnnotation = self.selectedSpot
+            
         }
     }
 }
@@ -347,13 +375,13 @@ extension MapBoxVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         let spot = spots[indexPath.row]
         if spots.count > 0 {
             cell.configureCell(spot: spot, style: mapTypeStyle)
-            cell.spotCountLabel.text = "\(indexPath.row)/\(spots.count)"
+            cell.spotCountLabel.text = "\(indexPath.row + 1)/\(spots.count)"
         }
         return cell
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionElementKindSectionHeader, withReuseIdentifier: "headerView", for: indexPath)
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView", for: indexPath)
         headerView.frame.size.height = 100
         return headerView
     }
