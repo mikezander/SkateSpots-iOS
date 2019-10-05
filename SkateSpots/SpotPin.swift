@@ -10,6 +10,7 @@ import Foundation
 import MapKit
 import Contacts
 import FirebaseStorage
+import Mapbox
 
 class SpotPin: NSObject, MKAnnotation {
 
