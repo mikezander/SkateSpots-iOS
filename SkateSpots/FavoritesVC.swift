@@ -96,7 +96,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
 //            emptyImageView.alpha = 0.4
             
             self.spotTableView.backgroundView = self.emptyFavoritesLabel()
-            self.spotTableView.separatorStyle = UITableViewCellSeparatorStyle.none
+            self.spotTableView.separatorStyle = UITableViewCell.SeparatorStyle.none
             return 0
             
         } else {
@@ -110,7 +110,7 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         return true
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         
         
         if editingStyle == .delete{
