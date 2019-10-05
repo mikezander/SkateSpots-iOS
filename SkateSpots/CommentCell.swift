@@ -25,9 +25,8 @@ class CommentCell: UITableViewCell{
         fatalError("init(coder:)")
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
 
        CellHeight = 100
     
