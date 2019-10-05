@@ -25,7 +25,7 @@ class Spot{
     private var _user: String
     private var _username: String
     private var _userImageURL: String
-    
+
     var spotName: String{
         return _spotName
     }
@@ -83,7 +83,7 @@ class Spot{
         return _username
     }
     
-    var userImageURL: String{
+    var userImageURL: String {
         return _userImageURL
     }
     
@@ -124,7 +124,7 @@ class Spot{
         self._userImageURL = userImageURL
     }
     
-    init(spotKey: String, spotData: Dictionary<String, AnyObject>){
+    init(spotKey: String, spotData: [String: Any]){
         self._spotKey = spotKey
         
         self._spotName = spotData["spotName"] as? String ?? "no name"
