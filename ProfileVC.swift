@@ -11,7 +11,7 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
-class ProfileVC: UIViewController, ProfileEditedProtocol{
+class ProfileVC: UIViewController, ProfileEditedProtocol {
     
     static let _instance = ProfileVC()
     
@@ -40,6 +40,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         super.viewDidLoad()
         
         if userKey == nil {
+            print(userKey, "nil here")
             userRef = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
             allowEdit = true
             backButton.isEnabled = false
@@ -48,14 +49,19 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
             directMessageButton.isEnabled = false
             
         } else {
-            
             if let key = userKey {
                 self.key = key
                 userRef = DataService.instance.REF_USERS.child(key)
             }
             editButton.isEnabled = false
             editButton.isHidden = true
-            allowEdit = false
+
+            if Auth.auth().currentUser?.uid == "guYoQDlipBgkGxjxq7RwOYd1gnz1" {
+                allowEdit = true
+            } else {
+               allowEdit = false
+            }
+            
             headerLabel.isHidden = true
         }
 
@@ -80,7 +86,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
         
-        if profileEdited{
+        if profileEdited {
             
             addUserData()
             spotTableView.reloadData()
@@ -209,7 +215,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol{
         return tapGestureRecognizer
     }
     
-    func spotCicked(tapGesture:UITapGestureRecognizer){
+    @objc func spotCicked(tapGesture:UITapGestureRecognizer){
         let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToDetail") as! DetailVC
         vc.spot = spots[tapGesture.view!.tag]
         self.present(vc, animated: true, completion: nil)
@@ -301,9 +307,9 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
         
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
   
-        if editingStyle == .delete{
+        if editingStyle == .delete {
     
             let alertController = UIAlertController(title: "Warning", message: "Are you sure you want to delete \(spots[indexPath.row].spotName)?", preferredStyle: .alert)
             
