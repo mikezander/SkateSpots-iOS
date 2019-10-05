@@ -43,7 +43,7 @@ class RoundTextfield: UITextField{
             
             let rawString = attributedPlaceholder?.string != nil ? attributedPlaceholder!.string : ""
             
-            let str = NSAttributedString(string: rawString, attributes: [NSForegroundColorAttributeName: placeHolerColor!])
+            let str = NSAttributedString(string: rawString, attributes: [NSAttributedString.Key.foregroundColor: placeHolerColor!])
             attributedPlaceholder = str
         }
     }
