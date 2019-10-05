@@ -118,7 +118,7 @@ class DataService{
     
     func addProfilePicToStorage(image: UIImage){
         
-        if let imgData = UIImageJPEGRepresentation(image, 0.2){
+        if let imgData = image.jpegData(compressionQuality: 0.2) {
             
             let imgUid = NSUUID().uuidString
             let metadata = StorageMetadata()
@@ -146,8 +146,7 @@ class DataService{
     
     func addProfilePicToStorageWithCompletion(image: UIImage,completion: @escaping (_ urlString:String) -> ()){
         
-        if let imgData = UIImageJPEGRepresentation(image, 0.2){
-            
+        if let imgData = image.jpegData(compressionQuality: 0.2){
             let imgUid = NSUUID().uuidString
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
