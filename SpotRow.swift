@@ -24,6 +24,8 @@ class SpotRow: UITableViewCell {
     @IBOutlet weak var spotDistance: UILabel!
     @IBOutlet weak var miLabel: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
+    @IBOutlet weak var pageLabel: UILabel!
+    @IBOutlet weak var pageContainer: UIView!
     
     var delegate: SpotRowDelegate?
     
@@ -31,11 +33,12 @@ class SpotRow: UITableViewCell {
         didSet{
             spotCollectionView.reloadData()
             spotCollectionView.showsHorizontalScrollIndicator = false
+
         }
     }
     
     func configureRow(spot: Spot, img: UIImage? = nil){
-        
+   
         self.userImage.image = nil
         
         self.spot = spot
@@ -55,11 +58,16 @@ class SpotRow: UITableViewCell {
             let distanceToSpot = String(format: "%.1f", spot.distance!)
             self.spotDistance.text = distanceToSpot
             
-        }else{
-            
+        } else{
             spotDistance.isHidden = true
             miLabel.isHidden = true
         }
+        
+        //pageContainer.layer.cornerRadius = 12.0
+        pageControl.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+        pageControl.hidesForSinglePage = true
+        pageControl.currentPage = 0
+        pageLabel.text = "\(1) / \(spot.imageUrls.count)"
     }
 
     @IBAction func directionsButtonPressed(_ sender: Any) {
@@ -69,6 +77,31 @@ class SpotRow: UITableViewCell {
 }
 
 extension SpotRow : UICollectionViewDataSource {
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        print()
+        
+        var page = Int()
+        if scrollView.contentOffset.x == 0 {
+            page = 1
+        } else {
+            page = Int(scrollView.contentOffset.x / scrollView.frame.width  + 1.0)
+        }
+
+        pageControl.currentPage = page - 1
+        pageLabel.text = "\(page) / \(spot.imageUrls.count)"
+        
+    }
+    
+//    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//        func scrollViewDidScroll(_ scrollView: UIScrollView) {
+//            let witdh = scrollView.frame.width - (scrollView.contentInset.left*2)
+//            let index = scrollView.contentOffset.x / witdh
+//            let roundedIndex = ceil(index)
+//            pageControl?.currentPage = Int(roundedIndex)
+//            pageLabel.text = "\(Int(roundedIndex)) / \(spot.imageUrls.count)"
+//        }
+//    }
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -81,9 +114,17 @@ extension SpotRow : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        pageControl.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
-        pageControl.hidesForSinglePage = true
-        pageControl.currentPage = indexPath.row
+        
+
+//
+//        pageControl.currentPage = indexPath.row
+//        pageLabel.text = "\(indexPath.row + 1) / \(imageCount)"
+        
+        
+//        pageControl.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
+//        pageControl.hidesForSinglePage = true
+//        pageControl.currentPage = indexPath.row
+//        pageLabel.text = "\(indexPath.row + 1) / \(spot.imageUrls.count)"
     }
     
     func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
@@ -91,19 +132,11 @@ extension SpotRow : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        
+       
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! SpotPhotoCell
         
         cell.emptyImageView()
-
         cell.configureCell(spot: spot, count: indexPath.row)
-            
-            /*if let img = FeedVC.imageCache.object(forKey: spot.imageUrls[indexPath.row] as NSString){
-                
-                cell.configureCell(spot: spot, img: img, count: indexPath.row)
-            }else{
-                cell.configureCell(spot: spot, count: indexPath.row)
-            }*/
 
         return cell
     }
