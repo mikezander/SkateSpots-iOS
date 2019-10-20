@@ -13,7 +13,6 @@ import AVFoundation
 
 protocol SpotRowDelegate{
     func didTapDirectionsButton(spot: Spot)
-    func getCellHeight(height: CGFloat)
 }
 
 class SpotRow: UITableViewCell {
@@ -171,7 +170,6 @@ extension SpotRow : UICollectionViewDelegateFlowLayout {
         let heightOffset: CGFloat = 225
         let contentHeight = screenHeight - heightOffset
 
-        delegate?.getCellHeight(height: contentHeight)
         return CGSize(width: screenWidth, height: contentHeight)
     }
     
