@@ -81,25 +81,31 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         view.addSubview(scrollView)
         scrollView.contentInset = UIEdgeInsets(top: -17, left: 0, bottom: 0, right: 0)
         
-        let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 62))
+        var safeAreaHeight: CGFloat = 0.0
+        if let safeAreaTop = UIApplication.shared.keyWindow?.safeAreaInsets.top {
+            safeAreaHeight = safeAreaTop
+        }
+       
+        
+        let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth, height: 62 + safeAreaHeight))
         customNav.backgroundColor = FLAT_GREEN
         self.view.addSubview(customNav)
-        
+
         let btn1 = UIButton()
         btn1.setImage(UIImage(named:"back"), for: .normal)
         
-        btn1.frame = CGRect(x:4, y:26, width: 30,height: 30)
+        btn1.frame = CGRect(x:4, y:26 + safeAreaHeight, width: 30,height: 30)
         btn1.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
         view.addSubview(btn1)
         
         myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
-        myActivityIndicator.frame = CGRect(x:screenWidth - 35 , y:25, width: 30,height: 30)
+        myActivityIndicator.frame = CGRect(x:screenWidth - 35 , y:25 + safeAreaHeight, width: 30,height: 30)
         myActivityIndicator.hidesWhenStopped = true
         view.addSubview(myActivityIndicator)
         
         let headerLabel = UILabel()
-        headerLabel.frame = CGRect(x: 0,y: 0,width:(screenWidth / 2) + (screenWidth / 4), height:30)
-        headerLabel.center = CGPoint(x:view.frame.midX ,y: 41)
+        headerLabel.frame = CGRect(x: 0,y: 0, width:(screenWidth / 2) + (screenWidth / 4), height:30)
+        headerLabel.center = CGPoint(x:view.frame.midX ,y: 41 + safeAreaHeight)
         headerLabel.textAlignment = .center
         headerLabel.text = "Spot Details"
         headerLabel.textColor = UIColor.white
@@ -401,19 +407,19 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         reportButton.addTarget(self, action:#selector(reportSpotPressed), for: .touchUpInside)
         containerView.addSubview(reportButton)
         
-        if screenHeight >= 812.0 { // iPhone X configuration
-            customNav.frame.size.height += 20
-            customNav.backgroundColor = .clear
-            btn1.frame.origin.y = 50
-            btn1.backgroundColor = .black
-            btn1.layer.opacity = 0.4
-            headerLabel.isHidden = true
-           
-            bottomView.frame =  CGRect(x: 0, y:screenHeight - 62 , width: screenWidth, height: 62)
-            favoriteButton.frame.origin.y -= 15
-            directionsButton.frame.origin.y -= 15
-            scrollView.contentInset = UIEdgeInsets(top: -60, left: 0, bottom: 0, right: 0)
-        }
+//        if screenHeight >= 812.0 { // iPhone X configuration
+//            customNav.frame.size.height += 20
+//            customNav.backgroundColor = .clear
+//            btn1.frame.origin.y = 50
+//            btn1.backgroundColor = .black
+//            btn1.layer.opacity = 0.4
+//            headerLabel.isHidden = true
+//
+//            bottomView.frame =  CGRect(x: 0, y:screenHeight - 62 , width: screenWidth, height: 62)
+//            favoriteButton.frame.origin.y -= 15
+//            directionsButton.frame.origin.y -= 15
+//            scrollView.contentInset = UIEdgeInsets(top: -60, left: 0, bottom: 0, right: 0)
+//        }
         
        
     }
