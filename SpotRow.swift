@@ -159,6 +159,8 @@ extension SpotRow : UICollectionViewDelegateFlowLayout {
         let heightOffset: CGFloat = 225
         let contentHeight = screenHeight - heightOffset
 
+        //pageContainer
+        
         return CGSize(width: screenWidth, height: contentHeight)
     }
     
