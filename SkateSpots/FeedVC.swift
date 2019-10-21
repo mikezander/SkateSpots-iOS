@@ -63,7 +63,24 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate,CLLoca
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
+
+        
         if #available(iOS 13.0, *) {
+            
+            let shadow = NSShadow()
+            shadow.shadowColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            shadow.shadowOffset = CGSize(width: 0, height: 1)
+            let titleFont : UIFont = UIFont.systemFont(ofSize: 15.0)
+
+            segmentControl.setTitleTextAttributes([.foregroundColor: UIColor.white, .shadow: shadow, .font: titleFont], for: .selected)
+            segmentControl.setTitleTextAttributes([.foregroundColor: UIColor.black, .shadow: shadow, .font: titleFont], for: .normal)
+
+            segmentControl.backgroundColor = .white
+            segmentControl.selectedSegmentTintColor = .black
+            
+            
+//
             let statusBar = UIView(frame: UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero)
             statusBar.backgroundColor = #colorLiteral(red: 0.5650888681, green: 0.7229202986, blue: 0.394353807, alpha: 1)
              UIApplication.shared.keyWindow?.addSubview(statusBar)
