@@ -21,9 +21,6 @@ class SpotRow: UITableViewCell {
     @IBOutlet weak var userImage: CircleView!
     @IBOutlet weak var userName: UILabel!
     @IBOutlet weak var spotName: UILabel!
-    @IBOutlet weak var spotLocation: UILabel!
-    @IBOutlet weak var spotDistance: UILabel!
-    @IBOutlet weak var miLabel: UILabel!
     @IBOutlet weak var pageControl: UIPageControl!
     @IBOutlet weak var pageLabel: UILabel!
     @IBOutlet weak var pageContainer: UIView!
@@ -49,7 +46,6 @@ class SpotRow: UITableViewCell {
         self.userName.text = spot.username
         self.spotName.text = spot.spotName
         self.spotName.adjustsFontSizeToFitWidth = true
-        self.spotLocation.text = spot.spotLocation
         
         var spotLocationString = ""
         
@@ -72,7 +68,6 @@ class SpotRow: UITableViewCell {
                 spotLocationString = spot.spotLocation
             }
             
-            //spotLocationString = spot.spotLocation
         }
 
         locationLabel.text = spotLocationString
@@ -84,17 +79,11 @@ class SpotRow: UITableViewCell {
         if spot.distance != nil {
             distanceContainer.isHidden = false
 
-            spotDistance.isHidden = false
-            miLabel.isHidden = false
-            
             let distanceToSpot = String(format: "%.1f", spot.distance!)
-            //self.spotDistance.text = distanceToSpot
             self.distanceLabel.text = distanceToSpot
             
         } else{
             distanceContainer.isHidden = true
-            spotDistance.isHidden = true
-            miLabel.isHidden = true
         }
         
         //pageContainer.layer.cornerRadius = 12.0
