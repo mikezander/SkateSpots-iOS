@@ -215,7 +215,7 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
-                        self.spots.append(spot)
+                        self.spots.insert(spot, at: 0)
                         let annotation = MyCustomPointAnnotation()
                         annotation.coordinate = CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude)
                         annotation.title = spot.spotName

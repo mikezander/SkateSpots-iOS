@@ -74,32 +74,43 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         self.scrollView = UIScrollView()
         self.scrollView.delegate = self
-        
-        containerView = UIView()
-        
+//
+//        containerView = UIView()
+//        if #available(iOS 13.0, *) {
+//            containerView.backgroundColor = UIColor.systemBackground
+//        } else {
+//            // Fallback on earlier versions
+//        }
+
         scrollView.addSubview(containerView)
         view.addSubview(scrollView)
         scrollView.contentInset = UIEdgeInsets(top: -17, left: 0, bottom: 0, right: 0)
         
-        let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth,height: 62))
+        var safeAreaHeight: CGFloat = 0.0
+        if let safeAreaTop = UIApplication.shared.keyWindow?.safeAreaInsets.top {
+            safeAreaHeight = safeAreaTop
+        }
+       
+        
+        let customNav = UIView(frame: CGRect(x:0,y: 0,width: screenWidth, height: 62 + safeAreaHeight))
         customNav.backgroundColor = FLAT_GREEN
         self.view.addSubview(customNav)
-        
+
         let btn1 = UIButton()
         btn1.setImage(UIImage(named:"back"), for: .normal)
         
-        btn1.frame = CGRect(x:4, y:26, width: 30,height: 30)
+        btn1.frame = CGRect(x:4, y:26 + safeAreaHeight, width: 30,height: 30)
         btn1.addTarget(self, action:#selector(backButtonPressed), for: .touchUpInside)
         view.addSubview(btn1)
         
         myActivityIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.white)
-        myActivityIndicator.frame = CGRect(x:screenWidth - 35 , y:25, width: 30,height: 30)
+        myActivityIndicator.frame = CGRect(x:screenWidth - 35 , y:25 + safeAreaHeight, width: 30,height: 30)
         myActivityIndicator.hidesWhenStopped = true
         view.addSubview(myActivityIndicator)
         
         let headerLabel = UILabel()
-        headerLabel.frame = CGRect(x: 0,y: 0,width:(screenWidth / 2) + (screenWidth / 4), height:30)
-        headerLabel.center = CGPoint(x:view.frame.midX ,y: 41)
+        headerLabel.frame = CGRect(x: 0,y: 0, width:(screenWidth / 2) + (screenWidth / 4), height:30)
+        headerLabel.center = CGPoint(x:view.frame.midX ,y: 41 + safeAreaHeight)
         headerLabel.textAlignment = .center
         headerLabel.text = "Spot Details"
         headerLabel.textColor = UIColor.white
@@ -118,10 +129,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
  
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0) //75
-        layout.itemSize = CGSize(width: screenWidth, height: screenHeight)
+        layout.itemSize = CGSize(width: screenWidth, height: 500)
         layout.scrollDirection = .horizontal
 
-        collectionview = UICollectionView(frame: CGRect(x:0, y:5, width: self.view.frame.width, height: self.view.frame.height), collectionViewLayout: layout)
+        
+        
+        collectionview = UICollectionView(frame: CGRect(x:0, y:14, width: self.view.frame.width, height: 500), collectionViewLayout: layout)
+
+//        collectionview = UICollectionView(frame: CGRect(x:0, y:5, width: self.view.frame.width, height: self.view.frame.height), collectionViewLayout: layout)
         collectionview.collectionViewLayout = layout
         collectionview.dataSource = self
         collectionview.delegate = self
@@ -133,8 +148,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
  
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
-        spotNameLbl.textColor = .black
-        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 168) //168
+        spotNameLbl.textColor = UIColor.black
+        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: collectionview.frame.maxY - 15) //168
         spotNameLbl.textAlignment = .center
         spotNameLbl.text = spot.spotName
         containerView.addSubview(spotNameLbl)
@@ -147,7 +162,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotTypeLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 21))
         spotTypeLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         spotTypeLbl.textColor = .black
-        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 144)
+        spotTypeLbl.center = CGPoint(x: screenWidth / 2, y: spotNameLbl.frame.maxY + 8)//screenHeight - 144)
         spotTypeLbl.textAlignment = .center
         spotTypeLbl.text = spot.spotType
         spotTypeLbl.font = spotTypeLbl.font.withSize(13)
@@ -155,7 +170,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         ratingDisplayView.settings.starSize = 25
         ratingDisplayView.frame =  CGRect(x:0, y:0, width: 250,height: 20)
-        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: screenHeight - 125)
+        ratingDisplayView.center = CGPoint(x: screenWidth / 2 + 52 , y: spotTypeLbl.frame.maxY + 6)//screenHeight - 125)
         ratingDisplayView.settings.updateOnTouch = false
         ratingDisplayView.settings.fillMode = .precise
         containerView.addSubview(ratingDisplayView)
@@ -163,19 +178,23 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         ratingDisplayLbl = UILabel(frame: CGRect(x: 0, y: 0, width: 250, height: 20))
         ratingDisplayLbl.font = UIFont.preferredFont(forTextStyle: .caption1)
         ratingDisplayLbl.textColor = .black
-        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: screenHeight - 104)
+        ratingDisplayLbl.center = CGPoint(x: screenWidth / 2, y: ratingDisplayView.frame.maxY + 6)
         ratingDisplayLbl.textAlignment = .center
         ratingDisplayLbl.alpha = 0.4
         ratingDisplayLbl.font = ratingDisplayLbl.font.withSize(13)
         containerView.addSubview(ratingDisplayLbl)
         
-        let descriptionLbl = UILabel(frame: CGRect(x: 10, y: screenHeight - 89, width: screenWidth - 5, height: 20))
+        let descriptionLbl = UILabel(frame: CGRect(x: 10, y: ratingDisplayLbl.frame.maxY + 20, width: screenWidth - 5, height: 20))
+
+//        let descriptionLbl = UILabel(frame: CGRect(x: 10, y: screenHeight - 89, width: screenWidth - 5, height: 20))
         descriptionLbl.font = UIFont(name: "Avenir-Black", size: 14)
         descriptionLbl.textColor = UIColor.lightGray
         descriptionLbl.text = "Description:"
         containerView.addSubview(descriptionLbl)
         
-        descriptionTextView = UITextView(frame: CGRect(x: 5, y: screenHeight - 74, width: screenWidth - 5, height: 100))
+        descriptionTextView = UITextView(frame: CGRect(x: 5, y: descriptionLbl.frame.maxY, width: screenWidth - 5, height: 100))
+
+//        descriptionTextView = UITextView(frame: CGRect(x: 5, y: screenHeight - 74, width: screenWidth - 5, height: 100))
         descriptionTextView.isScrollEnabled = false
         descriptionTextView.isEditable = false
         descriptionTextView.isSelectable = false
@@ -193,6 +212,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         adjustUITextViewHeight(arg: descriptionTextView)
         containerView.addSubview(descriptionTextView)
         
+
         let doYourPath = UIBezierPath(rect: CGRect(x: 5, y: descriptionTextView.frame.origin.y + descriptionTextView.frame.height + 7, width: screenWidth - 10, height: 0.7))
         let layer = CAShapeLayer()
         layer.path = doYourPath.cgPath
@@ -285,14 +305,17 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         //Setting scrollview content size
         
-        if screenHeight >= 736.0{ // for 6+, 7+
-            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4) + (descriptionTextView.frame.height - 165)) // - 65
-        }else if screenHeight <= 568.0{// for 5, 5s, SE and under ** 168 difference to 6+, 7+
-            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 ) + (descriptionTextView.frame.height - 20)) //+ 83 
-            
-        }else{ // for 6, 7 and in between largest and smallest iphones ** 69 difference to 6+, 7+
-            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 ) + (descriptionTextView.frame.height - 116))// - 16
-        }
+        print(screenHeight * 2 - 200, screenHeight, "here123")
+        self.scrollView.contentSize = CGSize(width: screenSize.width, height: 1400 + descriptionTextView.frame.height) // - 65
+
+//        if screenHeight >= 736.0{ // for 6+, 7+
+//            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4) + (descriptionTextView.frame.height - 165)) // - 65
+//        }else if screenHeight <= 568.0{// for 5, 5s, SE and under ** 168 difference to 6+, 7+
+//            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 ) + (descriptionTextView.frame.height - 20)) //+ 83
+//
+//        }else{ // for 6, 7 and in between largest and smallest iphones ** 69 difference to 6+, 7+
+//            self.scrollView.contentSize = CGSize(width: screenSize.width, height: screenHeight * 2 + (screenHeight / 4 ) + (descriptionTextView.frame.height - 116))// - 16
+//        }
         
         ratingView.settings.starSize = 30
         ratingView.frame = CGRect(x: 0 , y: 0, width: 250, height: 100)
@@ -401,19 +424,19 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         reportButton.addTarget(self, action:#selector(reportSpotPressed), for: .touchUpInside)
         containerView.addSubview(reportButton)
         
-        if screenHeight >= 812.0 { // iPhone X configuration
-            customNav.frame.size.height += 20
-            customNav.backgroundColor = .clear
-            btn1.frame.origin.y = 50
-            btn1.backgroundColor = .black
-            btn1.layer.opacity = 0.4
-            headerLabel.isHidden = true
-           
-            bottomView.frame =  CGRect(x: 0, y:screenHeight - 62 , width: screenWidth, height: 62)
-            favoriteButton.frame.origin.y -= 15
-            directionsButton.frame.origin.y -= 15
-            scrollView.contentInset = UIEdgeInsets(top: -60, left: 0, bottom: 0, right: 0)
-        }
+//        if screenHeight >= 812.0 { // iPhone X configuration
+//            customNav.frame.size.height += 20
+//            customNav.backgroundColor = .clear
+//            btn1.frame.origin.y = 50
+//            btn1.backgroundColor = .black
+//            btn1.layer.opacity = 0.4
+//            headerLabel.isHidden = true
+//
+//            bottomView.frame =  CGRect(x: 0, y:screenHeight - 62 , width: screenWidth, height: 62)
+//            favoriteButton.frame.origin.y -= 15
+//            directionsButton.frame.origin.y -= 15
+//            scrollView.contentInset = UIEdgeInsets(top: -60, left: 0, bottom: 0, right: 0)
+//        }
         
        
     }
@@ -776,13 +799,14 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         let screenWidth = screenSize.width
         let screenHeight = screenSize.height
        
-        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight - 193))//150
+        let image = UIImageView(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 500)) //- 193))//150
         image.isUserInteractionEnabled = true
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellId, for: indexPath) as! DetailPhotoCell
         
         cell.spotImage.image = nil
         cell.spotImage = image
+        cell.spotImage.frame.origin.y = collectionView.frame.origin.y
         cell.addSubview(image)
         
         

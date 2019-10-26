@@ -18,8 +18,9 @@ class DetailPhotoCell: UICollectionViewCell{
     var spot: Spot!
     
     func configureCell(spot: Spot, img: UIImage? = nil, count: Int){
-        self.spot = spot
         
+        self.spot = spot
+ 
         spotImage.kf.setImage(with: URL(string: spot.imageUrls[count]), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cacheType, url) in
             if let img = image {
                 self.setImageViewContentMode(image: img)
@@ -40,12 +41,13 @@ class DetailPhotoCell: UICollectionViewCell{
     }
     
     func setImageViewContentMode(image:UIImage){
-        
         if image.size.width > image.size.height{
             self.spotImage.contentMode = .scaleAspectFit
-        }else{
+        } else {
             self.spotImage.contentMode = .scaleToFill
+
         }
+
     }
     
     
