@@ -22,7 +22,8 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     @IBOutlet var spotTypeLabel: UILabel!
     @IBOutlet var ratingView: CosmosView!
     @IBOutlet var ratingLabel: UILabel!
-
+    @IBOutlet weak var spotDescriptionTextView: UITextView!
+    
     override func viewWillLayoutSubviews() {
     }
     
@@ -62,6 +63,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         spotNameLabel.text = spot.spotName
         spotTypeLabel.text = spot.spotType
         setSpotRatingViews()
+        spotDescriptionTextView.text = spot.spotDescription == "Spot Description" ? "No description" : spot.spotDescription
     }
     
     
