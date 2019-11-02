@@ -22,8 +22,10 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     @IBOutlet var spotTypeLabel: UILabel!
     @IBOutlet var ratingView: CosmosView!
     @IBOutlet var ratingLabel: UILabel!
-    @IBOutlet weak var spotDescriptionTextView: UITextView!
-    
+    @IBOutlet var spotDescriptionTextView: UITextView!
+    @IBOutlet var kickOutLabel: UILabel!
+    @IBOutlet var bestTimeLabel: UILabel!
+
     override func viewWillLayoutSubviews() {
     }
     
@@ -64,6 +66,8 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         spotTypeLabel.text = spot.spotType
         setSpotRatingViews()
         spotDescriptionTextView.text = spot.spotDescription == "Spot Description" ? "No description" : spot.spotDescription
+        kickOutLabel.text = "\(spot.kickOut) bust"
+        bestTimeLabel.text = "\(spot.bestTimeToSkate) spot"
     }
     
     
