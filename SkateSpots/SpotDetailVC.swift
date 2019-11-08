@@ -123,6 +123,11 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     }
     
     func setupCommentsView() {
+        
+        for view in commentContainer.subviews {
+            view.removeFromSuperview()
+        }
+
         let commentButton = UIButton()
         commentButton.titleLabel?.font = UIFont(name: "Avenir-Black", size: 14)
         commentButton.setTitleColor(.lightGray, for: .normal)
@@ -184,7 +189,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
             commentContainer.addSubview(imageView)
             imageView.kf.setImage(with: URL(string: comment.userImageURL))
             imageView.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 10).isActive = true
-            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 2).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: commentContainer.leadingAnchor, constant: 2).isActive = true
             imageView.clipsToBounds = true
             //imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor).isActive = true
             imageView.widthAnchor.constraint(equalToConstant: 36).isActive = true
@@ -205,7 +210,6 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
 
     
     func loadComments(){
-        
 
         let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
         commentRef.observe(.value, with: {(snapshot) in
@@ -215,26 +219,33 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 for snap in snapshot {
                     self.commentCount += 1
-                    if var commentDict = snap.value as? Dictionary<String, AnyObject>{
-                        print(commentDict)
+                    if let commentDict = snap.value as? Dictionary<String, AnyObject>{
                         let key = snap.key
-                        
-                        DataService.instance.getCurrentUserProfileData(userRef: DataService.instance.REF_USERS.child(commentDict["userKey"] as! String).child("profile"), completionHandlerForGET: {success, data in
-                            
-                            let user = data!
-                            commentDict["username"] = user.userName as AnyObject
-                            commentDict["userImageURL"] = user.userImageURL as AnyObject
-                            
-                            let comment = Comment(commentKey: key, commentData: commentDict)
-                            self.comments.append(comment)
+                        let comment = Comment(commentKey: key, commentData: commentDict)
+                        self.comments.append(comment)
 
-                            if snap == snapshot.last {
-                                self.setupCommentsView()
-                            }
-                            
-                        })
+                        
+                        
+                        
+                        
+//                        DataService.instance.getCurrentUserProfileData(userRef: DataService.instance.REF_USERS.child(commentDict["userKey"] as! String).child("profile"), completionHandlerForGET: {success, data in
+//
+//                            let user = data!
+//                            commentDict["username"] = user.userName as AnyObject
+//                            commentDict["userImageURL"] = user.userImageURL as AnyObject
+//                            print(user.userName, commentDict["comment"] as! String, "here123")
+//                            let comment = Comment(commentKey: key, commentData: commentDict)
+//                            self.comments.append(comment)
+//
+//                            if snap == snapshot.last {
+//                                self.setupCommentsView()
+//                            }
+//                        })
                     }
                     
+                    if snap == snapshot.last {
+                        self.setupCommentsView()
+                    }
                 }
             }
 
@@ -243,8 +254,74 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     }
     
     @objc func loadAllCommentsView() {
-        print("load all comments view")
+        performSegue(withIdentifier: "all_comments_vc", sender: nil)
     }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if let vc = segue.destination as? AllCommentsVC {
+            vc.comments = self.comments
+        }
+    }
+    
+      @IBAction func commentPressedHandler(){
+            commentPressed { (success) in
+                guard success == true else {
+                    self.errorAlert(title: "Post comment failed", message: "Post comment failed. Check your internet conenction and try again")
+                    return
+                }
+                self.commentTextView.text = ""
+                self.commentTextView.resignFirstResponder()
+                self.commentContainer.reloadInputViews()
+                self.setupCommentsView()
+    //            self.postButton.isEnabled = true
+            }
+            
+        }
+        
+        func commentPressed(completion: @escaping (Bool) -> ()){
+            
+            if isInternetAvailable() && hasConnected {
+                
+                if self.commentTextView.text != "Add a comment.." && commentTextView.text != "" && commentTextView.text != " " && commentTextView.text != "  "{
+                    
+                    //postButton.isEnabled = false
+                    
+                    DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
+                        if !snapshot.exists() { print("snapshot not found! SpotRow.swift");return }
+                        
+                        if let username = snapshot.childSnapshot(forPath: "username").value as? String{
+                            
+                            if let userImageURL = snapshot.childSnapshot(forPath: "userImageURL").value as? String{
+                                
+                                self.user = User(userName: username, userImageURL: userImageURL, bio: "", link: "", igLink: "")
+                                
+                                let comment: Dictionary<String, AnyObject> = [
+                                    "userKey": (Auth.auth().currentUser?.uid)! as AnyObject,
+                                    "username": self.user.userName as AnyObject,
+                                    "userImageURL" : self.user.userImageURL as AnyObject,
+                                    "comment": self.commentTextView.text as AnyObject,
+                                    
+                                    ]
+                                
+                                let commentRef = DataService.instance.REF_SPOTS.child(self.spot.spotKey).child("comments").childByAutoId()
+                                
+                                commentRef.setValue(comment)
+                                
+                            }
+                        }
+                        
+                        completion(true)
+                    })
+                    
+                    
+                }
+                
+                
+            }else{
+                errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+            }
+            
+        }
 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -293,7 +370,6 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
             view.layoutIfNeeded()
 
         }
-        print(newSize.height, "here123")
 
     }
     
