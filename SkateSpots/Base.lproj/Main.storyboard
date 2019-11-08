@@ -16,7 +16,7 @@
         <!--Tab Bar Controller-->
         <scene sceneID="mSy-sK-O2P">
             <objects>
-                <tabBarController id="c2b-5P-XCM" sceneMemberID="viewController">
+                <tabBarController modalPresentationStyle="fullScreen" id="c2b-5P-XCM" sceneMemberID="viewController">
                     <tabBar key="tabBar" contentMode="scaleToFill" barStyle="black" translucent="NO" id="o6U-nZ-e4o">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -592,6 +592,9 @@
                                                             <constraint firstAttribute="height" constant="33" id="c0d-Aq-F2c"/>
                                                         </constraints>
                                                         <state key="normal" title="Add"/>
+                                                        <connections>
+                                                            <action selector="commentPressedHandler" destination="B8T-Q8-cSO" eventType="touchUpInside" id="WHl-ww-F1c"/>
+                                                        </connections>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -755,18 +758,99 @@
                         <outlet property="spotDescriptionTextView" destination="Yfe-6m-JA2" id="UHN-Cm-TCW"/>
                         <outlet property="spotNameLabel" destination="XLE-i1-fRs" id="Ze2-j8-Xt9"/>
                         <outlet property="spotTypeLabel" destination="VoH-wr-foX" id="FUT-6Q-AwF"/>
+                        <segue destination="Z8J-5y-H5C" kind="show" identifier="all_comments_vc" id="N9d-M3-tgA"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="DMZ-S0-93M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1402.4000000000001" y="-1757.7211394302849"/>
         </scene>
+        <!--All CommentsVC-->
+        <scene sceneID="mN3-Ng-CUO">
+            <objects>
+                <viewController storyboardIdentifier="allCommentsVC" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Z8J-5y-H5C" customClass="AllCommentsVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="JY4-1b-2cX">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ch9-1N-Mp8">
+                                <rect key="frame" x="0.0" y="64" width="375" height="553"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentsCell" rowHeight="96" id="ieE-cV-B26" customClass="CommentsTableViewCell" customModule="Sk8Spots" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="96"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ieE-cV-B26" id="a1Y-8B-J3i">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="96"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Yue-Ym-Dnw">
+                                                    <rect key="frame" x="10" y="5" width="36" height="36"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="36" id="evJ-36-0DD"/>
+                                                        <constraint firstAttribute="width" constant="36" id="koy-DY-lDC"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ty9-aS-oue">
+                                                    <rect key="frame" x="54" y="14" width="306" height="16"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                                                    <color key="textColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="kDU-H1-P6n">
+                                                    <rect key="frame" x="46" y="35" width="314" height="50"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                    <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                </textView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Yue-Ym-Dnw" firstAttribute="top" secondItem="a1Y-8B-J3i" secondAttribute="top" constant="5" id="08g-wl-bNT"/>
+                                                <constraint firstItem="Ty9-aS-oue" firstAttribute="top" secondItem="a1Y-8B-J3i" secondAttribute="top" constant="14" id="6pM-qM-iFf"/>
+                                                <constraint firstAttribute="bottom" secondItem="kDU-H1-P6n" secondAttribute="bottom" constant="11" id="HGZ-cH-il1"/>
+                                                <constraint firstItem="kDU-H1-P6n" firstAttribute="leading" secondItem="a1Y-8B-J3i" secondAttribute="leading" constant="46" id="Hhc-3a-nqo"/>
+                                                <constraint firstAttribute="trailing" secondItem="kDU-H1-P6n" secondAttribute="trailing" constant="15" id="Mgy-N0-MYL"/>
+                                                <constraint firstItem="Ty9-aS-oue" firstAttribute="trailing" secondItem="a1Y-8B-J3i" secondAttribute="trailingMargin" id="Nva-bX-42o"/>
+                                                <constraint firstItem="Yue-Ym-Dnw" firstAttribute="leading" secondItem="a1Y-8B-J3i" secondAttribute="leading" constant="10" id="WFq-h5-RCf"/>
+                                                <constraint firstItem="Ty9-aS-oue" firstAttribute="leading" secondItem="Yue-Ym-Dnw" secondAttribute="trailing" constant="8" id="ZRe-f6-bFp"/>
+                                                <constraint firstItem="kDU-H1-P6n" firstAttribute="top" secondItem="Ty9-aS-oue" secondAttribute="bottom" constant="5" id="daz-mw-g4F"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="commentTextView" destination="kDU-H1-P6n" id="p90-x3-x6z"/>
+                                            <outlet property="userImageView" destination="Yue-Ym-Dnw" id="NyQ-DT-B7A"/>
+                                            <outlet property="userLabel" destination="Ty9-aS-oue" id="ScP-xi-jgf"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="ch9-1N-Mp8" firstAttribute="leading" secondItem="wm5-To-pmU" secondAttribute="leading" id="XP4-YW-vJ4"/>
+                            <constraint firstItem="wm5-To-pmU" firstAttribute="bottom" secondItem="ch9-1N-Mp8" secondAttribute="bottom" constant="50" id="ZbP-o4-RMd"/>
+                            <constraint firstItem="wm5-To-pmU" firstAttribute="trailing" secondItem="ch9-1N-Mp8" secondAttribute="trailing" id="awv-Z0-l2i"/>
+                            <constraint firstItem="ch9-1N-Mp8" firstAttribute="top" secondItem="wm5-To-pmU" secondAttribute="top" constant="64" id="ozy-jf-249"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="wm5-To-pmU"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="zqS-5C-ha5"/>
+                    <connections>
+                        <outlet property="tableView" destination="ch9-1N-Mp8" id="e5d-Y5-RBs"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="KGd-Hx-cti" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2548" y="-1689.8050974512746"/>
+        </scene>
         <!--DetailVC-->
         <scene sceneID="S6r-GA-SJg">
             <objects>
                 <viewController storyboardIdentifier="goToDetail" id="swM-zT-Qto" customClass="DetailVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ubf-V7-QLu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8c-d7-f4X" customClass="RoundedShadowView" customModule="Sk8Spots" customModuleProvider="target">
@@ -916,7 +1000,7 @@
                                             <outlet property="spotPhoto" destination="gaT-mg-Mwe" id="OpC-Sl-GQA"/>
                                             <outlet property="spotTypeLabel" destination="krP-Bi-bWs" id="Doi-S0-Khp"/>
                                             <outlet property="titleLabel" destination="wpI-0y-QMt" id="WJe-Tt-909"/>
-                                            <segue destination="swM-zT-Qto" kind="presentation" identifier="goToDetail" id="amF-RC-GHK"/>
+                                            <segue destination="swM-zT-Qto" kind="presentation" identifier="goToDetail" modalPresentationStyle="fullScreen" id="amF-RC-GHK"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
@@ -1059,7 +1143,7 @@
                     <connections>
                         <outlet property="searchView" destination="uIg-r1-2cG" id="FmH-Nr-v9q"/>
                         <outlet property="userTableView" destination="ljd-Oj-CJB" id="PjQ-Lo-pkw"/>
-                        <segue destination="TAW-gt-gIw" kind="presentation" identifier="segueToProfileVC" id="FaM-Fd-r9u"/>
+                        <segue destination="TAW-gt-gIw" kind="presentation" identifier="segueToProfileVC" modalPresentationStyle="fullScreen" id="FaM-Fd-r9u"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="vM8-ov-YKk" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1614,11 +1698,11 @@
             <objects>
                 <viewController storyboardIdentifier="goToProfile" id="TAW-gt-gIw" customClass="ProfileVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="djI-iq-l8N">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="210" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="dkE-Bw-0m5">
-                                <rect key="frame" x="0.0" y="44" width="375" height="603"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="210" id="FSx-Nv-ahg" customClass="ProfileCell" customModule="Sk8Spots" customModuleProvider="target">
@@ -3093,10 +3177,10 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <image name="yellow_star" width="24" height="24"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="ZX4-qG-Pn9"/>
+        <segue reference="aTI-2D-YLZ"/>
         <segue reference="VRI-Gr-LDk"/>
         <segue reference="FaM-Fd-r9u"/>
-        <segue reference="wHi-97-VC8"/>
+        <segue reference="NSR-GJ-ilx"/>
         <segue reference="myg-hR-9mM"/>
     </inferredMetricsTieBreakers>
 </document>
