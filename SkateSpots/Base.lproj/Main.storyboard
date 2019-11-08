@@ -515,7 +515,7 @@
                                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Yfe-6m-JA2">
                                                 <rect key="frame" x="8" y="563" width="359" height="200"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                                <mutableString key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</mutableString>
+                                                <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
                                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
@@ -529,7 +529,7 @@
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aYd-Pl-mVn">
                                                 <rect key="frame" x="0.0" y="767" width="375" height="100"/>
-                                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                             </view>
                                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cop_logo" translatesAutoresizingMaskIntoConstraints="NO" id="h4U-It-FLN">
                                                 <rect key="frame" x="61.5" y="777" width="65" height="50"/>
@@ -584,13 +584,14 @@
                                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                     </textView>
-                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE4-Ww-bXE">
-                                                        <rect key="frame" x="323" y="0.0" width="50" height="33"/>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="leading" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hE4-Ww-bXE">
+                                                        <rect key="frame" x="325" y="0.0" width="48" height="33"/>
+                                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                         <constraints>
-                                                            <constraint firstAttribute="width" constant="50" id="HDQ-Il-u3a"/>
+                                                            <constraint firstAttribute="width" constant="48" id="HDQ-Il-u3a"/>
                                                             <constraint firstAttribute="height" constant="33" id="c0d-Aq-F2c"/>
                                                         </constraints>
-                                                        <state key="normal" title="Button"/>
+                                                        <state key="normal" title="Add"/>
                                                     </button>
                                                 </subviews>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
@@ -598,7 +599,7 @@
                                                     <constraint firstItem="zIW-2v-kFZ" firstAttribute="top" secondItem="J60-vg-Dch" secondAttribute="top" id="12L-5i-HFG"/>
                                                     <constraint firstAttribute="trailing" secondItem="zIW-2v-kFZ" secondAttribute="trailing" constant="50" id="LNf-U3-OBe"/>
                                                     <constraint firstAttribute="trailing" secondItem="hE4-Ww-bXE" secondAttribute="trailing" id="W4G-jh-xX9"/>
-                                                    <constraint firstItem="hE4-Ww-bXE" firstAttribute="leading" secondItem="zIW-2v-kFZ" secondAttribute="trailing" id="hxJ-yq-Onf"/>
+                                                    <constraint firstItem="hE4-Ww-bXE" firstAttribute="leading" secondItem="zIW-2v-kFZ" secondAttribute="trailing" constant="2" id="hxJ-yq-Onf"/>
                                                     <constraint firstAttribute="height" secondItem="zIW-2v-kFZ" secondAttribute="height" id="li4-iF-v1e"/>
                                                     <constraint firstAttribute="bottom" secondItem="hE4-Ww-bXE" secondAttribute="bottom" id="m10-Ut-hYI"/>
                                                     <constraint firstAttribute="bottom" secondItem="zIW-2v-kFZ" secondAttribute="bottom" id="rFd-jF-Xld"/>
@@ -778,7 +779,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4NM-2i-zIK" customClass="MIBadgeButton" customModule="MIBadgeButton_Swift">
-                                        <rect key="frame" x="314" y="17" width="53" height="30"/>
+                                        <rect key="frame" x="340.5" y="17" width="26.5" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="yxS-6N-nm9"/>
                                         </constraints>
@@ -1083,7 +1084,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lx3-RU-oc8" customClass="MIBadgeButton" customModule="MIBadgeButton_Swift">
-                                        <rect key="frame" x="314" y="17" width="53" height="30"/>
+                                        <rect key="frame" x="340.5" y="17" width="26.5" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Rde-fJ-pSO"/>
                                         </constraints>
