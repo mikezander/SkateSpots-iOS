@@ -13,7 +13,9 @@ import Cosmos
 class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
     
     
-    let coms = ["Dope park", "dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf", "just another comment for your tableview to see I can make it's hegiht dynamic", "just another comment for your tableview to see I can make it's hegiht dynamic"]
+//    let coms = ["Dope park", "dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf", "just another comment for your tableview to see I can make it's hegiht dynamic", "just another comment for your tableview to see I can make it's hegiht dynamic"]
+    
+        let coms = ["1", "2", "3", "4", "5"]
 
     var refCurrentSpot: DatabaseReference!
     var spot: Spot!
@@ -121,58 +123,74 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     }
     
     func setupCommentsView() {
-        
         let commentButton = UIButton()
         commentButton.titleLabel?.font = UIFont(name: "Avenir-Black", size: 14)
         commentButton.setTitleColor(.lightGray, for: .normal)
 
-        if coms.count > 3 {
-            commentButton.setTitle("View all \(coms.count) comments...", for: .normal)
+        if comments.count > 3 {
+            commentButton.setTitle("View all \(comments.count) comments...", for: .normal)
                 commentButton.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(loadAllCommentsView)))
         } else {
-            commentButton.setTitle("\(coms.count) comments", for: .normal)
+            commentButton.setTitle("\(comments.count) comments", for: .normal)
         }
-        //commentButton.backgroundColor = .lightGray
         commentButton.translatesAutoresizingMaskIntoConstraints = false
         commentContainer.addSubview(commentButton)
-        commentButton.topAnchor.constraint(equalTo: commentContainer.topAnchor, constant: 10).isActive = true
-        commentButton.heightAnchor.constraint(equalToConstant: 30).isActive = true
+        commentButton.topAnchor.constraint(equalTo: commentContainer.topAnchor, constant: 8).isActive = true
+        commentButton.heightAnchor.constraint(equalToConstant: 20).isActive = true
         commentButton.centerXAnchor.constraint(equalTo: commentContainer.centerXAnchor).isActive = true
-        
-//        var lastView: UIView = commentContainer
-//        var lastViewConstraint = NSLayoutConstraint.Attribute.top
+
         
         var lastView: UIView = commentButton
         var lastViewConstraint = NSLayoutConstraint.Attribute.bottom
         
-        let num = min(coms.count, 3)
-        
+        let num = min(comments.count, 3)
+        var height:CGFloat = 36.0
 
-        var height:CGFloat = 40.0
         for i in 0 ..< num {
+            let comment = comments[comments.count - num + i]
             let textView = UITextView()
                 textView.translatesAutoresizingMaskIntoConstraints = false
                 commentContainer.addSubview(textView)
             textView.font = UIFont.systemFont(ofSize: 14.0)
-            textView.text = coms[i]
+
+            
+            textView.text = comment.comment
             textView.isScrollEnabled = false
             textView.isEditable = false
-            textView.sizeToFit()
-            //textView.backgroundColor = colors[i]
-     
-            textView.leadingAnchor.constraint(equalTo: commentContainer.leadingAnchor).isActive = true
-            textView.trailingAnchor.constraint(equalTo: commentContainer.trailingAnchor).isActive = true
+
+            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30.0).isActive = true
+            textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
             let textViewHeight = textView.sizeThatFits(CGSize(width:commentContainer.frame.width, height: textView.frame.height)).height
             textView.heightAnchor.constraint(equalToConstant: textViewHeight).isActive = true
 
-            height += textViewHeight
+            height += textViewHeight + 30
 
             commentContainer.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|[view]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["view" : textView]))
-                commentContainer.addConstraint(NSLayoutConstraint(item: textView, attribute: .top, relatedBy: .equal, toItem: lastView, attribute: lastViewConstraint, multiplier: 1.0, constant: 0))
+                commentContainer.addConstraint(NSLayoutConstraint(item: textView, attribute: .top, relatedBy: .equal, toItem: lastView, attribute: lastViewConstraint, multiplier: 1.0, constant: 30))
                 
                 lastView = textView
                 lastViewConstraint = .bottom
-
+            
+            let label = UILabel()
+            label.translatesAutoresizingMaskIntoConstraints = false
+            commentContainer.addSubview(label)
+            label.text = comment.userName
+            label.font = UIFont(name: "Avenir", size: 13)
+            label.bottomAnchor.constraint(equalTo: textView.topAnchor).isActive = true
+            label.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 13).isActive = true
+            
+            let imageView = UIImageView()
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            commentContainer.addSubview(imageView)
+            imageView.kf.setImage(with: URL(string: comment.userImageURL))
+            imageView.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 10).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 2).isActive = true
+            imageView.clipsToBounds = true
+            //imageView.trailingAnchor.constraint(equalTo: label.leadingAnchor).isActive = true
+            imageView.widthAnchor.constraint(equalToConstant: 36).isActive = true
+            imageView.heightAnchor.constraint(equalToConstant: 36).isActive = true
+            imageView.layer.cornerRadius = 18.0
+            
         }
         
         self.view.addConstraint(NSLayoutConstraint(item: commentContainer ?? UIView(), attribute: .bottom, relatedBy: .equal, toItem: lastView, attribute: .bottom, multiplier: 1.0, constant: 0))
@@ -187,6 +205,8 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
 
     
     func loadComments(){
+        
+
         let commentRef = DataService.instance.REF_SPOTS.child(spot.spotKey).child("comments")
         commentRef.observe(.value, with: {(snapshot) in
             
@@ -207,29 +227,17 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
                             
                             let comment = Comment(commentKey: key, commentData: commentDict)
                             self.comments.append(comment)
-                            
-                            DispatchQueue.main.async {
+
+                            if snap == snapshot.last {
                                 self.setupCommentsView()
-                                self.commentTableView.reloadData()
                             }
                             
-//                            DispatchQueue.main.async {
-//                                self.tableView.reloadData()
-//                                let lastItem = IndexPath(item: self.commentsArray.count - 1, section: 0)
-//                                self.tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
-//                            }
-                            
                         })
-                        
-                        
                     }
                     
                 }
-                
-                
-                //self.configCommentCountLabel(count: self.commentCount)
             }
-            
+
         })
         
     }
