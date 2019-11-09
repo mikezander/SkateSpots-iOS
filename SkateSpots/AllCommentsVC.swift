@@ -27,5 +27,9 @@ class AllCommentsVC: UIViewController, UITableViewDelegate, UITableViewDataSourc
         cell.comment = comments[indexPath.row]
         return cell
     }
-    
+
+    @IBAction func back(_ sender: Any) {
+        navigationController?.popViewController(animated: true)
+        self.dismiss(animated: true, completion: nil)
+    }
 }
