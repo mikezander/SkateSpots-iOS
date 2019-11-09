@@ -61,7 +61,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         addCommentContainer.layer.borderWidth = 0.8
         addCommentContainer.layer.cornerRadius = 8.0
         
-        addCommentContainer.layer.borderColor = UIColor.lightGray.cgColor
+        addCommentContainer.layer.borderColor = UIColor.gray.cgColor
         view.layoutIfNeeded()
         //
         //layoutComments()
@@ -150,7 +150,8 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         
         let num = min(comments.count, 3)
         var height:CGFloat = 36.0
-
+        
+        
         for i in 0 ..< num {
             let comment = comments[comments.count - num + i]
             let textView = UITextView()
@@ -158,12 +159,11 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
                 commentContainer.addSubview(textView)
             textView.font = UIFont.systemFont(ofSize: 14.0)
 
-            
             textView.text = comment.comment
             textView.isScrollEnabled = false
             textView.isEditable = false
 
-            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 30.0).isActive = true
+            textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40.0).isActive = true
             textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
             let textViewHeight = textView.sizeThatFits(CGSize(width:commentContainer.frame.width, height: textView.frame.height)).height
             textView.heightAnchor.constraint(equalToConstant: textViewHeight).isActive = true
@@ -180,9 +180,10 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
             label.translatesAutoresizingMaskIntoConstraints = false
             commentContainer.addSubview(label)
             label.text = comment.userName
-            label.font = UIFont(name: "Avenir", size: 13)
-            label.bottomAnchor.constraint(equalTo: textView.topAnchor).isActive = true
-            label.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 13).isActive = true
+            label.font = UIFont.systemFont(ofSize: 14.0)
+            label.textColor = #colorLiteral(red: 0, green: 0, blue: 1, alpha: 1)
+            label.bottomAnchor.constraint(equalTo: textView.topAnchor, constant: 5).isActive = true
+            label.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 5).isActive = true
             
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
