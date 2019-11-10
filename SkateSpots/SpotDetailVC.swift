@@ -18,6 +18,9 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         let coms = ["1", "2", "3", "4", "5"]
 
     var refCurrentSpot: DatabaseReference!
+    var ratingRef:DatabaseReference!
+    var userRef:DatabaseReference!
+
     var spot: Spot!
     var user: User!
     var comments = [Comment]()
@@ -41,14 +44,28 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     @IBOutlet weak var commentTextView: UITextView!
     @IBOutlet weak var commentTextViewHeightContrstraint: NSLayoutConstraint!
     @IBOutlet weak var addCommentContainer: UIView!
+    @IBOutlet weak var starView: CosmosView!
+    @IBOutlet weak var starLabel: UILabel!
+    @IBOutlet weak var rateBtn: UIButton!
+    @IBOutlet weak var postButton: UIButton!
+    @IBOutlet weak var placeholderLabel: UILabel!
+    @IBOutlet weak var directionsView: DirectionsView!
+    @IBOutlet weak var locationLabel: UILabel!
+    @IBOutlet weak var uploadedByImageView: UIImageView!
+    @IBOutlet weak var uploadedByLabel: UILabel!
+
     
+
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
+        navigationController?.popViewController(animated: true)
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        subscribeToKeyboardNotifications()
+        
         refCurrentSpot = DataService.instance.REF_SPOTS.child(spot.spotKey)
         setupZoomableCollectionView()
         setupSpotLabels()
@@ -56,19 +73,43 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
 
         loadComments()
         commentTextView.delegate = self
+        commentTextView.autocorrectionType = .no
         commentTextView.text = "Add a comment.."
         commentTextView.textColor = .lightGray
         addCommentContainer.layer.borderWidth = 0.8
         addCommentContainer.layer.cornerRadius = 8.0
         
         addCommentContainer.layer.borderColor = UIColor.gray.cgColor
+        commentContainer.backgroundColor = .groupTableViewBackground
+        
+        let ref = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
+        ratingRef = ref.child("rated").child(spot.spotKey)
+        handleOneReviewPerSpot(ref: ratingRef)
+        starView.settings.fillMode = .precise
+        
+        starView.didFinishTouchingCosmos = { rating in
+            self.rateBtn.alpha = 1
+            self.rateBtn.isEnabled = true
+            let displayRating = String(format: "%.1f", rating)
+            self.starLabel.text = "(\(displayRating))"
+            self.ratingView.settings.filledBorderColor = UIColor.black
+        }
+        
+        directionsView.spot = spot
+        directionsView.layer.cornerRadius = 8.0
+        
+        var finalSpotString = spot.spotLocation.replacingOccurrences(of: "-", with: " ")
+        finalSpotString = finalSpotString.replacingOccurrences(of: ",", with: ", ")
+        locationLabel.text = finalSpotString
+        
+        addUploadedBy()
+        
         view.layoutIfNeeded()
-        //
-        //layoutComments()
+
     }
 
     private func setupZoomableCollectionView() {
-        let zoomScrollView = UIScrollView(frame: imageContainerView.frame)
+        let zoomScrollView = UIScrollView(frame: CGRect(x: imageContainerView.frame.origin.x, y: imageContainerView.frame.origin.y, width: UIScreen.main.bounds.width, height: imageContainerView.frame.height))//imageContainerView.frame)
         zoomScrollView.isScrollEnabled = false
         zoomScrollView.zoomScale = 1.0
         zoomScrollView.minimumZoomScale = 1.0
@@ -78,8 +119,10 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
 
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
-        layout.itemSize = CGSize(width: imageContainerView.frame.width, height: imageContainerView.frame.height)
+        layout.itemSize = CGSize(width: UIScreen.main.bounds.width, height: imageContainerView.frame.height)
         layout.scrollDirection = .horizontal
+        
+        
         
         collectionview = UICollectionView(frame: zoomScrollView.frame, collectionViewLayout: layout)
         collectionview.collectionViewLayout = layout
@@ -124,6 +167,8 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     
     func setupCommentsView() {
         
+        placeholderLabel?.isHidden = true
+        
         for view in commentContainer.subviews {
             view.removeFromSuperview()
         }
@@ -162,6 +207,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
             textView.text = comment.comment
             textView.isScrollEnabled = false
             textView.isEditable = false
+            textView.backgroundColor = .groupTableViewBackground
 
             textView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40.0).isActive = true
             textView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -5).isActive = true
@@ -200,6 +246,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         }
         
         self.view.addConstraint(NSLayoutConstraint(item: commentContainer ?? UIView(), attribute: .bottom, relatedBy: .equal, toItem: lastView, attribute: .bottom, multiplier: 1.0, constant: 0))
+        print(height, "here123")
         commentContainerHeight.constant = height
         view.layoutIfNeeded()
 
@@ -249,7 +296,6 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
                     }
                 }
             }
-
         })
         
     }
@@ -261,6 +307,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let vc = segue.destination as? AllCommentsVC {
             vc.comments = self.comments
+            vc.spot = self.spot
         }
     }
     
@@ -268,13 +315,14 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
             commentPressed { (success) in
                 guard success == true else {
                     self.errorAlert(title: "Post comment failed", message: "Post comment failed. Check your internet conenction and try again")
+                    self.postButton.isEnabled = true
                     return
                 }
                 self.commentTextView.text = ""
                 self.commentTextView.resignFirstResponder()
                 self.commentContainer.reloadInputViews()
                 self.setupCommentsView()
-    //            self.postButton.isEnabled = true
+                self.postButton.isEnabled = true
             }
             
         }
@@ -285,7 +333,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
                 
                 if self.commentTextView.text != "Add a comment.." && commentTextView.text != "" && commentTextView.text != " " && commentTextView.text != "  "{
                     
-                    //postButton.isEnabled = false
+                    postButton.isEnabled = false
                     
                     DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
                         if !snapshot.exists() { print("snapshot not found! SpotRow.swift");return }
@@ -323,6 +371,98 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
             }
             
         }
+    
+    @IBAction func rateSpotPressed(){
+        
+        if isInternetAvailable() && hasConnected{
+            
+            handleOneReviewPerSpot(ref: ratingRef)
+            
+            ratingRef.setValue(true)
+            
+            refCurrentSpot.observeSingleEvent(of: .value, with: { (snapshot) in
+                if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
+                    var ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
+                    
+                    ratingVotes += 1
+                    
+                    let rating: Dictionary<String, AnyObject> = [
+                        "rating": (self.starView.rating + ratingTally) as AnyObject,
+                        "ratingVotes": ratingVotes as AnyObject
+                    ]
+                    self.refCurrentSpot.updateChildValues(rating)
+                    
+                    var updatedRating = (self.ratingView.rating + ratingTally) / Double(ratingVotes)
+                    updatedRating = (updatedRating * 10).rounded() / 10
+                    self.ratingView.rating = updatedRating
+                    self.ratingView.text = ("(\(ratingVotes))")
+                    
+                    self.ratingLabel.text = "\(updatedRating) out of 5 stars"
+                    
+                    
+                }else{
+                    let rating: Dictionary<String, AnyObject> = [
+                        "rating": self.starView.rating as AnyObject,
+                        "ratingVotes": 1 as AnyObject
+                    ]
+                    self.refCurrentSpot.updateChildValues(rating)
+                    
+                    self.ratingView.rating = self.ratingView.rating
+                    self.ratingView.text = ("(\(1))")
+                    
+                    let updatedRating = (self.starView.rating * 10).rounded() / 10
+                    self.ratingView.rating = updatedRating
+                    self.ratingLabel.text = "\(updatedRating) out of 5 stars"
+                    
+                }
+            })
+            
+        }else{
+            errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
+        }
+        
+    }
+    
+    func handleOneReviewPerSpot(ref: DatabaseReference){
+        
+        ref.observeSingleEvent(of: .value, with: { (snapshot) in
+            if let _ = snapshot.value as? NSNull{
+                
+            }else{
+                self.rateBtn.isEnabled = false
+                self.starView.settings.updateOnTouch = false
+                self.starView.isUserInteractionEnabled = false
+                self.rateBtn.alpha = 0.3
+                self.rateBtn.setTitle("Rated 🙌", for: .normal)
+            }
+        })
+    }
+    
+    func addUploadedBy(){
+        uploadedByLabel.text = spot.username
+        uploadedByImageView.kf.setImage(with: URL(string: spot.userImageURL), placeholder: UIImage(named: "profile-placeholder"))
+        uploadedByImageView.layer.cornerRadius = uploadedByImageView.frame.width / 2
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            if self.view.superview?.frame.origin.y == 0 {
+                self.view.superview?.frame.origin.y -= keyboardSize.height - view.safeAreaInsets.bottom
+            }
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if self.view.superview?.frame.origin.y != 0 {
+            self.view.superview?.frame.origin.y = 0
+        }
+    }
+    
+    
+    func subscribeToKeyboardNotifications(){
+       NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
 
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
@@ -338,7 +478,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let image = UIImageView(frame: CGRect(x: collectionView.frame.origin.x, y: collectionView.frame.origin.y, width: collectionView.frame.width, height: collectionView.frame.height))
+        let image = UIImageView(frame: CGRect(x: collectionView.frame.origin.x, y: collectionView.frame.origin.y, width: UIScreen.main.bounds.width, height: collectionView.frame.height))
         image.isUserInteractionEnabled = true
         
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "Cell", for: indexPath) as! DetailPhotoCell
@@ -373,7 +513,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         }
 
     }
-    
+        
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         if text == "\n" {
             commentTextView.resignFirstResponder()
