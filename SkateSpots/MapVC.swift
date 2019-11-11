@@ -189,7 +189,7 @@ extension MapVC: MKMapViewDelegate {
             
             let vc = segue.destination as! DetailVC
             vc.spot = spot
-        }
+        } 
     }
     
 }
