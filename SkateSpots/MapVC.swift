@@ -238,6 +238,7 @@ extension MapVC: MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDa
          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MapCollectionViewCell
          if spots.count > 0 {
             cell.configureCell(spot: spots[indexPath.row], style: "")
+            cell.spotCountLabel.text = "\(indexPath.row + 1)/\(spots.count)"
          }
          
          return cell
