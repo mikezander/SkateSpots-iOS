@@ -462,7 +462,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
             view.layer.borderWidth = 0.8
             view.layer.borderColor = UIColor.lightGray.cgColor
             view.layer.cornerRadius = 10.0
-            
+
             let iv = UIImageView()
             iv.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(iv)
@@ -505,7 +505,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         }
         self.view.addConstraint(NSLayoutConstraint(item: nearbyContainer!, attribute: .right, relatedBy: .equal, toItem: lastView, attribute: .right, multiplier: 1.0, constant: initialOffset))
         
-        
+        self.nearbyScrollView.contentOffset.x = 20
 //        UIView.animate(withDuration: 20.0, animations: {
 //            self.nearbyScrollView.contentOffset.x = 200
 //            print(self.nearbyScrollView.contentSize.width, "here123")
