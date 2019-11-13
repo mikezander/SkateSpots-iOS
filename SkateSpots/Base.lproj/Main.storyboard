@@ -540,7 +540,7 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="B8T-Q8-cSO" customClass="SpotDetailVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qcU-vK-mrY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1551"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aiv-Us-XpH" userLabel="Header">
@@ -579,7 +579,7 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOU-31-fTr">
-                                <rect key="frame" x="0.0" y="64" width="375" height="1536"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="1487"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6B-yf-2YF" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1735.5"/>
@@ -996,7 +996,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="wbS-Uz-fVc"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E8Y-l6-vRT">
-                                <rect key="frame" x="0.0" y="1560" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="1511" width="375" height="40"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5c-yR-QXc">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -1155,11 +1155,11 @@
             <objects>
                 <viewController storyboardIdentifier="allCommentsVC" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Z8J-5y-H5C" customClass="AllCommentsVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JY4-1b-2cX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ch9-1N-Mp8">
-                                <rect key="frame" x="0.0" y="64" width="375" height="545"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="496"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentsCell" rowHeight="96" id="ieE-cV-B26" customClass="CommentsTableViewCell" customModule="Sk8Spots" customModuleProvider="target">
@@ -1241,7 +1241,7 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="STy-SU-F5c">
-                                <rect key="frame" x="1" y="614" width="375" height="33"/>
+                                <rect key="frame" x="1" y="565" width="375" height="33"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3Nx-qE-8SQ">
                                         <rect key="frame" x="10" y="0.0" width="315" height="33"/>
@@ -1390,7 +1390,7 @@
             <objects>
                 <viewController id="5w7-TT-TVF" customClass="FavoritesVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rot-jD-UGr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="598"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YeO-Rj-QSk" customClass="RoundedShadowView" customModule="Sk8Spots" customModuleProvider="target">
@@ -1411,7 +1411,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="81" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ngX-gl-sts">
-                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteCell" rowHeight="81" id="Ibx-du-cM5" customClass="FavoriteCell" customModule="Sk8Spots" customModuleProvider="target">
@@ -2179,11 +2179,11 @@
             <objects>
                 <viewController storyboardIdentifier="goToProfile" id="TAW-gt-gIw" customClass="ProfileVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="djI-iq-l8N">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="598"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="210" sectionHeaderHeight="18" sectionFooterHeight="18" translatesAutoresizingMaskIntoConstraints="NO" id="dkE-Bw-0m5">
-                                <rect key="frame" x="0.0" y="44" width="375" height="554"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" rowHeight="210" id="FSx-Nv-ahg" customClass="ProfileCell" customModule="Sk8Spots" customModuleProvider="target">
@@ -3662,7 +3662,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <segue reference="vJH-wr-g8F"/>
         <segue reference="jcN-0k-cnA"/>
         <segue reference="NSR-GJ-ilx"/>
-        <segue reference="td0-g2-CG2"/>
+        <segue reference="Wjl-cQ-MQr"/>
         <segue reference="qnT-aP-8uy"/>
     </inferredMetricsTieBreakers>
 </document>
