@@ -582,7 +582,7 @@
                                 <rect key="frame" x="0.0" y="64" width="375" height="1536"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6B-yf-2YF" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1685.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1735.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8D-BT-s5k" userLabel="ImageContainerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
@@ -788,10 +788,16 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiu-6x-dKL" userLabel="Properties container">
-                                                <rect key="frame" x="0.0" y="1250" width="375" height="250"/>
+                                                <rect key="frame" x="0.0" y="1250" width="375" height="300"/>
                                                 <subviews>
+                                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nearby Spots" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Mj-ZJ-MBh">
+                                                        <rect key="frame" x="132.5" y="14.5" width="110.5" height="21"/>
+                                                        <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="17"/>
+                                                        <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                        <nil key="highlightedColor"/>
+                                                    </label>
                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uF7-RE-IJp">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
+                                                        <rect key="frame" x="0.0" y="50" width="375" height="250"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFO-mZ-w4p">
                                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
@@ -802,6 +808,7 @@
                                                             <constraint firstItem="bFO-mZ-w4p" firstAttribute="leading" secondItem="uF7-RE-IJp" secondAttribute="leading" id="2qB-eY-JbN"/>
                                                             <constraint firstAttribute="trailing" secondItem="bFO-mZ-w4p" secondAttribute="trailing" id="3In-mm-I1Z"/>
                                                             <constraint firstAttribute="bottom" secondItem="bFO-mZ-w4p" secondAttribute="bottom" id="8EL-8Q-r0R"/>
+                                                            <constraint firstItem="bFO-mZ-w4p" firstAttribute="height" secondItem="uF7-RE-IJp" secondAttribute="height" id="g61-7y-TxM"/>
                                                             <constraint firstItem="bFO-mZ-w4p" firstAttribute="top" secondItem="uF7-RE-IJp" secondAttribute="top" id="jbz-Xe-aRB"/>
                                                         </constraints>
                                                     </scrollView>
@@ -810,14 +817,15 @@
                                                 <constraints>
                                                     <constraint firstItem="uF7-RE-IJp" firstAttribute="leading" secondItem="aiu-6x-dKL" secondAttribute="leading" id="9zz-Xm-hCH"/>
                                                     <constraint firstAttribute="trailing" secondItem="uF7-RE-IJp" secondAttribute="trailing" id="C1W-m7-itl"/>
-                                                    <constraint firstAttribute="height" constant="250" id="GPJ-dW-e66">
+                                                    <constraint firstAttribute="height" constant="300" id="GPJ-dW-e66">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="500"/>
                                                     </constraint>
-                                                    <constraint firstItem="uF7-RE-IJp" firstAttribute="top" secondItem="aiu-6x-dKL" secondAttribute="top" id="Ndw-kI-NMs"/>
-                                                    <constraint firstItem="bFO-mZ-w4p" firstAttribute="height" secondItem="aiu-6x-dKL" secondAttribute="height" id="RV2-JS-kDB"/>
+                                                    <constraint firstItem="uF7-RE-IJp" firstAttribute="top" secondItem="aiu-6x-dKL" secondAttribute="top" constant="50" id="Ndw-kI-NMs"/>
+                                                    <constraint firstItem="uF7-RE-IJp" firstAttribute="top" secondItem="9Mj-ZJ-MBh" secondAttribute="bottom" constant="14.5" id="NeA-G3-1FT"/>
+                                                    <constraint firstItem="9Mj-ZJ-MBh" firstAttribute="centerX" secondItem="aiu-6x-dKL" secondAttribute="centerX" id="O6r-Iy-56M"/>
+                                                    <constraint firstItem="9Mj-ZJ-MBh" firstAttribute="top" secondItem="aiu-6x-dKL" secondAttribute="top" constant="14.5" id="TcN-rs-Xla"/>
                                                     <constraint firstAttribute="bottom" secondItem="uF7-RE-IJp" secondAttribute="bottom" id="TeX-sL-6Wa"/>
                                                     <constraint firstItem="bFO-mZ-w4p" firstAttribute="width" secondItem="aiu-6x-dKL" secondAttribute="width" placeholder="YES" id="jwb-jD-Ljk"/>
-                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="u7U-4V-84Y"/>
                                                 </constraints>
                                             </view>
                                             <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzG-OT-ueu" customClass="CosmosView" customModule="Cosmos">
