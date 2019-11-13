@@ -53,7 +53,9 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var uploadedByImageView: UIImageView!
     @IBOutlet weak var uploadedByLabel: UILabel!
-
+    @IBOutlet weak var nearbyContainer: UIView!
+    @IBOutlet weak var nearbyScrollView: UIScrollView!
+    
     
 
     @IBAction func backButtonPressed(_ sender: Any) {
@@ -103,6 +105,8 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         locationLabel.text = finalSpotString
         
         addUploadedBy()
+        
+        updateNearbySpots()
         
         view.layoutIfNeeded()
 
@@ -246,15 +250,11 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         }
         
         self.view.addConstraint(NSLayoutConstraint(item: commentContainer ?? UIView(), attribute: .bottom, relatedBy: .equal, toItem: lastView, attribute: .bottom, multiplier: 1.0, constant: 0))
-        print(height, "here123")
         commentContainerHeight.constant = height
         view.layoutIfNeeded()
 
     }
-    
-    private func layoutComments() {
-        
-    }
+
 
     
     func loadComments(){
@@ -442,6 +442,74 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         uploadedByLabel.text = spot.username
         uploadedByImageView.kf.setImage(with: URL(string: spot.userImageURL), placeholder: UIImage(named: "profile-placeholder"))
         uploadedByImageView.layer.cornerRadius = uploadedByImageView.frame.width / 2
+    }
+    
+    func updateNearbySpots() {
+        let targetWidth = self.view.frame.size.width - 60.0
+        let initialOffset = (self.view.frame.size.width - targetWidth) / 2.0
+        
+        var lastView: UIView = nearbyContainer
+        var lastAttribute: NSLayoutConstraint.Attribute = NSLayoutConstraint.Attribute.left
+        var lastConstant: CGFloat = initialOffset
+        
+        //self.propertiesByLabel?.text = "Properties by \(spo)"
+        
+        //let properties = self.properties.count > 5 ? Array(self.properties[0..<5]) : self.properties
+        for image in spot.imageUrls {
+            let view = UIView()//(frame: CGRect(x: 0, y: 0, width: targetWidth, height: 100))
+            nearbyContainer.addSubview(view)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            view.layer.borderWidth = 0.8
+            view.layer.borderColor = UIColor.lightGray.cgColor
+            view.layer.cornerRadius = 10.0
+            
+            let iv = UIImageView()
+            iv.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(iv)
+
+            iv.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            iv.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            iv.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            iv.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50.0).isActive = true
+            
+            iv.layer.masksToBounds = true
+            iv.layer.cornerRadius = 10.0
+            iv.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
+            
+            iv.kf.setImage(with: URL(string: image))
+
+            
+            let nameLabel = UILabel()
+            nameLabel.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(nameLabel)
+            nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            nameLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -18.0).isActive = true
+            nameLabel.font = UIFont.systemFont(ofSize: 15.0)
+            nameLabel.text = spot.spotName
+
+
+           // view.kf.setImage(with: URL(string: image))
+
+            
+            
+            view.addConstraint(NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: targetWidth))
+            nearbyContainer.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["v" : view]))
+            nearbyContainer.addConstraint(NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: lastView, attribute: lastAttribute, multiplier: 1.0, constant: lastConstant))
+            
+//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(propertyWasTapped(gesture:)))
+//            view.addGestureRecognizer(tapGesture)
+            
+            lastView = view
+            lastAttribute = .right
+            lastConstant = 10.0
+        }
+        self.view.addConstraint(NSLayoutConstraint(item: nearbyContainer!, attribute: .right, relatedBy: .equal, toItem: lastView, attribute: .right, multiplier: 1.0, constant: initialOffset))
+        
+        
+//        UIView.animate(withDuration: 20.0, animations: {
+//            self.nearbyScrollView.contentOffset.x = 200
+//            print(self.nearbyScrollView.contentSize.width, "here123")
+//        }, completion: nil)
     }
     
     @objc func keyboardWillShow(notification: NSNotification) {
