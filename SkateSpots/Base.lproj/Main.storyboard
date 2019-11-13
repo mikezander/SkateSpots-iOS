@@ -540,7 +540,7 @@
             <objects>
                 <viewController modalPresentationStyle="fullScreen" id="B8T-Q8-cSO" customClass="SpotDetailVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qcU-vK-mrY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1400"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aiv-Us-XpH" userLabel="Header">
@@ -579,10 +579,10 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOU-31-fTr">
-                                <rect key="frame" x="0.0" y="64" width="375" height="1336"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="1536"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6B-yf-2YF" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1485.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1685.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8D-BT-s5k" userLabel="ImageContainerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
@@ -788,13 +788,13 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiu-6x-dKL" userLabel="Properties container">
-                                                <rect key="frame" x="0.0" y="1250" width="375" height="100"/>
+                                                <rect key="frame" x="0.0" y="1250" width="375" height="250"/>
                                                 <subviews>
                                                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uF7-RE-IJp">
-                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                                        <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                                         <subviews>
                                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bFO-mZ-w4p">
-                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="100"/>
+                                                                <rect key="frame" x="0.0" y="0.0" width="375" height="250"/>
                                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                             </view>
                                                         </subviews>
@@ -810,16 +810,17 @@
                                                 <constraints>
                                                     <constraint firstItem="uF7-RE-IJp" firstAttribute="leading" secondItem="aiu-6x-dKL" secondAttribute="leading" id="9zz-Xm-hCH"/>
                                                     <constraint firstAttribute="trailing" secondItem="uF7-RE-IJp" secondAttribute="trailing" id="C1W-m7-itl"/>
-                                                    <constraint firstAttribute="height" constant="100" id="GPJ-dW-e66">
+                                                    <constraint firstAttribute="height" constant="250" id="GPJ-dW-e66">
                                                         <variation key="heightClass=regular-widthClass=regular" constant="500"/>
                                                     </constraint>
                                                     <constraint firstItem="uF7-RE-IJp" firstAttribute="top" secondItem="aiu-6x-dKL" secondAttribute="top" id="Ndw-kI-NMs"/>
                                                     <constraint firstItem="bFO-mZ-w4p" firstAttribute="height" secondItem="aiu-6x-dKL" secondAttribute="height" id="RV2-JS-kDB"/>
                                                     <constraint firstAttribute="bottom" secondItem="uF7-RE-IJp" secondAttribute="bottom" id="TeX-sL-6Wa"/>
                                                     <constraint firstItem="bFO-mZ-w4p" firstAttribute="width" secondItem="aiu-6x-dKL" secondAttribute="width" placeholder="YES" id="jwb-jD-Ljk"/>
+                                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="250" id="u7U-4V-84Y"/>
                                                 </constraints>
                                             </view>
-                                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzG-OT-ueu" customClass="CosmosView" customModule="Cosmos">
+                                            <view alpha="0.0" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzG-OT-ueu" customClass="CosmosView" customModule="Cosmos">
                                                 <rect key="frame" x="115" y="1310.5" width="145" height="38"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
@@ -832,13 +833,13 @@
                                                     </userDefinedRuntimeAttribute>
                                                 </userDefinedRuntimeAttributes>
                                             </view>
-                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(3.2)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1aZ-0P-NNg">
+                                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="(3.2)" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1aZ-0P-NNg">
                                                 <rect key="frame" x="263" y="1310.5" width="29" height="28"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LkW-54-GEf">
+                                            <button opaque="NO" alpha="0.0" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LkW-54-GEf">
                                                 <rect key="frame" x="127.5" y="1347.5" width="120" height="30"/>
                                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
@@ -937,7 +938,6 @@
                                             <constraint firstItem="J60-vg-Dch" firstAttribute="top" secondItem="qEs-gl-mVK" secondAttribute="bottom" id="ZvE-qF-X7w"/>
                                             <constraint firstItem="h4U-It-FLN" firstAttribute="centerX" secondItem="t6B-yf-2YF" secondAttribute="centerX" multiplier="0.5" id="a3K-GP-7y1"/>
                                             <constraint firstItem="YAN-iJ-z9J" firstAttribute="top" secondItem="mQR-bE-HUk" secondAttribute="bottom" id="bq7-RZ-ZYQ"/>
-                                            <constraint firstAttribute="bottom" secondItem="aiu-6x-dKL" secondAttribute="bottom" constant="135.5" id="c7Y-bY-Mkd"/>
                                             <constraint firstItem="9pW-1o-CUs" firstAttribute="top" secondItem="HSz-ei-qB4" secondAttribute="bottom" constant="155" id="cTM-Mw-W0a"/>
                                             <constraint firstItem="3dV-gB-TOU" firstAttribute="leading" secondItem="t6B-yf-2YF" secondAttribute="leading" constant="8" id="dAN-1I-39U"/>
                                             <constraint firstItem="XLE-i1-fRs" firstAttribute="top" secondItem="x8D-BT-s5k" secondAttribute="bottom" constant="15" id="ddI-GP-Ojr"/>
@@ -946,7 +946,7 @@
                                             <constraint firstItem="zDJ-Rv-8R8" firstAttribute="centerY" secondItem="Tf8-Xx-sqd" secondAttribute="centerY" constant="-3" id="g41-CB-x8x"/>
                                             <constraint firstItem="xzG-OT-ueu" firstAttribute="centerX" secondItem="t6B-yf-2YF" secondAttribute="centerX" id="g6r-fP-chD"/>
                                             <constraint firstAttribute="trailing" secondItem="9pW-1o-CUs" secondAttribute="trailing" id="heP-1u-t7d"/>
-                                            <constraint firstAttribute="bottom" secondItem="LkW-54-GEf" secondAttribute="bottom" constant="108" id="hjt-ku-Ptw"/>
+                                            <constraint firstAttribute="bottom" secondItem="aiu-6x-dKL" secondAttribute="bottom" constant="185.5" id="hfA-Bp-wQX"/>
                                             <constraint firstItem="0bC-qK-yFd" firstAttribute="leading" secondItem="LAi-VY-g8K" secondAttribute="leading" id="i6b-HX-BhM"/>
                                             <constraint firstItem="rYY-Qp-0mL" firstAttribute="leading" secondItem="t6B-yf-2YF" secondAttribute="leading" id="iBk-Sx-nwd"/>
                                             <constraint firstItem="hVL-x1-1JT" firstAttribute="top" secondItem="J60-vg-Dch" secondAttribute="bottom" constant="8" id="iY0-HL-sAU"/>
@@ -988,7 +988,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="wbS-Uz-fVc"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E8Y-l6-vRT">
-                                <rect key="frame" x="0.0" y="1360" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="1560" width="375" height="40"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5c-yR-QXc">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -1059,7 +1059,7 @@
                         <viewLayoutGuide key="safeArea" id="QHN-4x-TTG"/>
                     </view>
                     <navigationItem key="navigationItem" id="cn8-CS-bUh"/>
-                    <size key="freeformSize" width="375" height="1400"/>
+                    <size key="freeformSize" width="375" height="1600"/>
                     <connections>
                         <outlet property="addCommentContainer" destination="J60-vg-Dch" id="NW5-9G-8PN"/>
                         <outlet property="bestTimeLabel" destination="cPm-k6-ImB" id="DwW-v4-tDL"/>
@@ -1072,6 +1072,7 @@
                         <outlet property="kickOutLabel" destination="CHN-uf-y7b" id="X39-aT-hwb"/>
                         <outlet property="locationLabel" destination="0bC-qK-yFd" id="R9V-Bj-paw"/>
                         <outlet property="nearbyContainer" destination="bFO-mZ-w4p" id="wry-3W-Cg3"/>
+                        <outlet property="nearbyScrollView" destination="uF7-RE-IJp" id="tKz-gb-a9E"/>
                         <outlet property="placeholderLabel" destination="E8T-vg-eNP" id="aap-WO-naM"/>
                         <outlet property="postButton" destination="hE4-Ww-bXE" id="cJH-fU-fGU"/>
                         <outlet property="rateBtn" destination="LkW-54-GEf" id="J2T-IR-BwD"/>
