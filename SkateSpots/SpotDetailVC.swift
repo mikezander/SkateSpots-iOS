@@ -55,9 +55,8 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     @IBOutlet weak var uploadedByLabel: UILabel!
     @IBOutlet weak var nearbyContainer: UIView!
     @IBOutlet weak var nearbyScrollView: UIScrollView!
+    @IBOutlet weak var ratingContainer: UIView!
     
-    
-
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
         navigationController?.popViewController(animated: true)
@@ -66,6 +65,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
         subscribeToKeyboardNotifications()
         
         refCurrentSpot = DataService.instance.REF_SPOTS.child(spot.spotKey)
@@ -374,14 +374,14 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     
     @IBAction func rateSpotPressed(){
         
-        if isInternetAvailable() && hasConnected{
+        if isInternetAvailable() && hasConnected {
             
             handleOneReviewPerSpot(ref: ratingRef)
             
             ratingRef.setValue(true)
             
             refCurrentSpot.observeSingleEvent(of: .value, with: { (snapshot) in
-                if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double{
+                if let ratingTally = snapshot.childSnapshot(forPath: "rating").value as? Double {
                     var ratingVotes = snapshot.childSnapshot(forPath: "ratingVotes").value as! Int
                     
                     ratingVotes += 1
@@ -400,7 +400,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
                     self.ratingLabel.text = "\(updatedRating) out of 5 stars"
                     
                     
-                }else{
+                } else {
                     let rating: Dictionary<String, AnyObject> = [
                         "rating": self.starView.rating as AnyObject,
                         "ratingVotes": 1 as AnyObject
@@ -417,7 +417,15 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
                 }
             })
             
-        }else{
+            let alert = UIAlertController(title: "\(spot.spotName) rated!", message: "We appreciate your feedback 🙌", preferredStyle: .alert)
+            self.present(alert, animated: true, completion: nil)
+
+            let when = DispatchTime.now() + 2.5
+            DispatchQueue.main.asyncAfter(deadline: when){
+                alert.dismiss(animated: true, completion: nil)
+            }
+            
+        } else{
             errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
         }
         
@@ -426,9 +434,10 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     func handleOneReviewPerSpot(ref: DatabaseReference){
         
         ref.observeSingleEvent(of: .value, with: { (snapshot) in
-            if let _ = snapshot.value as? NSNull{
+            if let _ = snapshot.value as? NSNull {
                 
             }else{
+                self.ratingContainer.removeFromSuperview()
                 self.rateBtn.isEnabled = false
                 self.starView.settings.updateOnTouch = false
                 self.starView.isUserInteractionEnabled = false
