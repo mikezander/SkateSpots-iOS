@@ -239,7 +239,7 @@
                         <outlet property="mapView" destination="Lgr-SG-Bfr" id="xL6-d6-HWf"/>
                         <outlet property="refreshLocationButton" destination="Vwf-gB-ZgZ" id="OLd-iz-JdF"/>
                         <segue destination="swM-zT-Qto" kind="show" identifier="DetailVC" id="NSR-GJ-ilx"/>
-                        <segue destination="B8T-Q8-cSO" kind="show" identifier="detail" id="td0-g2-CG2"/>
+                        <segue destination="B8T-Q8-cSO" kind="modal" identifier="detail" modalPresentationStyle="fullScreen" id="td0-g2-CG2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dg3-jW-gkn" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -538,9 +538,9 @@
         <!--Spot DetailVC-->
         <scene sceneID="V9z-nz-ghr">
             <objects>
-                <viewController modalPresentationStyle="fullScreen" id="B8T-Q8-cSO" customClass="SpotDetailVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="spot_detail_vc" modalPresentationStyle="fullScreen" id="B8T-Q8-cSO" customClass="SpotDetailVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="qcU-vK-mrY">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="1551"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="1600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Aiv-Us-XpH" userLabel="Header">
@@ -579,14 +579,14 @@
                                 </constraints>
                             </view>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mOU-31-fTr">
-                                <rect key="frame" x="0.0" y="44" width="375" height="1507"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="1556"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6B-yf-2YF" userLabel="Content View">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1805.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8D-BT-s5k" userLabel="ImageContainerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
-                                                <color key="backgroundColor" systemColor="systemOrangeColor" red="1" green="0.58431372549019611" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="400" id="gxN-tW-PJA"/>
                                                 </constraints>
@@ -904,7 +904,7 @@
                                                 <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tf8-Xx-sqd">
+                                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Tf8-Xx-sqd">
                                                 <rect key="frame" x="8" y="1096.5" width="50" height="50"/>
                                                 <constraints>
                                                     <constraint firstAttribute="width" constant="50" id="AlV-g5-mjb"/>
@@ -1008,7 +1008,7 @@
                                 <viewLayoutGuide key="frameLayoutGuide" id="wbS-Uz-fVc"/>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="E8Y-l6-vRT">
-                                <rect key="frame" x="0.0" y="1511" width="375" height="40"/>
+                                <rect key="frame" x="0.0" y="1560" width="375" height="40"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="m5c-yR-QXc">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="1"/>
@@ -1168,11 +1168,11 @@
             <objects>
                 <viewController storyboardIdentifier="allCommentsVC" modalPresentationStyle="overFullScreen" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Z8J-5y-H5C" customClass="AllCommentsVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="JY4-1b-2cX">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ch9-1N-Mp8">
-                                <rect key="frame" x="0.0" y="64" width="375" height="496"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="545"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="commentsCell" rowHeight="96" id="ieE-cV-B26" customClass="CommentsTableViewCell" customModule="Sk8Spots" customModuleProvider="target">
@@ -1254,7 +1254,7 @@
                                 </constraints>
                             </view>
                             <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="STy-SU-F5c">
-                                <rect key="frame" x="1" y="565" width="375" height="33"/>
+                                <rect key="frame" x="1" y="614" width="375" height="33"/>
                                 <subviews>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3Nx-qE-8SQ">
                                         <rect key="frame" x="10" y="0.0" width="315" height="33"/>
@@ -1344,7 +1344,7 @@
             <objects>
                 <viewController storyboardIdentifier="goToDetail" id="swM-zT-Qto" customClass="DetailVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Ubf-V7-QLu">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8c-d7-f4X" customClass="RoundedShadowView" customModule="Sk8Spots" customModuleProvider="target">
@@ -1794,7 +1794,7 @@
                                                                 <outlet property="activityIndicator" destination="FZ0-ct-JLH" id="GgO-Xj-0Hs"/>
                                                                 <outlet property="pageLabel" destination="nPe-5n-NgW" id="07D-dU-aO0"/>
                                                                 <outlet property="spotImage" destination="IzG-xc-yJk" id="TnW-Tq-mGs"/>
-                                                                <segue destination="B8T-Q8-cSO" kind="show" id="Wjl-cQ-MQr"/>
+                                                                <segue destination="B8T-Q8-cSO" kind="modal" modalPresentationStyle="fullScreen" id="Wjl-cQ-MQr"/>
                                                             </connections>
                                                         </collectionViewCell>
                                                     </cells>
@@ -3674,8 +3674,8 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <segue reference="ZX4-qG-Pn9"/>
         <segue reference="vJH-wr-g8F"/>
         <segue reference="jcN-0k-cnA"/>
-        <segue reference="amF-RC-GHK"/>
-        <segue reference="Wjl-cQ-MQr"/>
+        <segue reference="NSR-GJ-ilx"/>
+        <segue reference="td0-g2-CG2"/>
         <segue reference="qnT-aP-8uy"/>
     </inferredMetricsTieBreakers>
 </document>
