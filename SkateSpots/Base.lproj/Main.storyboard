@@ -582,7 +582,7 @@
                                 <rect key="frame" x="0.0" y="44" width="375" height="1556"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="t6B-yf-2YF" userLabel="Content View">
-                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1805.5"/>
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="1819.5"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="x8D-BT-s5k" userLabel="ImageContainerView">
                                                 <rect key="frame" x="0.0" y="0.0" width="375" height="400"/>
@@ -716,10 +716,10 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qEs-gl-mVK">
-                                                <rect key="frame" x="0.0" y="1157.5" width="375" height="36"/>
+                                                <rect key="frame" x="0.0" y="1157.5" width="375" height="50"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No comments yet" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="E8T-vg-eNP">
-                                                        <rect key="frame" x="128.5" y="8.5" width="118" height="19"/>
+                                                        <rect key="frame" x="128.5" y="15.5" width="118" height="19"/>
                                                         <fontDescription key="fontDescription" name="Avenir-Black" family="Avenir" pointSize="14"/>
                                                         <color key="textColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <nil key="highlightedColor"/>
@@ -727,13 +727,13 @@
                                                 </subviews>
                                                 <color key="backgroundColor" cocoaTouchSystemColor="tableCellGroupedBackgroundColor"/>
                                                 <constraints>
-                                                    <constraint firstAttribute="height" constant="36" id="YuE-6a-XRw"/>
+                                                    <constraint firstAttribute="height" constant="50" id="YuE-6a-XRw"/>
                                                     <constraint firstItem="E8T-vg-eNP" firstAttribute="centerX" secondItem="qEs-gl-mVK" secondAttribute="centerX" id="ag3-Tf-zwc"/>
                                                     <constraint firstItem="E8T-vg-eNP" firstAttribute="centerY" secondItem="qEs-gl-mVK" secondAttribute="centerY" id="wOa-Wn-NKH"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="J60-vg-Dch">
-                                                <rect key="frame" x="1" y="1193.5" width="373" height="33"/>
+                                                <rect key="frame" x="1" y="1207.5" width="373" height="33"/>
                                                 <subviews>
                                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="zIW-2v-kFZ">
                                                         <rect key="frame" x="1" y="0.0" width="322" height="33"/>
@@ -781,14 +781,14 @@
                                                 </userDefinedRuntimeAttributes>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hVL-x1-1JT" userLabel="Separator" customClass="ShadowView" customModule="Sk8Spots" customModuleProvider="target">
-                                                <rect key="frame" x="0.0" y="1234.5" width="375" height="1"/>
+                                                <rect key="frame" x="0.0" y="1248.5" width="375" height="1"/>
                                                 <color key="backgroundColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="1" id="0WR-x4-cqh"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="aiu-6x-dKL" userLabel="Properties container">
-                                                <rect key="frame" x="0.0" y="1275.5" width="375" height="300"/>
+                                                <rect key="frame" x="0.0" y="1289.5" width="375" height="300"/>
                                                 <subviews>
                                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Nearby Spots" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9Mj-ZJ-MBh">
                                                         <rect key="frame" x="136" y="14.5" width="103.5" height="21"/>
@@ -829,7 +829,7 @@
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="owp-uG-BC6" userLabel="RatingContainer">
-                                                <rect key="frame" x="0.0" y="1665.5" width="375" height="70"/>
+                                                <rect key="frame" x="0.0" y="1679.5" width="375" height="70"/>
                                                 <subviews>
                                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xzG-OT-ueu" customClass="CosmosView" customModule="Cosmos">
                                                         <rect key="frame" x="115" y="5" width="145" height="38"/>
@@ -1024,6 +1024,8 @@
                                             <constraint firstAttribute="width" constant="135" id="SsP-BB-1nI"/>
                                             <constraint firstAttribute="height" constant="35" id="yZJ-45-39N"/>
                                         </constraints>
+                                        <inset key="titleEdgeInsets" minX="-4" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-10" minY="0.0" maxX="0.0" maxY="0.0"/>
                                         <state key="normal" title="Directions" image="direction_icon">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
@@ -1043,6 +1045,8 @@
                                             <constraint firstAttribute="height" constant="35" id="bB8-FG-ufL"/>
                                             <constraint firstAttribute="width" constant="135" id="cUh-10-1Vs"/>
                                         </constraints>
+                                        <inset key="titleEdgeInsets" minX="-13" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                        <inset key="imageEdgeInsets" minX="-17" minY="0.0" maxX="0.0" maxY="1"/>
                                         <state key="normal" title="Favorite" image="add_fav">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
