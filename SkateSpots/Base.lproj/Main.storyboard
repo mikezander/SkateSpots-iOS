@@ -600,6 +600,15 @@
                                                 <nil key="textColor"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <pageControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" hidesForSinglePage="YES" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="7tE-0D-Nny">
+                                                <rect key="frame" x="185" y="408" width="5" height="5"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="5" id="oOt-as-T2G"/>
+                                                    <constraint firstAttribute="width" constant="5" id="yZM-ev-umN"/>
+                                                </constraints>
+                                                <color key="pageIndicatorTintColor" white="0.66666666669999997" alpha="1" colorSpace="calibratedWhite"/>
+                                                <color key="currentPageIndicatorTintColor" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                            </pageControl>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Spot type" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="VoH-wr-foX">
                                                 <rect key="frame" x="160" y="436" width="55" height="18"/>
                                                 <constraints>
@@ -950,9 +959,11 @@
                                             <constraint firstItem="Bij-3c-1yA" firstAttribute="top" secondItem="aYd-Pl-mVn" secondAttribute="bottom" id="MQK-fP-bea"/>
                                             <constraint firstItem="qEs-gl-mVK" firstAttribute="top" secondItem="9pW-1o-CUs" secondAttribute="bottom" id="OcV-PD-ILe"/>
                                             <constraint firstItem="LAi-VY-g8K" firstAttribute="top" secondItem="HSz-ei-qB4" secondAttribute="bottom" constant="10" id="Oix-ke-aM1"/>
+                                            <constraint firstItem="7tE-0D-Nny" firstAttribute="centerX" secondItem="t6B-yf-2YF" secondAttribute="centerX" id="PFY-Q2-PwD"/>
                                             <constraint firstItem="LAi-VY-g8K" firstAttribute="leading" secondItem="HSz-ei-qB4" secondAttribute="leading" constant="8" id="QHn-fb-1cp"/>
                                             <constraint firstItem="XLE-i1-fRs" firstAttribute="centerX" secondItem="t6B-yf-2YF" secondAttribute="centerX" id="QmG-h2-Cxm"/>
                                             <constraint firstItem="HSz-ei-qB4" firstAttribute="top" secondItem="Bij-3c-1yA" secondAttribute="bottom" id="RMJ-bP-vMZ"/>
+                                            <constraint firstItem="XLE-i1-fRs" firstAttribute="top" secondItem="7tE-0D-Nny" secondAttribute="bottom" constant="2" id="SbX-FS-wp3"/>
                                             <constraint firstItem="9pW-1o-CUs" firstAttribute="top" secondItem="Tf8-Xx-sqd" secondAttribute="bottom" constant="10" id="Unz-LI-2IQ"/>
                                             <constraint firstItem="h4U-It-FLN" firstAttribute="top" secondItem="rYY-Qp-0mL" secondAttribute="bottom" constant="10" id="VcA-RB-8ph"/>
                                             <constraint firstItem="HSz-ei-qB4" firstAttribute="leading" secondItem="t6B-yf-2YF" secondAttribute="leading" id="Wv5-aK-XaA"/>
@@ -1104,6 +1115,7 @@
                         <outlet property="locationLabel" destination="0bC-qK-yFd" id="R9V-Bj-paw"/>
                         <outlet property="nearbyContainer" destination="bFO-mZ-w4p" id="wry-3W-Cg3"/>
                         <outlet property="nearbyScrollView" destination="uF7-RE-IJp" id="tKz-gb-a9E"/>
+                        <outlet property="pageControl" destination="7tE-0D-Nny" id="Pjb-4z-rNK"/>
                         <outlet property="placeholderLabel" destination="E8T-vg-eNP" id="aap-WO-naM"/>
                         <outlet property="postButton" destination="hE4-Ww-bXE" id="cJH-fU-fGU"/>
                         <outlet property="rateBtn" destination="LkW-54-GEf" id="J2T-IR-BwD"/>
@@ -3305,9 +3317,9 @@
         <!--AgreementVC-->
         <scene sceneID="ix2-Kl-8jK">
             <objects>
-                <viewController storyboardIdentifier="Agreement " id="ad1-j3-zsn" customClass="AgreementVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Agreement " modalPresentationStyle="fullScreen" id="ad1-j3-zsn" customClass="AgreementVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="iyb-VJ-2gg">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="647"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="End User License Agreement" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lv4-Tm-IEi">
@@ -3326,7 +3338,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xys-M3-F6D">
-                                <rect key="frame" x="16" y="91" width="343" height="432"/>
+                                <rect key="frame" x="16" y="91" width="343" height="452"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <string key="text">This End User License Agreement (“Agreement”) is between you and Sk8Spots and governs use of this app made available through the Apple App Store. By installing the Sk8Spots App, you agree to be bound by this Agreement and understand that there is no tolerance for objectionable content. If you do not agree with the terms and conditions of this Agreement, you are not entitled to use the Sk8Spots App.
 
@@ -3371,7 +3383,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bCg-im-NHn">
-                                <rect key="frame" x="32" y="576" width="100" height="30"/>
+                                <rect key="frame" x="32" y="596" width="100" height="30"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="T4p-Oe-doR"/>
@@ -3385,7 +3397,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="CDu-Cx-vQZ">
-                                <rect key="frame" x="243" y="576" width="100" height="30"/>
+                                <rect key="frame" x="243" y="596" width="100" height="30"/>
                                 <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="0v7-OO-Sf5"/>
@@ -3470,11 +3482,11 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_profile_pic" translatesAutoresizingMaskIntoConstraints="NO" id="ZTa-41-ERd" customClass="CircleView" customModule="Sk8Spots" customModuleProvider="target">
+                            <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="add_profile_picture" translatesAutoresizingMaskIntoConstraints="NO" id="ZTa-41-ERd" customClass="CircleView" customModule="Sk8Spots" customModuleProvider="target">
                                 <rect key="frame" x="137.5" y="87" width="100" height="100"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="100" id="6Gz-jL-KXQ"/>
-                                    <constraint firstAttribute="height" constant="100" id="qUW-jS-oek"/>
+                                    <constraint firstAttribute="width" secondItem="ZTa-41-ERd" secondAttribute="height" multiplier="1:1" id="cOG-Af-Y4c"/>
                                 </constraints>
                             </imageView>
                             <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" placeholder="Enter username" textAlignment="center" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="jSK-7x-0fx" customClass="RoundTextfield" customModule="Sk8Spots" customModuleProvider="target">
@@ -3657,7 +3669,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
     <resources>
         <image name="DMIcon" width="26.5" height="26.5"/>
         <image name="add_fav" width="48" height="48"/>
-        <image name="add_profile_pic" width="33" height="33"/>
+        <image name="add_profile_picture" width="60" height="60"/>
         <image name="adventure_icon" width="40" height="40"/>
         <image name="back" width="23.5" height="23.5"/>
         <image name="black_photo_btn" width="20" height="18"/>
@@ -3686,6 +3698,6 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <segue reference="vJH-wr-g8F"/>
         <segue reference="FaM-Fd-r9u"/>
         <segue reference="Wjl-cQ-MQr"/>
-        <segue reference="qnT-aP-8uy"/>
+        <segue reference="myg-hR-9mM"/>
     </inferredMetricsTieBreakers>
 </document>
