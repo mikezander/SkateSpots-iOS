@@ -15,29 +15,31 @@ import SDWebImage
 import SVProgressHUD
 import Kingfisher
 
-class MapVC: UIViewController {
+class MapVC: UIViewController, SpotDetailDelegate {
     
     var spot: Spot?
     var spotAnnotations = [SpotAnnotation]()
     var spots = [Spot]()
     var manager = CLLocationManager()
-    var myLocation = CLLocation()
+    var userLocation: CLLocation? = nil
+    var resetLocation = false
+    @IBOutlet var refreshLocationButton:  UIButton!
+
     
     @IBOutlet weak var  mapCollectionView: UICollectionView!
     // required map variables
     var selectedSpot: Spot? = nil
     var lastSelectedAnnotation: SpotAnnotation? = nil
     var lastSeenPath = IndexPath(row: 0, section: 0)
-    var isPinSelected = false
     
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     
     @IBOutlet weak var mapView: MKMapView!
-    let regionRadius: CLLocationDistance = 5000
+    let regionRadius: CLLocationDistance = 50000
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         getUsersLocation()
 
         loadAnnotationData()
@@ -65,21 +67,28 @@ class MapVC: UIViewController {
                     if let spotDict = snap.value as? Dictionary<String, AnyObject>{
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
-                        self.spots.append(spot)
-//                        let spotAnnotation = SpotAnnotation()
-//                        self.spotPins.append(spotPin)
-//                        self.spotPins.append(spotPin)
-//                        self.spotPins.append(spotPin)
-//                        self.spotPins.append(spotPin)
-//                        self.spotPins.append(spotPin)
+                        self.spots.insert(spot, at: 0)
                     }
                 }
             }
       
             DispatchQueue.main.async {
+                if let location = self.userLocation {
+                    //sorts spots closest to user's location
+                    self.spots.sort(by: { $0.distance(to: location) < $1.distance(to: location) })
+                    for spot in self.spots {
+                        let distanceInMeters = location.distance(from: spot.location)
+                        let milesAway = distanceInMeters / 1609
+                        spot.distance = milesAway
+                    }
+                }
+                
                 self.addAnnotationsToMap(spot: self.spots)
                 self.mapCollectionView.reloadData()
-                //self.mapView.addAnnotations(self.spotPins)
+                
+                if let firstSpotLat = self.spots.first?.latitude, let firstSpotLong = self.spots.first?.longitude, self.userLocation == nil {
+                    self.mapView.setCenter(CLLocationCoordinate2D(latitude: CLLocationDegrees(firstSpotLat), longitude: CLLocationDegrees(firstSpotLong)), animated: true)
+                }
             }
         })
     }
@@ -97,7 +106,9 @@ class MapVC: UIViewController {
     }
     
     @IBAction func refreshLocationPressed(_ sender: Any) {
+        resetLocation = true
         getUsersLocation()
+        
     }
     
     @objc func internetConnectionFound(notification: NSNotification){
@@ -123,15 +134,6 @@ class MapVC: UIViewController {
     
     func centerMapOnSelectedProperty(indexPath: IndexPath) {
            DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
-            //TODO: Refactor
-            let spot = self.spots[indexPath.row]
-            if !self.isPinSelected {
-                let center = CLLocationCoordinate2D(latitude: CLLocationDegrees(spot.latitude), longitude: CLLocationDegrees(spot.longitude))
-                self.mapView.setCenter(center, animated: true)
-            } else {
-                self.isPinSelected = false
-            }
-               
             if self.spots.indices.contains(indexPath.row) {
                 let spot = self.spots[indexPath.row]
 
@@ -146,6 +148,7 @@ class MapVC: UIViewController {
                        if let spotAnnotation = anno as? SpotAnnotation,
                         spotAnnotation.spot.spotKey == self.selectedSpot?.spotKey {
                             let anno = self.mapView.view(for: spotAnnotation)
+                        
                             anno?.image = UIImage(named: "green_anno_black")
                             anno?.bringViewToFront()
 
@@ -157,13 +160,32 @@ class MapVC: UIViewController {
 
            }
        }
+    
+     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+         if segue.identifier == "detail" {
+            let vc = segue.destination as! SpotDetailVC
+            vc.spot = spot
+            vc.spots = spots
+            vc.delegate = self
+         }
+     }
+    
+    func nearbySpotPressed(spot: Spot, spots: [Spot]) {
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "spot_detail_vc") as? SpotDetailVC {
+            vc.spot = spot
+            vc.spots = spots
+            vc.delegate = self
+            present(vc, animated: true, completion: nil)
+        }
+    }
 }
 
 
 extension MapVC: CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
         let location = locations[0]
-        
+        userLocation = location
+
         let span: MKCoordinateSpan = MKCoordinateSpan(latitudeDelta: 0.5, longitudeDelta: 0.5)
         let userLocation: CLLocationCoordinate2D = CLLocationCoordinate2DMake(location.coordinate.latitude, location.coordinate.longitude)
         let region: MKCoordinateRegion = MKCoordinateRegion(center: userLocation, span: span)
@@ -172,10 +194,35 @@ extension MapVC: CLLocationManagerDelegate{
         self.mapView.showsUserLocation = true
         manager.stopUpdatingLocation()
         
+        if resetLocation {
+            SVProgressHUD.show()
+            refreshLocationButton.isUserInteractionEnabled = false
+            
+            mapView.removeAnnotations(mapView.annotations)
+            DispatchQueue.main.async {
+                if let location = self.userLocation {
+                    //sorts spots closest to user's location
+                    self.spots.sort(by: { $0.distance(to: location) < $1.distance(to: location) })
+                    for spot in self.spots {
+                        let distanceInMeters = location.distance(from: spot.location)
+                        let milesAway = distanceInMeters / 1609
+                        spot.distance = milesAway
+                    }
+                }
+                self.addAnnotationsToMap(spot: self.spots)
+                self.mapCollectionView.reloadData()
+                self.mapCollectionView.scrollToItem(at: IndexPath(item: 0, section: 0), at: .left, animated: false)
+
+            }
+            self.resetLocation = false
+            SVProgressHUD.dismiss()
+            refreshLocationButton.isUserInteractionEnabled = true
+        }
+        
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Failed to find MY location: \(error.localizedDescription)")
+
     }
 }
 
@@ -215,7 +262,6 @@ extension MapVC: MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDa
         if let annotation = view.annotation as? SpotAnnotation,
             let index = spots.firstIndex(where: { $0.spotKey == annotation.spot.spotKey }) {
             let indexofSelected = IndexPath(item: index, section: 0)
-            isPinSelected = true
             mapCollectionView.scrollToItem(at: indexofSelected, at: .left, animated: false)
         }
     }
@@ -237,8 +283,9 @@ extension MapVC: MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDa
      func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
          let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cellId", for: indexPath) as! MapCollectionViewCell
          if spots.count > 0 {
-            cell.configureCell(spot: spots[indexPath.row], style: "")
-            cell.spotCountLabel.text = "\(indexPath.row + 1)/\(spots.count)"
+            let spot = spots[indexPath.row]
+            cell.configureCell(spot: spot, style: "")
+            cell.spotCountLabel.text = spot.distance != nil ? "\(String(format: "%.1f", spot.distance!)) miles away": "\(indexPath.row + 1)/\(spots.count)"
          }
          
          return cell
@@ -260,18 +307,12 @@ extension MapVC: MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDa
      }
      
      func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-         return CGSize(width: view.frame.width, height: 100)
+        return CGSize(width: UIScreen.main.bounds.width, height: 100)
      }
      
      func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-//         let property = mapProperties[indexPath.row]
-//         let tabController = self.tabBarController as! TenantMainTabBarViewController
-//         let nc = UIStoryboard(name: "Main", bundle: Bundle.main).instantiateViewController(withIdentifier: "property_nc") as! UINavigationController
-//         let vc = nc.viewControllers.first as! PropertyDetailsViewController
-//         vc.property = property
-//         nc.modalPresentationStyle = .custom
-//         nc.transitioningDelegate = tabController
-//         tabController.present(nc, animated: true, completion: nil)
+        self.spot = spots[indexPath.row]
+        performSegue(withIdentifier: "detail", sender: nil)
      }
 }
 

@@ -23,6 +23,9 @@ class SearchVC: UIViewController {
     @IBOutlet weak var searchView: UIView!
     override func viewDidLoad() {
         super.viewDidLoad()
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
         
         searchController.searchResultsUpdater = self
         searchController.hidesNavigationBarDuringPresentation = false

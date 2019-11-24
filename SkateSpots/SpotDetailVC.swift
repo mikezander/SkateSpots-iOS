@@ -9,19 +9,25 @@
 import UIKit
 import Firebase
 import Cosmos
+import CoreLocation
+import MapKit
+
+protocol SpotDetailDelegate {
+    func nearbySpotPressed(spot: Spot, spots: [Spot])
+}
 
 class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
     
-    
-//    let coms = ["Dope park", "dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf dljfkasj j akflj dklajdklf jfkal jdjkfdsa jskf djaf l;fajfkdjfdlkafjdkfldjfklajfdklfjdkalfjdkfdjfkadlfjadlkfjdfkjsfkdasjfkldfjkdlafjdklfjadskfjdasfkldjfkldsajfkdlsfjdkslfjdkalfjdklfdjkalfdjfkldjf", "just another comment for your tableview to see I can make it's hegiht dynamic", "just another comment for your tableview to see I can make it's hegiht dynamic"]
-    
-        let coms = ["1", "2", "3", "4", "5"]
+    var delegate: SpotDetailDelegate?
 
     var refCurrentSpot: DatabaseReference!
     var ratingRef:DatabaseReference!
     var userRef:DatabaseReference!
 
     var spot: Spot!
+    var spots: [Spot]!
+    var nearbySpots = [Spot]()
+
     var user: User!
     var comments = [Comment]()
     var commentCount = 0
@@ -56,15 +62,35 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
     @IBOutlet weak var nearbyContainer: UIView!
     @IBOutlet weak var nearbyScrollView: UIScrollView!
     @IBOutlet weak var ratingContainer: UIView!
-    
+    @IBOutlet weak var favoriteButton: UIButton!
+    @IBOutlet weak var pageControl: UIPageControl!
+
+
+    var isFavorite = false
+
     @IBAction func backButtonPressed(_ sender: Any) {
         dismiss(animated: true, completion: nil)
         navigationController?.popViewController(animated: true)
+    }
+
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        if #available(iOS 13.0, *) {
+            let statusBar = UIView(frame: UIApplication.shared.keyWindow?.windowScene?.statusBarManager?.statusBarFrame ?? CGRect.zero)
+            statusBar.backgroundColor = #colorLiteral(red: 0.5650888681, green: 0.7229202986, blue: 0.394353807, alpha: 1)
+             UIApplication.shared.keyWindow?.addSubview(statusBar)
+        } else {
+            UIApplication.shared.statusBarView?.backgroundColor = #colorLiteral(red: 0.5650888681, green: 0.7229202986, blue: 0.394353807, alpha: 1)
+        }
     }
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
 
         subscribeToKeyboardNotifications()
         
@@ -105,8 +131,12 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         locationLabel.text = finalSpotString
         
         addUploadedBy()
-        
         updateNearbySpots()
+        
+        if isFavorite{
+            favoriteButton.isEnabled = false
+            favoriteButton.layer.opacity = 0.4
+        }
         
         view.layoutIfNeeded()
 
@@ -234,11 +264,14 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
             label.textColor = #colorLiteral(red: 0, green: 0, blue: 1, alpha: 1)
             label.bottomAnchor.constraint(equalTo: textView.topAnchor, constant: 5).isActive = true
             label.leadingAnchor.constraint(equalTo: textView.leadingAnchor, constant: 5).isActive = true
+            label.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressCommentUser)))
+            label.tag = comments.count - num + i
+            label.isUserInteractionEnabled = true
             
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
             commentContainer.addSubview(imageView)
-            imageView.kf.setImage(with: URL(string: comment.userImageURL))
+            imageView.kf.setImage(with: URL(string: comment.userImageURL), placeholder: UIImage(named: "profile-placeholder"))
             imageView.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 10).isActive = true
             imageView.leadingAnchor.constraint(equalTo: commentContainer.leadingAnchor, constant: 2).isActive = true
             imageView.clipsToBounds = true
@@ -253,6 +286,32 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         commentContainerHeight.constant = height
         view.layoutIfNeeded()
 
+    }
+
+    @objc func didPressUploadedByName(gesture : UITapGestureRecognizer) {
+        let vc = UIStoryboard(name:"Main", bundle: nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
+        vc.allSpots = self.spots
+        vc.userKey = spot.user
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+
+    @objc func didPressCommentUser(gesture : UITapGestureRecognizer) {
+        let v = gesture.view!
+        let index = v.tag
+        let vc = UIStoryboard(name:"Main", bundle: nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
+        vc.allSpots = self.spots
+        vc.userKey = comments[index].userKey
+        vc.modalPresentationStyle = .overFullScreen
+        self.present(vc, animated: true, completion: nil)
+    }
+    
+    @objc func nearbySpotPressed(gesture : UITapGestureRecognizer) {
+        let v = gesture.view!
+        let index = v.tag
+        dismiss(animated: true) {
+            self.delegate?.nearbySpotPressed(spot: self.nearbySpots[index], spots: self.spots)
+        }
     }
 
 
@@ -308,6 +367,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         if let vc = segue.destination as? AllCommentsVC {
             vc.comments = self.comments
             vc.spot = self.spot
+            vc.allSpots = self.spots
         }
     }
     
@@ -373,7 +433,6 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         }
     
     @IBAction func rateSpotPressed(){
-        
         if isInternetAvailable() && hasConnected {
             
             handleOneReviewPerSpot(ref: ratingRef)
@@ -451,9 +510,22 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         uploadedByLabel.text = spot.username
         uploadedByImageView.kf.setImage(with: URL(string: spot.userImageURL), placeholder: UIImage(named: "profile-placeholder"))
         uploadedByImageView.layer.cornerRadius = uploadedByImageView.frame.width / 2
+        
+        uploadedByLabel.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(didPressUploadedByName)))
+        uploadedByLabel.isUserInteractionEnabled = true
+        
     }
     
     func updateNearbySpots() {
+        let spotLocation = CLLocation(latitude: spot.latitude, longitude: spot.longitude)
+        self.spots.sort(by: { $0.distance(to: spotLocation) < $1.distance(to: spotLocation) })
+        for nearbySpot in self.spots[1...5] {
+            let distanceInMeters = spotLocation.distance(from: nearbySpot.location)
+            let milesAway = distanceInMeters / 1609
+            nearbySpot.distance = milesAway
+            nearbySpots.append(nearbySpot)
+        }
+
         let targetWidth = self.view.frame.size.width - 60.0
         let initialOffset = (self.view.frame.size.width - targetWidth) / 2.0
         
@@ -461,56 +533,91 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         var lastAttribute: NSLayoutConstraint.Attribute = NSLayoutConstraint.Attribute.left
         var lastConstant: CGFloat = initialOffset
         
-        //self.propertiesByLabel?.text = "Properties by \(spo)"
-        
-        //let properties = self.properties.count > 5 ? Array(self.properties[0..<5]) : self.properties
-        for image in spot.imageUrls {
-            let view = UIView()//(frame: CGRect(x: 0, y: 0, width: targetWidth, height: 100))
+        var i = 0
+     
+        for nearbySpot in nearbySpots {
+            let view = UIView()
             nearbyContainer.addSubview(view)
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.layer.borderWidth = 0.8
-            view.layer.borderColor = UIColor.lightGray.cgColor
-            view.layer.cornerRadius = 10.0
+            
+            view.backgroundColor = UIColor.clear
+            view.layer.shadowColor = UIColor.black.cgColor
+            view.layer.shadowOffset = CGSize(width: 8, height: 3)
+            view.layer.shadowOpacity = 0.7
+            view.layer.shadowRadius = 4.0
+            view.layer.borderWidth = 1.0
+            view.layer.cornerRadius = 10
 
+            let spotView = UIView()
+            view.addSubview(spotView)
+            spotView.translatesAutoresizingMaskIntoConstraints = false
+            
+            spotView.frame = view.bounds
+            if #available(iOS 13.0, *) {
+                spotView.backgroundColor = .systemBackground
+            } else {
+                spotView.backgroundColor = .white
+            }
+            spotView.layer.cornerRadius = 10
+            spotView.layer.borderColor = UIColor.lightGray.cgColor
+            spotView.layer.borderWidth = 1.0
+            spotView.layer.masksToBounds = true
+            
+            
+            spotView.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
+            spotView.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
+            spotView.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
+            spotView.bottomAnchor.constraint(equalTo: view.bottomAnchor).isActive = true
+            
+            view.addSubview(spotView)
+            
+            
+
+            
             let iv = UIImageView()
             iv.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(iv)
 
-            iv.topAnchor.constraint(equalTo: view.topAnchor).isActive = true
-            iv.leadingAnchor.constraint(equalTo: view.leadingAnchor).isActive = true
-            iv.trailingAnchor.constraint(equalTo: view.trailingAnchor).isActive = true
-            iv.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -50.0).isActive = true
+            iv.topAnchor.constraint(equalTo: spotView.topAnchor).isActive = true
+            iv.leadingAnchor.constraint(equalTo: spotView.leadingAnchor).isActive = true
+            iv.trailingAnchor.constraint(equalTo: spotView.trailingAnchor).isActive = true
+            iv.bottomAnchor.constraint(equalTo: spotView.bottomAnchor, constant: -50.0).isActive = true
             
             iv.layer.masksToBounds = true
             iv.layer.cornerRadius = 10.0
             iv.layer.maskedCorners = [.layerMinXMinYCorner, .layerMaxXMinYCorner]
             
-            iv.kf.setImage(with: URL(string: image))
+            iv.kf.setImage(with: URL(string: nearbySpot.imageUrls.first!))
+            iv.tag = i
+            iv.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(nearbySpotPressed)))
+            iv.isUserInteractionEnabled = true
 
-            
             let nameLabel = UILabel()
             nameLabel.translatesAutoresizingMaskIntoConstraints = false
             view.addSubview(nameLabel)
             nameLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
-            nameLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -18.0).isActive = true
-            nameLabel.font = UIFont.systemFont(ofSize: 15.0)
-            nameLabel.text = spot.spotName
-
-
-           // view.kf.setImage(with: URL(string: image))
-
+            nameLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -25.0).isActive = true
+            nameLabel.font = UIFont.systemFont(ofSize: 16.0)
+            nameLabel.text = nearbySpot.spotName
             
+            let distanceLabel = UILabel()
+            distanceLabel.translatesAutoresizingMaskIntoConstraints = false
+            view.addSubview(distanceLabel)
+            distanceLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+            distanceLabel.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -7.0).isActive = true
+            distanceLabel.font = UIFont.systemFont(ofSize: 12.0, weight: .light)
+            distanceLabel.text = "\(String(format: "%.1f", nearbySpot.distance!)) miles from this spot"
             
-            view.addConstraint(NSLayoutConstraint(item: view, attribute: .width, relatedBy: .equal, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: targetWidth))
-            nearbyContainer.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[v]|", options: NSLayoutConstraint.FormatOptions(rawValue: 0), metrics: nil, views: ["v" : view]))
+            view.widthAnchor.constraint(equalToConstant: targetWidth).isActive = true
+            view.topAnchor.constraint(equalTo: nearbyContainer.topAnchor, constant: 5).isActive = true
+            view.bottomAnchor.constraint(equalTo: nearbyContainer.bottomAnchor, constant: -5).isActive = true
+
             nearbyContainer.addConstraint(NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: lastView, attribute: lastAttribute, multiplier: 1.0, constant: lastConstant))
-            
-//            let tapGesture = UITapGestureRecognizer(target: self, action: #selector(propertyWasTapped(gesture:)))
-//            view.addGestureRecognizer(tapGesture)
-            
+
             lastView = view
             lastAttribute = .right
             lastConstant = 10.0
+            i += 1
         }
         self.view.addConstraint(NSLayoutConstraint(item: nearbyContainer!, attribute: .right, relatedBy: .equal, toItem: lastView, attribute: .right, multiplier: 1.0, constant: initialOffset))
         
@@ -521,6 +628,29 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
 //        }, completion: nil)
     }
     
+    @IBAction func getDirections(){
+        if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
+            UIApplication.shared.open(URL(string:
+                "comgooglemaps://?saddr=&daddr=\(Float(spot.latitude)),\(Float(spot.longitude))&directionsmode=driving")!, options: [:], completionHandler: { (completed) in  })
+        } else {
+            let coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
+            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+            mapItem.name = spot.spotName
+            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+        }
+    }
+    
+    @IBAction func addSpotToFavorites(){
+        let favDict = [spot.spotKey : true]
+        
+        DataService.instance.updateDBUser(uid: Auth.auth().currentUser!.uid, child: "favorites", userData: favDict as Dictionary<String, AnyObject>)
+        
+        favoriteButton.isEnabled = false
+        favoriteButton.isOpaque = false
+        favoriteButton.alpha = 0.3
+        errorAlert(title: "", message: "Added \(spot.spotName) to favorites")
+    }
+
     @objc func keyboardWillShow(notification: NSNotification) {
         if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
             if self.view.superview?.frame.origin.y == 0 {
@@ -540,18 +670,29 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
     
+    
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        var page = Int()
+        if scrollView.contentOffset.x == 0 {
+            page = 1
+        } else {
+            page = Int(scrollView.contentOffset.x / scrollView.frame.width  + 1.0)
+        }
+        pageControl.currentPage = page - 1
+        
+    }
+
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int{
-        //pageControl.numberOfPages = spot.imageUrls.count
+        pageControl.numberOfPages = spot.imageUrls.count
         return spot.imageUrls.count
     }
     
-    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+//    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
 //        pageControl.transform = CGAffineTransform(scaleX: 0.8, y: 0.8)
 //        pageControl.hidesForSinglePage = true
 //        pageControl.currentPage = indexPath.row
-    }
+//    }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         

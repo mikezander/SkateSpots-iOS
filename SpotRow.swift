@@ -101,9 +101,7 @@ class SpotRow: UITableViewCell {
 
 extension SpotRow : UICollectionViewDataSource {
     
-    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        print()
-        
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {        
         var page = Int()
         if scrollView.contentOffset.x == 0 {
             page = 1
@@ -160,8 +158,7 @@ extension SpotRow : UICollectionViewDelegateFlowLayout {
         let contentHeight = screenHeight - heightOffset
 
         //pageContainer
-        
-        return CGSize(width: screenWidth, height: contentHeight)
+        return CGSize(width: screenWidth, height: 396.0)//contentHeight)
     }
     
     

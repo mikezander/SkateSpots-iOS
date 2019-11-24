@@ -10,6 +10,8 @@ import UIKit
 import FirebaseStorage
 import FirebaseAuth
 import FBSDKLoginKit
+import AVFoundation
+
 
 class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FBSDKLoginButtonDelegate{
     
@@ -29,13 +31,22 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     var userProfileURL = ""
     var imageSelected = false
     var hasAgreedToTerms = false
+ 
+    var player: AVAudioPlayer?
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
 
-        fbLoginButton.frame = CGRect(x:0 ,y:UIScreen.main.bounds.height - 50,width:UIScreen.main.bounds.width,height:50)
+
+        fbLoginButton.frame = CGRect(x: 0, y: UIScreen.main.bounds.height - 75, width:UIScreen.main.bounds.width,height: 50)
         fbLoginButton.readPermissions = ["public_profile","email"] // , "user_friends"
+        view.backgroundColor = .black
         fbLoginButton.delegate = self
+        
         view.addSubview(fbLoginButton)
         
         imagePicker = UIImagePickerController()
@@ -70,8 +81,16 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         unsubscribeToKeyboardNotifications()
     }
     
-    
-    
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if let vc = segue.destination as? UITabBarController {
+//            if #available(iOS 13.0, *) {
+//                vc.isModalInPresentation = true
+//            } else {
+//                // Fallback on earlier versions
+//            }
+//        }
+//    }
+//
     @IBAction func logInPressed(_ sender: Any) {
         
         guard hasConnected else {
@@ -81,19 +100,20 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         
      
         
-        if logInButton.title(for: .normal) == "Log In"{
+        if logInButton.title(for: .normal) == "Log In" {
             if let email = emailField.text, let pwd = passwordField.text,(email.count > 0 && pwd.count > 0){
                 
                 activityIndicator.startAnimating()
                 
                 AuthService.instance.logInExisting(email: email, password: pwd, onComplete: {(errMsg, data) in
                     
-                    guard errMsg == nil else{
+                    guard errMsg == nil else {
                         DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                         self.errorAlert(title: "Error Authenticating", message: errMsg!)
                         return
                     }
                     
+                    //self.playSound()
                     DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                     self.performSegue(withIdentifier: "goToFeed", sender: nil)
                     
@@ -104,7 +124,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                 errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
             }
             
-        }else{
+        }else {
             
             
             
@@ -264,6 +284,12 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))
         
+        if let popoverController = actionSheet.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
+        
         present(actionSheet, animated: true, completion: nil)
     }
     
@@ -318,6 +344,28 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.removeObserver(self, name: UIWindow.keyboardWillHideNotification, object: nil)
         
+    }
+
+    func playSound() {
+        guard let url = Bundle.main.url(forResource: "ollie", withExtension: "wav") else { return }
+
+        do {
+            try AVAudioSession.sharedInstance().setCategory(.playback, mode: .default)
+            try AVAudioSession.sharedInstance().setActive(true)
+
+            /* The following line is required for the player to work on iOS 11. Change the file type accordingly*/
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileType.mp3.rawValue)
+
+            /* iOS 10 and earlier require the following line:
+            player = try AVAudioPlayer(contentsOf: url, fileTypeHint: AVFileTypeMPEGLayer3) */
+
+            guard let player = player else { return }
+
+            player.play()
+
+        } catch let error {
+            print(error.localizedDescription)
+        }
     }
 }
 

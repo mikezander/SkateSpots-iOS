@@ -38,12 +38,22 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+        
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         
         userNameTextField.text = user.userName
         bioTextField.text = user.bio
         linkTextField.text = user.link
-        igLinkTextfield.text = user.igLink
+        
+        if user.igLink != "" {
+            var igLink = user.igLink
+            igLink = igLink.replacingOccurrences(of: "@", with: "")
+            igLinkTextfield.text = "@\(user.igLink)"
+        }
+        
         
         userNameTextField.delegate = self
         bioTextField.delegate = self
@@ -114,9 +124,13 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
                 }
                 
                 if self.igLinkTextfield.text != self.user.igLink {
-                    userDict.updateValue(self.igLinkTextfield.text as AnyObject, forKey: "igLink")
-                    self.hasBeenEdited = true
+                    var igLink = self.igLinkTextfield.text
+                    igLink = igLink?.replacingOccurrences(of: "@", with: "")
                     
+                    if igLink != nil {
+                        userDict.updateValue(igLink! as AnyObject, forKey: "igLink")
+                        self.hasBeenEdited = true
+                    }
                 }
                 
                 if self.hasBeenEdited{
@@ -238,6 +252,12 @@ class EditProfileVC: UIViewController, UIImagePickerControllerDelegate, UINaviga
         }))
         
         actionSheet.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler:nil))
+        
+        if let popoverController = actionSheet.popoverPresentationController {
+            popoverController.sourceView = self.view
+            popoverController.sourceRect = CGRect(x: self.view.bounds.midX, y: self.view.bounds.midY, width: 0, height: 0)
+            popoverController.permittedArrowDirections = []
+        }
         
         present(actionSheet, animated: true, completion: nil)
     }
