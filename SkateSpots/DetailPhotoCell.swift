@@ -44,7 +44,7 @@ class DetailPhotoCell: UICollectionViewCell{
         if image.size.width > image.size.height{
             self.spotImage.contentMode = .scaleAspectFit
         } else {
-            self.spotImage.contentMode = .scaleToFill
+            //self.spotImage.contentMode = .scaleToFill
 
         }
 
