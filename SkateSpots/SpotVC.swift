@@ -75,6 +75,23 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+            
+            let shadow = NSShadow()
+            shadow.shadowColor = UIColor(red: 1.0, green: 1.0, blue: 1.0, alpha: 1.0)
+            shadow.shadowOffset = CGSize(width: 0, height: 1)
+            let titleFont : UIFont = UIFont(name: "Avenir-Book", size: 15)!//UIFont.systemFont(ofSize: 15.0)
+
+            SpotTypeControl.setTitleTextAttributes([.foregroundColor: UIColor.white, .shadow: shadow, .font: titleFont], for: .selected)
+            SpotTypeControl.setTitleTextAttributes([.foregroundColor: UIColor.black, .shadow: shadow, .font: titleFont], for: .normal)
+
+            SpotTypeControl.backgroundColor = .lightGray
+            SpotTypeControl.selectedSegmentTintColor = .black
+        }
+        
+       
+        
         self.view.addGestureRecognizer(UITapGestureRecognizer(target: self.view, action: #selector(UIView.endEditing(_:))))
         addSpotButton.layer.cornerRadius = 12.0
         
@@ -105,7 +122,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         
         anytimeBtn.isSelected = true
         anytimeBtn.backgroundColor = UIColor.black
-        anytimeBtn.setTitleColor(FLAT_GREEN, for: .normal)
+        anytimeBtn.setTitleColor(.white, for: .normal)
         
         addSpotButton.layer.shadowColor = UIColor(red: 0, green: 0, blue: 0, alpha: 0.25).cgColor
         addSpotButton.layer.shadowOffset = CGSize(width:0.0,height: 2.0)
@@ -144,7 +161,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             case 0,1,2,3,4,5,6:
                 sender.isSelected = true
                 sender.backgroundColor = UIColor.black
-                sender.setTitleColor(FLAT_GREEN, for: .normal)
+                sender.setTitleColor(.white, for: .normal)
                 otherBtn.backgroundColor = UIColor.clear
                 otherBtn.setTitleColor(.black, for: .normal)
                 otherBtn.isSelected = false
@@ -152,7 +169,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             case 7:
                 sender.isSelected = true
                 sender.backgroundColor = UIColor.black
-                sender.setTitleColor(FLAT_GREEN, for: .normal)
+                sender.setTitleColor(.white, for: .normal)
                 disableButtonsForTypeOther(btn: ledgeBtn)
                 disableButtonsForTypeOther(btn: railBtn)
                 disableButtonsForTypeOther(btn: gapBtn)
@@ -163,28 +180,28 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             case 8:
                 sender.isSelected = true
                 sender.backgroundColor = UIColor.black
-                sender.setTitleColor(FLAT_GREEN, for: .normal)
+                sender.setTitleColor(.white, for: .normal)
                 disableButtonsForTypeOther(btn: weekdayBtn)
                 disableButtonsForTypeOther(btn: weekendBtn)
                 disableButtonsForTypeOther(btn: nightBtn)
             case 9:
                 sender.isSelected = true
                 sender.backgroundColor = UIColor.black
-                sender.setTitleColor(FLAT_GREEN, for: .normal)
+                sender.setTitleColor(.white, for: .normal)
                 disableButtonsForTypeOther(btn: anytimeBtn)
                 disableButtonsForTypeOther(btn: weekendBtn)
                 disableButtonsForTypeOther(btn: nightBtn)
             case 10:
                 sender.isSelected = true
                 sender.backgroundColor = UIColor.black
-                sender.setTitleColor(FLAT_GREEN, for: .normal)
+                sender.setTitleColor(.white, for: .normal)
                 disableButtonsForTypeOther(btn: anytimeBtn)
                 disableButtonsForTypeOther(btn: weekdayBtn)
                 disableButtonsForTypeOther(btn: nightBtn)
             case 11:
                 sender.isSelected = true
                 sender.backgroundColor = UIColor.black
-                sender.setTitleColor(FLAT_GREEN, for: .normal)
+                sender.setTitleColor(.white, for: .normal)
                 disableButtonsForTypeOther(btn: anytimeBtn)
                 disableButtonsForTypeOther(btn: weekdayBtn)
                 disableButtonsForTypeOther(btn: weekendBtn)
@@ -375,54 +392,33 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
-        if let image = info[.editedImage] as? UIImage{
-            
+        if let image = info[.editedImage] as? UIImage {
+//            guard let properOrientatedImage =  image.rotateCameraImageToProperOrientation(imageSource: image) else { return }
+
             if (!locationFound) && (latitude == nil) && (longitude == nil){
                 
                 if(picker.sourceType == .camera){
-                    
                     locationManager = CLLocationManager()
                     self.locationManager.delegate = self
-                    locationManager.desiredAccuracy = kCLLocationAccuracyKilometer
+                    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
                     locationManager.requestWhenInUseAuthorization()
                     locationManager.startUpdatingLocation()
                     
-                }else{
+                } else {
 
-                    if let imageUrl = info[.editedImage] as? NSURL{
-                        let asset = PHAsset.fetchAssets(withALAssetURLs:[imageUrl as URL], options: nil).firstObject as PHAsset?
-                        
-//                        let imageManager = PHImageManager.default()
-//
-//                        imageManager.requestImageData(for: asset! , options: nil, resultHandler:{
-//                            (data, responseString, imageOriet, info) -> Void in
-//                            let imageData: NSData = data! as NSData
-//                            if let imageSource = CGImageSourceCreateWithData(imageData, nil) {
-//                                let imageProperties2 = CGImageSourceCopyPropertiesAtIndex(imageSource, 0, nil)! as NSDictionary
-//                                print("imageProperties2: ", imageProperties2)
-//                            }
-//
-//                        })
-//
-                        if asset?.location != nil {
-                            let location = asset?.location
-
-                            latitude = location?.coordinate.latitude
-                            longitude = location?.coordinate.longitude
-                            reverseGeocodeLocation(location: location!)
-
-                        } else {
-                            DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                                self.locationLabel.alpha = 1.0
-                                self.locationImageView.alpha = 1.0
-                                self.locationLabel.text = "Location not found"
-                                self.locationImageView.image = UIImage(named: "x")!
-                                AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                                self.locationLabel.jitter()
-                                self.locationImageView.jitter()
-                            }
-                        
-                            
+                    if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset, let location = asset.location {
+                        latitude = location.coordinate.latitude
+                        longitude = location.coordinate.longitude
+                        reverseGeocodeLocation(location: location)
+                    } else {
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                            self.locationLabel.alpha = 1.0
+                            self.locationImageView.alpha = 1.0
+                            self.locationLabel.text = "Location not found"
+                            self.locationImageView.image = UIImage(named: "x")!
+                            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+                            self.locationLabel.jitter()
+                            self.locationImageView.jitter()
                         }
                     }
                 }
@@ -477,7 +473,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             return
         }
         
-        if SpotTypeControl.selectedSegmentIndex == 0{
+        if SpotTypeControl.selectedSegmentIndex == 0 {
             
             if !ledgeBtn.isSelected && !railBtn.isSelected && !gapBtn.isSelected && !mannyBtn.isSelected
                 && !bumpBtn.isSelected && !trannyBtn.isSelected && !bankBtn.isSelected && !otherBtn.isSelected{
@@ -515,10 +511,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     
     func addPhotosToStorage(image: UIImage,_ isDefault: Bool){
-        
         if let imgData = image.jpegData(compressionQuality: 0.2) {
             let imgUid = NSUUID().uuidString
-            print("IMGUID\(imgUid)")
             let metadata = StorageMetadata()
             metadata.contentType = "image/jpeg"
             let uploadTask = DataService.instance.REF_SPOT_IMAGES.child(imgUid).putData(imgData, metadata:metadata) {(metadata, error) in
@@ -532,7 +526,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
                     if let url = downloadURL{
                         self.photoURLs.append(url)
                         
-                        if self.photoURLs.count == self.count{
+                        if self.photoURLs.count == self.count {
                             
                             self.postToFirebase(imgUrl: self.photoURLs)
                         }
@@ -543,15 +537,15 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             if isDefault {
                 _ = uploadTask.observe(.success) { snapshot in
                     
-                    if let imgTwo = self.addPhotoTwo.image, self.imageSelected == true, self.count >= 2{
+                    if let imgTwo = self.addPhotoTwo.image, self.imageSelected == true, self.count >= 2 {
                         self.addPhotosToStorage(image: imgTwo, false)
                     }
                     
-                    if let imgThree = self.addPhotoThree.image, self.imageSelected == true, self.count >= 3{
+                    if let imgThree = self.addPhotoThree.image, self.imageSelected == true, self.count >= 3 {
                         self.addPhotosToStorage(image: imgThree, false)
                     }
                     
-                    if let imgFour = self.addPhotoFour.image, self.imageSelected == true, self.count == 4{
+                    if let imgFour = self.addPhotoFour.image, self.imageSelected == true, self.count == 4 {
                         self.addPhotosToStorage(image: imgFour, false)
                     }
                 }
