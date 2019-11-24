@@ -29,21 +29,22 @@ class MapCollectionViewCell: UICollectionViewCell {
         spotImage.layoutIfNeeded()
 
         spotName.text = spot.spotName
-        spotType.text = spot.spotType
+        spotType.text = spot.spotLocation//spot.spotType
         
-        if style == "Dark" {
-            borderedView.backgroundColor = .black
-            spotName.textColor = .white
-            spotType.textColor = .white
-            spotCountLabel.textColor = .white
-            ratingLabel.textColor = .white
+        if #available(iOS 13.0, *) {
+            borderedView.backgroundColor = .systemBackground
+            backgroundColor = .systemBackground
+
         } else {
             borderedView.backgroundColor = .white
-            spotName.textColor = .black
-            spotType.textColor = .black
-            spotCountLabel.textColor = .black
-            ratingLabel.textColor = .black
+            backgroundColor = .white
         }
+        
+        spotName.textColor = .blackWhite()
+        spotType.textColor = .blackWhite()
+        spotCountLabel.textColor = .blackWhite()
+        ratingLabel.textColor = .blackWhite()
+
         
         let refCurrentSpot = DataService.instance.REF_SPOTS.child(spot.spotKey)
         
@@ -70,3 +71,4 @@ class MapCollectionViewCell: UICollectionViewCell {
         })
     }
 }
+
