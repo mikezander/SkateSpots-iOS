@@ -22,7 +22,6 @@ class CommentsTableViewCell: UITableViewCell {
 
     func layoutCell() {
         userLabel.text = comment.userName
-        print(comment.userName, comment.userImageURL, "here123")
         userImageView.kf.setImage(with: URL(string: comment.userImageURL), placeholder: UIImage(named: "profile-placeholder"))
         userImageView.layer.cornerRadius = userImageView.frame.width / 2
         commentTextView.text = comment.comment
