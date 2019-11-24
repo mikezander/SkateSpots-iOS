@@ -11,8 +11,9 @@ import FirebaseAuth
 import FirebaseStorage
 import FirebaseDatabase
 
-class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
-    
+class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource, SpotDetailDelegate {
+
+    var allSpots = [Spot]()
     var spots = [Spot]()
     var spot: Spot!
     var uniqueIDs = [String]()
@@ -23,10 +24,14 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     override func viewDidLoad() {
         super.viewDidLoad()
+
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
         
         currentUserRef = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
         
@@ -106,6 +111,15 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
         
     }
     
+    func nearbySpotPressed(spot: Spot, spots: [Spot]) {
+        if let vc = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "spot_detail_vc") as? SpotDetailVC {
+            vc.spot = spot
+            vc.spots = allSpots
+            vc.delegate = self
+            present(vc, animated: true, completion: nil)
+        }
+    }
+    
     func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return true
     }
@@ -139,10 +153,13 @@ class FavoritesVC:UIViewController, UITableViewDelegate, UITableViewDataSource{
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if let spotCell = sender as? FavoriteCell,
-            let spotDetailPage = segue.destination as? DetailVC {
+            let spotDetailPage = segue.destination as? SpotDetailVC {
             let spot = spotCell.spot
+            
             spotDetailPage.spot = spot
+            spotDetailPage.spots = allSpots
             spotDetailPage.isFavorite = true
+            spotDetailPage.delegate = self
         }
     }
 }
