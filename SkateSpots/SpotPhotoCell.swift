@@ -11,8 +11,6 @@ import SVProgressHUD
 import SDWebImage
 import Kingfisher
 
-
-
 class SpotPhotoCell: UICollectionViewCell{
     
     @IBOutlet weak var spotImage: UIImageView!
@@ -39,7 +37,7 @@ class SpotPhotoCell: UICollectionViewCell{
     func setImageViewContentMode(image:UIImage){
         if image.size.width > image.size.height {
             self.spotImage.contentMode = .scaleAspectFit
-        }
+        } 
     }
     
     func emptyImageView(){
@@ -50,7 +48,7 @@ class SpotPhotoCell: UICollectionViewCell{
     func imageContentMode() -> Int {
         return spotImage.contentMode.rawValue
     }
-
 }
+
 
 
