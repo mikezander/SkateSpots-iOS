@@ -27,6 +27,10 @@ class MessagesVC: UIViewController, MessageReadProtocol{
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
 
         messageTableView.delegate = self
         messageTableView.dataSource = self
