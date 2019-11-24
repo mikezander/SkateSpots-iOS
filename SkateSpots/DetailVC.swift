@@ -67,6 +67,10 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         super.viewDidLoad()
         
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
+        
         refCurrentSpot = DataService.instance.REF_SPOTS.child(spot.spotKey)
         
         let screenWidth = screenSize.width
@@ -149,7 +153,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         spotNameLbl = UILabel(frame: CGRect(x: 0, y: 0, width: screenWidth, height: 25))
         spotNameLbl.font = UIFont.preferredFont(forTextStyle: .title2)
         spotNameLbl.textColor = UIColor.black
-        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: collectionview.frame.maxY - 15) //168
+        spotNameLbl.center = CGPoint(x: screenWidth / 2, y: collectionview.frame.maxY) //168
         spotNameLbl.textAlignment = .center
         spotNameLbl.text = spot.spotName
         containerView.addSubview(spotNameLbl)
@@ -305,7 +309,6 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         //Setting scrollview content size
         
-        print(screenHeight * 2 - 200, screenHeight, "here123")
         self.scrollView.contentSize = CGSize(width: screenSize.width, height: 1400 + descriptionTextView.frame.height) // - 65
 
 //        if screenHeight >= 736.0{ // for 6+, 7+
@@ -335,6 +338,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         rateBtn.alpha = 0.3
         containerView.addSubview(rateBtn)
         
+
         let ref = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
         ratingRef = ref.child("rated").child(spot.spotKey)
         
@@ -410,8 +414,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         directionsButton.layer.cornerRadius = 4.0
         directionsButton.addTarget(self, action:#selector(getDirections), for: .touchUpInside)
         view.addSubview(directionsButton)
-        
-        if isFavorite{
+
+        if isFavorite {
             favoriteButton.isEnabled = false
             favoriteButton.layer.opacity = 0.4
             containerView.frame.size.height -= view.safeAreaInsets.bottom
@@ -445,7 +449,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         super.viewDidLayoutSubviews()
         
         scrollView.frame = view.bounds
-        containerView.frame = CGRect(x:0, y:50, width:scrollView.contentSize.width, height:scrollView.contentSize.height)
+        containerView.frame = CGRect(x:0, y:50, width: scrollView.contentSize.width, height: scrollView.contentSize.height)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -470,7 +474,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         tableView.reloadData()
         
-        if commentsArray.count > 0{
+        if commentsArray.count > 0 {
             let lastItem = IndexPath(item: commentsArray.count - 1, section: 0)
             tableView.scrollToRow(at: lastItem, at: .bottom, animated: false)
         }
@@ -558,7 +562,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     
     func commentPressed(completion: @escaping (Bool) -> ()){
         
-        if isInternetAvailable() && hasConnected{
+        if isInternetAvailable() && hasConnected {
             
             if commentView.text != "Add a comment" && commentView.text != "" && commentView.text != " " && commentView.text != "  "{
                 
@@ -669,8 +673,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     }
     
     @objc func addSpotToFavorites(){
-        
-        let favDict = [spot.spotKey:true]
+        let favDict = [spot.spotKey : true]
         
         DataService.instance.updateDBUser(uid: Auth.auth().currentUser!.uid, child: "favorites", userData: favDict as Dictionary<String, AnyObject>)
         
@@ -678,11 +681,9 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         favoriteButton.isOpaque = false
         favoriteButton.alpha = 0.3
         errorAlert(title: "", message: "Added \(spot.spotName) to favorites")
-        
     }
     
     @objc func getDirections(){
-
         if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
             UIApplication.shared.open(URL(string:
                 "comgooglemaps://?saddr=&daddr=\(Float(spot.latitude)),\(Float(spot.longitude))&directionsmode=driving")!, options: [:], completionHandler: { (completed) in  })
@@ -742,9 +743,8 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
     }
     
     @objc func lblClick(tapGesture:UITapGestureRecognizer){
-        let vc = UIStoryboard(name:"Main", bundle:nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
+        let vc = UIStoryboard(name:"Main", bundle: nil).instantiateViewController(withIdentifier: "goToProfile") as! ProfileVC
         vc.userKey = commentsArray[tapGesture.view!.tag].userKey
-        print(commentsArray[tapGesture.view!.tag].userKey)
         self.present(vc, animated: true, completion: nil)
        
         //self.navigationController?.pushViewController(vc, animated:true)
@@ -806,7 +806,7 @@ class DetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSourc
         
         cell.spotImage.image = nil
         cell.spotImage = image
-        cell.spotImage.frame.origin.y = collectionView.frame.origin.y
+        //cell.spotImage.frame.origin.y = collectionView.frame.origin.y
         cell.addSubview(image)
         
         
