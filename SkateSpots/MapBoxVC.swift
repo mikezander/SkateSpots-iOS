@@ -16,6 +16,7 @@ import SVProgressHUD
 
 class MyCustomPointAnnotation: MGLPointAnnotation {
     var willUseImage: Bool = false
+    //var spot: Spot!
 }
 
 extension MGLAnnotationView {
@@ -24,6 +25,8 @@ extension MGLAnnotationView {
     override open class var layerClass: AnyClass {
         return ZPositionableLayer.self
     }
+    
+    
 
     /// convenience accessor for setting zPosition
     var stickyZPosition: CGFloat {
@@ -94,10 +97,13 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
     @IBOutlet weak var collectionViewContainer: UIView!
     @IBOutlet weak var menuView: UIView!
     
-   
     @IBOutlet weak var menuTrailingConstraint: NSLayoutConstraint!
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+//        if #available(iOS 13.0, *) {
+//            overrideUserInterfaceStyle = .light
+//        }
         
         if let style = defaults.string(forKey: "MapStyle"){
             mapTypeStyle = style
@@ -123,6 +129,12 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
 //        if UIScreen.main.bounds.height >= 812.0{
 //            
 //        }
+    }
+    
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+
     }
 
     
@@ -178,23 +190,22 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
         } else {
             self.errorAlert(title: "Internet Connection Error", message: "Make sure you have a connection and try again")
         }
-        
     }
     
     func loadMapViewStyle(style: String) {
         if style == "Light" {
-            mapView.styleURL = MGLStyle.lightStyleURL()
+            mapView.styleURL = MGLStyle.lightStyleURL//MGLStyle.lightStyleURL()
             mapView.tintColor = .black
             collectionViewContainer.layer.borderColor = UIColor.darkGray.cgColor
             collectionViewContainer.backgroundColor = .white
         } else if style == "Dark" {
-            mapView.styleURL = MGLStyle.darkStyleURL()
+            mapView.styleURL = MGLStyle.darkStyleURL
             mapView.tintColor = .lightGray
             collectionViewContainer.layer.borderColor = UIColor.white.cgColor
             collectionViewContainer.backgroundColor = .black
 
         } else if style == "Classic" {
-            mapView.styleURL = MGLStyle.outdoorsStyleURL()
+            mapView.styleURL = MGLStyle.outdoorsStyleURL
             mapView.tintColor = .blue
             collectionViewContainer.layer.borderColor = UIColor.darkGray.cgColor
             collectionViewContainer.backgroundColor = .white
@@ -207,23 +218,24 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
     func loadAnnotationData(){
         
         DataService.instance.REF_SPOTS.observe(.value, with: {(snapshot) in
-            
             //self.spots = [] //clears up spot array each time its loaded
             
-            if let snapshot = snapshot.children.allObjects as? [DataSnapshot]{
-                for snap in snapshot{
-                    if let spotDict = snap.value as? Dictionary<String, AnyObject>{
+            if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
+                for snap in snapshot {
+                    if let spotDict = snap.value as? Dictionary<String, AnyObject> {
                         let key = snap.key
                         let spot = Spot(spotKey: key, spotData: spotDict)
+                        //self.spots.append(spot)
                         self.spots.insert(spot, at: 0)
                         let annotation = MyCustomPointAnnotation()
                         annotation.coordinate = CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude)
                         annotation.title = spot.spotName
                         annotation.subtitle = spot.spotType
                         annotation.willUseImage = true
-                        
-                        self.spotAnnotations.append(annotation)
+                        self.spotAnnotations.insert(annotation, at: 0)
+                        //self.spotAnnotations.append(annotation)
                     }
+
                 }
             }
             
@@ -233,7 +245,42 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
 
             }
         })
+    }
+    
+    func sortSpotsByDistance(){
+        self.spots.sort(by: { $0.distance(to: CLLocation(latitude: usersLocation.latitude, longitude: usersLocation.longitude)) < $1.distance(to: CLLocation(latitude: usersLocation.latitude, longitude: usersLocation.longitude)) })
 
+        mapView.removeAnnotations(spotAnnotations)
+//        spotAnnotations.removeAll()
+//        for spot in spots {
+//            let annotation = MyCustomPointAnnotation()
+//            annotation.coordinate = CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude)
+//            annotation.title = spot.spotName
+//            annotation.subtitle = spot.spotType
+//            annotation.willUseImage = true
+//            self.spotAnnotations.append(annotation)
+//        }
+//        
+//        mapView.addAnnotations(self.spotAnnotations)
+        collectionView.reloadData()
+    }
+    
+    func sortSpotsByRecent(){
+        self.spots.sort(by: { $0.spotKey < $1.spotKey })
+
+        mapView.removeAnnotations(spotAnnotations)
+        spotAnnotations.removeAll()
+        for spot in spots {
+            let annotation = MyCustomPointAnnotation()
+            annotation.coordinate = CLLocationCoordinate2D(latitude: spot.latitude, longitude: spot.longitude)
+            annotation.title = spot.spotName
+            annotation.subtitle = spot.spotType
+            annotation.willUseImage = true
+            self.spotAnnotations.append(annotation)
+        }
+        
+        mapView.addAnnotations(self.spotAnnotations)
+        collectionView.reloadData()
     }
     
     func getUsersLocation(){
@@ -252,7 +299,7 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
 
     func mapView(_ mapView: MGLMapView, didSelect annotation: MGLAnnotation) {
         let anno = annotation as! MyCustomPointAnnotation
-        if let index = spotAnnotations.index(of: anno) {
+        if let index = spotAnnotations.firstIndex(of: anno) {
             let indexofSelected = IndexPath(item: index, section: 0)
             isPinSelected = true
             collectionView.scrollToItem(at: indexofSelected, at: .left, animated: false)
@@ -263,12 +310,11 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
     func mapView(_ mapView: MGLMapView, viewFor annotation: MGLAnnotation) -> MGLAnnotationView? {
 
         var annotationView: MGLAnnotationView? = nil
-        
         if let castAnnotation = annotation as? MyCustomPointAnnotation {
             annotationView?.annotation = castAnnotation
             annotationView?.setViewToDefaultZOrder()
 
-            if castAnnotation.willUseImage == false {
+            if castAnnotation.willUseImage == false {               
                 annotationView?.bringViewToFront()
                 mapView.layoutIfNeeded()
                 return annotationView
@@ -310,20 +356,18 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
 
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "detail" {
-            let vc = segue.destination as! DetailVC
+            let vc = segue.destination as! SpotDetailVC
             vc.spot = spot
-        }
+        } 
     }
     
     func centerMapOnSelectedSpot(indexPath: IndexPath) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.0) {
-            let spot = self.spots[indexPath.row]
             
+            let spot = self.spots[indexPath.row]
             if !self.isPinSelected {
-                
                 let center = CLLocationCoordinate2D(latitude: CLLocationDegrees(spot.latitude), longitude: CLLocationDegrees(spot.longitude))
                 self.mapView.setCenter(center, animated: true)
-
             } else {
                 self.isPinSelected = false
             }
@@ -338,7 +382,7 @@ class MapBoxVC: UIViewController, MGLMapViewDelegate {
             }
             if self.selectedSpot != nil {
                 let pin = self.selectedSpot as! MyCustomPointAnnotation
-                
+
                 self.mapView.removeAnnotation(pin)
                 pin.willUseImage = false
                 self.mapView.addAnnotation(pin)
@@ -355,7 +399,11 @@ extension MapBoxVC: CLLocationManagerDelegate {
         let location = locations[0]
         usersLocation = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
         mapView.setCenter(usersLocation, zoomLevel: 15.0, animated: true)
-        mapView.showsUserLocation = true
+        if mapView.isUserLocationVisible {
+            mapView.showsUserLocation = true
+        } else {
+            print("user location not found")
+        }
         manager.stopUpdatingLocation()
     }
     
@@ -408,4 +456,11 @@ extension MapBoxVC: UICollectionViewDelegate, UICollectionViewDataSource, UIColl
         self.spot = spots[indexPath.row]
         performSegue(withIdentifier: "detail", sender: nil)
     }
+
+
+//    func mapViewDidFinishRenderingMap(_ mapView: MGLMapView, fullyRendered: Bool) {
+//        if let anno = zAnnotationView {
+//            anno.superview?.bringSubviewToFront(anno)
+//        }
+//    }
 }
