@@ -481,7 +481,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 396.0
+        return 456.0
     }
     
     
