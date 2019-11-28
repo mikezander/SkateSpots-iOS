@@ -2354,8 +2354,8 @@
                                                 <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KlQ-kC-Ueo">
                                                     <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
                                                     <constraints>
+                                                        <constraint firstAttribute="width" secondItem="KlQ-kC-Ueo" secondAttribute="height" multiplier="1:1" id="KTU-82-YOG"/>
                                                         <constraint firstAttribute="width" constant="150" id="bwS-sB-3sw"/>
-                                                        <constraint firstAttribute="height" constant="150" id="p7s-zA-Aau"/>
                                                     </constraints>
                                                 </imageView>
                                                 <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="3Xt-iX-BDU">
@@ -2412,6 +2412,46 @@
                                             <outlet property="spotLocationLabel" destination="uWl-WW-3ad" id="T6X-Dm-0fk"/>
                                             <outlet property="spotNameLabel" destination="G0V-0F-rgM" id="CUI-CX-RPu"/>
                                             <outlet property="spotType" destination="3av-gT-FK9" id="GRz-jH-UbO"/>
+                                        </connections>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="imageCell" id="rQG-Rt-6ns" customClass="ProfileImagesCell" customModule="Sk8Spots" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="205.5" width="375" height="150"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rQG-Rt-6ns" id="jQs-cG-qWk">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="150"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="kS0-NJ-9ze">
+                                                    <rect key="frame" x="0.0" y="0.0" width="150" height="150"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="width" secondItem="kS0-NJ-9ze" secondAttribute="height" multiplier="1:1" id="qZb-0H-Cas"/>
+                                                    </constraints>
+                                                </imageView>
+                                                <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="aur-Go-fKb">
+                                                    <rect key="frame" x="225" y="0.0" width="150" height="150"/>
+                                                </imageView>
+                                                <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="BGp-Vd-VPg">
+                                                    <rect key="frame" x="65" y="65" width="20" height="20"/>
+                                                    <color key="color" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                                </activityIndicatorView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="aur-Go-fKb" firstAttribute="top" secondItem="jQs-cG-qWk" secondAttribute="top" id="0mg-pw-lOJ"/>
+                                                <constraint firstItem="BGp-Vd-VPg" firstAttribute="centerX" secondItem="kS0-NJ-9ze" secondAttribute="centerX" id="AVs-ct-Bje"/>
+                                                <constraint firstItem="aur-Go-fKb" firstAttribute="width" secondItem="aur-Go-fKb" secondAttribute="height" multiplier="1:1" id="KHS-EY-f7J"/>
+                                                <constraint firstItem="aur-Go-fKb" firstAttribute="leading" secondItem="kS0-NJ-9ze" secondAttribute="trailing" id="M2C-e0-wvH"/>
+                                                <constraint firstAttribute="bottom" secondItem="kS0-NJ-9ze" secondAttribute="bottom" id="bkk-Q4-ZCA"/>
+                                                <constraint firstItem="aur-Go-fKb" firstAttribute="width" secondItem="kS0-NJ-9ze" secondAttribute="width" id="ekt-Ce-WPS"/>
+                                                <constraint firstAttribute="bottom" secondItem="aur-Go-fKb" secondAttribute="bottom" id="geX-Dl-CUY"/>
+                                                <constraint firstItem="BGp-Vd-VPg" firstAttribute="centerY" secondItem="kS0-NJ-9ze" secondAttribute="centerY" id="il0-9f-wpS"/>
+                                                <constraint firstItem="kS0-NJ-9ze" firstAttribute="top" secondItem="jQs-cG-qWk" secondAttribute="top" id="lFJ-ir-21o"/>
+                                                <constraint firstAttribute="trailing" secondItem="aur-Go-fKb" secondAttribute="trailing" id="uCo-rn-KT0"/>
+                                                <constraint firstItem="kS0-NJ-9ze" firstAttribute="leading" secondItem="jQs-cG-qWk" secondAttribute="leading" id="veQ-te-PzV"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                        <connections>
+                                            <outlet property="spotImageFirst" destination="kS0-NJ-9ze" id="haf-fG-S95"/>
+                                            <outlet property="spotImageSecond" destination="aur-Go-fKb" id="d2t-KL-hRI"/>
                                         </connections>
                                     </tableViewCell>
                                 </prototypes>
