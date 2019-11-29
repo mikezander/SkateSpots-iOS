@@ -11,6 +11,7 @@ import FirebaseStorage
 import FirebaseAuth
 import FBSDKLoginKit
 import AVFoundation
+import SVProgressHUD
 
 
 class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate, FBSDKLoginButtonDelegate{
@@ -24,6 +25,9 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     @IBOutlet weak var logInButton: RoundedButton!
     @IBOutlet weak var logInLabel: UILabel!
     @IBOutlet weak var logInSwitch: UIButton!
+    @IBOutlet weak var eulaStackView: UIStackView!
+    @IBOutlet weak var forgotPasswordLabel: UILabel!
+    
     let fbLoginButton = FBSDKLoginButton()
     
     var imagePicker: UIImagePickerController!
@@ -41,8 +45,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             overrideUserInterfaceStyle = .light
         }
 
-
-        fbLoginButton.frame = CGRect(x: 0, y: UIScreen.main.bounds.height - 75, width:UIScreen.main.bounds.width,height: 50)
+        let bottomSafeArea = UIApplication.shared.keyWindow?.safeAreaInsets.bottom ?? 0.0
+        fbLoginButton.frame = CGRect(x: 0, y: view.frame.height - 50 - bottomSafeArea , width:UIScreen.main.bounds.width,height: 50)
         fbLoginButton.readPermissions = ["public_profile","email"] // , "user_friends"
         view.backgroundColor = .black
         fbLoginButton.delegate = self
@@ -68,10 +72,10 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(true)
         
-        if defaults.bool(forKey: agreementKey) == false{
-            
-            performSegue(withIdentifier: "Agreement", sender: nil)
-        }
+//        if defaults.bool(forKey: agreementKey) == false{
+//            
+//            performSegue(withIdentifier: "Agreement", sender: nil)
+//        }
 
     }
 
@@ -92,83 +96,92 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
 //    }
 //
     @IBAction func logInPressed(_ sender: Any) {
-        
+        logInButton.isUserInteractionEnabled = false
+       
         guard hasConnected else {
             errorAlert(title: "Network Connection Error", message: "Make sure you connected and try again")
+            logInButton.isUserInteractionEnabled = true
             return
         }
-        
-     
-        
-        if logInButton.title(for: .normal) == "Log In" {
+
+        if logInButton.title(for: .normal) == "LOG IN" {
             if let email = emailField.text, let pwd = passwordField.text,(email.count > 0 && pwd.count > 0){
                 
                 activityIndicator.startAnimating()
-                
                 AuthService.instance.logInExisting(email: email, password: pwd, onComplete: {(errMsg, data) in
                     
                     guard errMsg == nil else {
                         DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
                         self.errorAlert(title: "Error Authenticating", message: errMsg!)
+                        self.logInButton.isUserInteractionEnabled = true
+                        self.activityIndicator.stopAnimating()
                         return
                     }
                     
                     //self.playSound()
-                    DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+                    DispatchQueue.main.async { self.activityIndicator.stopAnimating(); self.logInButton.isUserInteractionEnabled = true }
                     self.performSegue(withIdentifier: "goToFeed", sender: nil)
                     
                 })
                 
-            }else{
-                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
+            } else {
+                DispatchQueue.main.async { self.activityIndicator.stopAnimating(); self.logInButton.isUserInteractionEnabled = true }
                 errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
             }
             
-        }else {
+        } else {
             
-            
-            
-            if let email = emailField.text, let pwd = passwordField.text, var usrName = userNameField.text,
-                (email.count > 0 && pwd.count > 0){
-                
-                if usrName == "" || usrName == " "{
-                    usrName = "unknown"
+            Auth.auth().fetchProviders(forEmail: emailField.text!, completion: {
+                (providers, error) in
+                if let error = error {
+                    SVProgressHUD.showError(withStatus: "\(error.localizedDescription)")
+                    SVProgressHUD.dismiss(withDelay: 2.0)
+                    self.logInButton.isUserInteractionEnabled = true
+                    return
+                } else if let _ = providers {
+                    SVProgressHUD.showError(withStatus: "It looks like that email address is already in use. Log in or reset your password below if you've forgotten it.")
+                    SVProgressHUD.dismiss(withDelay: 2.7)
+                    self.logInButton.isUserInteractionEnabled = true
+                    return
                 }
                 
-                activityIndicator.startAnimating()
-                
-                AuthService.instance.login(email: email, password: pwd, username: usrName, onComplete: { (errMsg, data) in
-                    
-                    guard errMsg == nil else{
-                        
-                        DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
-                        self.errorAlert(title: "Error Authenticating", message: errMsg!)
-                        return
+                if let email = self.emailField.text, let pwd = self.passwordField.text, var usrName = self.userNameField.text, (email.count > 0 && pwd.count > 0) {
+
+                    if usrName == "" || usrName == " " {
+                        usrName = "user_\(Int.random(in: 0...9))\(Int.random(in: 0...9))\(Int.random(in: 0...9))\(Int.random(in: 0...9))"
                     }
-                    
-                    
-                    if self.imageSelected{
-                        if let userImg = self.userProflieView.image{
-                            DataService.instance.addProfilePicToStorage(image: userImg)
+
+                    self.activityIndicator.startAnimating()
+
+                    AuthService.instance.login(email: email, password: pwd, username: usrName, onComplete: { (errMsg, data) in
+
+                        guard errMsg == nil else {
+                            DispatchQueue.main.async { self.activityIndicator.stopAnimating(); self.logInButton.isUserInteractionEnabled = true }
+                            self.errorAlert(title: "Error Authenticating", message: errMsg!)
+                            return
                         }
                         
-                    }else{
-                        self.userProfileURL = DEFAULT_NEW//DEFAULT_PROFILE_PIC_URL
-                        let ref = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
-                        ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
-                        
-                    }
-                    
-                    DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
-                    self.performSegue(withIdentifier: "goToFeed", sender: nil)
-                })
-                
-            } else{
-                DispatchQueue.main.async { self.activityIndicator.stopAnimating() }
-                errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
-            }
-            
-            
+                        if self.imageSelected{
+                            if let userImg = self.userProflieView.image {
+                                DataService.instance.addProfilePicToStorage(image: userImg)
+                            }
+                        } else {
+                            self.userProfileURL = DEFAULT_NEW//DEFAULT_PROFILE_PIC_URL
+                            let ref = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
+                            ref.child("profile").child("userImageURL").setValue(self.userProfileURL)
+
+                        }
+
+                        DispatchQueue.main.async { self.activityIndicator.stopAnimating(); self.logInButton.isUserInteractionEnabled = true }
+                        self.performSegue(withIdentifier: "goToFeed", sender: nil)
+                    })
+
+                } else{
+                    DispatchQueue.main.async { self.activityIndicator.stopAnimating(); self.logInButton.isUserInteractionEnabled = true }
+                    self.errorAlert(title: "Email and Password Required", message: "You must enter both an email and a password")
+                }
+            })
+
         }
         
     }
@@ -185,7 +198,7 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             
             fbLoginButton.isHidden = false
             
-        }else{
+        } else {
             
             let credential = FacebookAuthProvider.credential(withAccessToken: FBSDKAccessToken.current().tokenString)
             
@@ -231,25 +244,29 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
     
     @IBAction func logInExistingPressed(_ sender: Any) {
         
-        if logInButton.title(for: .normal) == "Sign Up"{
+        if logInButton.title(for: .normal) == "SIGN UP" {
             userProflieView.alpha = 0.3
             userProflieView.isUserInteractionEnabled = false
             userNameField.alpha = 0.3
             userNameField.isUserInteractionEnabled = false
             
-            logInButton.setTitle("Log In", for: .normal)
+            logInButton.setTitle("LOG IN", for: .normal)
             logInSwitch.setTitle("Sign Up", for: .normal)
+            forgotPasswordLabel.isHidden = false
+            eulaStackView.isHidden = true
             logInLabel.text = "Don't have an account?"
             
-        }else if logInButton.title(for: .normal) == "Log In"{
+        } else if logInButton.title(for: .normal) == "LOG IN" {
             
             userProflieView.alpha = 1
             userProflieView.isUserInteractionEnabled = true
             userNameField.alpha = 1
             userNameField.isUserInteractionEnabled = true
             
-            logInButton.setTitle("Sign Up", for: .normal)
+            logInButton.setTitle("SIGN UP", for: .normal)
             logInSwitch.setTitle("Log In", for: .normal)
+            forgotPasswordLabel.isHidden = true
+            eulaStackView.isHidden = false
             logInLabel.text = "Existing account?"
         }
         

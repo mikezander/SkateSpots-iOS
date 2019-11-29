@@ -133,12 +133,9 @@ extension SpotRow : UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-       
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! SpotPhotoCell
-        
         cell.emptyImageView()
         cell.configureCell(spot: spot, count: indexPath.row)
-
         return cell
     }
 
@@ -147,21 +144,9 @@ extension SpotRow : UICollectionViewDataSource {
 
 
 extension SpotRow : UICollectionViewDelegateFlowLayout {
-    
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        collectionView.setContentOffset(CGPoint.zero, animated: false)
-        let screenSize = UIScreen.main.bounds
-        let screenHeight = screenSize.height
-        let screenWidth = screenSize.width
-
-        let heightOffset: CGFloat = 225
-        let contentHeight = screenHeight - heightOffset
-
-        //pageContainer
-        return CGSize(width: screenWidth, height: 396.0)//contentHeight)
+        return CGSize(width: collectionView.frame.size.width, height: 456.0)
     }
-    
-    
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
         return 0

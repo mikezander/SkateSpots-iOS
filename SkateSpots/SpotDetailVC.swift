@@ -109,7 +109,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         
         addCommentContainer.layer.borderColor = UIColor.gray.cgColor
         commentContainer.backgroundColor = .groupTableViewBackground
-        
+
         let ref = DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid)
         ratingRef = ref.child("rated").child(spot.spotKey)
         handleOneReviewPerSpot(ref: ratingRef)
@@ -171,6 +171,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
 
     private func setupSpotLabels() {
         spotNameLabel.text = spot.spotName
+        print(spot.spotType)
         spotTypeLabel.text = spot.spotType
         setSpotRatingViews()
         spotDescriptionTextView.text = spot.spotDescription == "Spot Description" ? "No description" : spot.spotDescription
@@ -331,23 +332,6 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
                         let comment = Comment(commentKey: key, commentData: commentDict)
                         self.comments.append(comment)
 
-                        
-                        
-                        
-                        
-//                        DataService.instance.getCurrentUserProfileData(userRef: DataService.instance.REF_USERS.child(commentDict["userKey"] as! String).child("profile"), completionHandlerForGET: {success, data in
-//
-//                            let user = data!
-//                            commentDict["username"] = user.userName as AnyObject
-//                            commentDict["userImageURL"] = user.userImageURL as AnyObject
-//                            print(user.userName, commentDict["comment"] as! String, "here123")
-//                            let comment = Comment(commentKey: key, commentData: commentDict)
-//                            self.comments.append(comment)
-//
-//                            if snap == snapshot.last {
-//                                self.setupCommentsView()
-//                            }
-//                        })
                     }
                     
                     if snap == snapshot.last {

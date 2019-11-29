@@ -56,7 +56,9 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var locationLabel: LocationLabel!
     @IBOutlet weak var locationImageView: LocationImageView!
-   
+    @IBOutlet weak var latField: UITextField!
+    @IBOutlet weak var longField: UITextField!
+    
     var imagePicker: UIImagePickerController!
     var count = 0
     var imageSelected = false
@@ -111,7 +113,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         imagePicker.allowsEditing = true
         imagePicker.delegate = self
         
-        showPhotoActionSheet()
+        //showPhotoActionSheet()
  
         addPhotoOne.addGestureRecognizer(setGestureRecognizer())
         addPhotoTwo.addGestureRecognizer(setGestureRecognizer())
@@ -392,36 +394,43 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         dismiss(animated: true, completion: nil)
-        if let image = info[.editedImage] as? UIImage {
+        if let image = info[.originalImage] as? UIImage {
 //            guard let properOrientatedImage =  image.rotateCameraImageToProperOrientation(imageSource: image) else { return }
 
-            if (!locationFound) && (latitude == nil) && (longitude == nil){
+            if (!locationFound) && (latitude == nil) && (longitude == nil) {
                 
-                if(picker.sourceType == .camera){
-                    locationManager = CLLocationManager()
-                    self.locationManager.delegate = self
-                    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-                    locationManager.requestWhenInUseAuthorization()
-                    locationManager.startUpdatingLocation()
-                    
-                } else {
+                let location = CLLocation(latitude: CLLocationDegrees(exactly: NumberFormatter().number(from: latField.text!)!.doubleValue)!, longitude: CLLocationDegrees(exactly: NumberFormatter().number(from: longField.text!)!.doubleValue)!)
+                latitude = location.coordinate.latitude
+                longitude = location.coordinate.longitude
+                reverseGeocodeLocation(location: location)
+                
+                
+                
+//                if(picker.sourceType == .camera){
+//                    locationManager = CLLocationManager()
+//                    self.locationManager.delegate = self
+//                    locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+//                    locationManager.requestWhenInUseAuthorization()
+//                    locationManager.startUpdatingLocation()
+//
+//                } else {
 
-                    if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset, let location = asset.location {
-                        latitude = location.coordinate.latitude
-                        longitude = location.coordinate.longitude
-                        reverseGeocodeLocation(location: location)
-                    } else {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                            self.locationLabel.alpha = 1.0
-                            self.locationImageView.alpha = 1.0
-                            self.locationLabel.text = "Location not found"
-                            self.locationImageView.image = UIImage(named: "x")!
-                            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
-                            self.locationLabel.jitter()
-                            self.locationImageView.jitter()
-                        }
-                    }
-                }
+                   // if let asset = info[UIImagePickerController.InfoKey.phAsset] as? PHAsset, let location = asset.location {
+//                latitude = location.coordinate.latitude
+//                longitude = location.coordinate.longitude
+//                reverseGeocodeLocation(location: location)
+//                    } else {
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+//                            self.locationLabel.alpha = 1.0
+//                            self.locationImageView.alpha = 1.0
+//                            self.locationLabel.text = "Location not found"
+//                            self.locationImageView.image = UIImage(named: "x")!
+//                            AudioServicesPlayAlertSound(SystemSoundID(kSystemSoundID_Vibrate))
+//                            self.locationLabel.jitter()
+//                            self.locationImageView.jitter()
+//                        }
+//                    }
+                //}
             }
 
             addThumbnailPhoto(count, image)
@@ -489,7 +498,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             if mannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Manual" }
             if bankBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Bank" }
             if trannyBtn.isSelected { if spotType != ""{ spotType += "-"}; spotType += "Tranny" }
-            if otherBtn.isSelected { spotType += "Other" }
+            if otherBtn.isSelected { spotType = "Other" }
             
             
         }else{
@@ -666,6 +675,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
 
                 let systemSoundID: SystemSoundID = 1114
                 AudioServicesPlaySystemSound (systemSoundID)
+                
+                print(self.locationString, "here123")
             }
 
         })

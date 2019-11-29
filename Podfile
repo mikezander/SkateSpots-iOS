@@ -6,12 +6,13 @@ target 'Sk8Spots' do
   use_frameworks!
 
   # Pods for SkateSpots
-  pod 'Firebase/Core'
+  pod 'Firebase/Messaging'
   pod 'Firebase/Auth', '4.3.0'
   pod 'Firebase/Database', '4.3.0'
   pod 'Firebase/Storage', '4.3.0'
-  pod 'FirebaseMessaging'
-  pod 'FirebaseInstanceID'
+  pod 'Firebase/Core'
+  pod 'Firebase/Analytics'
+  pod 'Firebase/Messaging'
   pod 'Cosmos'
   pod 'SwiftKeychainWrapper'
   pod 'SVProgressHUD'
@@ -19,7 +20,8 @@ target 'Sk8Spots' do
   pod 'SDWebImage'
   pod 'Kingfisher'
   pod 'RevealingSplashView'
-  pod 'Mapbox-iOS-SDK', '~> 3.7'
+  pod 'Mapbox-iOS-SDK', '~> 5.4'
   pod 'GeoFire’
+  pod 'Google-Mobile-Ads-SDK'
 
 end

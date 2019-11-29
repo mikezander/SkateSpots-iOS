@@ -41,7 +41,8 @@ class DetailPhotoCell: UICollectionViewCell{
     }
     
     func setImageViewContentMode(image:UIImage){
-        if image.size.width > image.size.height{
+        print(image.size.width, image.size.height)
+        if image.size.width > image.size.height {
             self.spotImage.contentMode = .scaleAspectFit
         } else {
             //self.spotImage.contentMode = .scaleToFill
