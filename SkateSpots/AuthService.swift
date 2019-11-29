@@ -70,13 +70,13 @@ class AuthService{
             case .invalidEmail:
                 onComplete?("Invalid email address", nil)
             case .wrongPassword:
-                onComplete?("Invalid password\n\n If you've previously logged in with Facebook, you cannot log in with the same email you use for facebook. Log back in using Facebook or use a different email to create a new account", nil)
+                onComplete?("Invalid password", nil)
             case .emailAlreadyInUse:   //, .errorCodeAccountExistsWithDifferentCredential
                 onComplete?("Could not create account email already in use. Please use Log In.", nil)
             case .accountExistsWithDifferentCredential:
                 onComplete?("Could not create account email already in use existing credentials", nil)
             case .weakPassword:
-                onComplete?("Make sure password is 6 characters or more", nil)
+                onComplete?("Make sure your password is 6 characters or more", nil)
             case .networkError:
                 onComplete?("Make sure your internet is available", nil)
             case .userNotFound:
