@@ -11,7 +11,7 @@ import SVProgressHUD
 import SDWebImage
 import Kingfisher
 
-class SpotPhotoCell: UICollectionViewCell{
+class SpotPhotoCell: UICollectionViewCell {
     
     @IBOutlet weak var spotImage: UIImageView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -23,7 +23,7 @@ class SpotPhotoCell: UICollectionViewCell{
        
         self.spot = spot
         self.spotImage.contentMode = .scaleToFill
-
+        
         spotImage.kf.setImage(with: URL(string: spot.imageUrls[count]), placeholder: nil, options: nil, progressBlock: nil) { (image, error, cacheType, url) in
             if let img = image {
                 self.setImageViewContentMode(image: img)
@@ -34,10 +34,10 @@ class SpotPhotoCell: UICollectionViewCell{
     
     }
     
-    func setImageViewContentMode(image:UIImage){
+    func setImageViewContentMode(image: UIImage){
         if image.size.width > image.size.height {
             self.spotImage.contentMode = .scaleAspectFit
-        } 
+        }
     }
     
     func emptyImageView(){
