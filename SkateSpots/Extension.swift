@@ -38,3 +38,27 @@ extension UIImageView {
         
     }
 }
+
+extension UIColor {
+    static func blackWhite() -> UIColor {
+        if #available(iOS 13, *) {
+            return UIColor.init { (trait) -> UIColor in
+                // the color can be from your own color config struct as well.
+                return trait.userInterfaceStyle == .dark ? .white : .black
+            }
+        }
+        else { return .black }
+    }
+}
+
+//extension String {
+//    static func selectedPinImageName() -> UIColor {
+//        if #available(iOS 13, *) {
+//            return String.init { (trait) -> UIColor in
+//                // the color can be from your own color config struct as well.
+//                return trait.userInterfaceStyle == .dark ? .white : .black
+//            }
+//        }
+//        else { return .black }
+//    }
+//}
