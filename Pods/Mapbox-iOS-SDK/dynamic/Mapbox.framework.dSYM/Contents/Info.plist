@@ -5,7 +5,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>English</string>
 		<key>CFBundleIdentifier</key>
-		<string>com.apple.xcode.dsym.com.mapbox.sdk.ios</string>
+		<string>com.apple.xcode.dsym.com.mapbox.Mapbox</string>
 		<key>CFBundleInfoDictionaryVersion</key>
 		<string>6.0</string>
 		<key>CFBundlePackageType</key>
@@ -13,8 +13,8 @@
 		<key>CFBundleSignature</key>
 		<string>????</string>
 		<key>CFBundleShortVersionString</key>
-		<string>3.7.8</string>
+		<string>5.5.0</string>
 		<key>CFBundleVersion</key>
-		<string>11792</string>
+		<string>15160</string>
 	</dict>
 </plist>

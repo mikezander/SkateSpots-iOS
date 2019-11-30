@@ -6,6 +6,55 @@
 NS_ASSUME_NONNULL_BEGIN
 
 /**
+ An overlay that is placed within a `MGLMapSnapshot`.
+ To access this object, use `-[MGLMapSnapshotter startWithOverlayHandler:completionHandler:]`.
+ */
+
+MGL_EXPORT
+@interface MGLMapSnapshotOverlay : NSObject
+
+/**
+ The current `CGContext` that snapshot is drawing within. You may use this context
+ to perform additional custom drawing.
+ */
+@property (nonatomic, readonly) CGContextRef context;
+
+#if TARGET_OS_IPHONE
+/**
+ Converts the specified map coordinate to a point in the coordinate space of the
+ context.
+ */
+- (CGPoint)pointForCoordinate:(CLLocationCoordinate2D)coordinate;
+
+/**
+ Converts the specified context point to a map coordinate.
+ */
+- (CLLocationCoordinate2D)coordinateForPoint:(CGPoint)point;
+
+#else
+/**
+ Converts the specified map coordinate to a point in the coordinate space of the
+ context.
+ */
+- (NSPoint)pointForCoordinate:(CLLocationCoordinate2D)coordinate;
+
+/**
+ Converts the specified context point to a map coordinate.
+ */
+- (CLLocationCoordinate2D)coordinateForPoint:(NSPoint)point;
+#endif
+
+@end
+
+/**
+A block provided during the snapshot drawing process, enabling the ability to
+draw custom overlays rendered with Core Graphics.
+
+ @param snapshotOverlay The `MGLMapSnapshotOverlay` provided during snapshot drawing.
+ */
+typedef void (^MGLMapSnapshotOverlayHandler)(MGLMapSnapshotOverlay * snapshotOverlay);
+
+/**
  The options to use when creating images with the `MGLMapSnapshotter`.
  */
 MGL_EXPORT
@@ -15,7 +64,7 @@ MGL_EXPORT
  Creates a set of options with the minimum required information.
  
  @param styleURL URL of the map style to snapshot. The URL may be a full HTTP or
-    HTTPS URL, a Mapbox URL indicating the style’s map ID
+    HTTPS URL, a Mapbox style URL 
     (`mapbox://styles/{user}/{style}`), or a path to a local file relative to
     the application’s resource path. Specify `nil` for the default style.
  @param size The image size.
@@ -86,6 +135,11 @@ MGL_EXPORT
 - (CGPoint)pointForCoordinate:(CLLocationCoordinate2D)coordinate;
 
 /**
+ Converts the specified image point to a map coordinate.
+ */
+- (CLLocationCoordinate2D)coordinateForPoint:(CGPoint)point;
+
+/**
  The image of the map’s content.
  */
 @property (nonatomic, readonly) UIImage *image;
@@ -95,6 +149,12 @@ MGL_EXPORT
  image.
  */
 - (NSPoint)pointForCoordinate:(CLLocationCoordinate2D)coordinate;
+
+/**
+ Converts the specified image point to a map coordinate.
+ */
+- (CLLocationCoordinate2D)coordinateForPoint:(NSPoint)point;
+
 
 /**
  The image of the map’s content.
@@ -138,9 +198,9 @@ typedef void (^MGLMapSnapshotCompletionHandler)(MGLMapSnapshot* _Nullable snapsh
  ### Example
  
  ```swift
- let camera = MGLMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: 37.7184, longitude: -122.4365), fromDistance: 100, pitch: 20, heading: 0)
+ let camera = MGLMapCamera(lookingAtCenter: CLLocationCoordinate2D(latitude: 37.7184, longitude: -122.4365), altitude: 100, pitch: 20, heading: 0)
  
- let options = MGLMapSnapshotOptions(styleURL: MGLStyle.satelliteStreetsStyleURL(), camera: camera, size: CGSize(width: 320, height: 480))
+ let options = MGLMapSnapshotOptions(styleURL: MGLStyle.satelliteStreetsStyleURL, camera: camera, size: CGSize(width: 320, height: 480))
  options.zoomLevel = 10
  
  let snapshotter = MGLMapSnapshotter(options: options)
@@ -152,9 +212,17 @@ typedef void (^MGLMapSnapshotCompletionHandler)(MGLMapSnapshot* _Nullable snapsh
      image = snapshot?.image
  }
  ```
+ 
+ #### Related examples
+ See the <a href="https://docs.mapbox.com/ios/maps/examples/map-snapshotter/">
+ Create a static map snapshot</a> example to learn how to use the
+ `MGLMapSnapshotter` to generate a static image based on an `MGLMapView`
+ object's style, camera, and view bounds.
  */
 MGL_EXPORT
 @interface MGLMapSnapshotter : NSObject
+
+- (instancetype)init NS_UNAVAILABLE;
 
 /**
  Initializes and returns a map snapshotter object that produces snapshots
@@ -163,7 +231,7 @@ MGL_EXPORT
  @param options The options to use when generating a map snapshot.
  @return An initialized map snapshotter.
  */
-- (instancetype)initWithOptions:(MGLMapSnapshotOptions *)options;
+- (instancetype)initWithOptions:(MGLMapSnapshotOptions *)options NS_DESIGNATED_INITIALIZER;
 
 /**
  Starts the snapshot creation and executes the specified block with the result.
@@ -180,6 +248,15 @@ MGL_EXPORT
  @param completionHandler The block to handle the result in.
  */
 - (void)startWithQueue:(dispatch_queue_t)queue completionHandler:(MGLMapSnapshotCompletionHandler)completionHandler;
+
+/**
+ Starts the snapshot creation and executes the specified blocks with the result
+ on the specified queue. Use this option if you want to add custom drawing on top of the
+ resulting `MGLMapSnapShot`.
+ @param overlayHandler The block to handle manipulation of the `MGLMapSnapshotter`'s `CGContext`.
+ @param completionHandler The block to handle the result in.
+ */
+- (void)startWithOverlayHandler:(MGLMapSnapshotOverlayHandler)overlayHandler completionHandler:(MGLMapSnapshotCompletionHandler)completionHandler;
 
 /**
  Cancels the snapshot creation request, if any.

@@ -36,6 +36,8 @@ FOUNDATION_EXPORT const unsigned char WebImageVersionString[];
 #import <SDWebImage/SDWebImageDownloaderConfig.h>
 #import <SDWebImage/SDWebImageDownloaderOperation.h>
 #import <SDWebImage/SDWebImageDownloaderRequestModifier.h>
+#import <SDWebImage/SDWebImageDownloaderResponseModifier.h>
+#import <SDWebImage/SDWebImageDownloaderDecryptor.h>
 #import <SDWebImage/SDImageLoader.h>
 #import <SDWebImage/SDImageLoadersManager.h>
 #import <SDWebImage/UIButton+WebCache.h>
@@ -53,6 +55,7 @@ FOUNDATION_EXPORT const unsigned char WebImageVersionString[];
 #import <SDWebImage/SDAnimatedImage.h>
 #import <SDWebImage/SDAnimatedImageView.h>
 #import <SDWebImage/SDAnimatedImageView+WebCache.h>
+#import <SDWebImage/SDAnimatedImagePlayer.h>
 #import <SDWebImage/SDImageCodersManager.h>
 #import <SDWebImage/SDImageCoder.h>
 #import <SDWebImage/SDImageAPNGCoder.h>
@@ -67,6 +70,8 @@ FOUNDATION_EXPORT const unsigned char WebImageVersionString[];
 #import <SDWebImage/SDWebImageDefine.h>
 #import <SDWebImage/SDWebImageError.h>
 #import <SDWebImage/SDWebImageOptionsProcessor.h>
+#import <SDWebImage/SDImageIOAnimatedCoder.h>
+#import <SDWebImage/SDImageHEICCoder.h>
 
 // Mac
 #if __has_include(<SDWebImage/NSImage+Compatibility.h>)
