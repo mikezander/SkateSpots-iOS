@@ -12,8 +12,6 @@ import Firebase
 import Kingfisher
 import SVProgressHUD
 
-
-
 class MyCustomPointAnnotation: MGLPointAnnotation {
     var willUseImage: Bool = false
     //var spot: Spot!

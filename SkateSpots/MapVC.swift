@@ -14,7 +14,6 @@ import FirebaseStorage
 import SDWebImage
 import SVProgressHUD
 import Kingfisher
-import GoogleMobileAds
 
 class MapVC: UIViewController, SpotDetailDelegate {
     
@@ -25,7 +24,6 @@ class MapVC: UIViewController, SpotDetailDelegate {
     var userLocation: CLLocation? = nil
     var resetLocation = false
     @IBOutlet var refreshLocationButton:  UIButton!
-    @IBOutlet var bannerView: GADBannerView!
 
     
     @IBOutlet weak var  mapCollectionView: UICollectionView!
@@ -41,9 +39,7 @@ class MapVC: UIViewController, SpotDetailDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        enableGoogleAds()
-        
+                
         getUsersLocation()
 
         loadAnnotationData()
@@ -58,13 +54,6 @@ class MapVC: UIViewController, SpotDetailDelegate {
             return
         }
    
-    }
-
-    private func enableGoogleAds() {
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-2517724326209105/9254765611"
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
     }
 
 
@@ -391,15 +380,6 @@ private class ZPositionableLayer: CALayer {
     }
 }
 
-extension MapVC: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("received ad")
-    }
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print(error)
-    }
-}
 
 
 

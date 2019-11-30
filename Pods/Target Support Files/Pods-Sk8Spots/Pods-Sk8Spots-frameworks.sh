@@ -94,7 +94,7 @@ install_dsym() {
     binary="${DERIVED_FILES_DIR}/${basename}.framework.dSYM/Contents/Resources/DWARF/${basename}"
 
     # Strip invalid architectures so "fat" simulator / device frameworks work on device
-    if [[ "$(file "$binary")" == *"Mach-O dSYM companion"* ]]; then
+    if [[ "$(file "$binary")" == *"Mach-O "*"dSYM companion"* ]]; then
       strip_invalid_archs "$binary"
     fi
 
@@ -107,6 +107,14 @@ install_dsym() {
       touch "${DWARF_DSYM_FOLDER_PATH}/${basename}.framework.dSYM"
     fi
   fi
+}
+
+# Copies the bcsymbolmap files of a vendored framework
+install_bcsymbolmap() {
+    local bcsymbolmap_path="$1"
+    local destination="${BUILT_PRODUCTS_DIR}"
+    echo "rsync --delete -av "${RSYNC_PROTECT_TMP_FILES[@]}" --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "${bcsymbolmap_path}" "${destination}""
+    rsync --delete -av "${RSYNC_PROTECT_TMP_FILES[@]}" --filter "- CVS/" --filter "- .svn/" --filter "- .git/" --filter "- .hg/" --filter "- Headers" --filter "- PrivateHeaders" --filter "- Modules" "${bcsymbolmap_path}" "${destination}"
 }
 
 # Signs a framework with the provided identity
@@ -157,11 +165,14 @@ if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MIBadgeButton-Swift/MIBadgeButton_Swift.framework"
   install_framework "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework"
   install_dsym "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM"
-  install_framework "${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework"
+  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/1C04753A-6715-3177-9FDA-8F75B4324E0C.bcsymbolmap"
+  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/EE5140C5-686C-3DED-8916-3717EC675952.bcsymbolmap"
+  install_framework "${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RevealingSplashView/RevealingSplashView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework"
@@ -174,11 +185,14 @@ if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GeoFire/GeoFire.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/GoogleToolboxForMac/GoogleToolboxForMac.framework"
+  install_framework "${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/Kingfisher/Kingfisher.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/MIBadgeButton-Swift/MIBadgeButton_Swift.framework"
   install_framework "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework"
   install_dsym "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/Mapbox.framework.dSYM"
-  install_framework "${BUILT_PRODUCTS_DIR}/Protobuf/Protobuf.framework"
+  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/1C04753A-6715-3177-9FDA-8F75B4324E0C.bcsymbolmap"
+  install_bcsymbolmap "${PODS_ROOT}/Mapbox-iOS-SDK/dynamic/EE5140C5-686C-3DED-8916-3717EC675952.bcsymbolmap"
+  install_framework "${BUILT_PRODUCTS_DIR}/Protobuf/protobuf.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/RevealingSplashView/RevealingSplashView.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework"
   install_framework "${BUILT_PRODUCTS_DIR}/SVProgressHUD/SVProgressHUD.framework"

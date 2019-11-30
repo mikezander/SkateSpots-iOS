@@ -21,7 +21,6 @@ import SDWebImage
 import RevealingSplashView
 import Foundation
 import GeoFire
-import GoogleMobileAds
 
 class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLocationManagerDelegate, SpotDetailDelegate {
 
@@ -33,7 +32,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
     @IBOutlet weak var menuView: UIView!
     @IBOutlet weak var trailingConstraint: NSLayoutConstraint!
     @IBOutlet weak var messageLabel: MIBadgeButton!
-    @IBOutlet var bannerView: GADBannerView!
 
     static var imageCache: NSCache<NSString, UIImage> = NSCache()
     static var profileImageCache: NSCache<NSString, UIImage> = NSCache()
@@ -65,7 +63,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        enableGoogleAds()
 
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
@@ -109,15 +106,8 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
         
         messageLabel.badgeEdgeInsets = UIEdgeInsets(top: 2, left: 0, bottom: 0, right:
             36)
-
     }
 
-    private func enableGoogleAds() {
-        bannerView.adUnitID = "ca-app-pub-3940256099942544/2934735716"//"ca-app-pub-2517724326209105/9254765611"
-        bannerView.rootViewController = self
-        bannerView.load(GADRequest())
-        bannerView.delegate = self
-    }
      
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(true)
@@ -387,29 +377,19 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
 //                    self.segmentControl.selectedSegmentIndex = 0
 //                }
 //            }
-            
-
-            
-            
 
             if sender.selectedSegmentIndex == 1 {
-                
                 self.manager.delegate = self
                 self.manager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
                 self.manager.requestWhenInUseAuthorization()
                 self.manager.startUpdatingLocation()
                 
             } else {
-                
                 self.loadSpotsbyRecentlyUploaded()
                 self.spotTableView.scrollToRow(at: self.topItem, at: .top, animated: false)
                 self.spotTableView.reloadData()
-                
             }
-            
-            
-            
-            
+
         } else {
             self.errorAlert(title: "Internet Connection Error", message: "Make sure you have a connection and try again")
         }
@@ -449,7 +429,9 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
         if segmentControl.selectedSegmentIndex == 1 {
             segmentControl.selectedSegmentIndex = 0
         }
-        self.errorAlert(title: "Your location was not found!", message: "Make sure you have allowed location for Sk8Spots. Go to settings, scroll down to Sk8Spots and allow location access.")
+        self.errorAlert(title: "Your location was not found!", message: "Make sure you have allowed location access for Sk8Spots! Go to settings, scroll down to Sk8Spots and allow location access.")
+        
+        allSpotsD = allSpotsR
     }
     
     //MARK: SpotDetailDelegate
@@ -461,9 +443,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
             present(vc, animated: true, completion: nil)
         }
     }
-    
-    
-    
+
 //    func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
 //            return (screenHeight - heightOffset)
 //    }
@@ -513,7 +493,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
             spotDetailPage.spot = spot
             spotDetailPage.spots = self.spots
             spotDetailPage.delegate = self
-
         }
     }
 }
@@ -521,37 +500,25 @@ extension FeedVC: SpotRowDelegate {
     func didTapDirectionsButton(spot: Spot) {
         
         
-          if (UIApplication.shared.canOpenURL(URL(string:"https://waze.com/ul")!)) {  //First check Waze Mpas installed on User's phone or not.
-            UIApplication.shared.open(URL(string: "https://www.waze.com/ul?ll=\(spot.latitude)%2C\(spot.longitude)&navigate=yes&zoom=1000")!) //It will open native wazw maps app.
-           } else {
-                print("Can't use waze://");
-           }
-        
-        
-        
-//
-//        if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
-//            UIApplication.shared.open(URL(string:
-//                "comgooglemaps://?saddr=&daddr=\(Float(spot.latitude)),\(Float(spot.longitude))&directionsmode=driving")!, options: [:], completionHandler: { (completed) in  })
-//        } else {
-//            let coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
-//            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
-//            mapItem.name = spot.spotName
-//            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
-//        }
+//          if (UIApplication.shared.canOpenURL(URL(string:"https://waze.com/ul")!)) {  //First check Waze Mpas installed on User's phone or not.
+//            UIApplication.shared.open(URL(string: "https://www.waze.com/ul?ll=\(spot.latitude)%2C\(spot.longitude)&navigate=yes&zoom=1000")!) //It will open native wazw maps app.
+//           } else {
+//                print("Can't use waze://");
+//           }
+
+        if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
+            UIApplication.shared.open(URL(string:
+                "comgooglemaps://?saddr=&daddr=\(Float(spot.latitude)),\(Float(spot.longitude))&directionsmode=driving")!, options: [:], completionHandler: { (completed) in  })
+        } else {
+            let coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
+            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+            mapItem.name = spot.spotName
+            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+        }
     }
   
 }
 
-extension FeedVC: GADBannerViewDelegate {
-    
-    func adViewDidReceiveAd(_ bannerView: GADBannerView) {
-        print("received ad")
-    }
-    func adView(_ bannerView: GADBannerView, didFailToReceiveAdWithError error: GADRequestError) {
-        print(error)
-    }
-}
 
 
 

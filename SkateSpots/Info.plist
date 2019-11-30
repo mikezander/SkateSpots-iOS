@@ -15,7 +15,7 @@
 	<key>CFBundlePackageType</key>
 	<string>APPL</string>
 	<key>CFBundleShortVersionString</key>
-	<string>3.6</string>
+	<string>$(MARKETING_VERSION)</string>
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
@@ -24,15 +24,25 @@
 				<string>fb2040349459532833</string>
 			</array>
 		</dict>
+		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
+			<key>CFBundleURLSchemes</key>
+			<array>
+				<string>com.googleusercontent.apps.489160506339-egia3frjqchc8gtipkn4651kubailnvu</string>
+			</array>
+		</dict>
 	</array>
 	<key>CFBundleVersion</key>
-	<string>30</string>
+	<string>$(CURRENT_PROJECT_VERSION)</string>
 	<key>FacebookAppID</key>
 	<string>2040349459532833</string>
 	<key>FacebookDisplayName</key>
 	<string>Sk8Spots</string>
 	<key>FirebaseAppDelegateProxyEnabled</key>
-	<false/>
+	<true/>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-2517724326209105~2142562359</string>
 	<key>LSApplicationQueriesSchemes</key>
 	<array>
 		<string>comgooglemaps</string>
@@ -42,7 +52,7 @@
 		<string>fbshareextension</string>
 	</array>
 	<key>LSRequiresIPhoneOS</key>
-	<true/>
+	<false/>
 	<key>MGLMapboxAccessToken</key>
 	<string>pk.eyJ1IjoibWlrZXphbmRlciIsImEiOiJjamZkZnRzMm8yOWdqMnlvYjUxYXZkYWsyIn0.2Lmft2lm8Z4Il_DoT5j6jQ</string>
 	<key>NSAppTransportSecurity</key>
