@@ -14,10 +14,15 @@ class AgreementVC:UIViewController{
 
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
+        if #available(iOS 13.0, *) {
+            overrideUserInterfaceStyle = .light
+        }
         licensedAgreementTextView.setContentOffset(CGPoint.zero, animated: false)
-
     }
 
+    @IBAction func backPressed(_ sender: Any) {
+        self.dismiss(animated: true, completion: nil)
+    }
     @IBAction func agreePressed(_ sender: Any) {
         defaults.set(true, forKey: agreementKey)
         dismiss(animated: true, completion: nil)
