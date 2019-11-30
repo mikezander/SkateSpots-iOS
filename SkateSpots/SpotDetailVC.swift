@@ -19,7 +19,6 @@ protocol SpotDetailDelegate {
 class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UITextViewDelegate {
     
     var delegate: SpotDetailDelegate?
-
     var refCurrentSpot: DatabaseReference!
     var ratingRef:DatabaseReference!
     var userRef:DatabaseReference!

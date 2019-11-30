@@ -14,7 +14,6 @@ import FirebaseDatabase
 class ProfileVC: UIViewController, ProfileEditedProtocol, SpotDetailDelegate {
 
     static let _instance = ProfileVC()
-    
     var allSpots = [Spot]()
     var spots = [Spot]()
     var user: User? = nil
