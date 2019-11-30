@@ -1,7 +1,9 @@
 let functions = require('firebase-functions');
 
-let admin = require('firebase-admin')
-admin.initializeApp(functions.config().firebase)
+let admin = require('firebase-admin');
+admin.initializeApp();
+
+// admin.initializeApp(functions.config().firebase)
 
 exports.sendNotification = functions.database
 	.ref('messages/{messageId}')
@@ -20,7 +22,7 @@ exports.sendNotification = functions.database
 
 		let payload = {
 			notification: {
-				//title: 'New message from ' + fromUser,
+				title: 'Testingg',//'New message from ' + fromUser,
 				body: 'New message from ' + fromUser + '\n' + text,
 				sound: 'default'
 			}
@@ -29,6 +31,7 @@ exports.sendNotification = functions.database
 		
 		//let topic = "newMessage"
 		//admin.messaging().sendToTopic(topic, payload)
+
 		admin.messaging().sendToDevice(token, payload)
 
 	}
