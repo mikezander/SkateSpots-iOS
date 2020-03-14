@@ -499,6 +499,27 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
 extension FeedVC: SpotRowDelegate {
     func didTapDirectionsButton(spot: Spot) {
         
+        let text = "Check out this spot!\n\(spot.spotName)"
+        let image = try! UIImage(data: Data(contentsOf: URL(string: spot.imageUrls[0])!))
+        let url = "https://apps.apple.com/us/app/sk8spots-skateboard-spots/id1281370899"
+
+        
+        let shareAll = [text, url, image!] as [Any]
+        let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
+        activityViewController.setValue("Inadash - Property share", forKey: "subject")
+        activityViewController.completionWithItemsHandler = { (activityType, completed:Bool, returnedItems:[Any]?, error: Error?) in
+            activityViewController.dismiss(animated: true, completion: nil)
+        }
+        
+        activityViewController.popoverPresentationController?.sourceView = self.view
+        
+        DispatchQueue.main.async {
+            self.present(activityViewController, animated: true, completion: nil)
+        }
+        
+        
+        
+        
         
 //          if (UIApplication.shared.canOpenURL(URL(string:"https://waze.com/ul")!)) {  //First check Waze Mpas installed on User's phone or not.
 //            UIApplication.shared.open(URL(string: "https://www.waze.com/ul?ll=\(spot.latitude)%2C\(spot.longitude)&navigate=yes&zoom=1000")!) //It will open native wazw maps app.
@@ -506,15 +527,15 @@ extension FeedVC: SpotRowDelegate {
 //                print("Can't use waze://");
 //           }
 
-        if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
-            UIApplication.shared.open(URL(string:
-                "comgooglemaps://?saddr=&daddr=\(Float(spot.latitude)),\(Float(spot.longitude))&directionsmode=driving")!, options: [:], completionHandler: { (completed) in  })
-        } else {
-            let coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
-            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
-            mapItem.name = spot.spotName
-            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
-        }
+//        if UIApplication.shared.canOpenURL(URL(string:"comgooglemaps://")!){
+//            UIApplication.shared.open(URL(string:
+//                "comgooglemaps://?saddr=&daddr=\(Float(spot.latitude)),\(Float(spot.longitude))&directionsmode=driving")!, options: [:], completionHandler: { (completed) in  })
+//        } else {
+//            let coordinate = CLLocationCoordinate2DMake(spot.latitude, spot.longitude)
+//            let mapItem = MKMapItem(placemark: MKPlacemark(coordinate: coordinate, addressDictionary:nil))
+//            mapItem.name = spot.spotName
+//            mapItem.openInMaps(launchOptions: [MKLaunchOptionsDirectionsModeKey : MKLaunchOptionsDirectionsModeDriving])
+//        }
     }
   
 }
