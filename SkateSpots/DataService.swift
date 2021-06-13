@@ -194,7 +194,6 @@ class DataService{
     
     func updateDBUser(uid: String, child: String, userData: Dictionary<String, AnyObject>){
         let ref = REF_USERS.child(uid).child(child).childByAutoId()
-        
         ref.updateChildValues(userData)
  
     }
@@ -225,7 +224,6 @@ class DataService{
                                     let spot = Spot(spotKey: spotKey.key, spotData: spotDict)
                                     spot.removeCountry(spotLocation: spot.spotLocation)
                                     spots.insert(spot, at: 0)
-                                    print(spot.spotName)
                                     
                                     if spots.count == spotKeyDict.count{
                                         completionHandlerForGET(true, spots,keys, nil)

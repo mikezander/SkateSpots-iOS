@@ -9,7 +9,7 @@
 import Foundation
 import Photos
 
-class Spot{
+class Spot {
 
     private var _spotName: String
     private var _imageUrls: [String]
@@ -26,40 +26,40 @@ class Spot{
     private var _username: String
     private var _userImageURL: String
 
-    var spotName: String{
+    var spotName: String {
         return _spotName
     }
 
-    var imageUrls:[String]{
+    var imageUrls:[String] {
         return _imageUrls
     }
     
-    var distance: Double?{
+    var distance: Double? {
         get {
         return _distance
         
-        }set{
+        } set {
         _distance = newValue
         }
     }
     
-    var spotLocation: String{
+    var spotLocation: String {
         return _spotLocation
     }
     
-    var spotType: String{
+    var spotType: String {
         return _spotType
     }
     
-    var spotDescription: String{
+    var spotDescription: String {
         return _spotDescription
     }
     
-    var kickOut: String{
+    var kickOut: String {
         return _kickout
     }
     
-    var bestTimeToSkate: String{
+    var bestTimeToSkate: String {
         return _bestTimeToSkate
     }
     
@@ -75,11 +75,11 @@ class Spot{
         return _longitude
     }
     
-    var user: String{
+    var user: String {
         return _user
     }
     
-    var username: String{
+    var username: String {
         return _username
     }
     

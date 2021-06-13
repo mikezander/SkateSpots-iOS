@@ -719,7 +719,6 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func postToFirebase(imgUrl: [String]){
-        
         var spot: Dictionary<String, AnyObject> = [
             "spotName": spotNameField.text! as AnyObject,
             "imageUrls": imgUrl as AnyObject,

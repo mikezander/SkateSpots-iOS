@@ -62,7 +62,6 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
 
         if #available(iOS 13.0, *) {
             overrideUserInterfaceStyle = .light
@@ -320,6 +319,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
                     }
                 }
             }
+
             DispatchQueue.main.async {
                 SVProgressHUD.dismiss()
                 self.revealingSplashView.finishHeartBeatAnimation()

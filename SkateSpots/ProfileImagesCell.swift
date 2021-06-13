@@ -15,9 +15,10 @@ class ProfileImagesCell: UITableViewCell {
     @IBOutlet var spotImageSecond: UIImageView!
 
     
-    func configureCells(spotOne: Spot, spotTwo: Spot) {
+    func configureCells(spotOne: Spot, spotTwo: Spot?) {
         spotImageFirst.kf.setImage(with: URL(string: spotOne.imageUrls[0]))
-        spotImageSecond.kf.setImage(with: URL(string: spotTwo.imageUrls[0]))
+        spotImageSecond.kf.setImage(with: URL(string: spotTwo!.imageUrls[0]))
+        
     }
     
     func configureCell(spotOne: Spot) {

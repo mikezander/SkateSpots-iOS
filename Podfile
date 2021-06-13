@@ -23,5 +23,11 @@ target 'Sk8Spots' do
   pod 'Mapbox-iOS-SDK', '~> 5.4'
   pod 'GeoFire’
   pod 'Google-Mobile-Ads-SDK'
+  
+  pod 'Firebase/Firestore'
+
+
+# firestore migration
+#  pod 'FirebaseFirestoreSwift'
 
 end

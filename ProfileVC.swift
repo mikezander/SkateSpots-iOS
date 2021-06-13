@@ -85,7 +85,9 @@ class ProfileVC: UIViewController, ProfileEditedProtocol, SpotDetailDelegate {
             }
             editButton.isEnabled = false
             editButton.isHidden = true
-            if Auth.auth().currentUser?.uid == "guYoQDlipBgkGxjxq7RwOYd1gnz1" {
+            
+            let adminUser = "guYoQDlipBgkGxjxq7RwOYd1gnz1"
+            if Auth.auth().currentUser?.uid == adminUser {
                 allowEdit = true
             } else {
                allowEdit = false
@@ -414,7 +416,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
 //    }
     
     func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        return 0.0
+        return 1.0
     }
     
     
@@ -563,8 +565,6 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
             }
         } else {
             let cell = tableView.dequeueReusableCell(withIdentifier: "imageCell") as! ProfileImagesCell
-
-            print(indexPath.row, cell)
         }
     }
     
@@ -575,6 +575,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
             let cell = tableView.dequeueReusableCell(withIdentifier: "cell") as! ProfileCell
             
             cell.activityIdicator.startAnimating()
+            
             
             cell.configureCell(spot: spot)
             
@@ -591,6 +592,7 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
 
             let index = indexPath.row * 2
             if index + 1 <= spots.count - 1 {
+
                 cell.configureCells(spotOne: spots[index], spotTwo: spots[index + 1])
                 
                 cell.spotImageFirst.tag = index
@@ -604,10 +606,15 @@ extension ProfileVC: UITableViewDelegate, UITableViewDataSource{
                 cell.spotImageSecond.addGestureRecognizer( UITapGestureRecognizer(target: self, action:#selector(secondSpotCicked)))
 
             } else {
+
                 cell.configureCell(spotOne: spots[index])
                 cell.spotImageFirst.tag = index
                 cell.spotImageFirst.isUserInteractionEnabled = true
                 cell.spotImageFirst.addGestureRecognizer( UITapGestureRecognizer(target: self, action:#selector(firstSpotCicked)))
+                
+                cell.spotImageSecond.isUserInteractionEnabled = false
+                cell.spotImageSecond.image = nil
+                
             }
             return cell
 

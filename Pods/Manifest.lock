@@ -1,4 +1,124 @@
 PODS:
+  - abseil/algorithm/algorithm (0.20200225.0):
+    - abseil/base/config
+  - abseil/base/atomic_hook (0.20200225.0):
+    - abseil/base/config
+    - abseil/base/core_headers
+  - abseil/base/base (0.20200225.0):
+    - abseil/base/atomic_hook
+    - abseil/base/base_internal
+    - abseil/base/config
+    - abseil/base/core_headers
+    - abseil/base/dynamic_annotations
+    - abseil/base/log_severity
+    - abseil/base/raw_logging_internal
+    - abseil/base/spinlock_wait
+    - abseil/meta/type_traits
+  - abseil/base/base_internal (0.20200225.0):
+    - abseil/base/config
+    - abseil/meta/type_traits
+  - abseil/base/bits (0.20200225.0):
+    - abseil/base/config
+    - abseil/base/core_headers
+  - abseil/base/config (0.20200225.0)
+  - abseil/base/core_headers (0.20200225.0):
+    - abseil/base/config
+  - abseil/base/dynamic_annotations (0.20200225.0)
+  - abseil/base/endian (0.20200225.0):
+    - abseil/base/config
+    - abseil/base/core_headers
+  - abseil/base/errno_saver (0.20200225.0):
+    - abseil/base/config
+  - abseil/base/log_severity (0.20200225.0):
+    - abseil/base/config
+    - abseil/base/core_headers
+  - abseil/base/raw_logging_internal (0.20200225.0):
+    - abseil/base/atomic_hook
+    - abseil/base/config
+    - abseil/base/core_headers
+    - abseil/base/log_severity
+  - abseil/base/spinlock_wait (0.20200225.0):
+    - abseil/base/base_internal
+    - abseil/base/core_headers
+    - abseil/base/errno_saver
+  - abseil/base/throw_delegate (0.20200225.0):
+    - abseil/base/config
+    - abseil/base/raw_logging_internal
+  - abseil/container/compressed_tuple (0.20200225.0):
+    - abseil/utility/utility
+  - abseil/container/inlined_vector (0.20200225.0):
+    - abseil/algorithm/algorithm
+    - abseil/base/core_headers
+    - abseil/base/throw_delegate
+    - abseil/container/inlined_vector_internal
+    - abseil/memory/memory
+  - abseil/container/inlined_vector_internal (0.20200225.0):
+    - abseil/base/core_headers
+    - abseil/container/compressed_tuple
+    - abseil/memory/memory
+    - abseil/meta/type_traits
+    - abseil/types/span
+  - abseil/memory/memory (0.20200225.0):
+    - abseil/base/core_headers
+    - abseil/meta/type_traits
+  - abseil/meta/type_traits (0.20200225.0):
+    - abseil/base/config
+  - abseil/numeric/int128 (0.20200225.0):
+    - abseil/base/config
+    - abseil/base/core_headers
+  - abseil/strings/internal (0.20200225.0):
+    - abseil/base/config
+    - abseil/base/core_headers
+    - abseil/base/endian
+    - abseil/base/raw_logging_internal
+    - abseil/meta/type_traits
+  - abseil/strings/str_format (0.20200225.0):
+    - abseil/strings/str_format_internal
+  - abseil/strings/str_format_internal (0.20200225.0):
+    - abseil/base/config
+    - abseil/base/core_headers
+    - abseil/meta/type_traits
+    - abseil/numeric/int128
+    - abseil/strings/strings
+    - abseil/types/span
+  - abseil/strings/strings (0.20200225.0):
+    - abseil/base/base
+    - abseil/base/bits
+    - abseil/base/config
+    - abseil/base/core_headers
+    - abseil/base/endian
+    - abseil/base/raw_logging_internal
+    - abseil/base/throw_delegate
+    - abseil/memory/memory
+    - abseil/meta/type_traits
+    - abseil/numeric/int128
+    - abseil/strings/internal
+  - abseil/types/bad_optional_access (0.20200225.0):
+    - abseil/base/config
+    - abseil/base/raw_logging_internal
+  - abseil/types/optional (0.20200225.0):
+    - abseil/base/base_internal
+    - abseil/base/config
+    - abseil/base/core_headers
+    - abseil/memory/memory
+    - abseil/meta/type_traits
+    - abseil/types/bad_optional_access
+    - abseil/utility/utility
+  - abseil/types/span (0.20200225.0):
+    - abseil/algorithm/algorithm
+    - abseil/base/core_headers
+    - abseil/base/throw_delegate
+    - abseil/meta/type_traits
+  - abseil/utility/utility (0.20200225.0):
+    - abseil/base/base_internal
+    - abseil/base/config
+    - abseil/meta/type_traits
+  - BoringSSL-GRPC (0.0.7):
+    - BoringSSL-GRPC/Implementation (= 0.0.7)
+    - BoringSSL-GRPC/Interface (= 0.0.7)
+  - BoringSSL-GRPC/Implementation (0.0.7):
+    - BoringSSL-GRPC/Interface (= 0.0.7)
+  - BoringSSL-GRPC/Interface (0.0.7)
   - Cosmos (20.0.1)
   - Firebase/Analytics (4.3.0):
     - Firebase/Core
@@ -11,6 +131,9 @@ PODS:
   - Firebase/Database (4.3.0):
     - Firebase/Core
     - FirebaseDatabase (= 4.1.0)
+  - Firebase/Firestore (4.3.0):
+    - Firebase/Core
+    - FirebaseFirestore (= 0.8.0)
   - Firebase/Messaging (4.3.0):
     - Firebase/Core
     - FirebaseMessaging (= 2.0.4)
@@ -33,6 +156,13 @@ PODS:
     - FirebaseAnalytics (~> 4.0)
     - FirebaseCore (~> 4.0)
     - leveldb-library (~> 1.18)
+  - FirebaseFirestore (0.8.0):
+    - FirebaseAnalytics (~> 4.0)
+    - FirebaseAuth (~> 4.2)
+    - FirebaseCore (~> 4.0)
+    - gRPC-ProtoRPC (~> 1.0)
+    - leveldb-library (~> 1.18)
+    - Protobuf (~> 3.1)
   - FirebaseInstanceID (2.0.10):
     - FirebaseCore (~> 4.0)
   - FirebaseMessaging (2.0.4):
@@ -83,6 +213,48 @@ PODS:
   - "GoogleUtilities/NSData+zlib (6.3.2)"
   - GoogleUtilities/Reachability (6.3.2):
     - GoogleUtilities/Logger
+  - gRPC-Core (1.28.0):
+    - gRPC-Core/Implementation (= 1.28.0)
+    - gRPC-Core/Interface (= 1.28.0)
+  - gRPC-Core/Implementation (1.28.0):
+    - abseil/container/inlined_vector (= 0.20200225.0)
+    - abseil/memory/memory (= 0.20200225.0)
+    - abseil/strings/str_format (= 0.20200225.0)
+    - abseil/strings/strings (= 0.20200225.0)
+    - abseil/types/optional (= 0.20200225.0)
+    - BoringSSL-GRPC (= 0.0.7)
+    - gRPC-Core/Interface (= 1.28.0)
+  - gRPC-Core/Interface (1.28.0)
+  - gRPC-ProtoRPC (1.28.0):
+    - gRPC-ProtoRPC/Legacy (= 1.28.0)
+    - gRPC-ProtoRPC/Legacy-Header (= 1.28.0)
+    - gRPC-ProtoRPC/Main (= 1.28.0)
+  - gRPC-ProtoRPC/Legacy (1.28.0):
+    - gRPC-ProtoRPC/Legacy-Header (= 1.28.0)
+    - gRPC-ProtoRPC/Main (= 1.28.0)
+    - gRPC-RxLibrary (= 1.28.0)
+    - gRPC/GRPCCore (= 1.28.0)
+    - Protobuf (~> 3.0)
+  - gRPC-ProtoRPC/Legacy-Header (1.28.0)
+  - gRPC-ProtoRPC/Main (1.28.0):
+    - gRPC-ProtoRPC/Legacy-Header (= 1.28.0)
+    - gRPC/Interface (= 1.28.0)
+    - Protobuf (~> 3.0)
+  - gRPC-RxLibrary (1.28.0):
+    - gRPC-RxLibrary/Implementation (= 1.28.0)
+    - gRPC-RxLibrary/Interface (= 1.28.0)
+  - gRPC-RxLibrary/Implementation (1.28.0):
+    - gRPC-RxLibrary/Interface
+  - gRPC-RxLibrary/Interface (1.28.0)
+  - gRPC/GRPCCore (1.28.0):
+    - gRPC-Core (= 1.28.0)
+    - gRPC-RxLibrary (= 1.28.0)
+    - gRPC/Interface (= 1.28.0)
+    - gRPC/Interface-Legacy (= 1.28.0)
+  - gRPC/Interface (1.28.0):
+    - gRPC/Interface-Legacy (= 1.28.0)
+  - gRPC/Interface-Legacy (1.28.0):
+    - gRPC-RxLibrary/Interface (= 1.28.0)
   - GTMSessionFetcher/Core (1.3.0)
   - Kingfisher (5.11.0):
     - Kingfisher/Core (= 5.11.0)
@@ -109,6 +281,7 @@ DEPENDENCIES:
   - Firebase/Auth (= 4.3.0)
   - Firebase/Core
   - Firebase/Database (= 4.3.0)
+  - Firebase/Firestore
   - Firebase/Messaging
   - Firebase/Storage (= 4.3.0)
   - GeoFire
@@ -123,12 +296,15 @@ DEPENDENCIES:
 
 SPEC REPOS:
   trunk:
+    - abseil
+    - BoringSSL-GRPC
     - Cosmos
     - Firebase
     - FirebaseAnalytics
     - FirebaseAuth
     - FirebaseCore
     - FirebaseDatabase
+    - FirebaseFirestore
     - FirebaseInstanceID
     - FirebaseMessaging
     - FirebaseStorage
@@ -137,6 +313,10 @@ SPEC REPOS:
     - GoogleAppMeasurement
     - GoogleToolboxForMac
     - GoogleUtilities
+    - gRPC
+    - gRPC-Core
+    - gRPC-ProtoRPC
+    - gRPC-RxLibrary
     - GTMSessionFetcher
     - Kingfisher
     - leveldb-library
@@ -159,12 +339,15 @@ CHECKOUT OPTIONS:
     :git: https://github.com/mustafaibrahim989/MIBadgeButton-Swift.git
 
 SPEC CHECKSUMS:
+  abseil: 6c8eb7892aefa08d929b39f9bb108e5367e3228f
+  BoringSSL-GRPC: 8edf627ee524575e2f8d19d56f068b448eea3879
   Cosmos: b47fddf2102bb48580cd3025d9ce0a5c658a65da
   Firebase: 83283761a1ef6dc9846e03d08059f51421afbd65
   FirebaseAnalytics: 722b53c7b32bfc7806b06e0093a2f5180d4f2c5a
   FirebaseAuth: d7f047fbeab98062b98ea933b8d934e0fb1190e2
   FirebaseCore: 69b1a5ac5f857ba6d5fd9d5fe794f4786dd5e579
   FirebaseDatabase: 607284a103e961d7f5863ee603cab5e85f443bd6
+  FirebaseFirestore: 8e2fd99a621ae6fc6acfac3bdea824fe9d9c128d
   FirebaseInstanceID: 8d20d890d65c917f9f7d9950b6e10a760ad34321
   FirebaseMessaging: 3dd86bfda2acb680b05c97f3f8ac566e9bb87b2a
   FirebaseStorage: 0cca42d9b889a0227c3a50121f45a4469fc9eb27
@@ -173,6 +356,10 @@ SPEC CHECKSUMS:
   GoogleAppMeasurement: dfe55efa543e899d906309eaaac6ca26d249862f
   GoogleToolboxForMac: 800648f8b3127618c1b59c7f97684427630c5ea3
   GoogleUtilities: 547a86735c6f0ee30ad17e94df4fc21f616b71cb
+  gRPC: c6c7caad68e8826a8274d6ed2fd6de233acb8a7e
+  gRPC-Core: 325ba201411619a7302c621a1c8ee787719d4b9b
+  gRPC-ProtoRPC: 24e799b2997699010b0d7f8ab938d88a36475ed6
+  gRPC-RxLibrary: 1eb9216382930cf2921222333d4887ae4e5916da
   GTMSessionFetcher: 43b8b64263023d4f32caa0b40f4c8bfa3c5f36d8
   Kingfisher: 4569606189149e19c7d9439f47e885d0679b7a90
   leveldb-library: 55d93ee664b4007aac644a782d11da33fba316f7
@@ -185,6 +372,6 @@ SPEC CHECKSUMS:
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftKeychainWrapper: 6fc49fbf7d4a6b0772917acb0e53a1639f6078d6
 
-PODFILE CHECKSUM: ddde922a260d823124abdd65d631d37826cc26db
+PODFILE CHECKSUM: 8cb3d987533e01707cb7cfb118f70678067bfae6
 
-COCOAPODS: 1.8.3
+COCOAPODS: 1.8.4

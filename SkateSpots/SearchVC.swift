@@ -48,6 +48,43 @@ class SearchVC: UIViewController {
     func retrieveUsers() {
         let usersRef = DataService.instance.REF_USERS
         
+        
+//                    let db = Firestore.firestore()
+//                    var firestoreCount = 0
+//
+//
+//
+//                    // Firestore migration - get `spots` table
+//                    db.collection("users").getDocuments() { (querySnapshot, err) in
+//                        if let err = err {
+//                            print("DEBUG: Error getting documents: \(err)")
+//                        } else {
+//                            print("DEBUG: firstore spot count = \(querySnapshot!.documents.count)")
+//                            for document in querySnapshot!.documents {
+//                                print("DEBUG: \(document.documentID) => \(document.data())")
+//                            }
+//                        }
+//                    }
+//
+//        print("DEBUG: firestoreCount = \(firestoreCount)")
+        
+        
+//        if let dict = snap.value as? Dictionary<String, AnyObject>{
+
+        // Firestore migration - post `spots` table
+//                                   var ref: DocumentReference? = nil
+//                                   ref = db.collection("users").addDocument(data: dict) { err in
+//                                       if let err = err {
+//                                           print("here123 - Error adding document: \(err)")
+//                                       } else {
+//                                           firestoreCount += 1
+//                                           print("here123 - Document added with ID: \(ref!.documentID)")
+//                                       }
+//                                   }
+//
+//                    }
+        
+        
         usersRef.observeSingleEvent(of: .value, with: { (snapshot) in
             if let snapshot = snapshot.children.allObjects as? [DataSnapshot] {
                 for snap in snapshot {
