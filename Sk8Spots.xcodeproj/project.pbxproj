@@ -673,7 +673,7 @@
 				CODE_SIGN_ENTITLEMENTS = SkateSpots/SkateSpots.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 106;
+				CURRENT_PROJECT_VERSION = 108;
 				DEVELOPMENT_TEAM = LAB4A2ATCG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -715,7 +715,7 @@
 				CODE_SIGN_ENTITLEMENTS = SkateSpots/SkateSpots.entitlements;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 106;
+				CURRENT_PROJECT_VERSION = 108;
 				DEVELOPMENT_TEAM = LAB4A2ATCG;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",

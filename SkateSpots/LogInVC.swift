@@ -206,7 +206,8 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
             
             Auth.auth().signIn(with: credential){(user, error) in
 
-                if let user = Auth.auth().currentUser{
+                self.activityIndicator.stopAnimating()
+                if let user = Auth.auth().currentUser {
                     
                     let uid = user.uid
                     var name = user.displayName
@@ -232,10 +233,12 @@ class LogInVC: UIViewController, UIImagePickerControllerDelegate, UINavigationCo
                             print("fb user loggen in before")//found it, stop!
                         }
                     })
-
+                    
+                    self.performSegue(withIdentifier: "goToFeed", sender: nil)
+                } else {
+                    print("here123 fb sign in error = \(error)")
                 }
-                self.activityIndicator.stopAnimating()
-                self.performSegue(withIdentifier: "goToFeed", sender: nil)
+                
             }
             
         }

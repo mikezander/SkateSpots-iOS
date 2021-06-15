@@ -12,7 +12,7 @@ import FirebaseStorage
 import AVFoundation
 
 protocol SpotRowDelegate{
-    func didTapDirectionsButton(spot: Spot)
+    func didTapShareButton(spot: Spot, imageIndex: Int)
 }
 
 class SpotRow: UITableViewCell {
@@ -93,8 +93,9 @@ class SpotRow: UITableViewCell {
         pageLabel.text = "\(1) / \(spot.imageUrls.count)"
     }
 
-    @IBAction func directionsButtonPressed(_ sender: Any) {
-        delegate?.didTapDirectionsButton(spot: spot)
+    @IBAction func shareButtonPressed(_ sender: Any) {
+        print("here123 \(pageControl.currentPage)")
+        delegate?.didTapShareButton(spot: spot, imageIndex: pageControl.currentPage)
     }
    
 }

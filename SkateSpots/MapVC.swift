@@ -149,9 +149,10 @@ class MapVC: UIViewController, SpotDetailDelegate {
                        if let spotAnnotation = anno as? SpotAnnotation,
                         spotAnnotation.spot.spotKey == self.selectedSpot?.spotKey {
                             let anno = self.mapView.view(for: spotAnnotation)
-                        
                             anno?.image = UIImage(named: "green_anno_black")
                             anno?.bringViewToFront()
+  
+//                        self.centerMapOnLocation(location: self.selectedSpot!.location)
 
                             self.lastSelectedAnnotation = spotAnnotation
                             self.lastSeenPath = indexPath
@@ -263,7 +264,10 @@ extension MapVC: MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDa
         if let annotation = view.annotation as? SpotAnnotation,
             let index = spots.firstIndex(where: { $0.spotKey == annotation.spot.spotKey }) {
             let indexofSelected = IndexPath(item: index, section: 0)
+            mapCollectionView.isPagingEnabled = false
             mapCollectionView.scrollToItem(at: indexofSelected, at: .left, animated: false)
+            mapCollectionView.isPagingEnabled = true
+
         }
     }
     
@@ -293,14 +297,17 @@ extension MapVC: MKMapViewDelegate, UICollectionViewDelegate, UICollectionViewDa
      }
 
      func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        mapCollectionView.isPagingEnabled = false
          if scrollView == mapCollectionView {
-             if let cellRect = mapCollectionView.layoutAttributesForItem(at: lastSeenPath)?.frame {
-                 let isCellCompletelyVisible = mapCollectionView.bounds.contains(cellRect)
+            if let cellRect = mapCollectionView.layoutAttributesForItem(at: lastSeenPath)?.frame {
+                 let isCellCompletelyVisible = mapCollectionView.frame.contains(cellRect)
                  if !isCellCompletelyVisible {
                      mapCollectionView.scrollToItem(at: lastSeenPath, at: .left, animated: true)
                  }
              }
          }
+        mapCollectionView.isPagingEnabled = true
+
      }
      
      func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {

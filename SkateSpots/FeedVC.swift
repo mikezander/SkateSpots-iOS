@@ -497,9 +497,10 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
     }
 }
 extension FeedVC: SpotRowDelegate {
-    func didTapDirectionsButton(spot: Spot) {
+
+    func didTapShareButton(spot: Spot, imageIndex: Int) {
         
-        let text = "Check out this spot!\n\(spot.spotName)"
+        let text = "Check out this spot!\nSpot name: \(spot.spotName)\n\nDownload the Sk8Spots app now:"
         let image = try! UIImage(data: Data(contentsOf: URL(string: spot.imageUrls[0])!))
         let url = "https://apps.apple.com/us/app/sk8spots-skateboard-spots/id1281370899"
 
@@ -507,9 +508,9 @@ extension FeedVC: SpotRowDelegate {
         let shareAll = [text, url, image!] as [Any]
         let activityViewController = UIActivityViewController(activityItems: shareAll, applicationActivities: nil)
         activityViewController.setValue("Inadash - Property share", forKey: "subject")
-        activityViewController.completionWithItemsHandler = { (activityType, completed:Bool, returnedItems:[Any]?, error: Error?) in
-            activityViewController.dismiss(animated: true, completion: nil)
-        }
+//        activityViewController.completionWithItemsHandler = { (activityType, completed:Bool, returnedItems:[Any]?, error: Error?) in
+//            activityViewController.dismiss(animated: true, completion: nil)
+//        }
         
         activityViewController.popoverPresentationController?.sourceView = self.view
         
