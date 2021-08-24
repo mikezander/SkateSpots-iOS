@@ -719,12 +719,18 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     func postToFirebase(imgUrl: [String]){
+        
+        var spotDescription = descriptionTextView.text;
+        if (spotDescription == "Spot Description") {
+            spotDescription = "No Description"
+        }
+        
         var spot: Dictionary<String, AnyObject> = [
             "spotName": spotNameField.text! as AnyObject,
             "imageUrls": imgUrl as AnyObject,
             "spotLocation" : locationString as AnyObject,
             "spotType": spotType as AnyObject,
-            "spotDescription": descriptionTextView.text as AnyObject,
+            "spotDescription": spotDescription as AnyObject,
             "kickOut": bustLabel.text as AnyObject,
             "bestTimeToSkate": bestTimeToSkate as AnyObject,
             "latitude" : latitude as AnyObject,
