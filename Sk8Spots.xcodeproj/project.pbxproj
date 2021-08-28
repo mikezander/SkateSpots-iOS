@@ -42,6 +42,7 @@
 		C48C9F49236E0F8400AD8DF4 /* SpotDetailVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C48C9F48236E0F8400AD8DF4 /* SpotDetailVC.swift */; };
 		C4A42A8F1F73FD290031865C /* AgreementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A42A8E1F73FD290031865C /* AgreementVC.swift */; };
 		C4A6DCA023901C60002A25A2 /* ProfileImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6DC9F23901C60002A25A2 /* ProfileImagesCell.swift */; };
+		C4AB09EF26DAB0850051F18B /* ShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AB09EE26DAB0850051F18B /* ShopVC.swift */; };
 		C4AD89A81F433C9100D47460 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD89A71F433C9100D47460 /* ProfileVC.swift */; };
 		C4AD89AA1F43700700D47460 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD89A91F43700700D47460 /* ProfileCell.swift */; };
 		C4AD89AC1F437DD300D47460 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD89AB1F437DD300D47460 /* HeaderCell.swift */; };
@@ -110,6 +111,7 @@
 		C48C9F48236E0F8400AD8DF4 /* SpotDetailVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpotDetailVC.swift; sourceTree = "<group>"; };
 		C4A42A8E1F73FD290031865C /* AgreementVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgreementVC.swift; sourceTree = "<group>"; };
 		C4A6DC9F23901C60002A25A2 /* ProfileImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagesCell.swift; sourceTree = "<group>"; };
+		C4AB09EE26DAB0850051F18B /* ShopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopVC.swift; sourceTree = "<group>"; };
 		C4AD89A71F433C9100D47460 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = ../ProfileVC.swift; sourceTree = "<group>"; };
 		C4AD89A91F43700700D47460 /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		C4AD89AB1F437DD300D47460 /* HeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
@@ -236,6 +238,7 @@
 				C48C9F48236E0F8400AD8DF4 /* SpotDetailVC.swift */,
 				C464767C2376128300870CF2 /* AllCommentsVC.swift */,
 				C4DF7D20238CAD4F0010F207 /* ForgotPasswordVC.swift */,
+				C4AB09EE26DAB0850051F18B /* ShopVC.swift */,
 			);
 			name = Controller;
 			sourceTree = "<group>";
@@ -485,6 +488,7 @@
 				C43325E8205B689E0030B465 /* Jitterable.swift in Sources */,
 				C41D8B2C1F0EE3F8009C174C /* DataService.swift in Sources */,
 				C4AD89AA1F43700700D47460 /* ProfileCell.swift in Sources */,
+				C4AB09EF26DAB0850051F18B /* ShopVC.swift in Sources */,
 				C4FBD20D1FBCB96500425D1E /* SearchVC.swift in Sources */,
 				C407154E1FA2712C00733742 /* FIRMessagingService.swift in Sources */,
 				C4AD89AC1F437DD300D47460 /* HeaderCell.swift in Sources */,
