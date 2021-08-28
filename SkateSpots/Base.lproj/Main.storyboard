@@ -1393,7 +1393,8 @@
                                             <constraint firstAttribute="height" constant="30" id="5cQ-Gg-kW8"/>
                                             <constraint firstAttribute="width" constant="30" id="iJt-rv-4I0"/>
                                         </constraints>
-                                        <state key="normal" image="searchIcon"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <state key="normal" image="shop-icon"/>
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
@@ -1695,15 +1696,15 @@
                                             <segue destination="hEd-aZ-c4D" kind="show" identifier="goToMessages" id="QBA-pF-TyW"/>
                                         </connections>
                                     </button>
-                                    <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xs-0u-eOb">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="7Xs-0u-eOb">
                                         <rect key="frame" x="8" y="30" width="30" height="30"/>
                                         <constraints>
                                             <constraint firstAttribute="height" constant="30" id="Jif-Gg-Ra5"/>
                                             <constraint firstAttribute="width" constant="30" id="JwF-Xi-PhP"/>
                                         </constraints>
-                                        <state key="normal" image="searchIcon"/>
+                                        <state key="normal" image="shop-icon"/>
                                         <connections>
-                                            <segue destination="02D-BQ-WEt" kind="presentation" modalPresentationStyle="fullScreen" id="1Cd-tU-34c"/>
+                                            <segue destination="kJl-Iy-lFD" kind="presentation" id="DeI-fS-FLe"/>
                                         </connections>
                                     </button>
                                 </subviews>
@@ -3910,6 +3911,71 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
             </objects>
             <point key="canvasLocation" x="-693" y="-134"/>
         </scene>
+        <!--ShopVC-->
+        <scene sceneID="xt1-G2-fCe">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xgp-gL-5zX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController modalPresentationStyle="fullScreen" id="kJl-Iy-lFD" customClass="ShopVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="RUi-Zr-Xvh">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AzV-dJ-sk9" customClass="RoundedShadowView" customModule="Sk8Spots" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="-20" width="375" height="64"/>
+                                <subviews>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://sk8spots.square.site" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kee-s3-CVA">
+                                        <rect key="frame" x="88" y="32" width="199.5" height="19"/>
+                                        <fontDescription key="fontDescription" name="GurmukhiMN" family="Gurmukhi MN" pointSize="16"/>
+                                        <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XlD-s7-tt2">
+                                        <rect key="frame" x="8" y="34" width="20" height="20"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="20" id="QyZ-SE-2p7"/>
+                                            <constraint firstAttribute="height" constant="20" id="T3Z-On-EhG"/>
+                                        </constraints>
+                                        <state key="normal" image="delete">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="backButtonPressed" destination="kJl-Iy-lFD" eventType="touchUpInside" id="xX2-fB-D0Q"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" red="0.49803921569999998" green="0.67843137249999996" blue="0.32156862749999998" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstItem="kee-s3-CVA" firstAttribute="centerX" secondItem="AzV-dJ-sk9" secondAttribute="centerX" id="DUX-5h-Wf9"/>
+                                    <constraint firstAttribute="height" constant="64" id="Mby-1V-lnz"/>
+                                    <constraint firstItem="XlD-s7-tt2" firstAttribute="leading" secondItem="AzV-dJ-sk9" secondAttribute="leading" constant="8" id="Ne6-93-DQ9"/>
+                                    <constraint firstItem="kee-s3-CVA" firstAttribute="top" secondItem="AzV-dJ-sk9" secondAttribute="top" constant="32" id="SXc-JX-0hw"/>
+                                    <constraint firstAttribute="bottom" secondItem="XlD-s7-tt2" secondAttribute="bottom" constant="10" id="YSy-Nl-zCx"/>
+                                </constraints>
+                            </view>
+                            <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NJ4-yK-1FN">
+                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </webView>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="iaD-QU-1Wd"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="NJ4-yK-1FN" firstAttribute="bottom" secondItem="iaD-QU-1Wd" secondAttribute="bottom" id="5ac-CV-cp2"/>
+                            <constraint firstItem="NJ4-yK-1FN" firstAttribute="leading" secondItem="iaD-QU-1Wd" secondAttribute="leading" id="Iex-z7-odO"/>
+                            <constraint firstItem="AzV-dJ-sk9" firstAttribute="trailing" secondItem="iaD-QU-1Wd" secondAttribute="trailing" id="QXK-Cp-ppH"/>
+                            <constraint firstItem="NJ4-yK-1FN" firstAttribute="top" secondItem="AzV-dJ-sk9" secondAttribute="bottom" id="ZSR-Jk-49D"/>
+                            <constraint firstItem="AzV-dJ-sk9" firstAttribute="top" secondItem="iaD-QU-1Wd" secondAttribute="top" constant="-20" id="dmL-bu-FJj"/>
+                            <constraint firstItem="AzV-dJ-sk9" firstAttribute="leading" secondItem="iaD-QU-1Wd" secondAttribute="leading" id="rQW-LH-rz7"/>
+                            <constraint firstItem="NJ4-yK-1FN" firstAttribute="trailing" secondItem="iaD-QU-1Wd" secondAttribute="trailing" id="uhQ-iT-Ejf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="webView" destination="NJ4-yK-1FN" id="yJc-ek-qA8"/>
+                    </connections>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="3053.5999999999999" y="-477.21139430284859"/>
+        </scene>
     </scenes>
     <designables>
         <designable name="228-CP-B9Y">
@@ -3970,8 +4036,8 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <image name="main_logo" width="171" height="42"/>
         <image name="profile_navbar" width="28.5" height="28.5"/>
         <image name="refresh" width="23.5" height="23.5"/>
-        <image name="searchIcon" width="64" height="64"/>
         <image name="share_icon" width="225" height="225"/>
+        <image name="shop-icon" width="64" height="64"/>
         <image name="sphere" width="50" height="50"/>
         <image name="star" width="28.5" height="28.5"/>
         <image name="time_logo" width="50" height="50"/>
