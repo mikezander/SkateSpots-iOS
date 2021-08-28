@@ -58,7 +58,7 @@ class FeedVC: UIViewController,UITableViewDataSource, UITableViewDelegate, CLLoc
     var initialLoad = true
     var activityItems = [Any]()
     
-    let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "launch_screen_icon")!, iconInitialSize: CGSize(width: 120, height: 120), backgroundImage: UIImage(named: "city_push")!)
+    let revealingSplashView = RevealingSplashView(iconImage: UIImage(named: "launch_screen_image")!, iconInitialSize: CGSize(width: 120, height: 120), backgroundImage: UIImage(named: "city_push")!)
 
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -43,6 +43,7 @@
 		C4A42A8F1F73FD290031865C /* AgreementVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A42A8E1F73FD290031865C /* AgreementVC.swift */; };
 		C4A6DCA023901C60002A25A2 /* ProfileImagesCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4A6DC9F23901C60002A25A2 /* ProfileImagesCell.swift */; };
 		C4AB09EF26DAB0850051F18B /* ShopVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AB09EE26DAB0850051F18B /* ShopVC.swift */; };
+		C4AB09F126DAC1700051F18B /* splashAsset.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C4AB09F026DAC1700051F18B /* splashAsset.xcassets */; };
 		C4AD89A81F433C9100D47460 /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD89A71F433C9100D47460 /* ProfileVC.swift */; };
 		C4AD89AA1F43700700D47460 /* ProfileCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD89A91F43700700D47460 /* ProfileCell.swift */; };
 		C4AD89AC1F437DD300D47460 /* HeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4AD89AB1F437DD300D47460 /* HeaderCell.swift */; };
@@ -112,6 +113,7 @@
 		C4A42A8E1F73FD290031865C /* AgreementVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AgreementVC.swift; sourceTree = "<group>"; };
 		C4A6DC9F23901C60002A25A2 /* ProfileImagesCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileImagesCell.swift; sourceTree = "<group>"; };
 		C4AB09EE26DAB0850051F18B /* ShopVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShopVC.swift; sourceTree = "<group>"; };
+		C4AB09F026DAC1700051F18B /* splashAsset.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = splashAsset.xcassets; sourceTree = "<group>"; };
 		C4AD89A71F433C9100D47460 /* ProfileVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = ../ProfileVC.swift; sourceTree = "<group>"; };
 		C4AD89A91F43700700D47460 /* ProfileCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProfileCell.swift; sourceTree = "<group>"; };
 		C4AD89AB1F437DD300D47460 /* HeaderCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HeaderCell.swift; sourceTree = "<group>"; };
@@ -301,6 +303,7 @@
 				C4B0C5511F0D7B78004B6923 /* LaunchScreen.storyboard */,
 				C4B0C54F1F0D7B78004B6923 /* Assets.xcassets */,
 				C4CE59181F28314A00180BA5 /* Constants.swift */,
+				C4AB09F026DAC1700051F18B /* splashAsset.xcassets */,
 			);
 			path = SkateSpots;
 			sourceTree = "<group>";
@@ -382,6 +385,7 @@
 				C46476892376877E00870CF2 /* ollie.wav in Resources */,
 				C464768623766EA000870CF2 /* DirectionsView.xib in Resources */,
 				C419DD261F3B860600D8CC06 /* Billabong.ttf in Resources */,
+				C4AB09F126DAC1700051F18B /* splashAsset.xcassets in Resources */,
 				C4B0C5531F0D7B78004B6923 /* LaunchScreen.storyboard in Resources */,
 				C4128C3E1F0EC0270058628D /* GoogleService-Info.plist in Resources */,
 				C4B0C5501F0D7B78004B6923 /* Assets.xcassets in Resources */,
