@@ -1428,7 +1428,7 @@
             <objects>
                 <viewController id="5w7-TT-TVF" customClass="FavoritesVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Rot-jD-UGr">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="618"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="598"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="YeO-Rj-QSk" customClass="RoundedShadowView" customModule="Sk8Spots" customModuleProvider="target">
@@ -1449,7 +1449,7 @@
                                 </constraints>
                             </view>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="81" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ngX-gl-sts">
-                                <rect key="frame" x="0.0" y="44" width="375" height="574"/>
+                                <rect key="frame" x="0.0" y="44" width="375" height="554"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="FavoriteCell" rowHeight="81" id="Ibx-du-cM5" customClass="FavoriteCell" customModule="Sk8Spots" customModuleProvider="target">
@@ -3914,14 +3914,13 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <!--ShopVC-->
         <scene sceneID="xt1-G2-fCe">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="xgp-gL-5zX" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <viewController modalPresentationStyle="fullScreen" id="kJl-Iy-lFD" customClass="ShopVC" customModule="Sk8Spots" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="RUi-Zr-Xvh">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AzV-dJ-sk9" customClass="RoundedShadowView" customModule="Sk8Spots" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="-20" width="375" height="64"/>
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="64"/>
                                 <subviews>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="https://sk8spots.square.site" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kee-s3-CVA">
                                         <rect key="frame" x="88" y="32" width="199.5" height="19"/>
@@ -3953,18 +3952,18 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                                 </constraints>
                             </view>
                             <webView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="NJ4-yK-1FN">
-                                <rect key="frame" x="0.0" y="44" width="375" height="623"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </webView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="iaD-QU-1Wd"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
+                            <constraint firstItem="AzV-dJ-sk9" firstAttribute="top" secondItem="iaD-QU-1Wd" secondAttribute="top" id="2MH-cN-qLV"/>
                             <constraint firstItem="NJ4-yK-1FN" firstAttribute="bottom" secondItem="iaD-QU-1Wd" secondAttribute="bottom" id="5ac-CV-cp2"/>
                             <constraint firstItem="NJ4-yK-1FN" firstAttribute="leading" secondItem="iaD-QU-1Wd" secondAttribute="leading" id="Iex-z7-odO"/>
                             <constraint firstItem="AzV-dJ-sk9" firstAttribute="trailing" secondItem="iaD-QU-1Wd" secondAttribute="trailing" id="QXK-Cp-ppH"/>
                             <constraint firstItem="NJ4-yK-1FN" firstAttribute="top" secondItem="AzV-dJ-sk9" secondAttribute="bottom" id="ZSR-Jk-49D"/>
-                            <constraint firstItem="AzV-dJ-sk9" firstAttribute="top" secondItem="iaD-QU-1Wd" secondAttribute="top" constant="-20" id="dmL-bu-FJj"/>
                             <constraint firstItem="AzV-dJ-sk9" firstAttribute="leading" secondItem="iaD-QU-1Wd" secondAttribute="leading" id="rQW-LH-rz7"/>
                             <constraint firstItem="NJ4-yK-1FN" firstAttribute="trailing" secondItem="iaD-QU-1Wd" secondAttribute="trailing" id="uhQ-iT-Ejf"/>
                         </constraints>
@@ -3973,6 +3972,7 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
                         <outlet property="webView" destination="NJ4-yK-1FN" id="yJc-ek-qA8"/>
                     </connections>
                 </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xgp-gL-5zX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="3053.5999999999999" y="-477.21139430284859"/>
         </scene>
@@ -4001,12 +4001,6 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         </designable>
         <designable name="lx3-RU-oc8">
             <size key="intrinsicContentSize" width="26.5" height="26.5"/>
-        </designable>
-        <designable name="mQR-bE-HUk">
-            <size key="intrinsicContentSize" width="120" height="20"/>
-        </designable>
-        <designable name="xzG-OT-ueu">
-            <size key="intrinsicContentSize" width="145" height="25"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
