@@ -175,7 +175,7 @@ class SpotDetailVC: UIViewController, UIScrollViewDelegate,UICollectionViewDataS
         spotTypeLabel.text = spot.spotType
         setSpotRatingViews()
         spotDescriptionTextView.text = spot.spotDescription == "Spot Description" ? "No description" : spot.spotDescription
-        kickOutLabel.text = "\(spot.kickOut) bust"
+        kickOutLabel.text = spot.spotType == "Skatepark" ? "No bust" : "\(spot.kickOut) bust"
         bestTimeLabel.text = "\(spot.bestTimeToSkate) spot"
     }
 

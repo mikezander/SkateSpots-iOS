@@ -184,7 +184,7 @@ class ProfileVC: UIViewController, ProfileEditedProtocol, SpotDetailDelegate {
         
         DataService.instance.getSpotsFromUser(userRef: userRef, child: "spots",completionHandlerForGET: {success, data,keys, error in
             
-            if error == nil{
+            if error == nil {
                 self.spots = data!
                 self.keys = keys
             }

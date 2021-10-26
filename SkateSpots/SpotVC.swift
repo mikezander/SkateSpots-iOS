@@ -59,6 +59,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
 //    @IBOutlet weak var latField: UITextField!
 //    @IBOutlet weak var longField: UITextField!
     
+
+    
     var imagePicker: UIImagePickerController!
     var count = 0
     var imageSelected = false
@@ -460,23 +462,28 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
     }
     
     @IBAction func addSpotButtonPressed(_ sender: Any) {
+        addSpotButton.isUserInteractionEnabled = false
         
-        guard isInternetAvailable() && hasConnected else{
+        guard isInternetAvailable() && hasConnected else {
+            addSpotButton.isUserInteractionEnabled = true
             errorAlert(title: "Network Connection Error", message: "Make sure you are connected and try again")
             return
         }
         
         guard let spotName = spotNameField.text, spotName != "" else{
+            addSpotButton.isUserInteractionEnabled = true
             errorAlert(title: "Error", message: "You must enter a spot name!")
             return
         }
         
         guard let defaultImg = addPhotoOne.image, imageSelected == true else{
+            addSpotButton.isUserInteractionEnabled = true
             errorAlert(title: "Error", message: "You must upload a spot image!")
             return
         }
         
         if !locationFound{
+            addSpotButton.isUserInteractionEnabled = true
             errorAlert(title: "Location not found!", message: "* Make sure at least one of your photos have been taken at the spot ")
             return
         }
@@ -485,7 +492,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             
             if !ledgeBtn.isSelected && !railBtn.isSelected && !gapBtn.isSelected && !mannyBtn.isSelected
                 && !bumpBtn.isSelected && !trannyBtn.isSelected && !bankBtn.isSelected && !otherBtn.isSelected{
-                
+                addSpotButton.isUserInteractionEnabled = true
                 errorAlert(title: "Error", message: "A spot type must be selected!")
                 return
             }
@@ -504,7 +511,7 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
  
         } else {
             
-            spotType += "Skatepark"
+            spotType = "Skatepark"
         }
         
         if anytimeBtn.isSelected{ bestTimeToSkate = "Anytime" }
@@ -528,9 +535,10 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
             let uploadTask = DataService.instance.REF_SPOT_IMAGES.child(imgUid).putData(imgData, metadata:metadata) {(metadata, error) in
                 
                 if error != nil {
+                    self.addSpotButton.isUserInteractionEnabled = true
                     SVProgressHUD.dismiss()
                     self.errorAlert(title: "Error uploading image", message: "There was an error uploading you image/s to storage, please try again.")
-                }else{
+                } else {
                     
                     let downloadURL = metadata?.downloadURL()?.absoluteString
                     if let url = downloadURL{
@@ -741,7 +749,12 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         let firebasePost = DataService.instance.REF_SPOTS.childByAutoId()
         
         DataService.instance.REF_USERS.child(Auth.auth().currentUser!.uid).child("profile").observeSingleEvent(of: .value,with: { (snapshot) in
-            if !snapshot.exists() { print("Username not found! SpotRow.swift"); SVProgressHUD.dismiss(); return }
+            if !snapshot.exists() {
+                print("Username not found! SpotRow.swift");
+                self.addSpotButton.isUserInteractionEnabled = true;
+                SVProgressHUD.dismiss();
+                return
+            }
             
             if let username = snapshot.childSnapshot(forPath: "username").value as? String{
                 
@@ -768,8 +781,8 @@ class SpotVC:UIViewController, UIImagePickerControllerDelegate, UINavigationCont
         locationString = ""
         spotType = ""
         
+        addSpotButton.isUserInteractionEnabled = true;
         SVProgressHUD.dismiss()
-
         performSegue(withIdentifier: "backToFeedVC", sender: nil)
     }
 

@@ -4002,6 +4002,12 @@ Sk8Spots shall not be obligated to indemnify or defend you with respect to any t
         <designable name="lx3-RU-oc8">
             <size key="intrinsicContentSize" width="26.5" height="26.5"/>
         </designable>
+        <designable name="mQR-bE-HUk">
+            <size key="intrinsicContentSize" width="120" height="20"/>
+        </designable>
+        <designable name="xzG-OT-ueu">
+            <size key="intrinsicContentSize" width="145" height="25"/>
+        </designable>
     </designables>
     <inferredMetricsTieBreakers>
         <segue reference="ZX4-qG-Pn9"/>
